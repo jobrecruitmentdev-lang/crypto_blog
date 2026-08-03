@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import SearchClient from "@/components/SearchClient";
 import { AIRDROPS } from "@/lib/data";
 
@@ -8,13 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-type Props = {
-  searchParams: Promise<{ q?: string }>;
-};
-
-export default async function SearchPage({ searchParams }: Props) {
-  const { q } = await searchParams;
-
+export default function SearchPage() {
   return (
     <section className="section">
       <div className="wrap">
@@ -23,7 +18,9 @@ export default async function SearchPage({ searchParams }: Props) {
             <h2>Search Airdrops</h2>
           </div>
         </div>
-        <SearchClient airdrops={AIRDROPS} initialQuery={q ?? ""} />
+        <Suspense fallback={<div>Loading search...</div>}>
+          <SearchClient airdrops={AIRDROPS} />
+        </Suspense>
       </div>
     </section>
   );

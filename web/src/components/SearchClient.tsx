@@ -1,17 +1,24 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import AirdropCard from "./AirdropCard";
 import type { Airdrop } from "@/lib/types";
 
 export default function SearchClient({
   airdrops,
-  initialQuery,
+  initialQuery = "",
 }: {
   airdrops: Airdrop[];
-  initialQuery: string;
+  initialQuery?: string;
 }) {
-  const [query, setQuery] = useState(initialQuery);
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(initialQuery || searchParams.get('q') || "");
+
+  useEffect(() => {
+    const q = searchParams.get('q');
+    if (q) setQuery(q);
+  }, [searchParams]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
