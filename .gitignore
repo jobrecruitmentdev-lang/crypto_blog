@@ -48,3 +48,7 @@ Thumbs.db
 .claude/
 .gemini/
 brain/
+skills/
+knowledge/
+.graph/
+automation/
