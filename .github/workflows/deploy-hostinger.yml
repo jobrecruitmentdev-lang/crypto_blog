@@ -6,8 +6,7 @@ on:
       - main
     paths:
       - 'web/**'
-  repository_dispatch:
-    types: [strapi-content-update]
+      - 'backend/**' # Added backend to trigger deploy
 
 jobs:
   build-and-deploy:
@@ -29,8 +28,6 @@ jobs:
     - name: Build Static Export
       working-directory: ./web
       run: npm run build
-      env:
-        NEXT_PUBLIC_STRAPI_API_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
 
     - name: Deploy via FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
