@@ -1,0 +1,42 @@
+name: Deploy Next.js to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'web/**'
+  repository_dispatch:
+    types: [strapi-content-update]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Dependencies
+      working-directory: ./web
+      run: npm ci
+
+    - name: Build Static Export
+      working-directory: ./web
+      run: npm run build
+      env:
+        NEXT_PUBLIC_STRAPI_API_URL: ${{ secrets.NEXT_PUBLIC_STRAPI_API_URL }}
+
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./web/out/
+        server-dir: /public_html/

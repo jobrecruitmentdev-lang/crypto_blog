@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Guide — CryptoDrop</title>
+<meta name="description" id="pageDesc" content="">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .post-body{max-width:760px;margin:0 auto}
+  .post-body h1{font-size:32px;font-weight:800;margin:16px 0}
+  .post-body .meta{color:var(--muted);font-size:13px;margin-bottom:24px}
+  .post-body p{color:var(--muted);font-size:15px;margin-bottom:16px;line-height:1.7}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap post-body">
+    <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px"><a href="index.html">Home</a> / <a href="guides.html">Guides</a> / <span id="crumbTitle"></span></div>
+    <span class="blog-tag" id="guideLevel"></span>
+    <h1 id="guideTitle"></h1>
+    <div id="guideContent"></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+  mountLayout("guides.html");
+  const params = new URLSearchParams(location.search);
+  const id = parseInt(params.get("id")) || 0;
+  const g = GUIDES[id] || GUIDES[0];
+  document.getElementById("pageTitle").textContent = `${g.title} — CryptoDrop`;
+  document.getElementById("pageDesc").setAttribute("content", g.desc);
+  document.getElementById("crumbTitle").textContent = g.title;
+  document.getElementById("guideLevel").textContent = g.level;
+  document.getElementById("guideTitle").textContent = g.title;
+  document.getElementById("guideContent").innerHTML = g.body;
+</script>
+</body>
+</html>

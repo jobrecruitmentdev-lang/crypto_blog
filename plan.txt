@@ -1,0 +1,656 @@
+> ## ⚠️ PIVOT UPDATE
+> Scope changed: the site is now blog-first. Content (posts) is authored and
+> managed in **Strapi** (self-hosted headless CMS) instead of a custom
+> scraper/adapter backend. The Next.js frontend fetches blog content from
+> Strapi's REST/GraphQL API. The airdrop-directory pages/components already
+> built stay as-is on mock data for now, but the custom Postgres/adapter/
+> ingestion backend described further down and in `backend-plan.md` is
+> **superseded** — see the rewritten `backend-plan.md` for the current
+> Strapi-based architecture. Sections below (Backend APIs, Admin Panel) are
+> kept for historical reference but are annotated where Strapi now replaces
+> them.
+
+This is actually a **very strong architecture to replicate**, but I would **not** clone it 1:1. I would build a **modern version** using Next.js, Tailwind CSS, GSAP, Magic UI, React Bits, and a component-based architecture while keeping the same SEO strengths.
+
+---
+
+# Frontend Requirements Document (PRD)
+
+## Project
+
+**Airdrop Listing Platform**
+
+Stack:
+
+* Next.js 15
+* React 19
+* TypeScript
+* Tailwind CSS v4
+* ShadCN UI
+* Magic UI
+* React Bits
+* GSAP
+* Framer Motion (micro animations)
+* TanStack Query
+* Zustand
+* React Hook Form
+* Zod
+* Cloudflare CDN
+* Hostinger VPS
+
+---
+
+# Design Goals
+
+* Modern Dark UI
+* Crypto-inspired theme
+* Lightning fast (<2 sec load)
+* SEO First
+* Mobile First
+* Accessibility WCAG 2.2
+* Google Discover Ready
+* AI Search Optimized (AEO/GEO)
+
+---
+
+# Pages
+
+```text
+Home
+
+Latest Airdrops
+
+Hot Airdrops
+
+Confirmed Airdrops
+
+Potential Airdrops
+
+Categories
+
+Projects
+
+Project Details
+
+Blog
+
+News
+
+Guides
+
+FAQ
+
+Contact
+
+About
+
+Privacy
+
+Terms
+
+Search
+
+404
+
+500
+```
+
+---
+
+# Home Page Layout
+
+```text
+──────────────────────────────
+
+Announcement Bar
+
+──────────────────────────────
+
+Navbar
+
+──────────────────────────────
+
+Live Crypto Ticker
+
+──────────────────────────────
+
+Hero Slider
+
+──────────────────────────────
+
+Latest Airdrops
+
+──────────────────────────────
+
+Trending
+
+──────────────────────────────
+
+Confirmed
+
+──────────────────────────────
+
+Recently Updated
+
+──────────────────────────────
+
+Categories
+
+──────────────────────────────
+
+Latest Blog
+
+──────────────────────────────
+
+Newsletter
+
+──────────────────────────────
+
+Footer
+
+──────────────────────────────
+```
+
+---
+
+# Header
+
+Sticky
+
+Contains
+
+* Logo
+* Search
+* Mega Menu
+* Categories
+* Latest
+* Guides
+* Blog
+* Notifications
+* Dark Mode
+
+Animation
+
+* GSAP
+* Blur Background
+* Shrink on Scroll
+
+---
+
+# Hero Section
+
+Auto Slider
+
+Requirements
+
+* Infinite loop
+* Touch support
+* Keyboard support
+* Lazy Images
+* AVIF/WebP
+* Progress Bar
+
+Animation
+
+GSAP Timeline
+
+---
+
+# Crypto Ticker
+
+Live
+
+```text
+BTC
+
+ETH
+
+SOL
+
+BNB
+
+DOGE
+
+XRP
+
+```
+
+Updates every 30 seconds.
+
+Smooth horizontal marquee.
+
+---
+
+# Card Component
+
+Every card
+
+Contains
+
+* Logo
+* Status Badge
+* Difficulty
+* Estimated Reward
+* Estimated Time
+* Project Name
+* Tags
+* CTA Button
+* Bookmark
+* Share
+
+Hover
+
+* Scale
+* Glow
+* Border Animation
+* Shadow
+
+---
+
+# Search
+
+Instant
+
+Filters
+
+* Category
+* Blockchain
+* Difficulty
+* Reward
+* Status
+* Date
+
+---
+
+# Mega Menu
+
+Animated
+
+Categories
+
+```text
+Ethereum
+
+Solana
+
+Bitcoin
+
+Layer2
+
+Gaming
+
+AI
+
+DeFi
+
+NFT
+
+Wallet
+
+Exchange
+
+```
+
+---
+
+# Sidebar
+
+Desktop
+
+Contains
+
+* Trending
+* Latest Blog
+* Newsletter
+* Popular Categories
+* Social
+
+Sticky
+
+---
+
+# Footer
+
+Contains
+
+About
+
+Categories
+
+Resources
+
+Newsletter
+
+Social
+
+Policies
+
+---
+
+# Components
+
+Create reusable components.
+
+```text
+Navbar
+
+Footer
+
+Ticker
+
+Hero
+
+Card
+
+Badge
+
+Category
+
+Button
+
+Pagination
+
+Search
+
+Breadcrumb
+
+Sidebar
+
+FAQ
+
+Newsletter
+
+Modal
+
+Toast
+
+Skeleton
+
+Loader
+
+```
+
+---
+
+# Animations
+
+Use
+
+GSAP
+
+Magic UI
+
+React Bits
+
+### GSAP
+
+* Navbar
+* Hero
+* Cards
+* Scroll Reveal
+* Count Up
+* Page Transition
+
+---
+
+### Magic UI
+
+* Bento Grid
+* Shine Border
+* Animated Border
+* Marquee
+* Beam
+* Dock
+* Globe
+* Grid Pattern
+
+---
+
+### React Bits
+
+* Cursor Effects
+* Magnetic Buttons
+* Spotlight
+* Glass Cards
+* Animated Text
+* Hover Reveal
+* Gradient Borders
+
+---
+
+# Performance
+
+Target
+
+```text
+Performance 100
+
+SEO 100
+
+Accessibility 100
+
+Best Practices 100
+```
+
+---
+
+# Responsive
+
+Breakpoints
+
+```text
+320
+
+375
+
+480
+
+640
+
+768
+
+1024
+
+1280
+
+1440
+
+1920
+```
+
+---
+
+# SEO
+
+Every page
+
+Must have
+
+* Metadata API
+* Canonical
+* OG
+* Twitter
+* JSON-LD
+* Breadcrumb
+* FAQ
+* Organization
+* SearchAction
+* Pagination
+* Robots
+* Sitemap
+
+---
+
+# Images
+
+Use
+
+```text
+next/image
+```
+
+Requirements
+
+* AVIF
+* WebP
+* Blur Placeholder
+* Lazy Loading
+* Responsive
+* CDN
+
+---
+
+# Accessibility
+
+WCAG
+
+* Keyboard
+* Focus Ring
+* Contrast
+* Screen Reader
+* ARIA
+* Skip Navigation
+
+---
+
+# Backend APIs
+
+> **Superseded for `/blog`**: blog content now comes directly from Strapi's
+> generated REST/GraphQL API (`/api/blog-posts`, etc. — see `backend-plan.md`),
+> not a custom endpoint. The rest below still applies to the airdrop-directory
+> pages, which remain on mock data until/unless that's revisited.
+
+```text
+GET /projects
+
+GET /latest
+
+GET /trending
+
+GET /confirmed
+
+GET /categories
+
+GET /search
+
+GET /blog   ← now served by Strapi, not this custom API
+
+GET /faq
+
+GET /ticker
+
+```
+
+---
+
+# State Management
+
+Use
+
+* Zustand
+* TanStack Query
+
+---
+
+# Loading UX
+
+Use
+
+* Skeleton
+* Optimistic UI
+* Infinite Scroll
+* Progressive Hydration
+
+---
+
+# Security
+
+* CSP
+* Rate Limiting
+* Image Validation
+* XSS Protection
+* CSRF Protection
+* Input Validation
+
+---
+
+# Admin Panel Requirements
+
+> **Superseded for blog content**: Strapi's built-in admin panel now covers
+> Blog CRUD, Media Library, Draft/Publish scheduling, and User Roles for post
+> authors out of the box — no custom admin UI needed for those. A custom
+> panel (if built at all) only needs to cover what Strapi doesn't own:
+> Project/Category/FAQ CRUD for the airdrop directory, and site-level SEO/
+> sitemap/redirect tooling.
+
+* Dashboard
+* Project CRUD
+* ~~Blog CRUD~~ → Strapi admin
+* Category CRUD
+* FAQ CRUD
+* ~~Media Library~~ → Strapi admin
+* SEO Management
+* Analytics
+* ~~User Roles~~ → Strapi admin (for authors); separate concern for site admins
+* ~~Scheduler~~ → Strapi draft/publish + scheduled publishing
+* Sitemap Generator
+* Robots Manager
+* Redirect Manager
+* Cache Management
+
+---
+
+# AI & Automation Ready
+
+Design the frontend so it integrates cleanly with:
+
+* AI content generation
+* Automated publishing pipelines
+* Google Indexing API workflows
+* IndexNow
+* Social media auto-posting
+* Newsletter automation
+* Analytics dashboards
+
+---
+
+## Recommended Folder Structure
+
+```text
+src/
+├── app/
+├── components/
+│   ├── layout/
+│   ├── navigation/
+│   ├── cards/
+│   ├── sections/
+│   ├── ui/
+│   ├── animations/
+│   └── seo/
+├── features/
+│   ├── airdrops/
+│   ├── search/
+│   ├── categories/
+│   ├── blog/
+│   └── user/
+├── hooks/
+├── lib/
+├── services/
+├── store/
+├── types/
+├── utils/
+└── styles/
+```
+
+### One Improvement Over the Reference Site
+
+The current site is visually effective but still follows a fairly traditional content layout. For a new implementation, I'd make the homepage **data-driven and personalized**:
+
+* Dynamic "Trending Now" based on user activity.
+* AI-powered related project recommendations.
+* Advanced filtering without page reloads.
+* Better mobile navigation with bottom actions.
+* Rich schema on every listing.
+* Progressive Web App (PWA) support with offline caching for recently viewed pages.
+
+This preserves the SEO strengths of the reference while providing a more modern user experience and a cleaner architecture for long-term maintenance.

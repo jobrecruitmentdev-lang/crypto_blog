@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmed Crypto Airdrops — CryptoDrop</title>
+<meta name="description" content="Crypto airdrops with an officially confirmed token and reward structure.">
+<link rel="canonical" href="https://cryptodrop.example/confirmed.html">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px"><a href="index.html">Home</a> / Confirmed Airdrops</div>
+    <div class="section-head">
+      <div><h2>Confirmed Airdrops</h2><p>Projects that have officially confirmed a token or reward</p></div>
+    </div>
+    <div class="card-grid" id="confirmedGrid"></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+<script>
+  mountLayout("confirmed.html");
+  renderList("confirmedGrid", AIRDROPS.filter(a=>a.status.includes("Confirmed")));
+</script>
+</body>
+</html>

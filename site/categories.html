@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airdrop Categories — CryptoDrop</title>
+<meta name="description" content="Browse crypto airdrops by blockchain and category: Ethereum, Solana, Layer 2, DeFi, Gaming, AI, NFT and more.">
+<link rel="canonical" href="https://cryptodrop.example/categories.html">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px"><a href="index.html">Home</a> / Categories</div>
+    <div class="section-head">
+      <div><h2>Browse by Category</h2><p>Find airdrops across every blockchain ecosystem</p></div>
+    </div>
+    <div class="cat-grid" id="catGrid"></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+  mountLayout("categories.html");
+  document.getElementById("catGrid").innerHTML = CATEGORIES.map(c=>`
+    <a class="cat-card" href="category.html?name=${encodeURIComponent(c.name)}">
+      <div class="ic">${c.icon}</div>
+      <b>${c.name}</b>
+      <span>${c.count} airdrops</span>
+    </a>`).join("");
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — CryptoDrop</title>
+<meta name="description" content="Get in touch with the CryptoDrop team or submit a new airdrop for review.">
+<link rel="canonical" href="https://cryptodrop.example/contact.html">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:900px;margin:0 auto}
+  .contact-form label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;margin-top:16px}
+  .contact-form input, .contact-form textarea, .contact-form select{
+    width:100%;padding:10px 14px;border-radius:10px;border:1px solid var(--border);
+    background:var(--card);color:var(--text);font-family:inherit;outline:none;
+  }
+  .contact-form textarea{min-height:120px;resize:vertical}
+  .contact-info .info-item{display:flex;gap:12px;margin-bottom:20px}
+  .contact-info .ic{width:36px;height:36px;border-radius:10px;background:var(--bg-alt);border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px"><a href="index.html">Home</a> / Contact</div>
+    <div class="section-head"><div><h2>Contact Us</h2><p>Questions, partnerships or airdrop submissions — we read everything</p></div></div>
+
+    <div class="contact-grid">
+      <div class="contact-form">
+        <form id="contactForm">
+          <label>Name</label>
+          <input type="text" required>
+          <label>Email</label>
+          <input type="email" required>
+          <label>Reason</label>
+          <select>
+            <option>General question</option>
+            <option>Submit an airdrop</option>
+            <option>Report an issue</option>
+            <option>Partnership</option>
+          </select>
+          <label>Message</label>
+          <textarea required></textarea>
+          <button class="btn btn-primary" type="submit" style="margin-top:20px">Send Message</button>
+          <p id="contactStatus" style="color:var(--accent2);font-size:13px;margin-top:12px;display:none">Thanks — we'll get back to you soon.</p>
+        </form>
+      </div>
+      <div class="contact-info">
+        <div class="info-item"><div class="ic">✉️</div><div><b>Email</b><br><span style="color:var(--muted);font-size:14px">mail@cryptodrop.example</span></div></div>
+        <div class="info-item"><div class="ic">💬</div><div><b>Telegram</b><br><span style="color:var(--muted);font-size:14px">@cryptodrop</span></div></div>
+        <div class="info-item"><div class="ic">📢</div><div><b>Submit an Airdrop</b><br><span style="color:var(--muted);font-size:14px">Include project name, chain, and official links</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+  mountLayout("contact.html");
+  document.getElementById("contactForm").addEventListener("submit", e=>{
+    e.preventDefault();
+    document.getElementById("contactStatus").style.display = "block";
+    e.target.reset();
+  });
+</script>
+</body>
+</html>

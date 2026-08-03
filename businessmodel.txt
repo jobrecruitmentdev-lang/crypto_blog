@@ -1,0 +1,357 @@
+The website in your screenshot, **airdrops.io**, is a **crypto airdrop discovery and tracking platform**.
+
+Its primary purpose is to help cryptocurrency users discover blockchain projects that are distributing free or reward-based tokens through activities such as testnets, quests, referrals, staking, social engagement, or early adoption.
+
+## Business Model
+
+The website is not just a blog—it's essentially a **directory + news + affiliate marketing platform**.
+
+It makes money through:
+
+* Sponsored airdrop listings
+* Banner advertisements
+* Affiliate partnerships (wallets, exchanges, crypto products)
+* Referral commissions
+* Featured project placements
+* SEO traffic from Google
+* Crypto community traffic (X, Telegram, Discord)
+
+---
+
+# Core Features
+
+### 1. Airdrop Directory
+
+This is the main product.
+
+Each project includes:
+
+* Project name
+* Logo
+* Blockchain
+* Difficulty
+* Reward estimate
+* Status
+* Time required
+* Official links
+* Step-by-step instructions
+
+Example:
+
+```text
+Project
+
+↓
+
+Connect Wallet
+
+↓
+
+Complete Tasks
+
+↓
+
+Invite Friends
+
+↓
+
+Claim Tokens
+```
+
+---
+
+### 2. Blog
+
+Covers:
+
+* Crypto news
+* Token launches
+* Blockchain updates
+* Airdrop guides
+* Wallet tutorials
+* DeFi education
+
+---
+
+### 3. Categories
+
+Projects are organized by:
+
+* Ethereum
+* Solana
+* Layer 2
+* AI
+* Gaming
+* NFTs
+* DeFi
+* Wallets
+* Exchanges
+
+---
+
+### 4. Search
+
+Users can search by:
+
+* Project
+* Blockchain
+* Reward
+* Status
+* Difficulty
+
+---
+
+### 5. Status Labels
+
+Examples:
+
+* Ongoing
+* Confirmed
+* Potential
+* Ended
+* Upcoming
+
+These help users prioritize opportunities.
+
+---
+
+## Why It Ranks Well
+
+Its SEO strategy combines several strengths:
+
+### Programmatic SEO
+
+It has hundreds or thousands of project pages.
+
+Example URLs:
+
+```text
+/project/monetrix
+
+/project/lab
+
+/project/arcus
+```
+
+Each page targets a unique search intent.
+
+---
+
+### Fresh Content
+
+The homepage and sitemap update frequently.
+
+New projects are added almost every day, which encourages search engines to crawl the site regularly.
+
+---
+
+### Topical Authority
+
+Everything revolves around:
+
+* Crypto
+* Blockchain
+* Airdrops
+* DeFi
+* Wallets
+* Testnets
+
+This concentrated focus builds authority in a single niche.
+
+---
+
+### Internal Linking
+
+Typical flow:
+
+```text
+Homepage
+
+↓
+
+Category
+
+↓
+
+Project
+
+↓
+
+Related Projects
+
+↓
+
+Blog
+
+↓
+
+Guides
+```
+
+This helps distribute link equity and keeps users engaged.
+
+---
+
+### Structured Data
+
+Likely includes:
+
+* Article schema
+* Breadcrumb schema
+* Organization schema
+* FAQ schema
+* SearchAction schema
+
+These improve visibility in search results.
+
+---
+
+## Typical User Journey
+
+```text
+Google Search
+
+↓
+
+Project Page
+
+↓
+
+Read Instructions
+
+↓
+
+Visit Official Website
+
+↓
+
+Complete Tasks
+
+↓
+
+Claim Tokens
+
+↓
+
+Return for More Airdrops
+```
+
+---
+
+## Technology Pattern
+
+Although the exact stack isn't confirmed from the screenshot alone, a site like this commonly uses:
+
+### Frontend
+
+* React or Next.js
+* Tailwind CSS
+* Swiper/Carousel
+* Lazy-loaded images
+
+### Backend
+
+* Node.js or PHP
+* MySQL/PostgreSQL
+* Redis for caching
+
+### APIs
+
+* Cryptocurrency price feeds
+* Blockchain explorers
+* Project metadata services
+
+---
+
+## Database Model
+
+A simplified schema might look like:
+
+```text
+Projects
+│
+├── Categories
+├── Blockchain
+├── Rewards
+├── Status
+├── Tasks
+├── Social Links
+├── FAQs
+├── Blog Articles
+└── Media
+```
+
+---
+
+## SEO Strengths
+
+The site benefits from:
+
+* Large volume of indexable pages
+* Regularly updated content
+* Strong internal linking
+* Fresh XML sitemaps
+* Evergreen project pages
+* Topical clustering
+* High user engagement from repeat visitors
+
+---
+
+## If You Wanted to Build Something Similar
+
+You would be building a **content platform combined with a structured directory**, not just a blog.
+
+The core architecture would include:
+
+```text
+Home
+
+↓
+
+Directory
+
+↓
+
+Individual Listings
+
+↓
+
+Categories
+
+↓
+
+Blog
+
+↓
+
+Guides
+
+↓
+
+Search
+
+↓
+
+User Accounts (optional)
+
+↓
+
+Admin CMS
+
+↓
+
+API Layer
+```
+
+This pattern is also applicable outside crypto. The same architecture can power:
+
+* Job portals
+* Business directories
+* SaaS tool directories
+* AI tool directories
+* Recruitment agency listings
+* Automotive listings
+* Real estate portals
+* Course directories
+
+The key idea is combining **structured listings**, **editorial content**, and **programmatic SEO** to attract consistent organic traffic while providing users with searchable, up-to-date information.

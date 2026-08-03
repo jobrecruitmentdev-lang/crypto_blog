@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search — CryptoDrop</title>
+<meta name="description" content="Search crypto airdrops by project, blockchain, reward or difficulty.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><h2>Search Airdrops</h2><p id="searchSub">Find a project by name, blockchain, or tag</p></div>
+    </div>
+    <div class="search-box" style="max-width:480px;margin-bottom:24px">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search airdrops...">
+    </div>
+    <div class="card-grid" id="searchGrid"></div>
+    <p id="noResults" style="color:var(--muted);display:none;margin-top:20px">No airdrops matched your search.</p>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+<script>
+  mountLayout("");
+  const params = new URLSearchParams(location.search);
+  const initialQ = params.get("q") || "";
+  const input = document.getElementById("searchInput");
+  input.value = initialQ;
+
+  function runSearch(q){
+    q = q.trim().toLowerCase();
+    const results = !q ? AIRDROPS : AIRDROPS.filter(a=>
+      a.name.toLowerCase().includes(q) ||
+      a.chain.toLowerCase().includes(q) ||
+      a.tags.some(t=>t.toLowerCase().includes(q))
+    );
+    document.getElementById("searchSub").textContent = q ? `${results.length} result(s) for "${q}"` : "Find a project by name, blockchain, or tag";
+    renderList("searchGrid", results);
+    document.getElementById("noResults").style.display = results.length ? "none" : "block";
+  }
+
+  input.addEventListener("input", ()=>runSearch(input.value));
+  runSearch(initialQ);
+</script>
+</body>
+</html>

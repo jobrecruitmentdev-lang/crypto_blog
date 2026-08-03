@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Airdrop Guide — CryptoDrop</title>
+<meta name="description" id="pageDesc" content="Step-by-step airdrop farming guide.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .breadcrumb{font-size:13px;color:var(--muted);margin-bottom:20px}
+  .breadcrumb a{color:var(--muted)}
+  .breadcrumb a:hover{color:var(--accent)}
+  .detail-grid{display:grid;grid-template-columns:2fr 1fr;gap:32px;align-items:start}
+  .detail-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+  .detail-head{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+  .detail-head .proj-logo{width:56px;height:56px;font-size:20px;border-radius:16px}
+  .detail-head h1{font-size:24px;font-weight:800}
+  .steps{margin-top:12px}
+  .step{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .step:last-child{border-bottom:none}
+  .step-num{
+    width:28px;height:28px;border-radius:50%;background:var(--bg-alt);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;
+  }
+  .sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+  .info-row{display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid var(--border)}
+  .info-row:last-child{border-bottom:none}
+  .info-row span{color:var(--muted)}
+  .info-row b{font-weight:600}
+</style>
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<div class="wrap section">
+  <div class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#latest">Airdrops</a> / <span id="crumbName">Project</span></div>
+
+  <div class="detail-grid">
+    <div>
+      <div class="detail-card">
+        <div class="detail-head">
+          <div class="proj-logo" id="dLogo">--</div>
+          <div>
+            <h1 id="dName">Loading…</h1>
+            <div class="card-badges" id="dBadges"></div>
+          </div>
+        </div>
+        <p id="dDesc" style="color:var(--muted);font-size:14px"></p>
+      </div>
+
+      <div class="detail-card">
+        <h3 style="margin-bottom:10px">Airdrop Details</h3>
+        <p id="dLongDesc" style="color:var(--muted);font-size:14px"></p>
+      </div>
+
+      <div class="detail-card">
+        <h3 style="margin-bottom:6px">How to Farm the Potential Airdrop</h3>
+        <div class="steps" id="dSteps"></div>
+      </div>
+
+      <div class="detail-card">
+        <h3 style="margin-bottom:10px">FAQ</h3>
+        <div id="dFaq"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <a href="#" class="btn btn-primary" style="width:100%;margin-bottom:10px">Join Now</a>
+        <a href="#" class="btn btn-outline" style="width:100%">Notify Me</a>
+      </div>
+      <div class="sidebar-card">
+        <div class="info-row"><span>Difficulty</span><b id="sDiff"></b></div>
+        <div class="info-row"><span>Reward</span><b id="sReward"></b></div>
+        <div class="info-row"><span>Time Required</span><b id="sTime"></b></div>
+        <div class="info-row"><span>Blockchain</span><b id="sChain"></b></div>
+        <div class="info-row"><span>Status</span><b id="sStatus"></b></div>
+      </div>
+      <div class="sidebar-card">
+        <h4 style="margin-bottom:10px;font-size:13px">More Airdrops to Farm</h4>
+        <div id="sRelated"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+mountLayout("");
+function initials(name){return name.slice(0,2).toUpperCase()}
+
+const params = new URLSearchParams(location.search);
+const slug = params.get("slug");
+const a = AIRDROPS.find(x=>x.slug===slug) || AIRDROPS[0];
+
+document.getElementById("pageTitle").textContent = `${a.name} Airdrop Guide — CryptoDrop`;
+document.getElementById("pageDesc").setAttribute("content", `${a.name} airdrop guide: reward, difficulty, steps and FAQ.`);
+document.getElementById("crumbName").textContent = a.name;
+document.getElementById("dLogo").textContent = initials(a.name);
+document.getElementById("dName").textContent = a.name;
+document.getElementById("dBadges").innerHTML = a.status.map(s=>`<span class="badge ${s.toLowerCase()==='confirmed'?'confirmed':''}">${s}</span>`).join("");
+document.getElementById("dDesc").textContent = a.desc;
+document.getElementById("dLongDesc").textContent = `${a.name} has ${a.status.includes('Confirmed')?'a confirmed token':'not confirmed a token yet'}. This guide covers the highest-signal actions based on public activity: ${a.tags.join(', ')}. Consistent participation over time typically outperforms a single burst of activity for any retroactive snapshot.`;
+
+const steps = [
+  `Go to the official ${a.name} website and open the app.`,
+  `Connect your wallet (MetaMask, Phantom, or the chain-appropriate wallet).`,
+  `Complete the core action: ${a.desc.toLowerCase()}`,
+  `Engage consistently — daily or weekly — rather than in a single burst.`,
+  `Share your referral link if available; referral activity often counts toward future rewards.`,
+];
+document.getElementById("dSteps").innerHTML = steps.map((s,i)=>`
+  <div class="step"><div class="step-num">${i+1}</div><div>${s}</div></div>
+`).join("");
+
+document.getElementById("dFaq").innerHTML = `
+  <div class="faq-item open">
+    <div class="faq-q">Does ${a.name} have a token?</div>
+    <div class="faq-a" style="max-height:100px"><p>${a.status.includes('Confirmed') ? `Yes, ${a.name} has confirmed rewards for eligible users.` : `Not yet confirmed — this is a speculative farming opportunity.`}</p></div>
+  </div>
+  <div class="faq-item open">
+    <div class="faq-q">How much can I earn?</div>
+    <div class="faq-a" style="max-height:100px"><p>Estimates range around ${a.reward}, based on comparable platform reward structures. Actual results vary.</p></div>
+  </div>
+`;
+
+document.getElementById("sDiff").textContent = a.difficulty;
+document.getElementById("sReward").textContent = a.reward;
+document.getElementById("sTime").textContent = a.time;
+document.getElementById("sChain").textContent = a.chain;
+document.getElementById("sStatus").textContent = a.status.join(" / ");
+
+const related = AIRDROPS.filter(x=>x.slug!==a.slug && x.chain===a.chain).slice(0,3);
+const fallback = AIRDROPS.filter(x=>x.slug!==a.slug).slice(0,3);
+const relList = related.length ? related : fallback;
+document.getElementById("sRelated").innerHTML = relList.map(r=>`
+  <div class="info-row"><a href="project.html?slug=${r.slug}"><b>${r.name}</b></a><span>${r.chain}</span></div>
+`).join("");
+</script>
+</body>
+</html>

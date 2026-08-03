@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Category — CryptoDrop</title>
+<meta name="description" id="pageDesc" content="Browse airdrops in this category.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px">
+      <a href="index.html">Home</a> / <a href="categories.html">Categories</a> / <span id="crumbCat">Category</span>
+    </div>
+    <div class="section-head">
+      <div><h2 id="catTitle">Category</h2><p id="catSub"></p></div>
+    </div>
+    <div class="card-grid" id="catGrid"></div>
+    <p id="emptyMsg" style="color:var(--muted);display:none;margin-top:20px">No airdrops found in this category yet — check back soon.</p>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script src="js/app.js"></script>
+<script>
+  mountLayout("categories.html");
+  const params = new URLSearchParams(location.search);
+  const name = params.get("name") || "Ethereum";
+  document.getElementById("pageTitle").textContent = `${name} Airdrops — CryptoDrop`;
+  document.getElementById("pageDesc").setAttribute("content", `Browse the latest ${name} crypto airdrops, verified and updated regularly.`);
+  document.getElementById("crumbCat").textContent = name;
+  document.getElementById("catTitle").textContent = `${name} Airdrops`;
+  document.getElementById("catSub").textContent = `Every tracked airdrop tagged under ${name}`;
+
+  const matches = AIRDROPS.filter(a =>
+    a.chain.toLowerCase() === name.toLowerCase() ||
+    a.tags.some(t=>t.toLowerCase()===name.toLowerCase())
+  );
+  if(matches.length){
+    renderList("catGrid", matches);
+  } else {
+    document.getElementById("emptyMsg").style.display = "block";
+  }
+</script>
+</body>
+</html>

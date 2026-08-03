@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — CryptoDrop</title>
+<meta name="description" content="Crypto news, airdrop guides, wallet tutorials and DeFi education from CryptoDrop.">
+<link rel="canonical" href="https://cryptodrop.example/blog.html">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="site-header"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="breadcrumb" style="font-size:13px;color:var(--muted);margin-bottom:16px"><a href="index.html">Home</a> / Blog</div>
+    <div class="section-head">
+      <div><h2>Blog</h2><p>Crypto news, guides and DeFi education</p></div>
+    </div>
+    <div class="blog-grid" id="blogGrid"></div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/components.js"></script>
+<script>
+  mountLayout("blog.html");
+  document.getElementById("blogGrid").innerHTML = BLOG_POSTS.map((p,i)=>`
+    <a class="blog-card" href="post.html?id=${i}" style="display:block">
+      <div class="blog-thumb"></div>
+      <div class="blog-body">
+        <span class="blog-tag">${p.tag}</span>
+        <h3>${p.title}</h3>
+        <p>${p.excerpt}</p>
+        <div class="blog-meta"><span>${p.date}</span><span>${p.read} read</span></div>
+      </div>
+    </a>`).join("");
+</script>
+</body>
+</html>
