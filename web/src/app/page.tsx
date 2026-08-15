@@ -1,204 +1,114 @@
 import Link from "next/link";
-import Ticker from "@/components/Ticker";
-import FilterableGrid from "@/components/FilterableGrid";
-import AirdropCard from "@/components/AirdropCard";
-import CategoryGrid from "@/components/CategoryGrid";
 import BlogGrid from "@/components/BlogGrid";
-import FaqAccordion from "@/components/FaqAccordion";
 import Newsletter from "@/components/Newsletter";
-import { AIRDROPS, BLOG_POSTS, CATEGORIES, FAQS } from "@/lib/data";
+import { GUIDES } from "@/lib/data";
+import { getAllPosts } from "@/lib/cms/blogService";
 
-export default function Home() {
-  const latest = AIRDROPS.slice(0, 8);
-  const hot = [...AIRDROPS].sort((a, b) => b.heat - a.heat).slice(0, 8);
-  const confirmed = AIRDROPS.filter((a) => a.status.includes("Confirmed"));
-  const featured = hot[0];
+export default async function Home() {
+  const allPosts = await getAllPosts();
+  const featuredPost = allPosts[0];
+  const otherPosts = allPosts.slice(1);
 
   return (
     <>
       <div className="announce">
-        🚀 New: Monad mainnet is live —{" "}
-        <Link href={`/projects/${featured.slug}`}>check the guide</Link>
+        🚀 The complete guide to crypto security in 2026 is out —{" "}
+        <Link href={`/blog/how-to-farm-airdrops-safely-2026`}>read it here</Link>
       </div>
 
-      <Ticker />
-
-      <section className="hero">
+      <section className="hero" style={{ padding: "60px 0 40px" }}>
         <div className="wrap hero-grid">
           <div>
-            <h1>
-              Discover the latest <span>crypto airdrops</span> before everyone else
+            <span className="badge hot" style={{ marginBottom: 16, display: "inline-block" }}>Featured Story</span>
+            <h1 style={{ fontSize: "3rem", lineHeight: 1.1, marginBottom: 24, fontWeight: 900, letterSpacing: "-0.03em" }}>
+              {featuredPost.title}
             </h1>
-            <p>
-              We verify and track free token distributions across every major chain — daily.
-              Follow simple guides, complete tasks, and claim what&apos;s yours.
+            <p style={{ fontSize: "1.25rem", color: "var(--muted)", marginBottom: 32, lineHeight: 1.6 }}>
+              {featuredPost.excerpt}
             </p>
             <div className="hero-actions">
-              <Link href="/latest" className="btn btn-primary">
-                Explore Airdrops
+              <Link href={`/blog/${featuredPost.slug}`} className="btn btn-primary">
+                Read Article
               </Link>
-              <Link href="/faq" className="btn btn-outline">
-                How It Works
+              <Link href="/blog" className="btn btn-outline">
+                All News
               </Link>
             </div>
-            <div className="hero-stats">
+            <div className="hero-stats" style={{ marginTop: 40, borderTop: "1px solid var(--border)", paddingTop: 32 }}>
               <div className="hero-stat">
-                <b>1,240+</b>
-                <span>Airdrops Tracked</span>
-              </div>
-              <div className="hero-stat">
-                <b>85</b>
-                <span>Confirmed Rewards</span>
-              </div>
-              <div className="hero-stat">
-                <b>320K</b>
+                <b>320K+</b>
                 <span>Monthly Readers</span>
               </div>
+              <div className="hero-stat">
+                <b>Daily</b>
+                <span>Alpha Published</span>
+              </div>
             </div>
           </div>
-          <div className="hero-card">
-            <div className="hero-card-top">
-              <span className="badge hot">🔥 Trending</span>
-              <span className="badge confirmed">Confirmed</span>
+          
+          <div className="hero-card" style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 16, padding: "32px 24px" }}>
+            <h3 style={{ fontSize: "1.25rem", borderBottom: "1px solid var(--border)", paddingBottom: 16, marginBottom: 24 }}>Top Guides & Tutorials</h3>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 24 }}>
+              {GUIDES.slice(0,4).map(g => (
+                <li key={g.slug}>
+                  <Link href={`/guides/${g.slug}`} style={{ color: "var(--fg)", fontWeight: 700, fontSize: "1.1rem", textDecoration: "none", display: "block", marginBottom: 6, lineHeight: 1.3 }}>
+                    {g.title}
+                  </Link>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "0.85rem", color: "var(--muted)" }}>
+                    <span className="badge confirmed" style={{ padding: "2px 6px", fontSize: "10px" }}>{g.level}</span>
+                    <span>5 min read</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div style={{ marginTop: 32 }}>
+              <Link href="/guides" className="btn btn-primary" style={{ width: "100%", display: "block", textAlign: "center" }}>
+                View All Guides
+              </Link>
             </div>
-            <div className="hero-card-proj">
-              <div className="proj-logo">MO</div>
-              <div>
-                <b>Monad</b>
-                <small>Layer 1 · Mainnet Live</small>
-              </div>
-            </div>
-            <div className="hero-card-meta">
-              <div className="meta-box">
-                <span>Reward</span>
-                <b>$500-$5000</b>
-              </div>
-              <div className="meta-box">
-                <span>Difficulty</span>
-                <b>Medium</b>
-              </div>
-              <div className="meta-box">
-                <span>Time</span>
-                <b>20 min</b>
-              </div>
-              <div className="meta-box">
-                <span>Status</span>
-                <b>Ongoing</b>
-              </div>
-            </div>
-            <Link href="/projects/monad" className="btn btn-primary" style={{ width: "100%" }}>
-              Join Now
-            </Link>
           </div>
         </div>
       </section>
 
-      <section className="section" id="latest">
+      <section className="section" id="latest-news">
         <div className="wrap">
           <div className="section-head">
             <div>
-              <h2>Latest Airdrops</h2>
-              <p>Newest projects added to our directory</p>
+              <h2>Latest News & Analysis</h2>
+              <p>The bleeding edge of crypto, delivered daily.</p>
             </div>
-            <Link href="/latest">View all →</Link>
+            <Link href="/blog">View all articles →</Link>
           </div>
-          <FilterableGrid airdrops={latest} />
-        </div>
-      </section>
-
-      <section className="section" id="hot">
-        <div className="wrap">
-          <div className="section-head">
-            <div>
-              <h2>Hottest Airdrops</h2>
-              <p>Ranked by community engagement</p>
-            </div>
-            <Link href="/hot">View all →</Link>
-          </div>
-          <div className="card-grid">
-            {hot.map((a) => (
-              <AirdropCard key={a.slug} airdrop={a} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="confirmed">
-        <div className="wrap">
-          <div className="section-head">
-            <div>
-              <h2>Confirmed Airdrops</h2>
-              <p>Projects with an officially confirmed token</p>
-            </div>
-            <Link href="/confirmed">View all →</Link>
-          </div>
-          <div className="card-grid">
-            {confirmed.map((a) => (
-              <AirdropCard key={a.slug} airdrop={a} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section" id="categories">
-        <div className="wrap">
-          <div className="section-head">
-            <div>
-              <h2>Browse by Category</h2>
-              <p>Find airdrops across every ecosystem</p>
-            </div>
-            <Link href="/categories">View all →</Link>
-          </div>
-          <CategoryGrid categories={CATEGORIES} />
-        </div>
-      </section>
-
-      <section className="section" id="blog">
-        <div className="wrap">
-          <div className="section-head">
-            <div>
-              <h2>Latest from the Blog</h2>
-              <p>Guides, news and strategy</p>
-            </div>
-            <Link href="/blog">View all →</Link>
-          </div>
-          <BlogGrid posts={BLOG_POSTS} />
-        </div>
-      </section>
-
-      <section className="edu section">
-        <div className="wrap edu-content">
-          <h2>Understanding Crypto Airdrops</h2>
-          <p>
-            Cryptocurrency airdrops are a token distribution strategy where blockchain projects
-            share free tokens with community members to build awareness, decentralize ownership,
-            and reward genuine participation.
-          </p>
-          <h3>Why Projects Give Away Free Tokens</h3>
-          <ul>
-            <li>Create mass awareness with minimal marketing cost</li>
-            <li>Build a dedicated community of holders</li>
-            <li>Reward early adopters and long-term believers</li>
-            <li>Establish wide, decentralized token distribution</li>
-          </ul>
-          <h3>Common Types</h3>
-          <ul>
-            <li><b>Holder airdrops</b> — automatic rewards for existing token holders</li>
-            <li><b>Testnet airdrops</b> — rewards for participating in protocol testing</li>
-            <li><b>Retroactive airdrops</b> — rewards for historical, verifiable usage</li>
-            <li><b>Layer 2 airdrops</b> — rewards for bridging and using rollup ecosystems</li>
-          </ul>
+          <BlogGrid posts={otherPosts} />
         </div>
       </section>
 
       <section className="section" id="faq">
         <div className="wrap" style={{ maxWidth: 820 }}>
-          <div className="section-head">
+          <div className="section-head" style={{ textAlign: "center", marginBottom: 40 }}>
             <div>
-              <h2>Frequently Asked Questions</h2>
+              <h2>Why Read CryptoDrop?</h2>
+              <p>We cut through the noise to bring you actionable insights.</p>
             </div>
           </div>
-          <FaqAccordion faqs={FAQS} />
+          <div style={{ display: "grid", gap: 32, gridTemplateColumns: "1fr 1fr", marginTop: 24 }}>
+            <div>
+              <h3 style={{ marginBottom: 12 }}>Unbiased Research</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>We don't accept paid listings for our core editorial content. Every airdrop guide and protocol review is researched independently.</p>
+            </div>
+            <div>
+              <h3 style={{ marginBottom: 12 }}>Actionable Steps</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>We turn complex on-chain mechanics into simple, step-by-step guides so you can interact with DeFi protocols safely.</p>
+            </div>
+            <div>
+              <h3 style={{ marginBottom: 12 }}>Safety First</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>Security is paramount. We teach wallet hygiene, sybil-avoidance, and how to verify smart contracts before signing transactions.</p>
+            </div>
+            <div>
+              <h3 style={{ marginBottom: 12 }}>Daily Updates</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>The market moves fast. Our editorial team updates guides daily to ensure you have the latest snapshot information.</p>
+            </div>
+          </div>
         </div>
       </section>
 

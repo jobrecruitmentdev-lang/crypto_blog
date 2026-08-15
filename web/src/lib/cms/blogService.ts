@@ -1,20 +1,21 @@
 import type { BlogPost } from '../types';
+import { BLOG_POSTS } from '../data';
 
 const API_BASE_URL = 'http://cryptoairdropai.com/api';
 
 export async function getAllPosts(): Promise<BlogPost[]> {
   try {
     const res = await fetch(`${API_BASE_URL}/get_posts.php`, { cache: 'force-cache' });
-    if (!res.ok) return [];
+    if (!res.ok) return BLOG_POSTS;
     
     const json = await res.json();
-    if (!json.success) return [];
+    if (!json.success || !json.data.length) return BLOG_POSTS;
 
     return json.data.map((post: any) => ({
       slug: post.slug,
       title: post.title,
       excerpt: post.excerpt || "",
-      tag: "Blog",
+      tag: "News",
       date: post.published_at || new Date().toISOString(),
       read: "5 min",
       body: "",
@@ -22,7 +23,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     }));
   } catch (error) {
     console.error("Error fetching all posts:", error);
-    return [];
+    return BLOG_POSTS;
   }
 }
 

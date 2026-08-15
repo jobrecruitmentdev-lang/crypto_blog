@@ -5,7 +5,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 
 # Path to the JSON key you downloaded in Step 1
-SERVICE_ACCOUNT_FILE = '../cosmic-mariner-503804-c4-981c45ff145b.json'
+SERVICE_ACCOUNT_FILE = 'cosmic-mariner-503804-c4-981c45ff145b.json'
 
 # The scope required for the Indexing API
 SCOPES = ["https://www.googleapis.com/auth/indexing"]

@@ -43,7 +43,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <div className="wrap section">
       <div className="breadcrumb">
-        <Link href="/">Home</Link> / <Link href="/latest">Airdrops</Link> / {airdrop.name}
+        <Link href="/">Home</Link> / <Link href="/blog">Reviews</Link> / {airdrop.name}
       </div>
 
       <div className="detail-grid">
