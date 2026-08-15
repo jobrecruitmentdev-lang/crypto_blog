@@ -8,3 +8,7 @@ define('DB_HOST', '127.0.0.1');
 define('DB_USER', 'u390470426_crypto');
 define('DB_PASS', 'YOUR_DATABASE_PASSWORD_HERE');
 define('DB_NAME', 'u390470426_crypto');
+
+// Secret key for automation script to post securely
+$API_SECRET_KEY = 'super_secret_automation_key_123';
+ 
