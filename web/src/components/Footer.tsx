@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -7,8 +8,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link className="logo" href="/">
-              <span className="dot" />
-              CryptoDrop
+              <Image src="/logo-primary.svg" alt="CryptoDrop" width={160} height={32} />
             </Link>
             <p>
               Free crypto airdrop aggregator. We don&apos;t run the listed airdrops — always do
