@@ -21,20 +21,15 @@ export default function Footer() {
             </div>
           </div>
           <div className="footer-col">
-            <h4>Explore</h4>
+            <h4>Read</h4>
             <ul>
-              <li><Link href="/latest">Latest Airdrops</Link></li>
-              <li><Link href="/hot">Hot Airdrops</Link></li>
-              <li><Link href="/confirmed">Confirmed Airdrops</Link></li>
-              <li><Link href="/potential">Potential Airdrops</Link></li>
-              <li><Link href="/categories">Categories</Link></li>
+              <li><Link href="/blog">Latest News</Link></li>
+              <li><Link href="/guides">Actionable Guides</Link></li>
             </ul>
           </div>
           <div className="footer-col">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/blog">Blog</Link></li>
-              <li><Link href="/guides">Guides</Link></li>
               <li><Link href="/faq">FAQ</Link></li>
               <li><Link href="/search">Search</Link></li>
             </ul>
