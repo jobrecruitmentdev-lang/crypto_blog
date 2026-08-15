@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -32,8 +33,7 @@ export default function Header() {
     <header>
       <div className="wrap header-inner">
         <Link className="logo" href="/">
-          <span className="dot" />
-          CryptoDrop
+          <Image src="/logo-primary.svg" alt="CryptoDrop" width={160} height={32} priority />
         </Link>
         <nav className={`main-nav${mobileOpen ? " mobile-open" : ""}`}>
           {NAV_LINKS.map((link) => (
