@@ -13,11 +13,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cryptoairdropai.com"),
   title: {
-    default: "CryptoDrop — Live Crypto Airdrop Tracker | 1,240+ Verified Airdrops",
+    default: "CryptoDrop — Daily Crypto News, Guides & Airdrop Reviews",
     template: "%s | CryptoDrop",
   },
   description:
-    "Track free crypto airdrops across Ethereum, Solana, Base, Arbitrum & 50+ chains. Verified, updated daily. Find confirmed, hot and upcoming airdrops before everyone else.",
+    "The leading ecosystem for decentralized finance news. Read independent crypto guides, rigorous airdrop reviews, and daily DeFi market analysis.",
   openGraph: {
     title: "CryptoDrop — Discover the Latest Crypto Airdrops",
     type: "website",
