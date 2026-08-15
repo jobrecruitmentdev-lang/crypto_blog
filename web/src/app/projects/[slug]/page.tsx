@@ -40,8 +40,42 @@ export default async function ProjectPage({ params }: Props) {
     `Share your referral link if available; referral activity often counts toward future rewards.`,
   ];
 
+  const jsonLdArticle = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": `${airdrop.name} Airdrop Guide & Review`,
+    "description": airdrop.desc,
+    "url": `https://cryptoairdropai.com/projects/${slug}`,
+    "publisher": {
+      "@type": "Organization",
+      "name": "CryptoDrop",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://cryptoairdropai.com/logo-primary.svg"
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "CryptoDrop Editorial Team",
+      "url": "https://cryptoairdropai.com/about",
+      "sameAs": ["https://twitter.com/cryptoairdropai"]
+    }
+  };
+
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://cryptoairdropai.com/blog" },
+      { "@type": "ListItem", "position": 3, "name": airdrop.name, "item": `https://cryptoairdropai.com/projects/${slug}` }
+    ]
+  };
+
   return (
     <div className="wrap section">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       <div className="breadcrumb">
         <Link href="/">Home</Link> / <Link href="/blog">Reviews</Link> / {airdrop.name}
       </div>
