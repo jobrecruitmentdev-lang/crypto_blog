@@ -111,10 +111,12 @@ export const GUIDES: Guide[] = [
 ];
 
 export const FAQS: Faq[] = [
-  { q: "What are crypto airdrops?", a: "Airdrops are free token distributions from blockchain projects to reward early users, holders, or community members for specific actions." },
-  { q: "How do I get free crypto airdrops?", a: "Complete tasks like signing up, connecting a wallet, trading, or joining a community — then follow the project until any snapshot or claim window opens." },
-  { q: "Are airdrops safe?", a: "Most are safe if you use a dedicated wallet, never share your private key, and verify official project links before connecting." },
-  { q: "How do I find upcoming airdrops?", a: "Check aggregators like this site regularly, follow official project social accounts, and monitor new protocol launches and testnets." },
+  { q: "What are crypto airdrops?", a: "Crypto airdrops are free distributions of tokens from a blockchain project to wallet addresses that meet specific criteria — usually early product usage, holding another token, providing liquidity, or completing on-chain tasks before a snapshot date." },
+  { q: "How do I qualify for a crypto airdrop?", a: "Most airdrops reward genuine, sustained activity rather than a single click: connecting a wallet, bridging assets, making swaps, providing liquidity, or participating in testnets over multiple weeks or months. Check each project's page on CryptoDrop for its specific task list." },
+  { q: "Are crypto airdrops free?", a: "Claiming the tokens is free, but completing the qualifying tasks (bridging, swapping) usually requires paying network gas fees, and some chains cost more than others. Factor gas costs into whether an airdrop is worth farming." },
+  { q: "Are crypto airdrops taxable?", a: "In most jurisdictions, receiving airdropped tokens is a taxable event at the fair market value on the date received, and selling them later can trigger capital gains tax. Rules vary significantly by country — check local guidance or a tax professional before assuming a specific treatment." },
+  { q: "How do I avoid airdrop scams?", a: "Use a dedicated wallet with limited funds for farming, never share your seed phrase or private key, only connect to official project URLs (bookmark them, don't click links from DMs), and revoke unused token approvals periodically with a tool like Revoke.cash." },
+  { q: "What's the difference between Confirmed, Ongoing, and Potential airdrops on CryptoDrop?", a: "Confirmed means the project has publicly announced a token and reward mechanism. Ongoing means tasks are currently live and worth completing. Potential means no token has been confirmed yet, but the project shows strong signals (funding, points program, ecosystem incentives) that one may come." },
 ];
 
 export function getAirdropBySlug(slug: string): Airdrop | undefined {
