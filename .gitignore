@@ -5,6 +5,8 @@
 *.pem
 *.key
 *.cert
+cosmic-mariner-503804-c4-981c45ff145b.json
+.private/
 
 # Node Modules and dependencies
 node_modules/
