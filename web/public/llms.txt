@@ -1,0 +1,15 @@
+# CryptoDrop (cryptoairdropai.com)
+
+CryptoDrop tracks and verifies free crypto token airdrops across Ethereum, Solana, Base, Arbitrum, and every major blockchain. 
+
+## Key Resources
+- Homepage: https://cryptoairdropai.com
+- Latest Airdrops: https://cryptoairdropai.com/latest
+- Confirmed Airdrops: https://cryptoairdropai.com/confirmed
+- Hot Airdrops: https://cryptoairdropai.com/hot
+- Farming Guides: https://cryptoairdropai.com/guides
+- FAQ: https://cryptoairdropai.com/faq
+- About & Trust: https://cryptoairdropai.com/about
+
+## Core Concept
+Crypto airdrops are free distributions of tokens from a blockchain project to wallet addresses that meet specific criteria (like early usage, providing liquidity, or completing on-chain tasks). We verify these opportunities so users don't fall for scams.
