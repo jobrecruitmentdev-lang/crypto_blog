@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     title: "CryptoDrop — Discover the Latest Crypto Airdrops",
     type: "website",
   },
+  verification: {
+    google: "ZWut5izBb5y1wY8Lyo6m-h8uDPr9ufrdHzHA-Il6788",
+  },
 };
 
 export default function RootLayout({
