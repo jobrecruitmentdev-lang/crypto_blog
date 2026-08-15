@@ -5,6 +5,9 @@ import { getAllPosts, getPostBySlug } from "@/lib/cms/blogService";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
+  if (!posts || posts.length === 0) {
+    return [{ slug: 'coming-soon' }];
+  }
   return posts.map((p) => ({ slug: p.slug }));
 }
 
@@ -28,8 +31,21 @@ export default async function BlogPostPage({ params }: Props) {
   const post = await getPostBySlug(slug);
   if (!post) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "datePublished": post.date,
+    "url": `https://cryptoairdropai.com/blog/${slug}`
+  };
+
   return (
     <section className="section">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="wrap post-body">
         <div className="breadcrumb">
           <Link href="/">Home</Link> / <Link href="/blog">Blog</Link> / {post.title}

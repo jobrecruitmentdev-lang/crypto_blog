@@ -36,6 +36,7 @@ export interface BlogPost {
   date: string;
   read: string;
   body: string;
+  coverImage?: string;
 }
 
 export interface Guide {
