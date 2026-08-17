@@ -9,7 +9,7 @@ import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 export default async function Home() {
   const allPosts = await getAllPosts();
   const featuredPost = allPosts[0];
-  const otherPosts = allPosts.slice(1, 4);
+  const otherPosts = allPosts;
 
   return (
     <>
