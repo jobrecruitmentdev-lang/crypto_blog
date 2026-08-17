@@ -33,9 +33,10 @@ jobs:
         lftp -e "
           set ssl:verify-certificate no;
           set ftp:ssl-allow yes;
+          set ftp:passive-mode true;
           set net:timeout 30;
           set net:max-retries 3;
-          set net:reconnect-interval-base 5;
+          open -u '${{ secrets.FTP_USERNAME }}','${{ secrets.FTP_PASSWORD }}' '${{ secrets.FTP_SERVER }}';
           mirror --reverse --verbose \
             --exclude-glob 'api/*' \
             --exclude-glob 'config.php' \
@@ -43,5 +44,5 @@ jobs:
             --exclude-glob '.env*' \
             ./web/out/ ./;
           quit;
-        " -u "${{ secrets.FTP_USERNAME }}","${{ secrets.FTP_PASSWORD }}" "${{ secrets.FTP_SERVER }}"
+        "
 
