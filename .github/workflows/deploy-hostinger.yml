@@ -48,6 +48,7 @@ jobs:
           --exclude-glob '.git*' \
           --exclude-glob '.env*' \
           ./web/out/ ./
+        put ./web/public/.htaccess -o ./.htaccess
         quit
         EOF
 
