@@ -3,10 +3,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PRIMARY_LINKS = [
+  { href: "/", label: "Home" },
   { href: "/blog", label: "Intelligence" },
   { href: "/guides", label: "Guides" },
   { href: "/methodology", label: "Methodology" },
@@ -26,9 +27,16 @@ const SECONDARY_LINKS = [
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const normalizedPath = (pathname || "/").replace(/\/$/, "") || "/";
 
   function handleSearch(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" && query.trim()) {
@@ -46,7 +54,7 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className={`main-nav${mobileOpen ? " mobile-open" : ""}`}>
           {PRIMARY_LINKS.map((link) => {
-            const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
+            const isActive = mounted && (link.href === "/" ? normalizedPath === "/" : normalizedPath.startsWith(link.href));
             return (
               <Link
                 key={link.href}
@@ -133,7 +141,7 @@ export default function Header() {
                         padding: "8px 16px",
                         fontSize: "12px",
                         fontWeight: 600,
-                        color: pathname === s.href ? "var(--cyan)" : "var(--muted)",
+                        color: mounted && normalizedPath === s.href ? "var(--cyan)" : "var(--muted)",
                         transition: "all 0.15s",
                       }}
                       onMouseEnter={(e) => {
@@ -141,7 +149,7 @@ export default function Header() {
                         e.currentTarget.style.background = "rgba(0, 240, 255, 0.06)";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.color = pathname === s.href ? "var(--cyan)" : "var(--muted)";
+                        e.currentTarget.style.color = mounted && normalizedPath === s.href ? "var(--cyan)" : "var(--muted)";
                         e.currentTarget.style.background = "transparent";
                       }}
                     >

@@ -76,8 +76,8 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className={inter.variable}>
-      <body>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }} />
         <Header />
