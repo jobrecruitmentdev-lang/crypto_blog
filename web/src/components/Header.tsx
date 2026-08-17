@@ -39,8 +39,24 @@ export default function Header() {
   return (
     <header>
       <div className="wrap header-inner">
-        <Link className="logo" href="/" style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-          <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={185} height={34} priority />
+        <Link className="logo" href="/" style={{ display: "inline-flex", alignItems: "center", gap: 10, flexShrink: 0, textDecoration: "none" }}>
+          <Image src="/icon.svg" alt="Crypto Airdrop AI" width={34} height={34} priority />
+          <span style={{ fontSize: "1.32rem", fontWeight: 900, letterSpacing: "-0.025em", display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <span style={{ color: "#FFFFFF" }}>Crypto</span>
+            <span style={{ color: "var(--cyan)" }}>Airdrop</span>
+            <span style={{ 
+              fontSize: "0.68rem", 
+              fontWeight: 900, 
+              color: "var(--emerald)", 
+              background: "var(--emerald-glow)", 
+              border: "1px solid rgba(16, 185, 129, 0.35)", 
+              padding: "2px 6px", 
+              borderRadius: "4px",
+              fontFamily: "ui-monospace, monospace",
+              letterSpacing: "0.06em",
+              marginLeft: "2px"
+            }}>AI</span>
+          </span>
         </Link>
 
         {/* Desktop & Mobile Navigation (Strictly 7 Primary Pages) */}

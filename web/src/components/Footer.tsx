@@ -55,8 +55,24 @@ export default function Footer() {
           
           {/* Brand Column */}
           <div className="footer-brand">
-            <Link className="logo" href="/" style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={195} height={34} />
+            <Link className="logo" href="/" style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14, textDecoration: "none" }}>
+              <Image src="/icon.svg" alt="Crypto Airdrop AI" width={32} height={32} />
+              <span style={{ fontSize: "1.24rem", fontWeight: 900, letterSpacing: "-0.025em", display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <span style={{ color: "#FFFFFF" }}>Crypto</span>
+                <span style={{ color: "var(--cyan)" }}>Airdrop</span>
+                <span style={{ 
+                  fontSize: "0.65rem", 
+                  fontWeight: 900, 
+                  color: "var(--emerald)", 
+                  background: "var(--emerald-glow)", 
+                  border: "1px solid rgba(16, 185, 129, 0.35)", 
+                  padding: "2px 6px", 
+                  borderRadius: "4px",
+                  fontFamily: "ui-monospace, monospace",
+                  letterSpacing: "0.06em",
+                  marginLeft: "2px"
+                }}>AI</span>
+              </span>
             </Link>
             <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.65, margin: "12px 0 20px" }}>
               The decentralized authority for verified crypto token airdrops, multi-chain protocol guides, and Web3 security telemetry. Built with zero-custody guarantees.
