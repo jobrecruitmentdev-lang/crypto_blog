@@ -40,7 +40,7 @@ export default function Header() {
     <header>
       <div className="wrap header-inner">
         <Link className="logo" href="/" style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-          <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={160} height={32} priority />
+          <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={185} height={34} priority />
         </Link>
 
         {/* Desktop & Mobile Navigation (Strictly 7 Primary Pages) */}
