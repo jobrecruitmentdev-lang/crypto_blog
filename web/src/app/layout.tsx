@@ -33,6 +33,13 @@ export const metadata: Metadata = {
   verification: {
     google: "ZWut5izBb5y1wY8Lyo6m-h8uDPr9ufrdHzHA-Il6788",
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
