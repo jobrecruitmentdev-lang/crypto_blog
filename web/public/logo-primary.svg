@@ -1,45 +1,41 @@
-<svg width="280" height="52" viewBox="0 0 280 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="300" height="52" viewBox="0 0 300 52" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Hot Air Balloon / Airdrop Parachute Icon -->
-  <g transform="translate(6, 6)">
-    <!-- Parachute Glow Filter -->
-    <circle cx="20" cy="18" r="16" fill="url(#canopyGlow)" filter="blur(6px)" opacity="0.4"/>
-
-    <!-- Canopy Shell -->
+  <g transform="translate(6, 5)">
+    <!-- Parachute Canopy Shell -->
     <path d="M20 3 C9 3, 2 14, 2 19 C8 22, 32 22, 38 19 C38 14, 31 3, 20 3 Z" fill="url(#canopyGradPrimary)"/>
     
     <!-- Canopy Curvature Lines -->
-    <path d="M12 19 C12 11, 16 3, 20 3 C24 3, 28 11, 28 19" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round" opacity="0.75"/>
-    <path d="M20 3 V20.5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity="0.9"/>
+    <path d="M12 19 C12 11, 16 3, 20 3 C24 3, 28 11, 28 19" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" opacity="0.85"/>
+    <path d="M20 3 V20.5" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.95"/>
     
     <!-- Suspension Rigging Lines -->
-    <path d="M6 21 L16 31 M34 21 L24 31 M20 21 L20 30" stroke="#94A3B8" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M6 21 L16 31 M34 21 L24 31 M20 21 L20 30" stroke="#CBD5E1" stroke-width="1.8" stroke-linecap="round"/>
     
     <!-- Golden Crypto Reward Box -->
-    <rect x="14.5" y="30" width="11" height="10" rx="3" fill="url(#boxGoldGrad)" stroke="#F59E0B" stroke-width="1.2"/>
+    <rect x="14" y="30" width="12" height="11" rx="3" fill="url(#boxGoldGrad)" stroke="#F59E0B" stroke-width="1.5"/>
     <!-- Token Symbol / Cross -->
-    <path d="M17.5 35 H22.5 M20 32.5 V37.5" stroke="#04070D" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M17 35.5 H23 M20 32.5 V38.5" stroke="#04070D" stroke-width="1.8" stroke-linecap="round"/>
   </g>
 
-  <!-- Typography: Crypto (White) + Airdrop (Cyan) + AI (Emerald Badge) -->
-  <text x="56" y="34" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF" letter-spacing="-0.03em">
-    Crypto<tspan fill="#00F0FF" dx="2">Airdrop</tspan>
+  <!-- Typography: Pure Crisp White "Crypto" + Vibrant Cyan "Airdrop" -->
+  <text x="56" y="34" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="900" letter-spacing="-0.02em">
+    <tspan fill="#FFFFFF">Crypto </tspan>
+    <tspan fill="#00F0FF">Airdrop</tspan>
   </text>
   
   <!-- High-Tech "AI" Monospace Terminal Badge -->
-  <rect x="220" y="16" width="34" height="20" rx="5" fill="rgba(16, 185, 129, 0.16)" stroke="#10B981" stroke-width="1.2"/>
-  <text x="237" y="30" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="900" fill="#10B981" text-anchor="middle" letter-spacing="0.06em">AI</text>
+  <g transform="translate(242, 15)">
+    <rect width="36" height="22" rx="5" fill="rgba(16, 185, 129, 0.2)" stroke="#10B981" stroke-width="1.5"/>
+    <text x="18" y="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="900" fill="#10B981" text-anchor="middle">AI</text>
+  </g>
 
   <!-- Gradients -->
   <defs>
-    <radialGradient id="canopyGlow" cx="20" cy="18" r="16" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#00F0FF"/>
-      <stop offset="1" stop-color="#0077FF" stop-opacity="0"/>
-    </radialGradient>
     <linearGradient id="canopyGradPrimary" x1="20" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
       <stop stop-color="#00F0FF"/>
       <stop offset="1" stop-color="#0066FF"/>
     </linearGradient>
-    <linearGradient id="boxGoldGrad" x1="14.5" y1="30" x2="25.5" y2="40" gradientUnits="userSpaceOnUse">
+    <linearGradient id="boxGoldGrad" x1="14" y1="30" x2="26" y2="41" gradientUnits="userSpaceOnUse">
       <stop stop-color="#FDE68A"/>
       <stop offset="1" stop-color="#F59E0B"/>
     </linearGradient>

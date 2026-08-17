@@ -56,7 +56,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="footer-brand">
             <Link className="logo" href="/" style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={170} height={34} />
+              <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={195} height={34} />
             </Link>
             <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.65, margin: "12px 0 20px" }}>
               The decentralized authority for verified crypto token airdrops, multi-chain protocol guides, and Web3 security telemetry. Built with zero-custody guarantees.
