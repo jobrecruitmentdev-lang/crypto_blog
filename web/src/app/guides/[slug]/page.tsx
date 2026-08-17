@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { GUIDES, getGuideBySlug } from "@/lib/data";
+import { GUIDES, getGuideBySlug, getAuthorBySlug } from "@/lib/data";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export function generateStaticParams() {
@@ -20,6 +20,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${guide.title} — Step-by-Step Guide`,
     description: guide.desc,
     alternates: { canonical: `/guides/${slug}` },
+    openGraph: {
+      title: `${guide.title} | Crypto Airdrop AI Guide`,
+      description: guide.desc,
+      type: "article",
+      url: `https://cryptoairdropai.com/guides/${slug}`,
+    }
   };
 }
 
@@ -27,6 +33,8 @@ export default async function GuidePage({ params }: Props) {
   const { slug } = await params;
   const guide = getGuideBySlug(slug);
   if (!guide) notFound();
+
+  const author = getAuthorBySlug(guide.authorSlug || "security-sentinel-ai");
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -38,9 +46,35 @@ export default async function GuidePage({ params }: Props) {
     ]
   };
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": `https://cryptoairdropai.com/guides/${slug}#howto`,
+    "name": guide.title,
+    "description": guide.desc,
+    "totalTime": "PT15M",
+    "estimatedCost": {
+      "@type": "MonetaryAmount",
+      "currency": "USD",
+      "value": "0"
+    },
+    "author": {
+      "@type": "Person",
+      "name": author?.name || "Security Sentinel AI",
+      "url": `https://cryptoairdropai.com/authors/${author?.slug || 'security-sentinel-ai'}`
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Crypto Airdrop AI",
+      "url": "https://cryptoairdropai.com",
+      "logo": "https://cryptoairdropai.com/logo-primary.svg"
+    }
+  };
+
   return (
     <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
 
       <div className="wrap post-body" style={{ maxWidth: 860, margin: "0 auto" }}>
         <div className="breadcrumb" style={{ marginBottom: 24, fontSize: "0.9rem", color: "var(--muted)" }}>
@@ -65,9 +99,9 @@ export default async function GuidePage({ params }: Props) {
         <div className="post-content" dangerouslySetInnerHTML={{ __html: guide.body }} style={{ fontSize: "1.08rem", lineHeight: 1.75 }} />
 
         {/* Security Warning */}
-        <MotionCard style={{ marginTop: 48, padding: 28, borderLeft: "4px solid var(--accent-gold)" }}>
-          <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8, color: "var(--accent-gold)" }}>
-            ⚠️ Safe Execution Rules
+        <MotionCard style={{ marginTop: 48, padding: 28, borderLeft: "4px solid var(--amber)" }}>
+          <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8, color: "var(--amber)" }}>
+            ⚠️ Safe Execution Rules &amp; Non-Custodial Protocol
           </h3>
           <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>
             Never approve infinite token spends on new contracts. Maintain separate hot wallets for testing unverified dApps, and disconnect your wallet from sites when finished.

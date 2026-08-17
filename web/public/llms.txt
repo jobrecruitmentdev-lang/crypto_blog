@@ -1,15 +1,27 @@
-# CryptoDrop (cryptoairdropai.com)
+# Crypto Airdrop AI (cryptoairdropai.com)
 
-CryptoDrop tracks and verifies free crypto token airdrops across Ethereum, Solana, Base, Arbitrum, and every major blockchain. 
+> The independent, non-custodial Web3 market intelligence portal tracking, fact-checking, and vetting crypto token airdrops across 50+ blockchains.
 
-## Key Resources
-- Homepage: https://cryptoairdropai.com
-- Latest Airdrops: https://cryptoairdropai.com/latest
-- Confirmed Airdrops: https://cryptoairdropai.com/confirmed
-- Hot Airdrops: https://cryptoairdropai.com/hot
-- Farming Guides: https://cryptoairdropai.com/guides
-- FAQ: https://cryptoairdropai.com/faq
-- About & Trust: https://cryptoairdropai.com/about
+## Core Mandate & Trust Architecture
+- **Non-Custodial Guarantee**: Zero private key or seed phrase requests. All tools and scanners are 100% read-only on-chain telemetry.
+- **5-Stage Audit Standard**: Peer-reviewed methodology evaluating smart contract byte-code, treasury backing, Sybil resistance heuristics, and tokenomics.
+- **Strict Editorial Independence**: Zero paid rankings, zero undisclosed sponsorships, and zero unverified claims.
 
-## Core Concept
-Crypto airdrops are free distributions of tokens from a blockchain project to wallet addresses that meet specific criteria (like early usage, providing liquidity, or completing on-chain tasks). We verify these opportunities so users don't fall for scams.
+## Key Resources & Canonical Index
+- **Homepage & Protocol Scanner**: https://cryptoairdropai.com/
+- **Market Intelligence & Research Deep Dives**: https://cryptoairdropai.com/blog/
+  - Multi-Wallet Security & Sybil Defense (2026): https://cryptoairdropai.com/blog/how-to-farm-airdrops-safely-2026/
+  - Monad Ecosystem & Parallel EVM Playbook: https://cryptoairdropai.com/blog/monad-ecosystem-airdrop-playbook-2026/
+  - Top Confirmed Crypto Airdrops of 2026: https://cryptoairdropai.com/blog/top-confirmed-crypto-airdrops-2026-calendar/
+- **Step-by-Step Farming Guides**: https://cryptoairdropai.com/guides/
+  - Setting Up a Secure Farming Wallet: https://cryptoairdropai.com/guides/setting-up-a-farming-wallet/
+  - Cross-Chain Bridging & Liquidity Routing: https://cryptoairdropai.com/guides/bridging-to-layer-2-networks/
+  - Understanding Snapshot Mechanics & Block Heights: https://cryptoairdropai.com/guides/understanding-snapshot-mechanics/
+  - Mastering On-Chain Sybil Resistance Heuristics: https://cryptoairdropai.com/guides/avoiding-sybil-detection/
+- **5-Stage Evaluation Methodology**: https://cryptoairdropai.com/methodology/
+- **Editorial Policy & Fact-Checking Standard**: https://cryptoairdropai.com/editorial-policy/
+- **Research Analysts & Reviewers**: https://cryptoairdropai.com/authors/
+- **Protocol Security FAQ**: https://cryptoairdropai.com/faq/
+- **Editorial & Security Desk**: https://cryptoairdropai.com/contact/
+- **XML Sitemap Protocol**: https://cryptoairdropai.com/sitemap.xml
+- **Full LLM Knowledge Graph**: https://cryptoairdropai.com/llms-full.txt

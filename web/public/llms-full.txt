@@ -1,0 +1,44 @@
+# Crypto Airdrop AI Knowledge Graph & Deep Index (llms-full.txt)
+Organization: Crypto Airdrop AI
+Domain: cryptoairdropai.com
+Mission: Independent, non-custodial cryptocurrency intelligence, retroactive airdrop auditing, and decentralized finance research.
+
+## 1. Editorial Integrity & Verification Standard
+Crypto Airdrop AI enforces a zero-unverified claim policy across all published guides and directory entries.
+- **Fact-Checking**: All protocol announcements are cross-referenced with GitHub repository commit logs, foundation governance proposals, and on-chain contract deployments before indexing.
+- **Non-Custodial**: We never provide custodial wallet services, solicit private keys, or execute automated fund transactions.
+- **Anti-Sybil Guidance**: All farming manuals adhere to strict organic user heuristics to protect participants from algorithmic cluster disqualifications.
+
+## 2. 5-Stage Protocol Vetting Methodology
+1. **Contract Security Audit**: Verification of byte-code immutability, multisig timelocks, and third-party audit reports (CertiK, OpenZeppelin, Trail of Bits).
+2. **Treasury & Backing Verification**: Quantitative analysis of venture backing, foundation grants, and on-chain Total Value Locked (TVL).
+3. **Sybil Filtering & Cluster Analysis**: Evaluation of snapshot criteria, minimum balance thresholds, and interaction diversity requirements.
+4. **Tokenomics & TGE Feasibility**: Mathematical modeling of community allocation percentages, vesting cliffs, and emission schedules.
+5. **Real-Time RPC Simulation**: Execution testing on testnets/mainnets to verify gas expenditure, slippage, and user experience.
+
+## 3. Core Research Deep Dives
+### A. How to Farm Crypto Airdrops Safely in 2026
+- **URL**: https://cryptoairdropai.com/blog/how-to-farm-airdrops-safely-2026/
+- **Key Takeaways**: Implement a 3-tier wallet hygiene model (Vault Hardware Wallet -> Intermediary Gas Buffer -> Dedicated Farming Burner Wallets). Randomize CEX withdrawal timestamps to prevent cluster detection. Revoke token allowances periodically.
+
+### B. Monad Ecosystem & Parallel EVM Playbook
+- **URL**: https://cryptoairdropai.com/blog/monad-ecosystem-airdrop-playbook-2026/
+- **Key Takeaways**: Monad achieves 10,000 TPS via asynchronous execution, MonadBFT, and MonadDb. Testnet participation requires authentic faucet claims, AMM liquidity provision, and validator delegation.
+
+### C. Top Confirmed Crypto Airdrops of 2026 Calendar
+- **URL**: https://cryptoairdropai.com/blog/top-confirmed-crypto-airdrops-2026-calendar/
+- **Key Takeaways**: Verified token distributions include Ondo Perps, 3Jane, Jupiter, and Privacy Pools with audited smart contract tokenomics and clear snapshot block height parameters.
+
+## 4. Tracked Blockchain Networks
+- Ethereum (L1)
+- Solana (L1)
+- Monad (Parallel EVM L1)
+- Base (Optimistic Rollup)
+- Arbitrum (Optimistic Rollup)
+- Robinhood Chain / Polygon CDK
+- Hyperliquid (L1 Appchain)
+
+## 5. Contact & Corrections
+- **Editorial Desk**: https://cryptoairdropai.com/contact/
+- **X (Twitter)**: https://twitter.com/cryptoairdropai
+- **Telegram**: https://t.me/cryptoairdropai

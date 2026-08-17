@@ -17,13 +17,14 @@ export const metadata: Metadata = {
     template: "%s | Crypto Airdrop AI",
   },
   description:
-    "The leading portal for verified crypto news, airdrop research, on-chain guides, and Web3 security analysis. 100% independent and non-custodial.",
+    "The leading USA and global portal for verified crypto news, airdrop research, on-chain guides, and Web3 security analysis. 100% independent and non-custodial.",
   openGraph: {
     title: "Crypto Airdrop AI — Discover Verified Crypto Airdrops & Research",
-    description: "Daily fact-checked crypto guides, retroactive airdrop tutorials, and DeFi market research.",
+    description: "Daily fact-checked crypto guides, retroactive airdrop tutorials, and DeFi market research for global and US investors.",
     type: "website",
     url: "https://cryptoairdropai.com",
     siteName: "Crypto Airdrop AI",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
@@ -49,28 +50,61 @@ export default function RootLayout({
 }>) {
   const orgSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "NewsMediaOrganization",
+    "@id": "https://cryptoairdropai.com/#organization",
     "name": "Crypto Airdrop AI",
-    "alternateName": "CryptoAirdropAI",
+    "alternateName": ["CryptoAirdropAI", "Crypto Airdrop AI Intelligence Desk"],
     "url": "https://cryptoairdropai.com",
-    "logo": "https://cryptoairdropai.com/logo-primary.svg",
-    "description": "Crypto Airdrop AI tracks, fact-checks, and verifies crypto token airdrops, DeFi protocols, and Web3 reward distributions across 50+ blockchains.",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://cryptoairdropai.com/logo-primary.svg",
+      "width": "240",
+      "height": "48"
+    },
+    "description": "Crypto Airdrop AI is an independent, non-custodial Web3 market intelligence portal tracking, fact-checking, and vetting crypto token airdrops across 50+ blockchains.",
+    "foundingDate": "2026",
+    "areaServed": ["US", "CA", "GB", "EU", "Global"],
+    "knowsAbout": [
+      "Cryptocurrency Airdrops",
+      "Decentralized Finance (DeFi)",
+      "Ethereum Layer 2 Rollups",
+      "Solana Blockchain Ecosystem",
+      "Smart Contract Auditing",
+      "Sybil Resistance Heuristics",
+      "Tokenomics & TGE Distribution Models"
+    ],
     "sameAs": [
       "https://twitter.com/cryptoairdropai",
       "https://t.me/cryptoairdropai"
     ],
-    "publishingPrinciples": "https://cryptoairdropai.com/editorial-policy"
+    "publishingPrinciples": "https://cryptoairdropai.com/editorial-policy",
+    "correctionsPolicy": "https://cryptoairdropai.com/editorial-policy",
+    "actionableFeedbackPolicy": "https://cryptoairdropai.com/contact",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "editorial & security desk",
+      "url": "https://cryptoairdropai.com/contact",
+      "availableLanguage": ["English"]
+    }
   };
 
   const webSiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://cryptoairdropai.com/#website",
     "url": "https://cryptoairdropai.com",
     "name": "Crypto Airdrop AI",
     "alternateName": "CryptoAirdropAI",
+    "publisher": {
+      "@id": "https://cryptoairdropai.com/#organization"
+    },
+    "inLanguage": "en-US",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://cryptoairdropai.com/search?q={search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://cryptoairdropai.com/search?q={search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   };
