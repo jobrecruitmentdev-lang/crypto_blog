@@ -11,13 +11,13 @@ const PRIMARY_LINKS = [
   { href: "/blog", label: "Intelligence" },
   { href: "/guides", label: "Guides" },
   { href: "/methodology", label: "Methodology" },
-  { href: "/editorial-policy", label: "Editorial" },
   { href: "/authors", label: "Analysts" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 const SECONDARY_LINKS = [
+  { href: "/editorial-policy", label: "Editorial Policy & Ethics" },
   { href: "/disclaimer", label: "Financial Disclaimer" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms of Service" },
@@ -119,7 +119,7 @@ export default function Header() {
                     position: "absolute",
                     top: "100%",
                     right: 0,
-                    width: 200,
+                    width: 220,
                     background: "#080d1a",
                     border: "1px solid var(--border)",
                     borderRadius: "var(--radius-sm)",
