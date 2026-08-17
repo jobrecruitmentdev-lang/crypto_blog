@@ -39,7 +39,7 @@ def submit():
         "User-Agent": "CryptoAirdropAI-IndexNow/1.0"
     }
 
-    print(f"🚀 Submitting {len(URLS)} URLs to IndexNow ({ENDPOINT})...")
+    print(f"Submitting {len(URLS)} URLs to IndexNow ({ENDPOINT})...")
     data = json.dumps(payload).encode('utf-8')
     req = urllib.request.Request(ENDPOINT, data=data, headers=headers, method='POST')
 
@@ -48,18 +48,18 @@ def submit():
             status = response.status
             body = response.read().decode('utf-8')
             if status in [200, 202]:
-                print(f"✅ SUCCESS ({status}): {len(URLS)} URLs accepted by IndexNow!")
-                print(f"📡 Bing, Yandex, Seznam, Naver, and Yep have been pinged for instant re-crawling.")
+                print(f"SUCCESS ({status}): {len(URLS)} URLs accepted by IndexNow!")
+                print(f"Bing, Yandex, Seznam, Naver, and Yep have been pinged for instant re-crawling.")
             else:
                 print(f"IndexNow Response ({status}): {body}")
     except urllib.error.HTTPError as e:
         body = e.read().decode('utf-8')
         if e.code in [200, 202]:
-            print(f"✅ SUCCESS ({e.code}): URLs received and queued for indexing.")
+            print(f"SUCCESS ({e.code}): URLs received and queued for indexing.")
         else:
-            print(f"❌ HTTP Error {e.code}: {body}")
+            print(f"HTTP Error {e.code}: {body}")
     except Exception as ex:
-        print(f"❌ Connection error: {ex}")
+        print(f"Connection error: {ex}")
 
 if __name__ == '__main__':
     submit()
