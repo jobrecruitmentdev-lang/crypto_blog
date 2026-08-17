@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Terms of Service — User Agreement & Usage Conditions",
@@ -17,45 +18,97 @@ export default function TermsPage() {
     ]
   };
 
+  const sections = [
+    { id: "agreement", label: "1. Agreement to Terms" },
+    { id: "non-financial", label: "2. Non-Financial Advice" },
+    { id: "no-warranty", label: "3. No Reward Warranty" },
+    { id: "liability", label: "4. Limitation of Liability" },
+    { id: "ip", label: "5. Intellectual Property" },
+  ];
+
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap edu-content" style={{ maxWidth: 860, margin: "0 auto" }}>
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
+      <div className="wrap" style={{ maxWidth: 1040, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
           <Link href="/">Home</Link> / Terms of Service
         </div>
-        <h1 style={{ fontSize: "2.4rem", fontWeight: 900, marginBottom: 8, letterSpacing: "-0.02em" }}>
-          Terms of Service
-        </h1>
-        <p style={{ color: "var(--muted)", marginBottom: 24, fontSize: "0.95rem" }}>
-          Last updated: August 15, 2026
-        </p>
 
-        <h2 style={{ fontSize: "1.35rem", margin: "24px 0 10px", fontWeight: 800 }}>1. Agreement to Terms</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          By accessing and utilizing Crypto Airdrop AI (cryptoairdropai.com), you acknowledge and agree to comply with these Terms of Service. If you disagree with any part of these terms, you must discontinue use immediately.
-        </p>
+        <MotionFade delay={0.05} direction="up" style={{ marginBottom: 36 }}>
+          <div style={{ display: "inline-flex", marginBottom: 12 }}>
+            <span className="pill-badge">📜 Web3 User Terms</span>
+          </div>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 12px" }}>
+            Terms of Service
+          </h1>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem" }}>
+            Last updated: August 15, 2026 · User Conditions &amp; Disclaimers
+          </p>
+        </MotionFade>
 
-        <h2 style={{ fontSize: "1.35rem", margin: "24px 0 10px", fontWeight: 800 }}>2. Non-Financial Advice &amp; Educational Purpose</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          All content, lists, guides, and metrics provided on Crypto Airdrop AI are strictly for informational and educational purposes. Nothing on this website constitutes financial, legal, or investment advice. You assume 100% of the financial and technical risk associated with any transactions, smart contract executions, or wallet interactions.
-        </p>
+        {/* 2-Column Layout with Sticky TOC */}
+        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 32, alignItems: "flex-start" }}>
+          <div className="toc-sticky">
+            <div style={{ fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", color: "var(--accent)", marginBottom: 12 }}>
+              Table of Contents
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {sections.map((sec) => (
+                <a key={sec.id} href={`#${sec.id}`} className="toc-link">
+                  {sec.label}
+                </a>
+              ))}
+            </div>
+          </div>
 
-        <h2 style={{ fontSize: "1.35rem", margin: "24px 0 10px", fontWeight: 800 }}>3. No Warranty on Airdrops or Rewards</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          Crypto Airdrop AI does not issue tokens, sponsor distributions, or guarantee any specific airdrop allocation. Project developers and foundations reserve sole authority to alter eligibility criteria, cancel reward campaigns, or blacklist addresses.
-        </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <MotionCard id="agreement" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                1. Agreement to Terms
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                By accessing and utilizing Crypto Airdrop AI (cryptoairdropai.com), you acknowledge and agree to comply with these Terms of Service. If you disagree with any part, you must discontinue use immediately.
+              </p>
+            </MotionCard>
 
-        <h2 style={{ fontSize: "1.35rem", margin: "24px 0 10px", fontWeight: 800 }}>4. Limitation of Liability</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          Under no circumstances shall Crypto Airdrop AI, its analysts, or contributors be held liable for any direct, indirect, incidental, or consequential losses—including but not limited to loss of crypto assets, smart contract hacks, phishing incidents, or network gas fees incurred.
-        </p>
+            <MotionCard id="non-financial" style={{ padding: 28, borderLeft: "4px solid var(--accent)" }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                2. Non-Financial Advice &amp; Educational Purpose
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                All content, guides, and metrics provided are strictly for informational and educational purposes. Nothing constitutes financial or legal advice. You assume 100% of the financial and technical risk associated with any transactions.
+              </p>
+            </MotionCard>
 
-        <h2 style={{ fontSize: "1.35rem", margin: "24px 0 10px", fontWeight: 800 }}>5. Intellectual Property</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          All original written research, infographics, analysis frameworks, and custom UI components are the intellectual property of Crypto Airdrop AI. Unauthorized automated scraping or commercial reproduction without attribution is prohibited.
-        </p>
+            <MotionCard id="no-warranty" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                3. No Warranty on Airdrops or Rewards
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                Crypto Airdrop AI does not issue tokens, sponsor distributions, or guarantee any specific airdrop allocation. Project developers reserve sole authority to alter eligibility criteria.
+              </p>
+            </MotionCard>
+
+            <MotionCard id="liability" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                4. Limitation of Liability
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                Under no circumstances shall Crypto Airdrop AI, its analysts, or contributors be held liable for any direct or indirect losses, including smart contract bugs, phishing attacks, or gas fees incurred.
+              </p>
+            </MotionCard>
+
+            <MotionCard id="ip" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                5. Intellectual Property
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                All original written research, diagrams, and custom UI components are the intellectual property of Crypto Airdrop AI. Unauthorized automated scraping without attribution is prohibited.
+              </p>
+            </MotionCard>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Editorial Policy & Fact-Checking Standards",
@@ -18,87 +19,118 @@ export default function EditorialPolicyPage() {
     ]
   };
 
+  const steps = [
+    {
+      num: "01",
+      title: "Cryptographic Source Ingestion",
+      desc: "All protocol announcements must originate from verifiable DNS records, signed developer commits, or verified smart contracts.",
+      badge: "Cryptographic Ingestion",
+    },
+    {
+      num: "02",
+      title: "Testnet / Mainnet Simulation",
+      desc: "Our technical nodes execute qualifying deposit or interaction steps directly to evaluate gas consumption and contract approvals.",
+      badge: "On-Chain Simulation",
+    },
+    {
+      num: "03",
+      title: "Sybil & Security Audit",
+      desc: "Code repositories and audit reports are scanned for malicious proxy patterns, honeypots, or centralized rug-pull attack vectors.",
+      badge: "Security Filter",
+    },
+    {
+      num: "04",
+      title: "Human Editorial Peer Review",
+      desc: "Before publication, research leads verify plain-language clarity, risk disclaimers, and step-by-step reproducibility.",
+      badge: "Peer Review",
+    },
+  ];
+
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap" style={{ maxWidth: 860, margin: "0 auto" }}>
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
+      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
           <Link href="/">Home</Link> / Editorial Policy
         </div>
 
-        <div className="section-head" style={{ marginBottom: 32 }}>
-          <div>
-            <span style={{ color: "var(--primary)", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-              Trust &amp; Accuracy
-            </span>
-            <h1 style={{ fontSize: "2.4rem", fontWeight: 900, marginTop: 8, letterSpacing: "-0.02em" }}>
-              Editorial Policy &amp; Integrity Standards
-            </h1>
-            <p style={{ fontSize: "1.15rem", color: "var(--muted)", marginTop: 8, lineHeight: 1.6 }}>
-              Our commitment to independent research, on-chain verification, rigorous fact-checking, and transparent AI governance.
-            </p>
+        <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{ display: "inline-flex", marginBottom: 12 }}>
+            <span className="pill-badge success">🛡️ Integrity &amp; Transparency Mandate</span>
+          </div>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+            Editorial Policy &amp; Fact-Checking Standards
+          </h1>
+          <p style={{ fontSize: "1.2rem", color: "var(--muted)", maxWidth: 680, margin: "0 auto", lineHeight: 1.6 }}>
+            Our commitment to verifiable research, on-chain proof of execution, and zero paid listing bias.
+          </p>
+        </MotionFade>
+
+        {/* Independence Banner */}
+        <MotionCard style={{ padding: 32, marginBottom: 40, borderLeft: "4px solid var(--accent)" }}>
+          <h2 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: 12 }}>
+            1. Uncompromising Editorial Independence
+          </h2>
+          <p style={{ color: "var(--muted)", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
+            Crypto Airdrop AI operates under a strict firewall separating our technical research desk from external commercial entities. We do not accept sponsored tokens, paid ranking placements, or hidden bounty arrangements. Every protocol evaluated is scored strictly based on verifiable merit and security.
+          </p>
+        </MotionCard>
+
+        {/* 4-Stage Fact-Checking Stepper */}
+        <div style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 24 }}>
+            2. The 4-Stage Fact-Checking Protocol
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {steps.map((s, idx) => (
+              <MotionCard key={idx} style={{ padding: 28 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                  <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--accent)" }}>{s.num}</span>
+                  <span className="pill-badge" style={{ fontSize: "0.75rem" }}>{s.badge}</span>
+                </div>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{s.title}</h3>
+                <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>{s.desc}</p>
+              </MotionCard>
+            ))}
           </div>
         </div>
 
-        <div className="card" style={{ padding: 28, marginBottom: 36, background: "var(--surface)" }}>
-          <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 12 }}>1. Editorial Independence Mandate</h2>
-          <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-            Crypto Airdrop AI maintains strict separation between our research desk and commercial operations. Our writers, researchers, and technical contributors do not accept compensation, token allocations, or preferential allocations in exchange for positive reviews, favorable status tags, or biased guides.
-          </p>
+        {/* AI Transparency & Corrections */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 48 }}>
+          <MotionCard style={{ padding: 28 }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 12 }}>🤖 AI Governance &amp; Ethics</h3>
+            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7 }}>
+              Our AI algorithmic crawlers aggregate contract events and telemetry continuously. However, all generated guides undergo mandatory deterministic verification and technical review before being marked as Verified.
+            </p>
+          </MotionCard>
+
+          <MotionCard style={{ padding: 28 }}>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 12 }}>⚡ Rapid Corrections Protocol</h3>
+            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7 }}>
+              If a smart contract rule changes or an exploit is detected, our research desk issues transparent timestamped correction updates within 2 to 4 hours.
+            </p>
+          </MotionCard>
         </div>
 
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 16 }}>2. Primary Source Fact-Checking Protocol</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 16 }}>
-            Every guide, analysis, and airdrop listing published on Crypto Airdrop AI must undergo a mandatory 4-stage verification process:
+        {/* Bottom Cross-links */}
+        <MotionCard style={{ padding: 28, textAlign: "center" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Explore Our Trust Framework</h3>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
+            Discover our risk-scoring metrics or request a fact-checking review from our editors.
           </p>
-          <ol style={{ paddingLeft: 20, color: "var(--muted)", display: "flex", flexDirection: "column", gap: 12 }}>
-            <li>
-              <strong>Cryptographic Verification:</strong> All official project announcements must originate from verified cryptographic channels (official domain DNS records, verified GitHub commits, signed developer messages, or verified protocol smart contracts).
-            </li>
-            <li>
-              <strong>On-Chain Replication:</strong> Step-by-step instructions (such as bridging, liquidity provision, or staking) are physically tested on testnet/mainnet environments by our research team to confirm contract accuracy and identify potential failure points.
-            </li>
-            <li>
-              <strong>Smart Contract Safety Review:</strong> Contract addresses are cross-referenced with block explorers (Etherscan, Solscan, Arbiscan) to verify source code verification status, proxy upgradeability timelocks, and audit histories.
-            </li>
-            <li>
-              <strong>Peer Review &amp; Approval:</strong> Content is peer-reviewed by a designated Senior Analyst before publication.
-            </li>
-          </ol>
-        </div>
-
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 16 }}>3. AI-Assisted Research &amp; Human Governance</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 16 }}>
-            We leverage automated data scraping and machine-learning analysis to monitor on-chain volume anomalies, gas fluctuations, and developer commits. However, we adhere to strict ethical AI standards:
-          </p>
-          <ul style={{ paddingLeft: 20, color: "var(--muted)", display: "flex", flexDirection: "column", gap: 8 }}>
-            <li>No article, review, or risk rating is published solely by an AI model without human review.</li>
-            <li>All technical claims, statistics, and step-by-step guides are validated by named human analysts.</li>
-            <li>We do not publish regurgitated or unverified synthetic content.</li>
-          </ul>
-        </div>
-
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 16 }}>4. Corrections &amp; Update Policy</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 16 }}>
-            In the fast-paced Web3 landscape, blockchain protocols and snapshot rules evolve rapidly. When a factual inaccuracy, broken contract link, or updated snapshot date is discovered:
-          </p>
-          <ul style={{ paddingLeft: 20, color: "var(--muted)", display: "flex", flexDirection: "column", gap: 8 }}>
-            <li>We correct the information immediately upon verification.</li>
-            <li>We transparently update the &quot;Last Updated&quot; timestamp on the respective page.</li>
-            <li>Readers can submit correction requests directly via <Link href="/contact" style={{ color: "var(--primary)", fontWeight: 700 }}>editorial@cryptoairdropai.com</Link>.</li>
-          </ul>
-        </div>
-
-        <div className="card" style={{ padding: 24, background: "var(--surface)", borderLeft: "4px solid var(--primary)" }}>
-          <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>Questions or Editorial Inquiries?</h3>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-            Reach out to our Editorial Desk at <a href="mailto:editorial@cryptoairdropai.com" style={{ color: "var(--primary)" }}>editorial@cryptoairdropai.com</a> or visit our <Link href="/contact" style={{ color: "var(--primary)" }}>Contact Hub</Link>.
-          </p>
-        </div>
+          <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>
+            <Link href="/methodology" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
+              🔬 Evaluation Methodology
+            </Link>
+            <Link href="/authors" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+              🤖 Meet the AI Nodes
+            </Link>
+            <Link href="/contact" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+              ✉️ Submit a Correction
+            </Link>
+          </div>
+        </MotionCard>
       </div>
     </section>
   );

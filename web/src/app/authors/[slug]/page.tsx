@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllAuthors, getAuthorBySlug, getPostsByAuthor } from "@/lib/data";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export async function generateStaticParams() {
   const authors = getAllAuthors();
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const author = getAuthorBySlug(slug);
   if (!author) return {};
   return {
-    title: `${author.name} — Author & Analyst Profile`,
+    title: `${author.name} — Author & Analyst Profile | Crypto Airdrop AI`,
     description: author.bio,
     alternates: { canonical: `/authors/${slug}` },
   };
@@ -54,70 +55,70 @@ export default async function AuthorDetailPage({ params }: Props) {
   };
 
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(authorSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap" style={{ maxWidth: 860, margin: "0 auto" }}>
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
+      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
           <Link href="/">Home</Link> / <Link href="/authors">Authors</Link> / {author.name}
         </div>
 
-        <div className="card" style={{ padding: 32, marginBottom: 40 }}>
+        {/* Hero Card */}
+        <MotionCard style={{ padding: 36, marginBottom: 44 }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 24, alignItems: "flex-start" }}>
-            <div style={{ width: 80, height: 80, borderRadius: 40, background: "var(--surface-hover)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40, flexShrink: 0 }}>
+            <div style={{ width: 84, height: 84, borderRadius: 42, background: "rgba(124, 92, 255, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 42, flexShrink: 0 }}>
               {author.avatar}
             </div>
             <div style={{ flex: 1, minWidth: 260 }}>
-              <h1 style={{ fontSize: "2rem", fontWeight: 900, margin: 0, letterSpacing: "-0.02em" }}>
-                {author.name}
-              </h1>
-              <div style={{ color: "var(--primary)", fontWeight: 700, fontSize: "1rem", marginTop: 4 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                <h1 style={{ fontSize: "2.2rem", fontWeight: 900, margin: 0, letterSpacing: "-0.02em" }}>
+                  {author.name}
+                </h1>
+                <span className="pill-badge success">Verified Node</span>
+              </div>
+              <div style={{ color: "var(--accent)", fontWeight: 700, fontSize: "1rem", marginBottom: 12 }}>
                 {author.role}
               </div>
-
-              <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: 1.7, margin: "16px 0" }}>
+              <p style={{ color: "var(--muted)", fontSize: "1.02rem", lineHeight: 1.7, margin: "0 0 16px" }}>
                 {author.bio}
               </p>
-
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
                 {author.credentials?.map((cred: string, idx: number) => (
-                  <span key={idx} style={{ background: "var(--surface-hover)", border: "1px solid var(--border)", fontSize: "0.85rem", padding: "4px 12px", borderRadius: 6, color: "var(--foreground)" }}>
+                  <span key={idx} className="pill-badge" style={{ fontSize: "0.75rem", textTransform: "none" }}>
                     ✓ {cred}
                   </span>
                 ))}
               </div>
-
-              <div style={{ display: "flex", gap: 12 }}>
-                {author.xUrl && (
-                  <a href={author.xUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.85rem", padding: "6px 12px" }}>
-                    Follow on X
-                  </a>
-                )}
-                {author.linkedinUrl && (
-                  <a href={author.linkedinUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.85rem", padding: "6px 12px" }}>
-                    LinkedIn
-                  </a>
-                )}
-              </div>
+              {author.xUrl && (
+                <a href={author.xUrl} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
+                  Follow on X
+                </a>
+              )}
             </div>
           </div>
-        </div>
+        </MotionCard>
 
+        {/* Authored Guides Section */}
         <div>
           <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: 20 }}>
-            Articles &amp; Research by {author.name}
+            Research &amp; Guides Authored by {author.name}
           </h2>
-
-          {authorPosts.length > 0 ? (
+          {authorPosts.length === 0 ? (
+            <MotionCard style={{ padding: 24, textAlign: "center", color: "var(--muted)" }}>
+              No articles published under this profile yet.
+            </MotionCard>
+          ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {authorPosts.map((post) => (
-                <div key={post.slug} className="card" style={{ padding: 24 }}>
+                <MotionCard key={post.slug} style={{ padding: 24 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <span className="blog-tag" style={{ background: "var(--primary)", color: "white", padding: "2px 8px", borderRadius: 4, fontSize: "0.75rem", fontWeight: 700 }}>
+                    <span className="pill-badge" style={{ fontSize: "0.75rem" }}>
                       {post.tag}
                     </span>
-                    <span style={{ fontSize: "0.85rem", color: "var(--muted)" }}>{post.date} · {post.read} read</span>
+                    <span style={{ fontSize: "0.85rem", color: "var(--muted)" }}>
+                      {post.date} · {post.read} read
+                    </span>
                   </div>
                   <h3 style={{ fontSize: "1.25rem", fontWeight: 800, margin: "8px 0" }}>
                     <Link href={`/blog/${post.slug}`}>{post.title}</Link>
@@ -125,14 +126,12 @@ export default async function AuthorDetailPage({ params }: Props) {
                   <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: "8px 0 16px" }}>
                     {post.excerpt}
                   </p>
-                  <Link href={`/blog/${post.slug}`} style={{ color: "var(--primary)", fontWeight: 700, fontSize: "0.9rem" }}>
+                  <Link href={`/blog/${post.slug}`} style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.9rem" }}>
                     Read Full Guide →
                   </Link>
-                </div>
+                </MotionCard>
               ))}
             </div>
-          ) : (
-            <p style={{ color: "var(--muted)" }}>More analyses coming soon from this analyst.</p>
           )}
         </div>
       </div>

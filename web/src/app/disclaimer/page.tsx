@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Financial & Affiliate Disclaimer — Not Financial Advice",
@@ -18,83 +19,116 @@ export default function DisclaimerPage() {
     ]
   };
 
+  const riskCards = [
+    {
+      title: "Smart Contract Vulnerabilities",
+      icon: "⚡",
+      desc: "Interacting with decentralized applications involves smart contracts that may contain bugs, unverified proxy logic, or flash-loan exploit vectors.",
+      level: "High Risk",
+    },
+    {
+      title: "Phishing & Fake Clones",
+      icon: "🎣",
+      desc: "Malicious actors frequently clone genuine airdrop claim portals. Always verify URLs, DNS certificates, and token contract addresses.",
+      level: "Critical Caution",
+    },
+    {
+      title: "Gas Fee Irreversibility",
+      icon: "⛽",
+      desc: "Transactions on blockchain networks are final. Network congestion can cause volatile gas costs with no guarantee of retroactive token allocation.",
+      level: "Financial Exposure",
+    },
+  ];
+
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap" style={{ maxWidth: 860, margin: "0 auto" }}>
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
+      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
           <Link href="/">Home</Link> / Disclaimer
         </div>
 
-        <div className="section-head" style={{ marginBottom: 32 }}>
-          <div>
-            <span style={{ color: "var(--primary)", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-              Regulatory &amp; Risk Disclosures
+        <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{ display: "inline-flex", marginBottom: 12 }}>
+            <span className="pill-badge" style={{ borderColor: "rgba(255, 181, 71, 0.4)", color: "var(--warn)", background: "rgba(255, 181, 71, 0.1)" }}>
+              ⚠️ Mandatory Risk Disclosures
             </span>
-            <h1 style={{ fontSize: "2.4rem", fontWeight: 900, marginTop: 8, letterSpacing: "-0.02em" }}>
-              Financial &amp; Affiliate Disclaimer
-            </h1>
-            <p style={{ fontSize: "1.15rem", color: "var(--muted)", marginTop: 8, lineHeight: 1.6 }}>
-              Please read this disclaimer carefully before using Crypto Airdrop AI (cryptoairdropai.com) or engaging with any listed protocols.
-            </p>
+          </div>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+            Financial &amp; Affiliate Disclaimer
+          </h1>
+          <p style={{ fontSize: "1.2rem", color: "var(--muted)", maxWidth: 680, margin: "0 auto", lineHeight: 1.6 }}>
+            Educational research notice, non-financial advice terms (NFA/DYOR), and FTC commercial transparency.
+          </p>
+        </MotionFade>
+
+        {/* Highlight Callout */}
+        <MotionCard style={{ padding: 32, marginBottom: 40, borderLeft: "4px solid var(--warn)" }}>
+          <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--warn)", marginBottom: 8 }}>
+            Not Financial or Investment Advice (NFA)
+          </h2>
+          <p style={{ color: "var(--muted)", fontSize: "0.98rem", lineHeight: 1.7, margin: 0 }}>
+            Nothing published on Crypto Airdrop AI (cryptoairdropai.com) constitutes financial, legal, or investment advice. All materials, guides, and ratings are curated strictly for educational and open-source research purposes. We strongly advise users to perform their own due diligence (DYOR) and never risk capital they cannot afford to lose.
+          </p>
+        </MotionCard>
+
+        {/* Risk Heatmap Grid */}
+        <div style={{ marginBottom: 48 }}>
+          <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 20 }}>
+            Web3 On-Chain Risk Vector Matrix
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {riskCards.map((item, idx) => (
+              <MotionCard key={idx} style={{ padding: 28 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                  <span style={{ fontSize: 28 }}>{item.icon}</span>
+                  <span className="pill-badge" style={{ fontSize: "0.72rem", color: "var(--warn)", borderColor: "rgba(255,181,71,0.3)" }}>
+                    {item.level}
+                  </span>
+                </div>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{item.title}</h3>
+                <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>{item.desc}</p>
+              </MotionCard>
+            ))}
           </div>
         </div>
 
-        <div className="card" style={{ padding: 24, marginBottom: 32, borderLeft: "4px solid #f59e0b", background: "var(--surface)" }}>
-          <h2 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#f59e0b", marginBottom: 8 }}>
-            ⚠️ Important Summary: Not Financial Advice (NFA)
-          </h2>
-          <p style={{ color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
-            Nothing published on Crypto Airdrop AI constitutes financial, investment, legal, or tax advice. All content is authored strictly for informational, educational, and research purposes. Cryptocurrency transactions, token airdrops, and DeFi protocols carry substantial financial and smart contract risk.
-          </p>
+        {/* Regulatory & Affiliate Compliance */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 48 }}>
+          <MotionCard style={{ padding: 28 }}>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 12 }}>⚖️ Zero Endorsement Guarantee</h3>
+            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7 }}>
+              Listing a protocol does not imply endorsement or guaranteed value. Distribution criteria, token allocations, and snapshots are controlled entirely by third-party teams with zero platform influence.
+            </p>
+          </MotionCard>
+
+          <MotionCard style={{ padding: 28 }}>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 12 }}>🔗 FTC Affiliate Transparency</h3>
+            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7 }}>
+              Some external links to hardware wallets, testnet faucets, or analytics portals may generate affiliate referral commissions at no cost to you. This never influences our risk ratings.
+            </p>
+          </MotionCard>
         </div>
 
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 14 }}>1. Do Your Own Research (DYOR)</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 14 }}>
-            Crypto Airdrop AI provides aggregated information, news summaries, and technical walkthroughs. We do not endorse, guarantee, or sponsor any third-party protocol, smart contract, or airdrop listed on this platform.
+        {/* Interlinked Footer */}
+        <MotionCard style={{ padding: 28, textAlign: "center" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Review Our Security &amp; Legal Policies</h3>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
+            Read how we safeguard your data and audit protocols before publishing.
           </p>
-          <p style={{ color: "var(--muted)" }}>
-            Token eligibility, reward amounts, and distribution dates are determined exclusively by independent third-party blockchain foundations and protocol developers. Crypto Airdrop AI has zero control over whether any project successfully delivers a token.
-          </p>
-        </div>
-
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 14 }}>2. Blockchain &amp; Smart Contract Risks</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 14 }}>
-            Interacting with decentralized applications (dApps), testnets, liquidity pools, and bridging contracts involves significant technical hazards:
-          </p>
-          <ul style={{ paddingLeft: 20, color: "var(--muted)", display: "flex", flexDirection: "column", gap: 8 }}>
-            <li><strong>Smart Contract Vulnerabilities:</strong> Even audited protocols may contain unknown software exploits resulting in partial or total loss of deposited capital.</li>
-            <li><strong>Phishing &amp; Malicious Approvals:</strong> Scammers often clone official project frontends. Always verify contract addresses and revoke unlimited token allowances.</li>
-            <li><strong>Gas Fee Volatility:</strong> Completing testnet or mainnet tasks requires network gas fees. Gas fees are non-refundable regardless of airdrop qualification.</li>
-            <li><strong>Regulatory Uncertainty:</strong> Cryptocurrency regulations vary globally. You are responsible for ensuring compliance with your local laws.</li>
-          </ul>
-        </div>
-
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 14 }}>3. FTC Affiliate &amp; Advertising Disclosure</h2>
-          <p style={{ color: "var(--muted)", marginBottom: 14 }}>
-            In compliance with FTC guidelines, please note that Crypto Airdrop AI may occasionally feature referral links or affiliate partnerships for select non-custodial tools, hardware wallets, or analytics services.
-          </p>
-          <p style={{ color: "var(--muted)" }}>
-            If you click on an affiliate link and create an account or purchase a product, Crypto Airdrop AI may receive a modest commission at zero additional cost to you. This compensation does not influence our editorial ratings, risk classifications, or objective protocol reviews.
-          </p>
-        </div>
-
-        <div style={{ marginBottom: 36, lineHeight: 1.8 }}>
-          <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: 14 }}>4. Tax Disclaimer</h2>
-          <p style={{ color: "var(--muted)" }}>
-            In many jurisdictions, cryptocurrency airdrops, rewards, and staking yields represent taxable events based on fair market value at the time of receipt. Crypto Airdrop AI does not offer tax advisory services. Consult a qualified, licensed CPA or tax attorney in your jurisdiction for personalized tax advice.
-          </p>
-        </div>
-
-        <div className="card" style={{ padding: 20, background: "var(--surface)" }}>
-          <p style={{ color: "var(--muted)", fontSize: "0.9rem", margin: 0 }}>
-            Questions regarding our disclaimer policies can be addressed to <a href="mailto:legal@cryptoairdropai.com" style={{ color: "var(--primary)" }}>legal@cryptoairdropai.com</a>.
-          </p>
-        </div>
+          <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>
+            <Link href="/privacy" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+              🔒 Privacy Policy
+            </Link>
+            <Link href="/terms" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+              📜 Terms of Service
+            </Link>
+            <Link href="/methodology" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
+              🔬 Evaluation Methodology
+            </Link>
+          </div>
+        </MotionCard>
       </div>
     </section>
   );

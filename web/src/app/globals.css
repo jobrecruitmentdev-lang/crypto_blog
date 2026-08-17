@@ -1,17 +1,21 @@
 @import "tailwindcss";
 
 :root{
-  --bg:#0b0e14;
-  --bg-alt:#111623;
-  --card:#151b2b;
-  --border:#232a3d;
-  --text:#e6e9f0;
-  --muted:#8b94a7;
+  --bg:#07090e;
+  --bg-alt:#0d121c;
+  --card:#121826;
+  --card-glass:rgba(18, 24, 38, 0.75);
+  --border:rgba(255, 255, 255, 0.08);
+  --border-glow:rgba(124, 92, 255, 0.35);
+  --text:#f0f3f8;
+  --muted:#8b95a5;
   --accent:#7c5cff;
+  --accent-glow:rgba(124, 92, 255, 0.2);
   --accent2:#00e0a4;
+  --accent2-glow:rgba(0, 224, 164, 0.2);
   --danger:#ff5c7c;
   --warn:#ffb547;
-  --radius:14px;
+  --radius:16px;
   --maxw:1240px;
 }
 
@@ -21,7 +25,8 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family:var(--font-inter),system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  line-height:1.5;
+  line-height:1.6;
+  overflow-x:hidden;
 }
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
@@ -29,14 +34,84 @@ ul{list-style:none}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:10px 20px;border-radius:999px;font-weight:600;font-size:14px;
-  border:1px solid transparent;cursor:pointer;transition:all .2s ease;
+  padding:10px 22px;border-radius:999px;font-weight:600;font-size:14px;
+  border:1px solid transparent;cursor:pointer;transition:all .25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.btn-primary{background:linear-gradient(135deg,var(--accent),#5b3df0);color:#fff}
-.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
-.btn-outline{background:transparent;border-color:var(--border);color:var(--text)}
-.btn-outline:hover{border-color:var(--accent)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),#5b3df0);
+  color:#fff;
+  box-shadow:0 4px 20px var(--accent-glow);
+}
+.btn-primary:hover{filter:brightness(1.15);transform:translateY(-2px);box-shadow:0 8px 25px var(--accent-glow)}
+.btn-outline{
+  background:rgba(255,255,255,0.03);
+  border-color:var(--border);
+  color:var(--text);
+  backdrop-filter:blur(8px);
+}
+.btn-outline:hover{border-color:var(--accent);background:var(--accent-glow);color:#fff;transform:translateY(-1px)}
 .btn-sm{padding:6px 14px;font-size:13px}
+
+/* 21st.dev Glass & Bento Utilities */
+.glass-card{
+  background:var(--card-glass);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  transition:all .3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card:hover{
+  border-color:rgba(124, 92, 255, 0.3);
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(0, 0, 0, 0.35);
+}
+.bento-grid{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  gap:20px;
+}
+.pill-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  background:var(--accent-glow);
+  color:var(--accent);
+  border:1px solid rgba(124, 92, 255, 0.3);
+}
+.pill-badge.success{
+  background:var(--accent2-glow);
+  color:var(--accent2);
+  border-color:rgba(0, 224, 164, 0.3);
+}
+.toc-sticky{
+  position:sticky;
+  top:96px;
+  background:var(--card-glass);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+}
+.toc-link{
+  display:block;
+  padding:8px 12px;
+  border-radius:8px;
+  font-size:13px;
+  color:var(--muted);
+  transition:all .2s ease;
+}
+.toc-link:hover, .toc-link.active{
+  color:var(--text);
+  background:rgba(255,255,255,0.06);
+  padding-left:16px;
+}
 
 /* Announcement bar */
 .announce{

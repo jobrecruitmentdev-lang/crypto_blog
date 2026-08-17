@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Privacy Policy — Data Protection & Web3 Non-Custodial Terms",
@@ -17,47 +18,100 @@ export default function PrivacyPage() {
     ]
   };
 
+  const sections = [
+    { id: "non-custodial", label: "1. Non-Custodial Guarantee" },
+    { id: "collection", label: "2. Data Collection" },
+    { id: "cookies", label: "3. Cookies & Analytics" },
+    { id: "third-party", label: "4. Third-Party Links" },
+    { id: "gdpr-ccpa", label: "5. User Rights (GDPR/CCPA)" },
+  ];
+
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap edu-content" style={{ maxWidth: 860, margin: "0 auto" }}>
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
+      <div className="wrap" style={{ maxWidth: 1040, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
           <Link href="/">Home</Link> / Privacy Policy
         </div>
-        <h1 style={{ fontSize: "2.4rem", fontWeight: 900, marginBottom: 8, letterSpacing: "-0.02em" }}>
-          Privacy Policy
-        </h1>
-        <p style={{ color: "var(--muted)", marginBottom: 24, fontSize: "0.95rem" }}>
-          Last updated: August 15, 2026
-        </p>
 
-        <div className="card" style={{ padding: 24, marginBottom: 28, background: "var(--surface)" }}>
-          <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>1. Non-Custodial &amp; Zero-Key Collection Principle</h2>
-          <p style={{ color: "var(--muted)", lineHeight: 1.6, margin: 0 }}>
-            Crypto Airdrop AI (cryptoairdropai.com) is a strictly non-custodial informational research platform. We never ask for, collect, store, or transmit your private keys, recovery seed phrases, or wallet credentials.
+        <MotionFade delay={0.05} direction="up" style={{ marginBottom: 36 }}>
+          <div style={{ display: "inline-flex", marginBottom: 12 }}>
+            <span className="pill-badge success">🔒 Non-Custodial Data Guarantee</span>
+          </div>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 12px" }}>
+            Privacy Policy &amp; Data Rights
+          </h1>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem" }}>
+            Last updated: August 15, 2026 · Compliant with GDPR &amp; CCPA
           </p>
+        </MotionFade>
+
+        {/* 2-Column Layout with Sticky TOC */}
+        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 32, alignItems: "flex-start" }}>
+          <div className="toc-sticky">
+            <div style={{ fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", color: "var(--accent)", marginBottom: 12 }}>
+              Table of Contents
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {sections.map((sec) => (
+                <a key={sec.id} href={`#${sec.id}`} className="toc-link">
+                  {sec.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+            <MotionCard id="non-custodial" style={{ padding: 28, borderLeft: "4px solid var(--accent2)" }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                1. Non-Custodial &amp; Zero-Key Collection Principle
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                Crypto Airdrop AI (cryptoairdropai.com) is a strictly non-custodial research platform. We never ask for, collect, store, or transmit your private keys, recovery seed phrases, or wallet credentials.
+              </p>
+            </MotionCard>
+
+            <MotionCard id="collection" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                2. Information We Collect
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                We collect basic aggregate website analytics (anonymized page views, approximate geographic region, browser version, and referral paths) to maintain performance and optimize user experience.
+              </p>
+            </MotionCard>
+
+            <MotionCard id="cookies" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                3. Cookies &amp; Tracking Technologies
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                We utilize essential technical cookies for site theme preferences (light/dark mode) and anonymized traffic metrics. You may block cookies through your browser settings without restricting content.
+              </p>
+            </MotionCard>
+
+            <MotionCard id="third-party" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                4. Third-Party Links &amp; Outbound Networks
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+                Our platform links to external decentralized applications and block explorers. We do not control and are not responsible for the privacy practices or contract security of third-party domains.
+              </p>
+            </MotionCard>
+
+            <MotionCard id="gdpr-ccpa" style={{ padding: 28 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>
+                5. User Rights Under GDPR &amp; CCPA
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 12px" }}>
+                You have the right to request access to or permanent deletion of any personal data held by Crypto Airdrop AI. To exercise these rights, email us directly:
+              </p>
+              <a href="mailto:privacy@cryptoairdropai.com" style={{ color: "var(--accent)", fontWeight: 700 }}>
+                privacy@cryptoairdropai.com
+              </a>
+            </MotionCard>
+          </div>
         </div>
-
-        <h2 style={{ fontSize: "1.35rem", margin: "28px 0 10px", fontWeight: 800 }}>2. Information We Collect</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          We collect basic aggregate website analytics (anonymized page views, approximate geographic region, browser version, and referral paths) to maintain performance and optimize user experience. If you subscribe to our newsletter or contact our desk, we store only your voluntarily submitted email address.
-        </p>
-
-        <h2 style={{ fontSize: "1.35rem", margin: "28px 0 10px", fontWeight: 800 }}>3. Cookies &amp; Tracking Technologies</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          We utilize essential technical cookies for site theme preferences (light/dark mode) and anonymized traffic metrics. You may block or delete cookies through your browser settings without restricting core content access.
-        </p>
-
-        <h2 style={{ fontSize: "1.35rem", margin: "28px 0 10px", fontWeight: 800 }}>4. Third-Party Links &amp; Outbound Networks</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          Our platform links to external decentralized applications, blockchain explorers, and third-party protocol websites. We do not control and are not responsible for the privacy practices, contract security, or content of third-party domains.
-        </p>
-
-        <h2 style={{ fontSize: "1.35rem", margin: "28px 0 10px", fontWeight: 800 }}>5. User Rights Under GDPR &amp; CCPA</h2>
-        <p style={{ color: "var(--muted)", lineHeight: 1.7 }}>
-          You have the right to request access to, rectification of, or permanent deletion of any personal data (such as newsletter email records) held by Crypto Airdrop AI. To exercise these rights, email <a href="mailto:privacy@cryptoairdropai.com" style={{ color: "var(--primary)" }}>privacy@cryptoairdropai.com</a>.
-        </p>
       </div>
     </section>
   );

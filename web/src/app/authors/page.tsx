@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AUTHORS, getPostsByAuthor } from "@/lib/data";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
-  title: "Editorial & Research Team — Verified Authors & Analysts",
+  title: "AI Intelligence & Research Team — Verified Authors & Analysts",
   description:
-    "Meet the researchers, on-chain analysts, and Web3 security contributors behind Crypto Airdrop AI.",
+    "Meet the AI nodes, smart contract analysts, and Web3 security contributors behind Crypto Airdrop AI.",
   alternates: { canonical: "/authors" },
 };
 
@@ -36,84 +37,77 @@ export default function AuthorsPage() {
   };
 
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(authorsSchema) }} />
 
-      <div className="wrap" style={{ maxWidth: 880, margin: "0 auto" }}>
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
+      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
           <Link href="/">Home</Link> / Authors &amp; Analysts
         </div>
 
-        <div className="section-head" style={{ marginBottom: 32 }}>
-          <div>
-            <span style={{ color: "var(--primary)", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-              Our Contributors
-            </span>
-            <h1 style={{ fontSize: "2.4rem", fontWeight: 900, marginTop: 8, letterSpacing: "-0.02em" }}>
-              Editorial &amp; Research Team
-            </h1>
-            <p style={{ fontSize: "1.15rem", color: "var(--muted)", marginTop: 8, lineHeight: 1.6 }}>
-              Experienced blockchain developers, DeFi strategists, and on-chain auditors authoring fact-checked guides.
-            </p>
+        <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{ display: "inline-flex", marginBottom: 12 }}>
+            <span className="pill-badge">🤖 Verified Research Personas</span>
           </div>
-        </div>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+            AI Intelligence &amp; Research Desk
+          </h1>
+          <p style={{ fontSize: "1.2rem", color: "var(--muted)", maxWidth: 680, margin: "0 auto", lineHeight: 1.6 }}>
+            Autonomous blockchain telemetry crawlers, smart contract security sentinels, and research editors.
+          </p>
+        </MotionFade>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+        {/* Authors Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 24, marginBottom: 48 }}>
           {AUTHORS.map((author) => {
-            const authorPosts = getPostsByAuthor(author.slug);
+            const posts = getPostsByAuthor(author.slug);
             return (
-              <div key={author.slug} className="card" style={{ padding: 28 }}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 20, alignItems: "flex-start" }}>
-                  <div style={{ width: 64, height: 64, borderRadius: 32, background: "var(--surface-hover)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 32, flexShrink: 0 }}>
+              <MotionCard key={author.slug} style={{ padding: 28 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 16 }}>
+                  <div style={{ width: 56, height: 56, borderRadius: 28, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 28 }}>
                     {author.avatar}
                   </div>
-                  <div style={{ flex: 1, minWidth: 260 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 8 }}>
-                      <div>
-                        <h2 style={{ fontSize: "1.4rem", fontWeight: 800, margin: 0 }}>
-                          <Link href={`/authors/${author.slug}`}>{author.name}</Link>
-                        </h2>
-                        <div style={{ color: "var(--primary)", fontWeight: 700, fontSize: "0.9rem", marginTop: 2 }}>
-                          {author.role}
-                        </div>
-                      </div>
-                      <Link href={`/authors/${author.slug}`} className="btn btn-outline" style={{ fontSize: "0.85rem", padding: "6px 14px" }}>
-                        View Full Profile →
-                      </Link>
-                    </div>
-
-                    <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: "14px 0" }}>
-                      {author.bio}
-                    </p>
-
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 12 }}>
-                      {author.credentials?.map((cred: string, idx: number) => (
-                        <span key={idx} style={{ background: "var(--surface-hover)", border: "1px solid var(--border)", fontSize: "0.8rem", padding: "4px 10px", borderRadius: 6, color: "var(--muted)" }}>
-                          ✓ {cred}
-                        </span>
-                      ))}
-                    </div>
-
-                    {authorPosts.length > 0 && (
-                      <div style={{ marginTop: 16, paddingTop: 14, borderTop: "1px solid var(--border)", fontSize: "0.85rem", color: "var(--muted)" }}>
-                        <strong>Authored:</strong>{" "}
-                        {authorPosts.map((p, i) => (
-                          <span key={p.slug}>
-                            <Link href={`/blog/${p.slug}`} style={{ color: "var(--foreground)", textDecoration: "underline" }}>
-                              {p.title.split(":")[0]}
-                            </Link>
-                            {i < authorPosts.length - 1 ? ", " : ""}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                  <div>
+                    <h2 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0 }}>
+                      <Link href={`/authors/${author.slug}`}>{author.name}</Link>
+                    </h2>
+                    <span style={{ fontSize: "0.82rem", color: "var(--accent)" }}>{author.role}</span>
                   </div>
                 </div>
-              </div>
+
+                <p style={{ fontSize: "0.92rem", color: "var(--muted)", lineHeight: 1.6, marginBottom: 20 }}>
+                  {author.bio}
+                </p>
+
+                <div style={{ borderTop: "1px solid var(--border)", paddingTop: 16, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "0.82rem", color: "var(--muted)", fontWeight: 600 }}>
+                    {posts.length} {posts.length === 1 ? "Authored Guide" : "Authored Guides"}
+                  </span>
+                  <Link href={`/authors/${author.slug}`} className="btn btn-sm btn-outline">
+                    View Profile →
+                  </Link>
+                </div>
+              </MotionCard>
             );
           })}
         </div>
+
+        {/* Peer Review Callout */}
+        <MotionCard style={{ padding: 28, textAlign: "center" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Interested in Our Editorial Standards?</h3>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
+            Read how our AI nodes and human editors cross-check on-chain data before publishing.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+            <Link href="/editorial-policy" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
+              📖 Read Editorial Policy
+            </Link>
+            <Link href="/methodology" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+              🔬 Evaluation Framework
+            </Link>
+          </div>
+        </MotionCard>
       </div>
     </section>
   );
