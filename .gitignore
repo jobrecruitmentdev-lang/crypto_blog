@@ -1,12 +1,23 @@
-# Environment Variables and Secrets
+# Environment Variables, Secrets & API Keys
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 *.cert
-cosmic-mariner-503804-c4-981c45ff145b.json
+*.p12
+*.pfx
+*.secret
+cosmic-mariner*.json
+*service_account*.json
+*credentials*.json
+client_secret*.json
+*.sql
+*.dump
+*.bak
 .private/
+backend/config.php
+config.php
 
 # Node Modules and dependencies
 node_modules/

@@ -1,3 +1,11 @@
 config.php
+backend/config.php
 knowledge-vault/
-cosmic-mariner-503804-c4-981c45ff145b.json
+cosmic-mariner*.json
+*.json
+*.key
+*.pem
+*.secret
+*.sql
+.env*
+.private/
