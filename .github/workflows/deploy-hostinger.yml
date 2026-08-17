@@ -27,26 +27,15 @@ jobs:
       working-directory: ./web
       run: npm run build
 
-    - name: Deploy to Hostinger via LFTP
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Deploy to Hostinger via Python FTP
       env:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}
         FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      run: |
-        sudo apt-get update -y && sudo apt-get install -y lftp
-        lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "$FTP_SERVER" <<EOF
-        set ssl:verify-certificate no
-        set ftp:ssl-allow no
-        set ftp:passive-mode true
-        set net:timeout 30
-        set net:max-retries 3
-        mirror --reverse --verbose \
-          --exclude-glob 'api/*' \
-          --exclude-glob 'config.php' \
-          --exclude-glob '.git*' \
-          --exclude-glob '.env*' \
-          ./web/out/ ./
-        put ./web/public/.htaccess -o ./.htaccess
-        quit
-        EOF
+      run: python scripts/deploy_ftp.py
 
