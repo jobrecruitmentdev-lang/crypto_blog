@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { AIRDROPS, AUTHORS, BLOG_POSTS, GUIDES } from '@/lib/data';
+import { BLOG_POSTS } from '@/lib/data';
 
 export const dynamic = "force-static";
 
@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://cryptoairdropai.com';
   const now = new Date();
 
-  // Core Static & Authority Pages (100% matching canonicals)
+  // Strictly the Core Authority Pages (12) + Strictly 3 Blogs (3) = 15 Clean Canonical URLs
   const corePages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
@@ -83,7 +83,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Dynamic Blog Posts
+  // Strictly 3 Core Research Blog Posts
   const blogEntries: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}/`,
     lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.date),
@@ -91,35 +91,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  // Dynamic Author Profiles
-  const authorEntries: MetadataRoute.Sitemap = AUTHORS.map((author) => ({
-    url: `${baseUrl}/authors/${author.slug}/`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.75,
-  }));
-
-  // Dynamic Guides
-  const guideEntries: MetadataRoute.Sitemap = GUIDES.map((guide) => ({
-    url: `${baseUrl}/guides/${guide.slug}/`,
-    lastModified: guide.updatedAt ? new Date(guide.updatedAt) : now,
-    changeFrequency: 'weekly',
-    priority: 0.85,
-  }));
-
-  // Dynamic Projects / Airdrops
-  const airdropEntries: MetadataRoute.Sitemap = AIRDROPS.map((airdrop) => ({
-    url: `${baseUrl}/projects/${airdrop.slug}/`,
-    lastModified: now,
-    changeFrequency: 'daily',
-    priority: 0.85,
-  }));
-
   return [
     ...corePages,
     ...blogEntries,
-    ...authorEntries,
-    ...guideEntries,
-    ...airdropEntries,
   ];
 }
