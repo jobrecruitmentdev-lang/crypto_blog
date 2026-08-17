@@ -18,37 +18,47 @@ export default function Footer() {
               <a href="https://t.me/cryptoairdropai" target="_blank" rel="noopener noreferrer" className="icon-btn" title="Telegram">TG</a>
             </div>
           </div>
+
           <div className="footer-col">
-            <h4>Research &amp; Guides</h4>
+            <h4>Intelligence &amp; Guides</h4>
             <ul>
-              <li><Link href="/blog">Crypto Blog</Link></li>
-              <li><Link href="/guides">Airdrop Guides</Link></li>
-              <li><Link href="/latest">Latest Listings</Link></li>
-              <li><Link href="/confirmed">Confirmed Tokens</Link></li>
+              <li><Link href="/blog">Market Intelligence</Link></li>
+              <li><Link href="/guides">Step-by-Step Guides</Link></li>
+              <li><Link href="/guides/setting-up-a-farming-wallet">Wallet Security Guide</Link></li>
+              <li><Link href="/guides/avoiding-sybil-detection">Sybil Defense Playbook</Link></li>
+              <li><Link href="/faq">FAQ &amp; Knowledge Base</Link></li>
             </ul>
           </div>
+
           <div className="footer-col">
             <h4>Trust &amp; E-E-A-T</h4>
             <ul>
-              <li><Link href="/about">About Us</Link></li>
-              <li><Link href="/authors">Our Analysts</Link></li>
+              <li><Link href="/about">About Us &amp; Mission</Link></li>
+              <li><Link href="/authors">Our AI &amp; Human Analysts</Link></li>
               <li><Link href="/editorial-policy">Editorial Policy</Link></li>
-              <li><Link href="/methodology">Methodology</Link></li>
+              <li><Link href="/methodology">5-Step Audit Framework</Link></li>
+              <li><Link href="/contact">Editorial &amp; Security Desk</Link></li>
             </ul>
           </div>
+
           <div className="footer-col">
-            <h4>Legal &amp; Support</h4>
+            <h4>Legal &amp; Compliance</h4>
             <ul>
-              <li><Link href="/disclaimer">Financial Disclaimer</Link></li>
-              <li><Link href="/privacy">Privacy Policy</Link></li>
+              <li><Link href="/disclaimer">Financial &amp; Risk Disclaimer</Link></li>
+              <li><Link href="/privacy">Privacy Policy (GDPR/CCPA)</Link></li>
               <li><Link href="/terms">Terms of Service</Link></li>
-              <li><Link href="/contact">Contact &amp; Corrections</Link></li>
+              <li><Link href="/sitemap.xml">XML Sitemap</Link></li>
             </ul>
           </div>
         </div>
+
         <div className="footer-bottom">
-          <span>© 2026 Crypto Airdrop AI (cryptoairdropai.com). All rights reserved. Not financial advice.</span>
-          <span>Built for decentralized research &amp; Web3 education.</span>
+          <span>© 2026 Crypto Airdrop AI (cryptoairdropai.com). All rights reserved. Non-custodial research.</span>
+          <div style={{ display: "flex", gap: 16 }}>
+            <Link href="/methodology" style={{ color: "var(--cyan)" }}>Audit Standard</Link>
+            <Link href="/editorial-policy" style={{ color: "var(--emerald)" }}>Fact-Checked</Link>
+            <Link href="/privacy" style={{ color: "var(--muted)" }}>Zero-Keys</Link>
+          </div>
         </div>
       </div>
     </footer>

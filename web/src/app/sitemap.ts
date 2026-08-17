@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { AIRDROPS, AUTHORS, BLOG_POSTS, GUIDES, CATEGORIES } from '@/lib/data';
+import { AIRDROPS, AUTHORS, BLOG_POSTS, GUIDES } from '@/lib/data';
 
 export const dynamic = "force-static";
 
@@ -7,104 +7,85 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://cryptoairdropai.com';
   const now = new Date();
 
-  // Core Static & Authority Pages
+  // Core Static & Authority Pages (100% matching canonicals)
   const corePages: MetadataRoute.Sitemap = [
     {
-      url: `${baseUrl}`,
+      url: `${baseUrl}/`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/blog`,
+      url: `${baseUrl}/blog/`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/guides`,
+      url: `${baseUrl}/guides/`,
       lastModified: now,
       changeFrequency: 'daily',
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/latest`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/hot`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/confirmed`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    // 7 Core EEAT Authority Pages
-    {
-      url: `${baseUrl}/about`,
+      url: `${baseUrl}/about/`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/editorial-policy`,
+      url: `${baseUrl}/methodology/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/editorial-policy/`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/methodology`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/authors`,
+      url: `${baseUrl}/authors/`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/disclaimer`,
+      url: `${baseUrl}/faq/`,
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/contact/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/disclaimer/`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/contact`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/privacy`,
+      url: `${baseUrl}/privacy/`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/terms`,
+      url: `${baseUrl}/terms/`,
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.75,
     },
   ];
 
   // Dynamic Blog Posts
   const blogEntries: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
+    url: `${baseUrl}/blog/${post.slug}/`,
     lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.date),
     changeFrequency: 'weekly',
     priority: 0.9,
@@ -112,7 +93,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic Author Profiles
   const authorEntries: MetadataRoute.Sitemap = AUTHORS.map((author) => ({
-    url: `${baseUrl}/authors/${author.slug}`,
+    url: `${baseUrl}/authors/${author.slug}/`,
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.75,
@@ -120,7 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic Guides
   const guideEntries: MetadataRoute.Sitemap = GUIDES.map((guide) => ({
-    url: `${baseUrl}/guides/${guide.slug}`,
+    url: `${baseUrl}/guides/${guide.slug}/`,
     lastModified: guide.updatedAt ? new Date(guide.updatedAt) : now,
     changeFrequency: 'weekly',
     priority: 0.85,
@@ -128,18 +109,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Dynamic Projects / Airdrops
   const airdropEntries: MetadataRoute.Sitemap = AIRDROPS.map((airdrop) => ({
-    url: `${baseUrl}/projects/${airdrop.slug}`,
+    url: `${baseUrl}/projects/${airdrop.slug}/`,
     lastModified: now,
     changeFrequency: 'daily',
     priority: 0.85,
-  }));
-
-  // Dynamic Categories
-  const categoryEntries: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${baseUrl}/projects?category=${cat.slug}`,
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.7,
   }));
 
   return [
@@ -148,6 +121,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...authorEntries,
     ...guideEntries,
     ...airdropEntries,
-    ...categoryEntries,
   ];
 }

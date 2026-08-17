@@ -165,14 +165,15 @@ export default async function ProjectPage({ params }: Props) {
                     width: 32,
                     height: 32,
                     borderRadius: "50%",
-                    background: "var(--accent-glow)",
-                    color: "var(--accent)",
+                    background: "var(--cyan-glow)",
+                    color: "var(--cyan)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     fontWeight: 800,
                     fontSize: "0.9rem",
                     flexShrink: 0,
+                    fontFamily: "monospace",
                   }}
                 >
                   {idx + 1}
@@ -182,6 +183,27 @@ export default async function ProjectPage({ params }: Props) {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Essential Security & Prerequisite Interlinks */}
+          <div style={{ marginTop: 32, paddingTop: 24, borderTop: "1px solid var(--border-subtle)" }}>
+            <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 12, color: "var(--cyan)", fontFamily: "monospace" }}>
+              [ REQUIRED PREREQUISITES &amp; SECURITY GUIDES ]
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
+              <Link href="/guides/setting-up-a-farming-wallet" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
+                <span className="pill-badge success" style={{ fontSize: "0.65rem", marginBottom: 4 }}>SECURITY</span>
+                <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>Wallet Isolation Manual →</div>
+              </Link>
+              <Link href="/guides/avoiding-sybil-detection" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
+                <span className="pill-badge gold" style={{ fontSize: "0.65rem", marginBottom: 4 }}>ANTI-SYBIL</span>
+                <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>Sybil Defense Guide →</div>
+              </Link>
+              <Link href="/methodology" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
+                <span className="pill-badge" style={{ fontSize: "0.65rem", marginBottom: 4 }}>EVALUATION</span>
+                <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>How We Rated {airdrop.name} →</div>
+              </Link>
+            </div>
           </div>
         </MotionCard>
 
