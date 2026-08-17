@@ -10,3 +10,8 @@
    - Live servers (Hostinger, cPanel, VPS SSH) are READ-ONLY for agents.
    - Do NOT run destructive remote file editing scripts directly on live servers.
    - Always push changes to GitHub so the automated deployment pipeline handles the deployment safely.
+
+3. **ZERO FALSE POSITIVES & STRICT DOUBLE CROSS-CHECKING**:
+   - Never assume or provide premature/false positive success reports.
+   - Every verification must be double cross-checked across all variations (e.g., test URLs BOTH with trailing slash `/` and without trailing slash, verify response codes, inspect body contents).
+   - If any permutation returns 4xx, 5xx, or unexpected behavior, the agent must fix and re-verify before reporting.
