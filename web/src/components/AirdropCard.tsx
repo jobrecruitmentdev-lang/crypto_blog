@@ -11,10 +11,10 @@ function initials(name: string): string {
 export default function AirdropCard({ airdrop }: { airdrop: Airdrop }) {
   return (
     <motion.div
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className="glass-card"
+      whileHover={{ y: -3, transition: { duration: 0.15 } }}
+      className="tui-panel"
       style={{
-        padding: 24,
+        padding: 20,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
@@ -22,53 +22,54 @@ export default function AirdropCard({ airdrop }: { airdrop: Airdrop }) {
       }}
     >
       <div>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {airdrop.status.map((s) => (
               <span
                 key={s}
                 className={`pill-badge ${s.toLowerCase() === "confirmed" ? "success" : "gold"}`}
-                style={{ fontSize: "0.7rem", padding: "2px 8px" }}
+                style={{ fontSize: "0.68rem", padding: "2px 6px" }}
               >
-                {s}
+                [{s}]
               </span>
             ))}
           </div>
-          <span style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--danger)" }}>
-            🔥 {airdrop.heat}°
+          <span style={{ fontSize: "0.82rem", fontWeight: 800, color: "var(--amber)", fontFamily: "monospace" }}>
+            🔥 HEAT: {airdrop.heat}°
           </span>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 14 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
           <div
             style={{
-              width: 44,
-              height: 44,
-              borderRadius: "12px",
-              background: "linear-gradient(135deg, rgba(124, 92, 255, 0.2), rgba(0, 224, 164, 0.2))",
+              width: 40,
+              height: 40,
+              borderRadius: "8px",
+              background: "rgba(0, 240, 255, 0.08)",
               border: "1px solid var(--border)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontWeight: 900,
-              fontSize: "1.1rem",
-              color: "#fff",
+              fontSize: "1rem",
+              color: "var(--cyan)",
+              fontFamily: "monospace",
               flexShrink: 0,
             }}
           >
             {initials(airdrop.name)}
           </div>
           <div>
-            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, color: "var(--text)" }}>
+            <h3 style={{ fontSize: "1.15rem", fontWeight: 800, margin: 0, color: "var(--text-bright)" }}>
               <Link href={`/projects/${airdrop.slug}`}>{airdrop.name}</Link>
             </h3>
-            <div style={{ fontSize: "0.82rem", color: "var(--muted)" }}>
-              {airdrop.chain} · <span style={{ color: "var(--accent2)" }}>{airdrop.difficulty}</span>
+            <div style={{ fontSize: "0.78rem", color: "var(--muted)", fontFamily: "monospace" }}>
+              CHAIN: {airdrop.chain} · <span style={{ color: "var(--emerald)" }}>{airdrop.difficulty}</span>
             </div>
           </div>
         </div>
 
-        <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.5, marginBottom: 18 }}>
+        <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.5, marginBottom: 16 }}>
           {airdrop.desc}
         </p>
       </div>
@@ -78,29 +79,28 @@ export default function AirdropCard({ airdrop }: { airdrop: Airdrop }) {
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
-            gap: 12,
-            background: "rgba(255, 255, 255, 0.02)",
-            border: "1px solid var(--border)",
+            gap: 8,
+            background: "rgba(0, 240, 255, 0.02)",
+            border: "1px solid var(--border-subtle)",
             borderRadius: "var(--radius-sm)",
-            padding: "10px 14px",
-            marginBottom: 16,
+            padding: "8px 12px",
+            marginBottom: 14,
+            fontFamily: "monospace",
           }}
         >
           <div>
-            <span style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Est. Reward</span>
-            <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--accent)" }}>{airdrop.reward}</div>
+            <span style={{ fontSize: "0.68rem", color: "var(--muted)", textTransform: "uppercase" }}>REWARD</span>
+            <div style={{ fontWeight: 800, fontSize: "0.9rem", color: "var(--cyan)" }}>{airdrop.reward}</div>
           </div>
           <div>
-            <span style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Time Required</span>
-            <div style={{ fontWeight: 800, fontSize: "0.95rem", color: "var(--text)" }}>{airdrop.time}</div>
+            <span style={{ fontSize: "0.68rem", color: "var(--muted)", textTransform: "uppercase" }}>TIME</span>
+            <div style={{ fontWeight: 800, fontSize: "0.9rem", color: "var(--text)" }}>{airdrop.time}</div>
           </div>
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <Link href={`/projects/${airdrop.slug}`} className="btn btn-sm btn-primary" style={{ width: "100%" }}>
-            View Step-by-Step Guide →
-          </Link>
-        </div>
+        <Link href={`/projects/${airdrop.slug}`} className="btn btn-sm btn-primary" style={{ width: "100%" }}>
+          Step-by-Step Guide →
+        </Link>
       </div>
     </motion.div>
   );
