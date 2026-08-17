@@ -28,7 +28,7 @@ export default function Header() {
     <header>
       <div className="wrap header-inner">
         <Link className="logo" href="/">
-          <Image src="/logo-primary.svg" alt="CryptoDrop" width={160} height={32} priority />
+          <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={160} height={32} priority />
         </Link>
         <nav className={`main-nav${mobileOpen ? " mobile-open" : ""}`}>
           {NAV_LINKS.map((link) => (

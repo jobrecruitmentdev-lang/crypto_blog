@@ -1,4 +1,4 @@
-export type AirdropStatus = "Ongoing" | "Confirmed";
+export type AirdropStatus = "Ongoing" | "Confirmed" | "Potential";
 export type Difficulty = "Easy" | "Medium" | "Hard";
 
 export interface Airdrop {
@@ -19,6 +19,7 @@ export interface Category {
   name: string;
   icon: string;
   count: number;
+  description?: string;
 }
 
 export interface TickerItem {
@@ -28,14 +29,36 @@ export interface TickerItem {
   up: boolean;
 }
 
+export interface Author {
+  slug: string;
+  name: string;
+  role: string;
+  avatar: string;
+  bio: string;
+  credentials: string[];
+  xUrl?: string;
+  linkedinUrl?: string;
+  githubUrl?: string;
+}
+
+export interface BlogFaq {
+  question: string;
+  answer: string;
+}
+
 export interface BlogPost {
   slug: string;
   tag: string;
   title: string;
   excerpt: string;
+  tldr?: string;
+  keyTakeaways?: string[];
   date: string;
+  updatedAt?: string;
   read: string;
+  authorSlug: string;
   body: string;
+  faqs?: BlogFaq[];
   coverImage?: string;
 }
 
@@ -45,6 +68,8 @@ export interface Guide {
   level: "Beginner" | "Intermediate" | "Advanced";
   desc: string;
   body: string;
+  authorSlug?: string;
+  updatedAt?: string;
 }
 
 export interface Faq {

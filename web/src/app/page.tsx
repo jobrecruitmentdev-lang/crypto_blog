@@ -87,26 +87,26 @@ export default async function Home() {
         <div className="wrap" style={{ maxWidth: 820 }}>
           <div className="section-head" style={{ textAlign: "center", marginBottom: 40 }}>
             <div>
-              <h2>Why Read CryptoDrop?</h2>
-              <p>We cut through the noise to bring you actionable insights.</p>
+              <h2>Why Trust Crypto Airdrop AI?</h2>
+              <p>Institutional-grade on-chain intelligence and strict fact-checking standards.</p>
             </div>
           </div>
           <div style={{ display: "grid", gap: 32, gridTemplateColumns: "1fr 1fr", marginTop: 24 }}>
             <div>
-              <h3 style={{ marginBottom: 12 }}>Unbiased Research</h3>
-              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>We don't accept paid listings for our core editorial content. Every airdrop guide and protocol review is researched independently.</p>
+              <h3 style={{ marginBottom: 12 }}>🛡️ Unbiased Research</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>We do not accept paid listings for our core editorial content. Every airdrop guide and protocol review is researched independently.</p>
             </div>
             <div>
-              <h3 style={{ marginBottom: 12 }}>Actionable Steps</h3>
+              <h3 style={{ marginBottom: 12 }}>⚡ Actionable Steps</h3>
               <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>We turn complex on-chain mechanics into simple, step-by-step guides so you can interact with DeFi protocols safely.</p>
             </div>
             <div>
-              <h3 style={{ marginBottom: 12 }}>Safety First</h3>
-              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>Security is paramount. We teach wallet hygiene, sybil-avoidance, and how to verify smart contracts before signing transactions.</p>
+              <h3 style={{ marginBottom: 12 }}>🔒 Safety &amp; Non-Custodial</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>Security is paramount. We teach wallet hygiene, sybil-avoidance heuristics, and how to verify smart contracts before signing transactions.</p>
             </div>
             <div>
-              <h3 style={{ marginBottom: 12 }}>Daily Updates</h3>
-              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>The market moves fast. Our editorial team updates guides daily to ensure you have the latest snapshot information.</p>
+              <h3 style={{ marginBottom: 12 }}>📅 Real-Time Snapshot Tracking</h3>
+              <p style={{ color: "var(--muted)", lineHeight: 1.6 }}>The market moves fast. Our research team updates guides continuously to ensure you have the latest snapshot and block height information.</p>
             </div>
           </div>
         </div>

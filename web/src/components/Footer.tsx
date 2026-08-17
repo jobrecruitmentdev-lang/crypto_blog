@@ -8,51 +8,47 @@ export default function Footer() {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link className="logo" href="/">
-              <Image src="/logo-primary.svg" alt="CryptoDrop" width={160} height={32} />
+              <Image src="/logo-primary.svg" alt="Crypto Airdrop AI" width={160} height={32} />
             </Link>
             <p>
-              Free crypto airdrop aggregator. We don&apos;t run the listed airdrops — always do
-              your own research before connecting a wallet.
+              Independent non-custodial crypto research portal and airdrop tracking directory. We do not issue or guarantee any tokens — always verify on-chain contracts before interacting.
             </p>
             <div className="social-row">
-              <div className="icon-btn">X</div>
-              <div className="icon-btn">TG</div>
-              <div className="icon-btn">DC</div>
+              <a href="https://twitter.com/cryptoairdropai" target="_blank" rel="noopener noreferrer" className="icon-btn" title="X (Twitter)">X</a>
+              <a href="https://t.me/cryptoairdropai" target="_blank" rel="noopener noreferrer" className="icon-btn" title="Telegram">TG</a>
             </div>
           </div>
           <div className="footer-col">
-            <h4>Read</h4>
+            <h4>Research &amp; Guides</h4>
             <ul>
-              <li><Link href="/blog">Latest News</Link></li>
-              <li><Link href="/guides">Actionable Guides</Link></li>
+              <li><Link href="/blog">Crypto Blog</Link></li>
+              <li><Link href="/guides">Airdrop Guides</Link></li>
+              <li><Link href="/latest">Latest Listings</Link></li>
+              <li><Link href="/confirmed">Confirmed Tokens</Link></li>
             </ul>
           </div>
           <div className="footer-col">
-            <h4>Resources</h4>
+            <h4>Trust &amp; E-E-A-T</h4>
             <ul>
-              <li><Link href="/faq">FAQ</Link></li>
-              <li><Link href="/search">Search</Link></li>
+              <li><Link href="/about">About Us</Link></li>
+              <li><Link href="/authors">Our Analysts</Link></li>
+              <li><Link href="/editorial-policy">Editorial Policy</Link></li>
+              <li><Link href="/methodology">Methodology</Link></li>
             </ul>
           </div>
           <div className="footer-col">
-            <h4>Company</h4>
+            <h4>Legal &amp; Support</h4>
             <ul>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/contact">Submit Airdrop</Link></li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4>Legal</h4>
-            <ul>
-              <li><Link href="/privacy">Privacy</Link></li>
-              <li><Link href="/terms">Terms</Link></li>
+              <li><Link href="/disclaimer">Financial Disclaimer</Link></li>
+              <li><Link href="/privacy">Privacy Policy</Link></li>
+              <li><Link href="/terms">Terms of Service</Link></li>
+              <li><Link href="/contact">Contact &amp; Corrections</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 CryptoDrop. Not financial advice.</span>
-          <span>Built for research &amp; educational purposes.</span>
+          <span>© 2026 Crypto Airdrop AI (cryptoairdropai.com). All rights reserved. Not financial advice.</span>
+          <span>Built for decentralized research &amp; Web3 education.</span>
         </div>
       </div>
     </footer>

@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
 export const dynamic = "force-static";
  
@@ -7,13 +7,29 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/projects/', '/blog/', '/guides/'],
+        allow: '/',
+        disallow: ['/api/'],
       },
       {
-        userAgent: ['GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-SearchBot', 'Claude-User', 'Google-Extended', 'Googlebot', 'PerplexityBot', 'Perplexity-User', 'Meta-ExternalAgent', 'Applebot-Extended', 'Amazonbot', 'CCBot'],
-        allow: ['/'],
+        userAgent: [
+          'Googlebot',
+          'Bingbot',
+          'Google-Extended',
+          'GPTBot',
+          'OAI-SearchBot',
+          'ChatGPT-User',
+          'ClaudeBot',
+          'Claude-SearchBot',
+          'PerplexityBot',
+          'Perplexity-User',
+          'Applebot',
+          'Applebot-Extended'
+        ],
+        allow: '/',
+        disallow: ['/api/'],
       }
     ],
     sitemap: 'https://cryptoairdropai.com/sitemap.xml',
-  }
+    host: 'https://cryptoairdropai.com',
+  };
 }
