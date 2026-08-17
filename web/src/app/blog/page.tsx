@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import BlogGrid from "@/components/BlogGrid";
 import { getAllPosts } from "@/lib/cms/blogService";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Crypto News, Guides & Airdrop Market Intelligence",
@@ -37,28 +38,45 @@ export default async function BlogPage() {
   };
 
   return (
-    <section className="section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogCollectionSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <div className="wrap">
-        <div className="breadcrumb" style={{ marginBottom: 20 }}>
-          <Link href="/">Home</Link> / Crypto Blog &amp; Guides
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
+          <Link href="/">Home</Link> / Crypto Intelligence &amp; Research
         </div>
-        <div className="section-head" style={{ marginBottom: 32 }}>
-          <div>
-            <span style={{ color: "var(--primary)", fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-              Research &amp; Analysis
-            </span>
-            <h1 style={{ fontSize: "2.4rem", fontWeight: 900, marginTop: 8, letterSpacing: "-0.02em" }}>
-              Crypto News, In-Depth Guides &amp; Airdrop Intelligence
-            </h1>
-            <p style={{ fontSize: "1.1rem", color: "var(--muted)", marginTop: 6 }}>
-              Fact-checked protocol walkthroughs, sybil defense tutorials, and quantitative market insights.
-            </p>
+
+        <MotionFade delay={0.05} direction="up" style={{ marginBottom: 40 }}>
+          <div style={{ display: "inline-flex", marginBottom: 12 }}>
+            <span className="pill-badge">🧠 Research &amp; Market Intelligence</span>
           </div>
-        </div>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+            Crypto News &amp; Protocol Deep Dives
+          </h1>
+          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, lineHeight: 1.6 }}>
+            Fact-checked protocol walkthroughs, sybil defense tutorials, and quantitative market insights.
+          </p>
+        </MotionFade>
+
+        {/* Featured Posts Grid */}
         <BlogGrid posts={posts} />
+
+        {/* Research Transparency Callout */}
+        <MotionCard style={{ marginTop: 64, padding: 36, textAlign: "center" }}>
+          <h3 style={{ fontSize: "1.3rem", fontWeight: 800, marginBottom: 8 }}>Have Alpha or an On-Chain Correction?</h3>
+          <p style={{ color: "var(--muted)", maxWidth: 560, margin: "0 auto 20px", fontSize: "0.95rem" }}>
+            Our editorial desk reviews transaction hashes, contract discrepancies, and snapshot announcements around the clock.
+          </p>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+            <Link href="/contact" className="btn btn-primary btn-sm">
+              Submit to Research Desk
+            </Link>
+            <Link href="/editorial-policy" className="btn btn-outline btn-sm">
+              Editorial Policy
+            </Link>
+          </div>
+        </MotionCard>
       </div>
     </section>
   );

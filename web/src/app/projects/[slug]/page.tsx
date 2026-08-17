@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AIRDROPS, getAirdropBySlug, getRelatedAirdrops } from "@/lib/data";
+import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 function initials(name: string): string {
   return name.slice(0, 2).toUpperCase();
@@ -20,8 +21,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const airdrop = getAirdropBySlug(slug);
   if (!airdrop) return {};
   return {
-    title: `${airdrop.name} Airdrop Guide`,
-    description: `${airdrop.name} airdrop guide: reward, difficulty, steps and FAQ.`,
+    title: `${airdrop.name} Airdrop Guide & Farming Strategy — Crypto Airdrop AI`,
+    description: `${airdrop.name} airdrop farming guide: verified rewards, difficulty, step-by-step testnet and mainnet actions.`,
     alternates: { canonical: `/projects/${slug}` },
   };
 }
@@ -33,11 +34,11 @@ export default async function ProjectPage({ params }: Props) {
 
   const related = getRelatedAirdrops(airdrop);
   const steps = [
-    `Go to the official ${airdrop.name} website and open the app.`,
-    `Connect your wallet (MetaMask, Phantom, or the chain-appropriate wallet).`,
-    `Complete the core action: ${airdrop.desc.toLowerCase()}`,
-    `Engage consistently — daily or weekly — rather than in a single burst.`,
-    `Share your referral link if available; referral activity often counts toward future rewards.`,
+    `Go to the official ${airdrop.name} verified portal or dApp interface.`,
+    `Connect a dedicated non-custodial Web3 wallet (MetaMask, Rabby, or Phantom).`,
+    `Execute the protocol interaction: ${airdrop.desc.toLowerCase()}`,
+    `Maintain periodic activity — transacting once or twice weekly rather than in a single cluster.`,
+    `Monitor official Discord or X announcement channels for official snapshot block height updates.`,
   ];
 
   const jsonLdArticle = {
@@ -48,151 +49,170 @@ export default async function ProjectPage({ params }: Props) {
     "url": `https://cryptoairdropai.com/projects/${slug}`,
     "publisher": {
       "@type": "Organization",
-      "name": "CryptoDrop",
+      "name": "Crypto Airdrop AI",
       "logo": {
         "@type": "ImageObject",
         "url": "https://cryptoairdropai.com/logo-primary.svg"
       }
     },
     "author": {
-      "@type": "Person",
-      "name": "CryptoDrop Editorial Team",
-      "url": "https://cryptoairdropai.com/about",
-      "sameAs": ["https://twitter.com/cryptoairdropai"]
+      "@type": "Organization",
+      "name": "Crypto Airdrop AI Research Desk",
+      "url": "https://cryptoairdropai.com/authors/editorial-desk"
     }
   };
 
-  const jsonLdBreadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Reviews", "item": "https://cryptoairdropai.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": airdrop.name, "item": `https://cryptoairdropai.com/projects/${slug}` }
-    ]
-  };
-
   return (
-    <div className="wrap section">
+    <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
-      <div className="breadcrumb">
-        <Link href="/">Home</Link> / <Link href="/blog">Reviews</Link> / {airdrop.name}
-      </div>
 
-      <div className="detail-grid">
-        <div>
-          <div className="detail-card">
-            <div className="detail-head">
-              <div className="proj-logo">{initials(airdrop.name)}</div>
+      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+        <div className="breadcrumb" style={{ marginBottom: 24 }}>
+          <Link href="/">Home</Link> / <Link href="/">Airdrops</Link> / {airdrop.name}
+        </div>
+
+        {/* Hero Card with Telemetry Header */}
+        <MotionCard style={{ padding: 36, marginBottom: 36 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 16, marginBottom: 20 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 16,
+                  background: "linear-gradient(135deg, rgba(124, 92, 255, 0.25), rgba(0, 224, 164, 0.25))",
+                  border: "1px solid var(--border)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5rem",
+                  fontWeight: 900,
+                  color: "#fff",
+                }}
+              >
+                {initials(airdrop.name)}
+              </div>
               <div>
-                <h1>{airdrop.name}</h1>
-                <div className="card-badges">
+                <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
                   {airdrop.status.map((s) => (
-                    <span key={s} className={`badge ${s.toLowerCase() === "confirmed" ? "confirmed" : ""}`}>
+                    <span key={s} className={`pill-badge ${s.toLowerCase() === "confirmed" ? "success" : "gold"}`} style={{ fontSize: "0.72rem" }}>
                       {s}
                     </span>
                   ))}
                 </div>
+                <h1 style={{ fontSize: "2.4rem", fontWeight: 900, letterSpacing: "-0.03em", margin: 0 }}>
+                  {airdrop.name}
+                </h1>
               </div>
             </div>
-            <p style={{ color: "var(--muted)", fontSize: 14 }}>{airdrop.desc}</p>
+            <div style={{ textAlign: "right" }}>
+              <span style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--danger)" }}>
+                🔥 Heat Index: {airdrop.heat}°
+              </span>
+            </div>
           </div>
 
-          <div className="detail-card">
-            <h3 style={{ marginBottom: 10 }}>Airdrop Details</h3>
-            <p style={{ color: "var(--muted)", fontSize: 14 }}>
-              {airdrop.name} has {airdrop.status.includes("Confirmed") ? "a confirmed token" : "not confirmed a token yet"}.
-              This guide covers the highest-signal actions based on public activity: {airdrop.tags.join(", ")}.
-              Consistent participation over time typically outperforms a single burst of activity for any
-              retroactive snapshot.
-            </p>
-          </div>
+          <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: 28 }}>
+            {airdrop.desc}
+          </p>
 
-          <div className="detail-card">
-            <h3 style={{ marginBottom: 6 }}>How to Farm the Potential Airdrop</h3>
-            <div className="steps">
-              {steps.map((s, i) => (
-                <div className="step" key={i}>
-                  <div className="step-num">{i + 1}</div>
-                  <div>{s}</div>
+          {/* Telemetry Matrix Grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14, background: "rgba(255,255,255,0.02)", padding: 20, borderRadius: "var(--radius)", border: "1px solid var(--border)" }}>
+            <div>
+              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Chain</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text)" }}>{airdrop.chain}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Est. Reward</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--accent)" }}>{airdrop.reward}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Difficulty</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--accent2)" }}>{airdrop.difficulty}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Time Est.</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text)" }}>{airdrop.time}</div>
+            </div>
+          </div>
+        </MotionCard>
+
+        {/* Step by Step Action Checklist */}
+        <MotionCard style={{ padding: 36, marginBottom: 36 }}>
+          <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: 8 }}>
+            Step-by-Step Farming Actions
+          </h2>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 24 }}>
+            Execute each step sequentially to maximize on-chain organic interaction points.
+          </p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {steps.map((step, idx) => (
+              <div
+                key={idx}
+                style={{
+                  display: "flex",
+                  gap: 16,
+                  alignItems: "flex-start",
+                  padding: 16,
+                  borderRadius: "var(--radius-sm)",
+                  background: "rgba(255,255,255,0.02)",
+                  border: "1px solid var(--border)",
+                }}
+              >
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    background: "var(--accent-glow)",
+                    color: "var(--accent)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 800,
+                    fontSize: "0.9rem",
+                    flexShrink: 0,
+                  }}
+                >
+                  {idx + 1}
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="detail-card">
-            <h3 style={{ marginBottom: 10 }}>FAQ</h3>
-            <div className="faq-item open">
-              <div className="faq-q" style={{ cursor: "default" }}>
-                Does {airdrop.name} have a token?
-              </div>
-              <div className="faq-a" style={{ maxHeight: 100 }}>
-                <p>
-                  {airdrop.status.includes("Confirmed")
-                    ? `Yes, ${airdrop.name} has confirmed rewards for eligible users.`
-                    : `Not yet confirmed — this is a speculative farming opportunity.`}
-                </p>
-              </div>
-            </div>
-            <div className="faq-item open">
-              <div className="faq-q" style={{ cursor: "default" }}>
-                How much can I earn?
-              </div>
-              <div className="faq-a" style={{ maxHeight: 100 }}>
-                <p>
-                  Estimates range around {airdrop.reward}, based on comparable platform reward
-                  structures. Actual results vary.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <div className="sidebar-card">
-            <button className="btn btn-primary" style={{ width: "100%", marginBottom: 10 }}>
-              Join Now
-            </button>
-            <button className="btn btn-outline" style={{ width: "100%" }}>
-              Notify Me
-            </button>
-          </div>
-          <div className="sidebar-card">
-            <div className="info-row">
-              <span>Difficulty</span>
-              <b>{airdrop.difficulty}</b>
-            </div>
-            <div className="info-row">
-              <span>Reward</span>
-              <b>{airdrop.reward}</b>
-            </div>
-            <div className="info-row">
-              <span>Time Required</span>
-              <b>{airdrop.time}</b>
-            </div>
-            <div className="info-row">
-              <span>Blockchain</span>
-              <b>{airdrop.chain}</b>
-            </div>
-            <div className="info-row">
-              <span>Status</span>
-              <b>{airdrop.status.join(" / ")}</b>
-            </div>
-          </div>
-          <div className="sidebar-card">
-            <h4 style={{ marginBottom: 10, fontSize: 13 }}>More Airdrops to Farm</h4>
-            {related.map((r) => (
-              <div className="info-row" key={r.slug}>
-                <Link href={`/projects/${r.slug}`}>
-                  <b>{r.name}</b>
-                </Link>
-                <span>{r.chain}</span>
+                <div style={{ fontSize: "1rem", color: "var(--text)", lineHeight: 1.6, paddingTop: 2 }}>
+                  {step}
+                </div>
               </div>
             ))}
           </div>
-        </div>
+        </MotionCard>
+
+        {/* Related Airdrops */}
+        {related.length > 0 && (
+          <div style={{ marginTop: 48 }}>
+            <h3 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: 20 }}>
+              Similar Vetted Opportunities on {airdrop.chain}
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 20 }}>
+              {related.map((r) => (
+                <MotionCard key={r.slug} style={{ padding: 24 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                    <span className="pill-badge" style={{ fontSize: "0.7rem", padding: "2px 8px" }}>{r.chain}</span>
+                    <span style={{ fontSize: "0.8rem", color: "var(--danger)", fontWeight: 700 }}>🔥 {r.heat}°</span>
+                  </div>
+                  <h4 style={{ fontSize: "1.15rem", fontWeight: 800, margin: "4px 0 8px" }}>
+                    <Link href={`/projects/${r.slug}`}>{r.name}</Link>
+                  </h4>
+                  <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.5, marginBottom: 14 }}>
+                    {r.desc}
+                  </p>
+                  <Link href={`/projects/${r.slug}`} className="btn btn-sm btn-outline" style={{ width: "100%" }}>
+                    View Guide →
+                  </Link>
+                </MotionCard>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </section>
   );
 }

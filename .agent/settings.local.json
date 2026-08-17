@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"C:\\\\Users\\\\Dell\\\\.claude\\\\plans\" 2>/dev/null; echo ok)",
+      "Bash(python3 -c \"print\\('test'\\)\")"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Dell\\.claude\\plans"
+    ]
+  }
+}
