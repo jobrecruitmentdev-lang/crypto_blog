@@ -42,6 +42,7 @@ jobs:
         set net:max-retries 3
         open "$FTP_SERVER"
         user "$FTP_USERNAME" "$FTP_PASSWORD"
+        cd domains/cryptoairdropai.com/public_html || cd public_html || cd .
         mirror --reverse --verbose \
           --exclude-glob 'api/*' \
           --exclude-glob 'config.php' \
