@@ -10,15 +10,11 @@ export default function Newsletter() {
     <section className="section" style={{ padding: "32px 0 48px" }}>
       <div className="wrap">
         <div
-          className="tui-panel"
+          className="tui-panel newsletter-bento"
           style={{
             padding: "36px 32px",
             background: "linear-gradient(135deg, rgba(10, 17, 34, 0.95), rgba(4, 7, 13, 0.95))",
             border: "1px solid var(--border)",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 32,
-            alignItems: "center",
           }}
         >
           <div>

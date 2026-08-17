@@ -48,7 +48,7 @@ export default function PrivacyPage() {
         </MotionFade>
 
         {/* 2-Column Layout with Sticky TOC */}
-        <div style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 32, alignItems: "flex-start" }}>
+        <div className="page-two-col">
           <div className="toc-sticky">
             <div style={{ fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", color: "var(--accent)", marginBottom: 12 }}>
               Table of Contents

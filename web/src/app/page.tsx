@@ -29,17 +29,17 @@ export default async function Home() {
       {/* TUI Command Center Hero Section */}
       <section className="section" style={{ padding: "40px 0 28px" }}>
         <div className="wrap">
-          <div style={{ display: "grid", gridTemplateColumns: "1.25fr 0.75fr", gap: 20, alignItems: "stretch" }}>
+          <div className="hero-bento">
             
             {/* Left Terminal Matrix Hero */}
-            <MotionCard style={{ padding: 36, display: "flex", flexDirection: "column", justifyContent: "space-between", borderColor: "rgba(0, 240, 255, 0.25)" }}>
+            <MotionCard style={{ padding: 32, display: "flex", flexDirection: "column", justifyContent: "space-between", borderColor: "rgba(0, 240, 255, 0.25)" }}>
               <div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
                   <span className="pill-badge gold">⚡ [ FEATURED INTEL REPORT ]</span>
                   <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontFamily: "monospace" }}>ID: INTEL-2026-08</span>
                 </div>
                 
-                <h1 style={{ fontSize: "2.4rem", lineHeight: 1.18, fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 14, color: "var(--text-bright)" }}>
+                <h1 style={{ fontSize: "2.3rem", lineHeight: 1.18, fontWeight: 900, letterSpacing: "-0.03em", marginBottom: 14, color: "var(--text-bright)" }}>
                   {featuredPost ? featuredPost.title : "The 2026 Decentralized Airdrop Almanac"}
                 </h1>
                 
@@ -58,7 +58,7 @@ export default async function Home() {
               </div>
 
               {/* TUI Telemetry Status Bar */}
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginTop: 32, paddingTop: 20, borderTop: "1px solid var(--border-subtle)" }}>
+              <div className="stats-bento" style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid var(--border-subtle)" }}>
                 <div>
                   <div style={{ fontSize: "1.3rem", fontWeight: 900, color: "var(--cyan)", fontFamily: "monospace" }}>50+</div>
                   <div style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 800 }}>Chains Tracked</div>
