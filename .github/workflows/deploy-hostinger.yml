@@ -29,19 +29,21 @@ jobs:
       working-directory: ./web
       run: npm run build
 
-    - name: Deploy via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./web/out/
-        server-dir: ./
-        dangerous-clean-slate: false
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/**
-          **/config.php
-          **/api/**
+    - name: Deploy to Hostinger via LFTP
+      run: |
+        sudo apt-get update -y && sudo apt-get install -y lftp
+        lftp -e "
+          set ssl:verify-certificate no;
+          set ftp:ssl-allow yes;
+          set net:timeout 30;
+          set net:max-retries 3;
+          set net:reconnect-interval-base 5;
+          mirror --reverse --verbose \
+            --exclude-glob 'api/*' \
+            --exclude-glob 'config.php' \
+            --exclude-glob '.git*' \
+            --exclude-glob '.env*' \
+            ./web/out/ ./;
+          quit;
+        " -u "${{ secrets.FTP_USERNAME }}","${{ secrets.FTP_PASSWORD }}" "${{ secrets.FTP_SERVER }}"
 
