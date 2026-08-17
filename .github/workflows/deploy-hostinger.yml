@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'web/**'
-      - 'backend/**' # Added backend to trigger deploy
+      - 'backend/**'
 
 jobs:
   build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
 
     - name: Install Dependencies
       working-directory: ./web
@@ -30,15 +30,18 @@ jobs:
       run: npm run build
 
     - name: Deploy via FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./web/out/
         server-dir: ./
+        dangerous-clean-slate: false
         exclude: |
           **/.git*
           **/.git*/**
           **/node_modules/**
           **/config.php
+          **/api/**
+
