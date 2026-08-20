@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${guide.title} — Step-by-Step Guide`,
     description: guide.desc,
-    alternates: { canonical: `/guides/${slug}` },
+    alternates: { canonical: `/guides/${slug}/` },
     openGraph: {
       title: `${guide.title} | Crypto Airdrop AI Guide`,
       description: guide.desc,

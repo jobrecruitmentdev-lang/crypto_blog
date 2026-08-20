@@ -5,7 +5,7 @@ import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 export const metadata: Metadata = {
   title: "Terms of Service — User Agreement & Usage Conditions",
   description: "Crypto Airdrop AI terms of service: user agreement, limitation of liability, non-financial advice notices, and acceptable use policy.",
-  alternates: { canonical: "/terms" },
+  alternates: { canonical: "/terms/" },
 };
 
 export default function TermsPage() {

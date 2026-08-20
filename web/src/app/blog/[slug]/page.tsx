@@ -24,14 +24,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} — Crypto Airdrop AI`,
     description: post.excerpt,
-    alternates: { canonical: `/blog/${slug}` },
+    alternates: { canonical: `/blog/${slug}/` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
+      url: `https://cryptoairdropai.com/blog/${slug}/`,
       publishedTime: post.date,
       modifiedTime: post.updatedAt || post.date,
-      authors: [`https://cryptoairdropai.com/authors/${post.authorSlug}`],
+      authors: [`https://cryptoairdropai.com/authors/${post.authorSlug}/`],
     }
   };
 }
@@ -50,10 +51,10 @@ export default async function BlogPostPage({ params }: Props) {
     "description": post.excerpt,
     "datePublished": post.date,
     "dateModified": post.updatedAt || post.date,
-    "url": `https://cryptoairdropai.com/blog/${slug}`,
+    "url": `https://cryptoairdropai.com/blog/${slug}/`,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://cryptoairdropai.com/blog/${slug}`
+      "@id": `https://cryptoairdropai.com/blog/${slug}/`
     },
     "publisher": {
       "@type": "Organization",

@@ -7,7 +7,7 @@ import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions — Crypto Airdrops & Security",
   description: "Frequently asked questions about crypto airdrops, how to farm retroactive rewards, and how to protect your assets on-chain.",
-  alternates: { canonical: "/faq" },
+  alternates: { canonical: "/faq/" },
 };
 
 export default function FaqPage() {

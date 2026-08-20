@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Contact Us — Editorial Desk, Security & Inquiries",
   description:
     "Get in touch with Crypto Airdrop AI. Submit editorial corrections, submit new airdrops for review, or reach our security desk.",
-  alternates: { canonical: "/contact" },
+  alternates: { canonical: "/contact/" },
 };
 
 export default function ContactPage() {

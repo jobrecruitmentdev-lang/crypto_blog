@@ -7,7 +7,7 @@ import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 export const metadata: Metadata = {
   title: "Crypto News, Guides & Airdrop Market Intelligence",
   description: "Read independent crypto guides, rigorous on-chain airdrop reviews, Layer-2 scaling analyses, and daily DeFi market research from Crypto Airdrop AI.",
-  alternates: { canonical: "/blog" },
+  alternates: { canonical: "/blog/" },
 };
 
 export default async function BlogPage() {

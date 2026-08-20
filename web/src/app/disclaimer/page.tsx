@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Financial & Affiliate Disclaimer — Not Financial Advice",
   description:
     "Official risk disclosures, non-financial advice notices (NFA/DYOR), smart contract risk warnings, and FTC affiliate disclosures for Crypto Airdrop AI.",
-  alternates: { canonical: "/disclaimer" },
+  alternates: { canonical: "/disclaimer/" },
 };
 
 export default function DisclaimerPage() {

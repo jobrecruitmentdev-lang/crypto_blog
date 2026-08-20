@@ -14,16 +14,19 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cryptoairdropai.com"),
   title: {
-    default: "Crypto Airdrop AI — Independent Crypto Guides, Airdrop Tracking & Market Intelligence",
+    default: "Crypto Airdrop AI — Verified Crypto Airdrops 2026",
     template: "%s | Crypto Airdrop AI",
   },
   description:
-    "The leading USA and global portal for verified crypto news, airdrop research, on-chain guides, and Web3 security analysis. 100% independent and non-custodial.",
+    "Independent Web3 research portal tracking verified crypto token airdrops, testnet farming guides, and on-chain intelligence.",
+  alternates: {
+    canonical: "https://cryptoairdropai.com/",
+  },
   openGraph: {
-    title: "Crypto Airdrop AI — Discover Verified Crypto Airdrops & Research",
+    title: "Crypto Airdrop AI — Verified Crypto Airdrops 2026",
     description: "Daily fact-checked crypto guides, retroactive airdrop tutorials, and DeFi market research for global and US investors.",
     type: "website",
-    url: "https://cryptoairdropai.com",
+    url: "https://cryptoairdropai.com/",
     siteName: "Crypto Airdrop AI",
     locale: "en_US",
   },

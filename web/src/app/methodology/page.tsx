@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Evaluation Methodology & Protocol Risk Scoring Framework",
   description:
     "Discover how Crypto Airdrop AI researches, audits, and rates crypto airdrops, DeFi protocols, and smart contract distributions.",
-  alternates: { canonical: "/methodology" },
+  alternates: { canonical: "/methodology/" },
 };
 
 export default function MethodologyPage() {

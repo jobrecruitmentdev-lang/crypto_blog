@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${author.name} — Author & Analyst Profile | Crypto Airdrop AI`,
     description: author.bio,
-    alternates: { canonical: `/authors/${slug}` },
+    alternates: { canonical: `/authors/${slug}/` },
   };
 }
 

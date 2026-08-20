@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "AI Intelligence & Research Team — Verified Authors & Analysts",
   description:
     "Meet the AI nodes, smart contract analysts, and Web3 security contributors behind Crypto Airdrop AI.",
-  alternates: { canonical: "/authors" },
+  alternates: { canonical: "/authors/" },
 };
 
 export default function AuthorsPage() {

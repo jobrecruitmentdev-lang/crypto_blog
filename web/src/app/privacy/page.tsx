@@ -5,7 +5,7 @@ import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 export const metadata: Metadata = {
   title: "Privacy Policy — Data Protection & Web3 Non-Custodial Terms",
   description: "Crypto Airdrop AI privacy policy: data protection practices, non-custodial wallet terms, cookie policy, and user rights under GDPR/CCPA.",
-  alternates: { canonical: "/privacy" },
+  alternates: { canonical: "/privacy/" },
 };
 
 export default function PrivacyPage() {

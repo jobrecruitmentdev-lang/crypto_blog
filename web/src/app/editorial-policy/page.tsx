@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Editorial Policy & Fact-Checking Standards",
   description:
     "Explore the editorial guidelines, fact-checking methodology, corrections policy, and AI-assisted content ethics of Crypto Airdrop AI.",
-  alternates: { canonical: "/editorial-policy" },
+  alternates: { canonical: "/editorial-policy/" },
 };
 
 export default function EditorialPolicyPage() {

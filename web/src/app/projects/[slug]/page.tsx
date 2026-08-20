@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${airdrop.name} Airdrop Guide & Farming Strategy — Crypto Airdrop AI`,
     description: `${airdrop.name} airdrop farming guide: verified rewards, difficulty, step-by-step testnet and mainnet actions.`,
-    alternates: { canonical: `/projects/${slug}` },
+    alternates: { canonical: `/projects/${slug}/` },
   };
 }
 

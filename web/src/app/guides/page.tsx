@@ -7,7 +7,7 @@ import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 export const metadata: Metadata = {
   title: "Airdrop & Layer-2 Farming Guides — Step-by-Step Tutorials",
   description: "Step-by-step guides covering non-custodial wallet setup, bridging, snapshot mechanics, and sybil-safe farming strategies.",
-  alternates: { canonical: "/guides" },
+  alternates: { canonical: "/guides/" },
 };
 
 export default function GuidesPage() {

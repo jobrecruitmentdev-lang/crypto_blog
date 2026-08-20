@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "About Us — Editorial Mission, Leadership & Standards",
   description:
     "Learn about Crypto Airdrop AI, our independent on-chain research methodology, our editorial fact-checking standards, and the analysts behind our crypto guides.",
-  alternates: { canonical: "/about" },
+  alternates: { canonical: "/about/" },
 };
 
 export default function AboutPage() {
