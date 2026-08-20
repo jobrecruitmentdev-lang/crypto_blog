@@ -47,6 +47,11 @@ export default async function BlogPostPage({ params }: Props) {
   const jsonLdArticle = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `https://cryptoairdropai.com/blog/${slug}/#article`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "@id": "https://cryptoairdropai.com/#website"
+    },
     "headline": post.title,
     "description": post.excerpt,
     "datePublished": post.date,
@@ -57,8 +62,10 @@ export default async function BlogPostPage({ params }: Props) {
       "@id": `https://cryptoairdropai.com/blog/${slug}/`
     },
     "publisher": {
-      "@type": "Organization",
+      "@type": "NewsMediaOrganization",
+      "@id": "https://cryptoairdropai.com/#organization",
       "name": "Crypto Airdrop AI",
+      "url": "https://cryptoairdropai.com/",
       "logo": {
         "@type": "ImageObject",
         "url": "https://cryptoairdropai.com/logo-primary.svg"
@@ -66,11 +73,14 @@ export default async function BlogPostPage({ params }: Props) {
     },
     "author": {
       "@type": "Person",
+      "@id": `https://cryptoairdropai.com/authors/${author?.slug || 'editorial-desk'}/#author`,
       "name": author?.name || "Crypto Airdrop AI Research Desk",
-      "url": `https://cryptoairdropai.com/authors/${author?.slug || 'editorial-desk'}`,
+      "url": `https://cryptoairdropai.com/authors/${author?.slug || 'editorial-desk'}/`,
       "jobTitle": author?.role || "Crypto Research Analyst",
       "sameAs": [author?.xUrl, author?.linkedinUrl].filter(Boolean)
-    }
+    },
+    "articleSection": post.tag,
+    "keywords": [post.tag, "Crypto Airdrops 2026", "Web3 Testnet", "Token Distribution", "DeFi Farming"]
   };
 
   const jsonLdBreadcrumb = {
@@ -78,8 +88,8 @@ export default async function BlogPostPage({ params }: Props) {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://cryptoairdropai.com/blog" },
-      { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://cryptoairdropai.com/blog/${slug}` }
+      { "@type": "ListItem", "position": 2, "name": "Intelligence", "item": "https://cryptoairdropai.com/blog/" },
+      { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://cryptoairdropai.com/blog/${slug}/` }
     ]
   };
 
