@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AIRDROPS, getAirdropBySlug, getRelatedAirdrops } from "@/lib/data";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
+import RiskScoreCard from "@/components/RiskScoreCard";
 
 function initials(name: string): string {
   return name.slice(0, 2).toUpperCase();
@@ -136,6 +137,9 @@ export default async function ProjectPage({ params }: Props) {
             </div>
           </div>
         </MotionCard>
+
+        {/* Proprietary 5-Vector Protocol Risk & Opportunity Scorecard */}
+        <RiskScoreCard projectName={airdrop.name} />
 
         {/* Step by Step Action Checklist */}
         <MotionCard style={{ padding: 36, marginBottom: 36 }}>

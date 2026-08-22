@@ -1,13 +1,14 @@
 import { MetadataRoute } from 'next';
-import { BLOG_POSTS } from '@/lib/data';
+import { getAllPosts } from '@/lib/cms/blogService';
+import { AIRDROPS } from '@/lib/data';
 
-export const dynamic = "force-static";
+export const revalidate = 3600; // ISR revalidate hourly
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://cryptoairdropai.com';
   const now = new Date();
 
-  // Strictly the Core Authority Pages (12) + Strictly 3 Blogs (3) = 15 Clean Canonical URLs
+  // Core Authority & E-E-A-T Trust Pages
   const corePages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
@@ -83,16 +84,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Strictly 3 Core Research Blog Posts
-  const blogEntries: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+  // Dynamic Blog Entries (queried from Supabase Single Source of Truth)
+  const posts = await getAllPosts();
+  const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}/`,
     lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(post.date),
     changeFrequency: 'weekly',
     priority: 0.9,
   }));
 
+  // Dynamic Project Entries (Crawlable research pages)
+  const projectEntries: MetadataRoute.Sitemap = AIRDROPS.map((airdrop) => ({
+    url: `${baseUrl}/projects/${airdrop.slug}/`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
   return [
     ...corePages,
     ...blogEntries,
+    ...projectEntries,
   ];
 }
