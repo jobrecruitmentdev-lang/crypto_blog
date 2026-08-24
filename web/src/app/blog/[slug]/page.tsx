@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/cms/blogService";
 import { getAuthorBySlug } from "@/lib/data";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
+import FaqAccordion from "@/components/FaqAccordion";
 
 export async function generateStaticParams() {
   const posts = await getAllPosts();
@@ -195,18 +196,7 @@ export default async function BlogPostPage({ params }: Props) {
             <h2 style={{ fontSize: "1.6rem", fontWeight: 900, marginBottom: 20 }}>
               Frequently Asked Questions (FAQ)
             </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {post.faqs.map((faq, idx) => (
-                <MotionCard key={idx} style={{ padding: 22 }}>
-                  <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8, color: "var(--text)" }}>
-                    {faq.question}
-                  </h3>
-                  <p style={{ margin: 0, color: "var(--muted)", lineHeight: 1.6 }}>
-                    {faq.answer}
-                  </p>
-                </MotionCard>
-              ))}
-            </div>
+            <FaqAccordion faqs={post.faqs} />
           </div>
         )}
 

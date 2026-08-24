@@ -497,7 +497,16 @@ code, .article-content code {
     align-items: center;
   }
   .footer-grid { grid-template-columns: 1fr; }
-  .search-box input { width: 110px; }
+  .search-box {
+    transition: all 0.25s ease;
+  }
+  .search-box input { 
+    width: 90px; 
+    transition: width 0.25s ease;
+  }
+  .search-box:focus-within input {
+    width: 140px;
+  }
   h1 { font-size: 1.85rem !important; }
 }
 
@@ -506,5 +515,12 @@ code, .article-content code {
   .wrap { padding: 0 16px; }
   .tui-top-bar { font-size: 10px; padding: 6px 14px; }
   .btn-primary, .btn-block { width: 100%; }
+}
+
+@media (max-width: 375px) {
+  .search-box input { width: 75px; }
+  .search-box:focus-within input { width: 110px; }
+  .logo span { font-size: 1.18rem !important; }
+  h1 { font-size: 1.65rem !important; }
 }
 

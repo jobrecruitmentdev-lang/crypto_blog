@@ -47,15 +47,12 @@ export default async function Home() {
                   {featuredPost ? featuredPost.excerpt : "Automated RPC tracking, Sybil cluster defense, and on-chain snapshot verifications across 50+ Web3 networks."}
                 </p>
                 
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
                   <Link href={featuredPost ? `/blog/${featuredPost.slug}/` : "/blog/"} className="btn btn-primary">
-                    Read Report →
+                    Read Intelligence Report →
                   </Link>
                   <Link href="/projects/" className="btn btn-outline">
-                    View All Projects Directory →
-                  </Link>
-                  <Link href="/blog/" className="btn btn-outline">
-                    Browse Intelligence Feed
+                    Explore Projects Directory →
                   </Link>
                 </div>
               </div>
