@@ -22,7 +22,7 @@ export default async function Home() {
         </div>
         <div>
           <span>LATEST INTEL: </span>
-          <Link href="/blog/how-to-farm-airdrops-safely-2026">2026 Security Playbook →</Link>
+          <Link href="/blog/how-to-farm-airdrops-safely-2026/">2026 Security Playbook →</Link>
         </div>
       </div>
 
@@ -48,10 +48,13 @@ export default async function Home() {
                 </p>
                 
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-                  <Link href={featuredPost ? `/blog/${featuredPost.slug}` : "/blog"} className="btn btn-primary">
+                  <Link href={featuredPost ? `/blog/${featuredPost.slug}/` : "/blog/"} className="btn btn-primary">
                     Read Report →
                   </Link>
-                  <Link href="/blog" className="btn btn-outline">
+                  <Link href="/projects/" className="btn btn-outline">
+                    View All Projects Directory →
+                  </Link>
+                  <Link href="/blog/" className="btn btn-outline">
                     Browse Intelligence Feed
                   </Link>
                 </div>
@@ -80,7 +83,7 @@ export default async function Home() {
                 <h2 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0, color: "var(--cyan)", fontFamily: "monospace" }}>
                   [ ESSENTIAL PLAYBOOKS ]
                 </h2>
-                <Link href="/guides" style={{ fontSize: "0.8rem", color: "var(--muted)", textDecoration: "underline" }}>
+                <Link href="/guides/" style={{ fontSize: "0.8rem", color: "var(--muted)", textDecoration: "underline" }}>
                   ALL ({GUIDES.length})
                 </Link>
               </div>
@@ -89,7 +92,7 @@ export default async function Home() {
                 {GUIDES.slice(0, 4).map((g) => (
                   <Link
                     key={g.slug}
-                    href={`/guides/${g.slug}`}
+                    href={`/guides/${g.slug}/`}
                     style={{
                       display: "block",
                       padding: "10px 14px",
@@ -123,9 +126,14 @@ export default async function Home() {
                 Active &amp; Potential Distributions
               </h2>
             </div>
-            <Link href="/methodology" style={{ fontSize: "0.82rem", color: "var(--cyan)", fontFamily: "monospace" }}>
-              [ AUDIT METHODOLOGY → ]
-            </Link>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <Link href="/projects/" style={{ fontSize: "0.82rem", color: "var(--cyan)", fontFamily: "monospace" }}>
+                [ VIEW ALL PROJECTS → ]
+              </Link>
+              <Link href="/methodology/" style={{ fontSize: "0.82rem", color: "var(--muted)", fontFamily: "monospace" }}>
+                [ AUDIT METHODOLOGY → ]
+              </Link>
+            </div>
           </div>
           <FilterableGrid airdrops={AIRDROPS} />
         </div>
@@ -141,7 +149,7 @@ export default async function Home() {
                 Latest Analysis &amp; Research
               </h2>
             </div>
-            <Link href="/blog" className="btn btn-outline btn-sm">
+            <Link href="/blog/" className="btn btn-outline btn-sm">
               All Articles →
             </Link>
           </div>
@@ -163,9 +171,9 @@ export default async function Home() {
               We never take paid compensation for rankings or listings. Every guide undergoes 4-stage smart contract auditing and on-chain simulation.
             </p>
             <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 10 }}>
-              <Link href="/about" className="btn btn-outline btn-sm">About Us</Link>
-              <Link href="/editorial-policy" className="btn btn-outline btn-sm">Editorial Policy</Link>
-              <Link href="/methodology" className="btn btn-primary btn-sm">Evaluation Framework</Link>
+              <Link href="/about/" className="btn btn-outline btn-sm">About Us</Link>
+              <Link href="/editorial-policy/" className="btn btn-outline btn-sm">Editorial Policy</Link>
+              <Link href="/methodology/" className="btn btn-primary btn-sm">Evaluation Framework</Link>
             </div>
           </MotionCard>
         </div>

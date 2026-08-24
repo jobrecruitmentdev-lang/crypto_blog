@@ -61,7 +61,7 @@ export default function AirdropCard({ airdrop }: { airdrop: Airdrop }) {
           </div>
           <div>
             <h3 style={{ fontSize: "1.15rem", fontWeight: 800, margin: 0, color: "var(--text-bright)" }}>
-              <Link href={`/projects/${airdrop.slug}`}>{airdrop.name}</Link>
+              <Link href={`/projects/${airdrop.slug}/`}>{airdrop.name}</Link>
             </h3>
             <div style={{ fontSize: "0.78rem", color: "var(--muted)", fontFamily: "monospace" }}>
               CHAIN: {airdrop.chain} · <span style={{ color: "var(--emerald)" }}>{airdrop.difficulty}</span>
@@ -98,7 +98,7 @@ export default function AirdropCard({ airdrop }: { airdrop: Airdrop }) {
           </div>
         </div>
 
-        <Link href={`/projects/${airdrop.slug}`} className="btn btn-sm btn-primary" style={{ width: "100%" }}>
+        <Link href={`/projects/${airdrop.slug}/`} className="btn btn-sm btn-primary" style={{ width: "100%" }}>
           Step-by-Step Guide →
         </Link>
       </div>

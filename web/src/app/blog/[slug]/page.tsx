@@ -149,7 +149,7 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
             </div>
             <div>
-              <Link href="/editorial-policy" className="btn btn-sm btn-outline" style={{ fontSize: "0.8rem" }}>
+              <Link href="/editorial-policy/" className="btn btn-sm btn-outline" style={{ fontSize: "0.8rem" }}>
                 Editorial Policy
               </Link>
             </div>
@@ -212,7 +212,7 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
             <div>
               <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 4px" }}>
-                Written by <Link href={`/authors/${author.slug}`} style={{ color: "var(--accent)" }}>{author.name}</Link>
+                Written by <Link href={`/authors/${author.slug}/`} style={{ color: "var(--accent)" }}>{author.name}</Link>
               </h3>
               <div style={{ fontSize: "0.85rem", color: "var(--muted)", marginBottom: 8 }}>{author.role}</div>
               <p style={{ fontSize: "0.92rem", color: "var(--muted)", lineHeight: 1.5, margin: "0 0 12px" }}>

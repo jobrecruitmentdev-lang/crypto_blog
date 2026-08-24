@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: Props) {
     "@type": "Article",
     "headline": `${airdrop.name} Airdrop Guide & Review`,
     "description": airdrop.desc,
-    "url": `https://cryptoairdropai.com/projects/${slug}`,
+    "url": `https://cryptoairdropai.com/projects/${slug}/`,
     "publisher": {
       "@type": "Organization",
       "name": "Crypto Airdrop AI",
@@ -59,7 +59,7 @@ export default async function ProjectPage({ params }: Props) {
     "author": {
       "@type": "Organization",
       "name": "Crypto Airdrop AI Research Desk",
-      "url": "https://cryptoairdropai.com/authors/editorial-desk"
+      "url": "https://cryptoairdropai.com/authors/"
     }
   };
 
@@ -69,7 +69,7 @@ export default async function ProjectPage({ params }: Props) {
 
       <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
         <div className="breadcrumb" style={{ marginBottom: 24 }}>
-          <Link href="/">Home</Link> / <Link href="/">Airdrops</Link> / {airdrop.name}
+          <Link href="/">Home</Link> / <Link href="/projects/">Projects</Link> / {airdrop.name}
         </div>
 
         {/* Hero Card with Telemetry Header */}
@@ -108,85 +108,101 @@ export default async function ProjectPage({ params }: Props) {
             </div>
             <div style={{ textAlign: "right" }}>
               <span style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--danger)" }}>
-                🔥 Heat Index: {airdrop.heat}°
+                🔥 HEAT: {airdrop.heat}°
               </span>
+              <div style={{ fontSize: "0.82rem", color: "var(--muted)", marginTop: 4 }}>
+                UPDATED: AUGUST 2026
+              </div>
             </div>
           </div>
 
-          <p style={{ color: "var(--muted)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: 28 }}>
+          <p style={{ fontSize: "1.1rem", lineHeight: 1.65, color: "var(--muted)", marginBottom: 28 }}>
             {airdrop.desc}
           </p>
 
-          {/* Telemetry Matrix Grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14, background: "rgba(255,255,255,0.02)", padding: 20, borderRadius: "var(--radius)", border: "1px solid var(--border)" }}>
-            <div>
-              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Chain</div>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text)" }}>{airdrop.chain}</div>
+          {/* Quick Metrics Bento Strip */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+              gap: 12,
+              marginBottom: 32,
+            }}
+          >
+            <div className="tui-panel" style={{ padding: "14px 18px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase" }}>CHAIN</div>
+              <div style={{ fontWeight: 800, fontSize: "1.05rem", color: "var(--cyan)", marginTop: 2 }}>{airdrop.chain}</div>
             </div>
-            <div>
-              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Est. Reward</div>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--accent)" }}>{airdrop.reward}</div>
+            <div className="tui-panel" style={{ padding: "14px 18px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase" }}>DIFFICULTY</div>
+              <div style={{ fontWeight: 800, fontSize: "1.05rem", color: "var(--emerald)", marginTop: 2 }}>{airdrop.difficulty}</div>
             </div>
-            <div>
-              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Difficulty</div>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--accent2)" }}>{airdrop.difficulty}</div>
+            <div className="tui-panel" style={{ padding: "14px 18px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase" }}>EST. REWARD</div>
+              <div style={{ fontWeight: 800, fontSize: "1.05rem", color: "var(--amber)", marginTop: 2 }}>{airdrop.reward}</div>
             </div>
-            <div>
-              <div style={{ fontSize: "0.75rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Time Est.</div>
-              <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text)" }}>{airdrop.time}</div>
+            <div className="tui-panel" style={{ padding: "14px 18px", textAlign: "center" }}>
+              <div style={{ fontSize: "0.72rem", color: "var(--muted)", textTransform: "uppercase" }}>TIME COMMIT</div>
+              <div style={{ fontWeight: 800, fontSize: "1.05rem", color: "var(--text)", marginTop: 2 }}>{airdrop.time}</div>
             </div>
           </div>
-        </MotionCard>
 
-        {/* Proprietary 5-Vector Protocol Risk & Opportunity Scorecard */}
-        <RiskScoreCard projectName={airdrop.name} />
-
-        {/* Step by Step Action Checklist */}
-        <MotionCard style={{ padding: 36, marginBottom: 36 }}>
-          <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: 8 }}>
-            Step-by-Step Farming Actions
-          </h2>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 24 }}>
-            Execute each step sequentially to maximize on-chain organic interaction points.
-          </p>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {steps.map((step, idx) => (
-              <div
-                key={idx}
-                style={{
-                  display: "flex",
-                  gap: 16,
-                  alignItems: "flex-start",
-                  padding: 16,
-                  borderRadius: "var(--radius-sm)",
-                  background: "rgba(255,255,255,0.02)",
-                  border: "1px solid var(--border)",
-                }}
-              >
+          {/* Step-by-Step Task Checklist */}
+          <div style={{ marginBottom: 32 }}>
+            <h2 style={{ fontSize: "1.35rem", fontWeight: 800, marginBottom: 16 }}>
+              📋 Verified Farming Checklist &amp; Steps
+            </h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              {steps.map((step, idx) => (
                 <div
+                  key={idx}
                   style={{
-                    width: 32,
-                    height: 32,
-                    borderRadius: "50%",
-                    background: "var(--cyan-glow)",
-                    color: "var(--cyan)",
                     display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontWeight: 800,
-                    fontSize: "0.9rem",
-                    flexShrink: 0,
-                    fontFamily: "monospace",
+                    gap: 16,
+                    alignItems: "flex-start",
+                    padding: "16px 20px",
+                    background: "rgba(255, 255, 255, 0.02)",
+                    border: "1px solid var(--border-subtle)",
+                    borderRadius: "var(--radius-sm)",
                   }}
                 >
-                  {idx + 1}
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: "50%",
+                      background: "var(--cyan-glow)",
+                      color: "var(--cyan)",
+                      fontWeight: 800,
+                      fontSize: "0.85rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {idx + 1}
+                  </div>
+                  <div style={{ fontSize: "0.98rem", lineHeight: 1.6, color: "var(--text)" }}>
+                    {step}
+                  </div>
                 </div>
-                <div style={{ fontSize: "1rem", color: "var(--text)", lineHeight: 1.6, paddingTop: 2 }}>
-                  {step}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </div>
+
+          {/* Risk Scoring Panel */}
+          <RiskScoreCard projectName={airdrop.name} />
+
+          {/* Direct Project Directory Link */}
+          <div style={{ marginTop: 28 }}>
+            <Link
+              href="/projects/"
+              className="btn btn-primary"
+              style={{ width: "100%", textAlign: "center", display: "block" }}
+            >
+              ← Back to All Verified Deployments
+            </Link>
           </div>
 
           {/* Essential Security & Prerequisite Interlinks */}
@@ -195,15 +211,15 @@ export default async function ProjectPage({ params }: Props) {
               [ REQUIRED PREREQUISITES &amp; SECURITY GUIDES ]
             </h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-              <Link href="/guides/setting-up-a-farming-wallet" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
+              <Link href="/guides/setting-up-a-farming-wallet/" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
                 <span className="pill-badge success" style={{ fontSize: "0.65rem", marginBottom: 4 }}>SECURITY</span>
                 <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>Wallet Isolation Manual →</div>
               </Link>
-              <Link href="/guides/avoiding-sybil-detection" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
+              <Link href="/guides/avoiding-sybil-detection/" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
                 <span className="pill-badge gold" style={{ fontSize: "0.65rem", marginBottom: 4 }}>ANTI-SYBIL</span>
                 <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>Sybil Defense Guide →</div>
               </Link>
-              <Link href="/methodology" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
+              <Link href="/methodology/" className="tui-panel" style={{ padding: "12px 16px", textDecoration: "none" }}>
                 <span className="pill-badge" style={{ fontSize: "0.65rem", marginBottom: 4 }}>EVALUATION</span>
                 <div style={{ fontWeight: 700, fontSize: "0.9rem", color: "var(--text)" }}>How We Rated {airdrop.name} →</div>
               </Link>
@@ -225,12 +241,12 @@ export default async function ProjectPage({ params }: Props) {
                     <span style={{ fontSize: "0.8rem", color: "var(--danger)", fontWeight: 700 }}>🔥 {r.heat}°</span>
                   </div>
                   <h4 style={{ fontSize: "1.15rem", fontWeight: 800, margin: "4px 0 8px" }}>
-                    <Link href={`/projects/${r.slug}`}>{r.name}</Link>
+                    <Link href={`/projects/${r.slug}/`}>{r.name}</Link>
                   </h4>
                   <p style={{ color: "var(--muted)", fontSize: "0.88rem", lineHeight: 1.5, marginBottom: 14 }}>
                     {r.desc}
                   </p>
-                  <Link href={`/projects/${r.slug}`} className="btn btn-sm btn-outline" style={{ width: "100%" }}>
+                  <Link href={`/projects/${r.slug}/`} className="btn btn-sm btn-outline" style={{ width: "100%" }}>
                     View Guide →
                   </Link>
                 </MotionCard>

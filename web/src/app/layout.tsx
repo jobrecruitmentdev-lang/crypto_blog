@@ -81,13 +81,13 @@ export default function RootLayout({
       "https://twitter.com/cryptoairdropai",
       "https://t.me/cryptoairdropai"
     ],
-    "publishingPrinciples": "https://cryptoairdropai.com/editorial-policy",
-    "correctionsPolicy": "https://cryptoairdropai.com/editorial-policy",
-    "actionableFeedbackPolicy": "https://cryptoairdropai.com/contact",
+    "publishingPrinciples": "https://cryptoairdropai.com/editorial-policy/",
+    "correctionsPolicy": "https://cryptoairdropai.com/editorial-policy/",
+    "actionableFeedbackPolicy": "https://cryptoairdropai.com/contact/",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "editorial & security desk",
-      "url": "https://cryptoairdropai.com/contact",
+      "url": "https://cryptoairdropai.com/contact/",
       "availableLanguage": ["English"]
     }
   };
@@ -96,7 +96,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": "https://cryptoairdropai.com/#website",
-    "url": "https://cryptoairdropai.com",
+    "url": "https://cryptoairdropai.com/",
     "name": "Crypto Airdrop AI",
     "alternateName": "CryptoAirdropAI",
     "publisher": {
@@ -107,7 +107,7 @@ export default function RootLayout({
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://cryptoairdropai.com/search?q={search_term_string}"
+        "urlTemplate": "https://cryptoairdropai.com/search/?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }

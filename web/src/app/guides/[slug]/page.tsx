@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${guide.title} | Crypto Airdrop AI Guide`,
       description: guide.desc,
       type: "article",
-      url: `https://cryptoairdropai.com/guides/${slug}`,
+      url: `https://cryptoairdropai.com/guides/${slug}/`,
     }
   };
 }
@@ -41,15 +41,15 @@ export default async function GuidePage({ params }: Props) {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://cryptoairdropai.com/guides" },
-      { "@type": "ListItem", "position": 3, "name": guide.title, "item": `https://cryptoairdropai.com/guides/${slug}` }
+      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://cryptoairdropai.com/guides/" },
+      { "@type": "ListItem", "position": 3, "name": guide.title, "item": `https://cryptoairdropai.com/guides/${slug}/` }
     ]
   };
 
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "@id": `https://cryptoairdropai.com/guides/${slug}#howto`,
+    "@id": `https://cryptoairdropai.com/guides/${slug}/#howto`,
     "name": guide.title,
     "description": guide.desc,
     "totalTime": "PT15M",
@@ -61,12 +61,12 @@ export default async function GuidePage({ params }: Props) {
     "author": {
       "@type": "Person",
       "name": author?.name || "Security Sentinel AI",
-      "url": `https://cryptoairdropai.com/authors/${author?.slug || 'security-sentinel-ai'}`
+      "url": `https://cryptoairdropai.com/authors/${author?.slug || 'security-sentinel-ai'}/`
     },
     "publisher": {
       "@type": "Organization",
       "name": "Crypto Airdrop AI",
-      "url": "https://cryptoairdropai.com",
+      "url": "https://cryptoairdropai.com/",
       "logo": "https://cryptoairdropai.com/logo-primary.svg"
     }
   };
@@ -78,7 +78,7 @@ export default async function GuidePage({ params }: Props) {
 
       <div className="wrap post-body" style={{ maxWidth: 860, margin: "0 auto" }}>
         <div className="breadcrumb" style={{ marginBottom: 24, fontSize: "0.9rem", color: "var(--muted)" }}>
-          <Link href="/">Home</Link> / <Link href="/guides">Guides</Link> / <span style={{ color: "var(--text)" }}>{guide.title}</span>
+          <Link href="/">Home</Link> / <Link href="/guides/">Guides</Link> / <span style={{ color: "var(--text)" }}>{guide.title}</span>
         </div>
 
         <MotionFade delay={0.05} direction="up">
@@ -110,10 +110,10 @@ export default async function GuidePage({ params }: Props) {
 
         {/* Cross Navigation */}
         <div style={{ marginTop: 40, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
-          <Link href="/guides" className="btn btn-outline btn-sm">
+          <Link href="/guides/" className="btn btn-outline btn-sm">
             ← Back to All Guides
           </Link>
-          <Link href="/methodology" className="btn btn-primary btn-sm">
+          <Link href="/methodology/" className="btn btn-primary btn-sm">
             Our Vetting Methodology →
           </Link>
         </div>

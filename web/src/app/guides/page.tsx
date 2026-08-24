@@ -15,13 +15,13 @@ export default function GuidesPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Crypto Airdrop AI Step-by-Step Guides",
-    "url": "https://cryptoairdropai.com/guides",
+    "url": "https://cryptoairdropai.com/guides/",
     "description": "Educational guides for on-chain crypto security, testnet farming, and snapshot eligibility.",
     "hasPart": GUIDES.map((g) => ({
       "@type": "HowTo",
       "name": g.title,
       "description": g.desc,
-      "url": `https://cryptoairdropai.com/guides/${g.slug}`
+      "url": `https://cryptoairdropai.com/guides/${g.slug}/`
     }))
   };
 
@@ -30,7 +30,7 @@ export default function GuidesPage() {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://cryptoairdropai.com/guides" }
+      { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://cryptoairdropai.com/guides/" }
     ]
   };
 

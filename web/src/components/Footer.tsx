@@ -132,12 +132,13 @@ export default function Footer() {
           <div className="footer-col">
             <h4>[ Intelligence &amp; Guides ]</h4>
             <ul>
-              <li><Link href="/blog">Market Intelligence Feed</Link></li>
-              <li><Link href="/guides">Step-by-Step Farming Guides</Link></li>
-              <li><Link href="/guides/setting-up-a-farming-wallet">Wallet Isolation Manual</Link></li>
-              <li><Link href="/guides/avoiding-sybil-detection">Sybil Defense Playbook</Link></li>
-              <li><Link href="/guides/bridging-to-layer-2-networks">Layer-2 Bridging Guide</Link></li>
-              <li><Link href="/faq">Protocol Security FAQ</Link></li>
+              <li><Link href="/projects/">Verified Airdrop Projects</Link></li>
+              <li><Link href="/blog/">Market Intelligence Feed</Link></li>
+              <li><Link href="/guides/">Step-by-Step Farming Guides</Link></li>
+              <li><Link href="/guides/setting-up-a-farming-wallet/">Wallet Isolation Manual</Link></li>
+              <li><Link href="/guides/avoiding-sybil-detection/">Sybil Defense Playbook</Link></li>
+              <li><Link href="/guides/bridging-to-layer-2-networks/">Layer-2 Bridging Guide</Link></li>
+              <li><Link href="/faq/">Protocol Security FAQ</Link></li>
             </ul>
           </div>
 
@@ -145,11 +146,11 @@ export default function Footer() {
           <div className="footer-col">
             <h4>[ Trust &amp; E-E-A-T ]</h4>
             <ul>
-              <li><Link href="/about">About Us &amp; Mission</Link></li>
-              <li><Link href="/authors">Our AI &amp; Human Analysts</Link></li>
-              <li><Link href="/editorial-policy">Editorial Policy &amp; Ethics</Link></li>
-              <li><Link href="/methodology">5-Stage Audit Framework</Link></li>
-              <li><Link href="/contact">Editorial &amp; Corrections Desk</Link></li>
+              <li><Link href="/about/">About Us &amp; Mission</Link></li>
+              <li><Link href="/authors/">Our AI &amp; Human Analysts</Link></li>
+              <li><Link href="/editorial-policy/">Editorial Policy &amp; Ethics</Link></li>
+              <li><Link href="/methodology/">5-Stage Audit Framework</Link></li>
+              <li><Link href="/contact/">Editorial &amp; Corrections Desk</Link></li>
             </ul>
           </div>
 
@@ -157,9 +158,9 @@ export default function Footer() {
           <div className="footer-col">
             <h4>[ Legal &amp; Compliance ]</h4>
             <ul>
-              <li><Link href="/disclaimer">Financial &amp; Risk Disclaimer</Link></li>
-              <li><Link href="/privacy">Privacy Policy (GDPR / CCPA)</Link></li>
-              <li><Link href="/terms">Terms of Service</Link></li>
+              <li><Link href="/disclaimer/">Financial &amp; Risk Disclaimer</Link></li>
+              <li><Link href="/privacy/">Privacy Policy (GDPR / CCPA)</Link></li>
+              <li><Link href="/terms/">Terms of Service</Link></li>
               <li><Link href="/sitemap.xml">XML Sitemap Protocol</Link></li>
             </ul>
           </div>

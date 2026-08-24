@@ -6,15 +6,16 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-// Exactly 7 Core Primary SEO Pages
+// Core Primary SEO & Navigation Links
 const PRIMARY_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/blog", label: "Intelligence" },
-  { href: "/guides", label: "Guides" },
-  { href: "/methodology", label: "Methodology" },
-  { href: "/editorial-policy", label: "Editorial" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/blog/", label: "Intelligence" },
+  { href: "/guides/", label: "Guides" },
+  { href: "/methodology/", label: "Methodology" },
+  { href: "/editorial-policy/", label: "Editorial" },
+  { href: "/about/", label: "About" },
+  { href: "/contact/", label: "Contact" },
 ];
 
 export default function Header() {

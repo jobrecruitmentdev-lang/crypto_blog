@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/cms/blogService';
-import { AIRDROPS } from '@/lib/data';
+import { AIRDROPS, GUIDES } from '@/lib/data';
 
 export const revalidate = 3600; // ISR revalidate hourly
 
@@ -15,6 +15,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: 'daily',
       priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/projects/`,
+      lastModified: now,
+      changeFrequency: 'daily',
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/blog/`,
@@ -84,7 +90,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // Dynamic Blog Entries (queried from Supabase Single Source of Truth)
+  // Dynamic Blog Entries
   const posts = await getAllPosts();
   const blogEntries: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}/`,
@@ -93,9 +99,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  // Dynamic Project Entries (Crawlable research pages)
+  // Dynamic Project Entries
   const projectEntries: MetadataRoute.Sitemap = AIRDROPS.map((airdrop) => ({
     url: `${baseUrl}/projects/${airdrop.slug}/`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  // Dynamic Guides Entries
+  const guideEntries: MetadataRoute.Sitemap = GUIDES.map((guide) => ({
+    url: `${baseUrl}/guides/${guide.slug}/`,
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.85,
@@ -105,5 +119,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...corePages,
     ...blogEntries,
     ...projectEntries,
+    ...guideEntries,
   ];
 }
