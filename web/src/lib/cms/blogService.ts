@@ -27,14 +27,25 @@ function formatPostRecord(post: any, localFallback?: BlogPost): BlogPost {
 }
 
 export async function getAllPosts(): Promise<BlogPost[]> {
-  // 1. Try Supabase first if available
+  const targetPostId = process.env.TARGET_POST_ID;
+  const targetReleaseId = process.env.TARGET_RELEASE_ID || process.env.RELEASE_ID;
+
+  // 1. Try Supabase with Release Isolation
   if (supabase) {
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('posts')
-        .select('*')
-        .eq('status', 'published')
-        .order('published_at', { ascending: false });
+        .select('*');
+
+      // Scoped Build: If building for a specific release, allow published + target staged post
+      if (targetReleaseId && targetPostId) {
+        query = query.or(`status.eq.published,and(status.eq.staged,id.eq.${targetPostId})`);
+      } else {
+        // Global Rebuild: ONLY build verified published posts
+        query = query.eq('status', 'published');
+      }
+
+      const { data, error } = await query.order('published_at', { ascending: false, nullsFirst: false });
 
       if (!error && data && data.length > 0) {
         return data.map((p: any) => formatPostRecord(p));
@@ -44,7 +55,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     }
   }
 
-  // 2. Try PHP API endpoint
+  // 2. Try PHP API endpoint as fallback
   try {
     const res = await fetch(`${API_BASE_URL}/get_posts.php`, { next: { revalidate: 60 } });
     if (res.ok) {
@@ -62,39 +73,31 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | undefined> {
-  const localFallback = getLocalPostBySlug(slug);
+  const targetPostId = process.env.TARGET_POST_ID;
+  const targetReleaseId = process.env.TARGET_RELEASE_ID || process.env.RELEASE_ID;
 
-  // 1. Try Supabase first if available
   if (supabase) {
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('posts')
         .select('*')
-        .eq('slug', slug)
-        .eq('status', 'published')
-        .single();
+        .eq('slug', slug);
+
+      if (targetReleaseId && targetPostId) {
+        query = query.or(`status.eq.published,and(status.eq.staged,id.eq.${targetPostId})`);
+      } else {
+        query = query.eq('status', 'published');
+      }
+
+      const { data, error } = await query.maybeSingle();
 
       if (!error && data) {
-        return formatPostRecord(data, localFallback);
+        return formatPostRecord(data);
       }
     } catch (e) {
-      console.warn(`Supabase slug fetch failed for ${slug}:`, e);
+      console.warn('Supabase getPostBySlug failed, falling back:', e);
     }
   }
 
-  // 2. Try PHP API endpoint
-  try {
-    const res = await fetch(`${API_BASE_URL}/get_post_by_slug.php?slug=${slug}`, { next: { revalidate: 60 } });
-    if (res.ok) {
-      const json = await res.json();
-      if (json.success && json.data) {
-        return formatPostRecord(json.data, localFallback);
-      }
-    }
-  } catch (error) {
-    // Fallback to local
-  }
-
-  // 3. Fallback to local verified static post
-  return localFallback;
+  return getLocalPostBySlug(slug);
 }

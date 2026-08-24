@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/cms/blogService';
-import { AIRDROPS, GUIDES } from '@/lib/data';
+import { AIRDROPS, GUIDES, AUTHORS } from '@/lib/data';
 
 export const revalidate = 3600; // ISR revalidate hourly
 
@@ -115,10 +115,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
+  // Dynamic Author Entries
+  const authorEntries: MetadataRoute.Sitemap = AUTHORS.map((author) => ({
+    url: `${baseUrl}/authors/${author.slug}/`,
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.75,
+  }));
+
   return [
     ...corePages,
     ...blogEntries,
     ...projectEntries,
     ...guideEntries,
+    ...authorEntries,
   ];
 }

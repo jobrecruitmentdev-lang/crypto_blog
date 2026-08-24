@@ -67,4 +67,7 @@ brain/
 skills/
 knowledge/
 .graph/
-automation/
+automation/.env
+automation/.env.*
+automation/logs/
+!migrations/*.sql

@@ -1,0 +1,5 @@
+requests==2.31.0
+gspread==6.1.2
+python-dotenv==1.0.1
+tenacity==8.4.1
+groq==0.10.0

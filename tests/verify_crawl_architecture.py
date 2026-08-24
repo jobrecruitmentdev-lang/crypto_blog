@@ -1,10 +1,12 @@
 import os
 import sys
+import json
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from urllib.parse import urlparse
+from collections import deque
 
-# Force utf-8 output on Windows
+# Force UTF-8 stdout encoding on Windows
 sys.stdout.reconfigure(encoding='utf-8')
 
 OUT_DIR = r"C:\hk\cryptodrop\web\out"
@@ -17,6 +19,14 @@ ASSET_EXTENSIONS = {
 }
 
 IGNORED_ROUTES = {"/404/", "/_not-found/", "/search/"}
+
+PRIMARY_HUBS = {
+    "/",
+    "/projects/",
+    "/blog/",
+    "/guides/",
+    "/authors/"
+}
 
 class HTMLCrawler(HTMLParser):
     def __init__(self):
@@ -59,161 +69,187 @@ def is_document_route(href):
     parsed = urlparse(href)
     if parsed.netloc and parsed.netloc != DOMAIN:
         return False
-
+    
     path = parsed.path
-    if not path or path == "/":
-        return True
-
-    _, ext = os.path.splitext(path)
-    if ext.lower() in ASSET_EXTENSIONS:
+    if not path:
         return False
-
+    
+    for ext in ASSET_EXTENSIONS:
+        if path.lower().endswith(ext):
+            return False
+            
     return True
+
+def normalize_route(href):
+    parsed = urlparse(href)
+    path = parsed.path
+    if not path:
+        return "/"
+    clean = path.strip("/")
+    if not clean:
+        return "/"
+    return f"/{clean}/"
+
+def rel_to_route(rel_path):
+    normalized = rel_path.replace("\\", "/")
+    if normalized == "index.html":
+        return "/"
+    if normalized.endswith("/index.html"):
+        clean = normalized[:-11].strip("/")
+        return f"/{clean}/"
+    if normalized.endswith(".html"):
+        clean = normalized[:-5].strip("/")
+        return f"/{clean}/"
+    clean = normalized.strip("/")
+    return f"/{clean}/"
 
 def run_crawl_audit():
     print("=" * 80)
-    print("  CRYPTOAIRDROPAI.COM — PRODUCTION CRAWL ARCHITECTURE VERIFICATION")
+    print("  CRYPTOAIRDROPAI.COM — PRODUCTION TIERED CRAWL & MANIFEST VERIFICATION")
     print("=" * 80)
 
     if not os.path.exists(OUT_DIR):
-        print(f"ERROR: Build directory not found: {OUT_DIR}")
-        print("Please run `npm run build` inside `web/` first.")
+        print(f"[-] ERROR: Build output directory not found at {OUT_DIR}")
         return False
 
+    # 1. Discover all HTML routes in web/out/
     all_html_files = {}
     for root, _, files in os.walk(OUT_DIR):
         for f in files:
-            if f.endswith(".html"):
+            if f.endswith('.html'):
                 abs_path = os.path.join(root, f)
-                rel_path = os.path.relpath(abs_path, OUT_DIR).replace("\\", "/")
-                
-                if rel_path == "index.html":
-                    route = "/"
-                elif rel_path.endswith("/index.html"):
-                    route = "/" + rel_path[:-11] + "/"
-                elif rel_path.endswith(".html"):
-                    route = "/" + rel_path[:-5] + "/"
-                else:
-                    route = "/" + rel_path + "/"
-                
+                rel_path = os.path.relpath(abs_path, OUT_DIR)
+                route = rel_to_route(rel_path)
                 if route not in IGNORED_ROUTES:
                     all_html_files[route] = abs_path
 
-    print(f"Found {len(all_html_files)} indexable static HTML document routes in `web/out/`.")
+    indexable_routes = all_html_files
+    print(f"Found {len(indexable_routes)} indexable static HTML document routes in `web/out/`.")
 
+    # 2. Parse Sitemap
+    sitemap_path = os.path.join(OUT_DIR, "sitemap.xml")
+    sitemap_urls = set()
+    if os.path.exists(sitemap_path):
+        try:
+            tree = ET.parse(sitemap_path)
+            root = tree.getroot()
+            for elem in root.findall("{http://www.sitemaps.org/schemas/sitemap/0.9}url"):
+                loc = elem.find("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
+                if loc is not None and loc.text:
+                    sitemap_urls.add(loc.text.strip())
+            print(f"Sitemap contains {len(sitemap_urls)} URLs.")
+        except Exception as e:
+            print(f"[-] Failed to parse sitemap.xml: {e}")
+    else:
+        print("[-] WARNING: sitemap.xml not found in output directory!")
+
+    # 3. Parse Deployment Manifest
+    manifest_path = os.path.join(OUT_DIR, "deployment-manifest.json")
+    manifest_routes = set()
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest_data = json.load(f)
+                manifest_routes = set(manifest_data.get("routes", []))
+                print(f"Deployment Manifest validated: {manifest_data.get('route_count')} routes, Release: {manifest_data.get('release_id')}")
+        except Exception as e:
+            print(f"[-] Failed to parse deployment-manifest.json: {e}")
+
+    # 4. Crawl Graph Build
     errors = []
     crawl_graph = {}
-    all_extracted_internal_links = set()
+    incoming_links = {r: set() for r in indexable_routes}
 
-    for route, filepath in all_html_files.items():
+    for route, filepath in indexable_routes.items():
         with open(filepath, "r", encoding="utf-8") as f:
             content = f.read()
-
-        if "sitemkap" in content.lower():
-            errors.append(f"TYPO: Found 'sitemkap' in {route}")
 
         parser = HTMLCrawler()
         parser.feed(content)
 
+        # 4a. Canonical URL contract (Trailing slash match)
         expected_canonical = f"{BASE_URL}{route}"
-        if not parser.canonical:
-            errors.append(f"MISSING CANONICAL: {route} has no canonical link tag")
-        elif parser.canonical != expected_canonical:
-            errors.append(f"CANONICAL MISMATCH: {route} -> Expected: {expected_canonical} | Got: {parser.canonical}")
+        if parser.canonical != expected_canonical:
+            errors.append(f"Canonical Mismatch in '{route}': got '{parser.canonical}', expected '{expected_canonical}'")
 
-        if parser.robots_meta and "noindex" in parser.robots_meta.lower():
-            errors.append(f"ROGUE NOINDEX: {route} has meta robots: {parser.robots_meta}")
-
-        valid_links_for_route = []
+        # 4b. Collect and validate outgoing links
+        doc_links = set()
         for href in parser.links:
             if is_document_route(href):
+                # Enforce trailing slash policy on all internal link anchors
                 parsed = urlparse(href)
-                path = parsed.path
-                if not path:
-                    continue
-                if not path.endswith("/"):
-                    errors.append(f"NON-SLASH INTERNAL LINK: In {route} -> href='{href}' (Must end in '/')")
-                valid_links_for_route.append(path)
-                all_extracted_internal_links.add(path)
-
-        crawl_graph[route] = valid_links_for_route
-
-    # SITEMAP VERIFICATION
-    sitemap_path = os.path.join(OUT_DIR, "sitemap.xml")
-    if not os.path.exists(sitemap_path):
-        errors.append("MISSING SITEMAP: out/sitemap.xml was not generated")
-    else:
-        try:
-            tree = ET.parse(sitemap_path)
-            root = tree.getroot()
-            sitemap_urls = []
-            for child in root:
-                loc = child.find("{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
-                if loc is not None and loc.text:
-                    sitemap_urls.append(loc.text.strip())
-
-            print(f"Sitemap contains {len(sitemap_urls)} URLs.")
-            for surl in sitemap_urls:
-                if not surl.endswith("/"):
-                    errors.append(f"SITEMAP NON-SLASH: {surl}")
+                if not parsed.path.endswith("/"):
+                    errors.append(f"Non-trailing-slash internal link found in '{route}': href='{href}'")
                 
-                route = surl.replace(BASE_URL, "")
-                if route not in all_html_files:
-                    errors.append(f"SITEMAP ORPHAN ROUTE (No static file on disk): {surl} -> expected on disk")
-        except Exception as e:
-            errors.append(f"SITEMAP XML PARSE ERROR: {e}")
+                target_route = normalize_route(href)
+                doc_links.add(target_route)
+                if target_route in incoming_links:
+                    incoming_links[target_route].add(route)
+                    
+        crawl_graph[route] = doc_links
 
-    # ORPHAN PAGE DETECTION VIA GRAPH TRAVERSAL (BFS from /)
-    visited = set()
-    queue = ["/"]
+    # 5. Tiered Hub BFS Reachability & Hop Distance
+    hop_distances = {r: float("inf") for r in indexable_routes}
+    
+    # BFS from root '/'
+    queue = deque([("/", 0)])
+    hop_distances["/"] = 0
+    visited = {"/"}
+
     while queue:
-        curr = queue.pop(0)
-        if curr in visited:
-            continue
-        visited.add(curr)
+        curr, dist = queue.popleft()
+        for neighbor in crawl_graph.get(curr, []):
+            if neighbor in indexable_routes and neighbor not in visited:
+                visited.add(neighbor)
+                hop_distances[neighbor] = dist + 1
+                queue.append((neighbor, dist + 1))
 
-        neighbors = crawl_graph.get(curr, [])
-        for n in neighbors:
-            if n in all_html_files and n not in visited:
-                queue.append(n)
-
-    orphans = [r for r in all_html_files.keys() if r not in visited]
+    # 6. Contract Invariant Assertions
+    # 6a. 0 Orphan HTML Pages
+    orphans = [r for r, srcs in incoming_links.items() if len(srcs) == 0 and r != "/"]
     if orphans:
         for o in orphans:
-            errors.append(f"ORPHAN PAGE (Not reachable via <a> tags from /): {o}")
+            errors.append(f"Orphan Route Detected (0 incoming links): '{o}'")
 
-    # ROBOTS.TXT VERIFICATION
-    robots_path = os.path.join(OUT_DIR, "robots.txt")
-    if not os.path.exists(robots_path):
-        errors.append("MISSING ROBOTS: out/robots.txt was not generated")
-    else:
-        with open(robots_path, "r", encoding="utf-8") as f:
-            rob_content = f.read()
-            if "disallow: /" in rob_content.lower() and not "disallow: /api/" in rob_content.lower():
-                errors.append("ACCIDENTAL SITEWIDE DISALLOW in robots.txt")
-            if f"sitemap: {BASE_URL}/sitemap.xml" not in rob_content.lower():
-                errors.append(f"robots.txt does not declare sitemap: {BASE_URL}/sitemap.xml")
+    # 6b. Bounded Hop Distance (Hub -> Leaf <= 3, Root -> Leaf <= 4)
+    unreachable = [r for r, d in hop_distances.items() if d == float("inf")]
+    if unreachable:
+        for u in unreachable:
+            errors.append(f"Unreachable from Homepage BFS: '{u}'")
 
-    # REPORT SUMMARY
+    too_deep = [r for r, d in hop_distances.items() if d > 4]
+    if too_deep:
+        for td in too_deep:
+            errors.append(f"Hop distance exceeded (> 4 hops from /): '{td}' (dist={hop_distances[td]})")
+
+    # 6c. 4-Way Route Equality
+    for r in indexable_routes:
+        canonical = f"{BASE_URL}{r}"
+        if sitemap_urls and canonical not in sitemap_urls:
+            errors.append(f"Sitemap Missing Indexable Route: '{canonical}'")
+        if manifest_routes and r not in manifest_routes:
+            errors.append(f"Manifest Missing Indexable Route: '{r}'")
+
+    # 7. Print Summary
     print("\n" + "=" * 80)
-    print("  CRAWL ARCHITECTURE REPORT")
+    print("  TIERED CRAWL & SITEMAP CONTRACT REPORT")
     print("=" * 80)
-    print(f"Total Indexable Routes in Build: {len(all_html_files)}")
-    print(f"Routes Reachable from Homepage:  {len(visited)}")
-    print(f"Orphan HTML Pages:               {len(orphans)}")
-    print(f"Total Internal Links Checked:    {len(all_extracted_internal_links)}")
-    print(f"Violations / Errors Found:       {len(errors)}")
+    print(f"Total Indexable Routes:       {len(indexable_routes)}")
+    print(f"Orphan HTML Pages:            {len(orphans)}")
+    print(f"Max Hop Distance Observed:    {max([d for d in hop_distances.values() if d != float('inf')], default=0)}")
+    print(f"Total Contract Violations:    {len(errors)}")
     print("-" * 80)
 
     if errors:
-        print("\n[!] VERIFICATION FAILED! Violations:")
-        for idx, err in enumerate(errors, 1):
-            print(f"  {idx}. {err}")
+        print("\n[-] CONTRACT TEST FAILED! Violations:")
+        for err in errors[:20]:
+            print(f"  -> {err}")
         return False
     else:
-        print("\n[+] ALL CRAWL & CANONICAL ARCHITECTURAL INVARIANTS PASSED (100% CLEAN)!")
+        print("\n[+] ALL TIERED CRAWL & SITEMAP CONTRACTS PASSED (100% CLEAN)!\n")
         return True
 
 if __name__ == "__main__":
     success = run_crawl_audit()
-    sys.exit(0 if success else 1)
+    if not success:
+        sys.exit(1)

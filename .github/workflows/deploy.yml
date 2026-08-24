@@ -1,0 +1,130 @@
+name: Production Build, Test & Atomic Deploy Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  repository_dispatch:
+    types: [ publish_blog_post, rebuild_production ]
+  workflow_dispatch:
+    inputs:
+      release_id:
+        description: "Release ID (optional, defaults to manual rebuild)"
+        required: false
+        type: string
+      post_id:
+        description: "Target Post ID (optional)"
+        required: false
+        type: string
+      slug:
+        description: "Target Post Slug (optional)"
+        required: false
+        type: string
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ./web
+        run: npm ci
+
+      - name: Extract Release Variables
+        id: vars
+        run: |
+          RELEASE_ID="${{ github.event.client_payload.release_id || github.event.inputs.release_id || github.run_id }}"
+          POST_ID="${{ github.event.client_payload.post_id || github.event.inputs.post_id || '' }}"
+          SLUG="${{ github.event.client_payload.slug || github.event.inputs.slug || '' }}"
+          echo "release_id=$RELEASE_ID" >> $GITHUB_OUTPUT
+          echo "post_id=$POST_ID" >> $GITHUB_OUTPUT
+          echo "slug=$SLUG" >> $GITHUB_OUTPUT
+
+      - name: Build Next.js Static Export & Manifest
+        working-directory: ./web
+        env:
+          NEXT_PUBLIC_SITE_URL: https://cryptoairdropai.com
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          RELEASE_ID: ${{ steps.vars.outputs.release_id }}
+          TARGET_POST_ID: ${{ steps.vars.outputs.post_id }}
+        run: npm run build
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Crawl & Sitemap Contract Verification
+        run: python tests/verify_crawl_architecture.py
+
+      - name: Create Release Tarball Snapshot on Hostinger
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 65002
+          script: |
+            mkdir -p backups
+            if [ -d "domains/cryptoairdropai.com/public_html" ]; then
+              tar -czf backups/release-${{ steps.vars.outputs.release_id }}.tar.gz -C domains/cryptoairdropai.com public_html || true
+              # Prune old backups (keep last 5)
+              ls -t backups/release-*.tar.gz | tail -n +6 | xargs rm -f 2>/dev/null || true
+            fi
+
+      - name: Deploy Static Build via Rsync
+        id: deploy
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_IP }}
+          REMOTE_PORT: "65002"
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          TARGET: "domains/cryptoairdropai.com/public_html/"
+          SOURCE: "web/out/"
+          ARGS: "-avz --delete --exclude-from=.rsyncignore"
+
+      - name: Mark Deployment Completed Flag
+        run: echo "deployed=true" >> $GITHUB_ENV
+
+      - name: Run Live Production Smoke & Fingerprint Verification
+        env:
+          SUPABASE_DB_PASS: ${{ secrets.SUPABASE_DB_PASS }}
+          RELEASE_ID: ${{ steps.vars.outputs.release_id }}
+          TARGET_POST_ID: ${{ steps.vars.outputs.post_id }}
+          TARGET_SLUG: ${{ steps.vars.outputs.slug }}
+        run: python tests/verify_production_smoke.py
+
+      - name: Automated Rollback on Smoke Failure
+        if: failure() && env.deployed == 'true'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 65002
+          script: |
+            echo "[!] Smoke test failed! Restoring production from backup: backups/release-${{ steps.vars.outputs.release_id }}.tar.gz"
+            if [ -f "backups/release-${{ steps.vars.outputs.release_id }}.tar.gz" ]; then
+              rm -rf domains/cryptoairdropai.com/public_html
+              mkdir -p domains/cryptoairdropai.com/public_html
+              tar -xzf backups/release-${{ steps.vars.outputs.release_id }}.tar.gz -C domains/cryptoairdropai.com/
+              echo "[+] Rollback completed."
+            fi
+
+      - name: Trigger Search Discovery Notifications (IndexNow)
+        if: success()
+        run: python automation/modules/submit_indexing.py --discovery
