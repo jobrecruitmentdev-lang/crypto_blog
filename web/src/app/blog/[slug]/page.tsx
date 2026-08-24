@@ -181,7 +181,13 @@ export default async function BlogPostPage({ params }: Props) {
         )}
 
         {/* Post Main Body */}
-        <div className="post-content" dangerouslySetInnerHTML={{ __html: post.body }} style={{ fontSize: "1.08rem", lineHeight: 1.75 }} />
+        <div 
+          className="post-content article-content" 
+          dangerouslySetInnerHTML={{ 
+            __html: (post.body || "").replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>') 
+          }} 
+          style={{ fontSize: "1.08rem", lineHeight: 1.75 }} 
+        />
 
         {/* FAQs */}
         {post.faqs && post.faqs.length > 0 && (

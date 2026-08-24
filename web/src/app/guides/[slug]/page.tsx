@@ -96,7 +96,13 @@ export default async function GuidePage({ params }: Props) {
         </MotionFade>
 
         {/* Main Body */}
-        <div className="post-content" dangerouslySetInnerHTML={{ __html: guide.body }} style={{ fontSize: "1.08rem", lineHeight: 1.75 }} />
+        <div 
+          className="post-content article-content" 
+          dangerouslySetInnerHTML={{ 
+            __html: (guide.body || "").replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>') 
+          }} 
+          style={{ fontSize: "1.08rem", lineHeight: 1.75 }} 
+        />
 
         {/* Security Warning */}
         <MotionCard style={{ marginTop: 48, padding: 28, borderLeft: "4px solid var(--amber)" }}>
