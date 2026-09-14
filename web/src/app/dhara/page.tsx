@@ -15,7 +15,35 @@ const CATEGORIES: { key: PageType; label: string; icon: string; desc: string }[]
   { key: "editorial", label: "Editorial Charters", icon: "⚖️", desc: "Fact-checking protocols & disclosure policies (2,200-2,500w + 3 8K images)" },
 ];
 
-export default function AdminPage() {
+export default function DharaPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [usernameInput, setUsernameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [authError, setAuthError] = useState("");
+
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? sessionStorage.getItem("dhara_authenticated") : null;
+    setIsAuthenticated(saved === "true");
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (usernameInput.trim() === "chaiwala" && passwordInput === "Hostinger ki masi 4786") {
+      sessionStorage.setItem("dhara_authenticated", "true");
+      setIsAuthenticated(true);
+      setAuthError("");
+    } else {
+      setAuthError("Invalid username or password. Access denied.");
+    }
+  };
+
+  const handleLogout = () => {
+    sessionStorage.removeItem("dhara_authenticated");
+    setIsAuthenticated(false);
+    setUsernameInput("");
+    setPasswordInput("");
+  };
+
   const [activeTab, setActiveTab] = useState<"overview" | "projects" | "articles" | "automation">("overview");
   const [projects, setProjects] = useState<ProjectItem[]>(initialProjectsData as ProjectItem[]);
   const [articles, setArticles] = useState<Article[]>(initialArticlesData as Article[]);
@@ -260,6 +288,115 @@ export default function AdminPage() {
     return text.trim().split(/\s+/).filter(Boolean).length;
   };
 
+  if (isAuthenticated === null) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F8FAFC", color: "var(--text-bright)", fontFamily: "var(--font-sans)" }}>
+        <div style={{ padding: 24, fontSize: "0.95rem", color: "var(--muted)" }}>Checking authorization...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F8FAFC", padding: 20, fontFamily: "var(--font-sans)" }}>
+        <div style={{ maxWidth: 420, width: "100%", background: "#FFFFFF", borderRadius: 16, border: "1px solid #E2E8F0", padding: "36px 32px", boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)" }}>
+          <div style={{ textAlign: "center", marginBottom: 28 }}>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "4px 12px", borderRadius: 9999, background: "rgba(37, 99, 235, 0.08)", color: "#2563EB", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 14 }}>
+              🔒 Restricted Enclave
+            </div>
+            <h1 style={{ fontSize: "1.6rem", fontWeight: 900, color: "#0F172A", margin: "0 0 8px", letterSpacing: "-0.02em" }}>
+              Dhara Command Center
+            </h1>
+            <p style={{ fontSize: "0.88rem", color: "#64748B", margin: 0, lineHeight: 1.5 }}>
+              Institutional access gate for Crypto Airdrop AI. Please enter your authorized operator credentials.
+            </p>
+          </div>
+
+          <form onSubmit={handleLogin} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+            {authError && (
+              <div style={{ padding: "10px 14px", borderRadius: 8, background: "rgba(220, 38, 38, 0.08)", border: "1px solid rgba(220, 38, 38, 0.25)", color: "#DC2626", fontSize: "0.85rem", fontWeight: 600 }}>
+                ⚠️ {authError}
+              </div>
+            )}
+
+            <div>
+              <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#334155", marginBottom: 6 }}>
+                Operator Username
+              </label>
+              <input
+                type="text"
+                autoFocus
+                placeholder="Enter username"
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "11px 14px",
+                  borderRadius: 8,
+                  border: "1px solid #CBD5E1",
+                  background: "#FFFFFF",
+                  fontSize: "0.95rem",
+                  color: "#0F172A",
+                  outline: "none",
+                  boxSizing: "border-box"
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#334155", marginBottom: 6 }}>
+                Security Key / Password
+              </label>
+              <input
+                type="password"
+                placeholder="Enter password"
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "11px 14px",
+                  borderRadius: 8,
+                  border: "1px solid #CBD5E1",
+                  background: "#FFFFFF",
+                  fontSize: "0.95rem",
+                  color: "#0F172A",
+                  outline: "none",
+                  boxSizing: "border-box"
+                }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                marginTop: 8,
+                width: "100%",
+                padding: "12px 16px",
+                borderRadius: 8,
+                border: "none",
+                background: "#2563EB",
+                color: "#FFFFFF",
+                fontSize: "0.95rem",
+                fontWeight: 700,
+                cursor: "pointer",
+                boxShadow: "0 2px 8px rgba(37, 99, 235, 0.25)",
+                transition: "all 0.15s ease"
+              }}
+            >
+              Unlock Command Center →
+            </button>
+          </form>
+
+          <div style={{ marginTop: 24, paddingTop: 16, borderTop: "1px solid #F1F5F9", textAlign: "center" }}>
+            <Link href="/" style={{ fontSize: "0.82rem", color: "#64748B", textDecoration: "none", fontWeight: 600 }}>
+              ← Return to Public Portal
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{ minHeight: "100vh", background: "var(--surface-sunken)", color: "var(--text)" }}>
       {/* Admin Top Navigation */}
@@ -279,7 +416,7 @@ export default function AdminPage() {
             <span style={{ fontSize: "1.5rem" }}>⚡</span>
             <div>
               <h1 style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--text-bright)", margin: 0, letterSpacing: "-0.02em" }}>
-                CRYPTOAIRDROP<span style={{ color: "var(--accent)" }}>AI</span> / ADMIN COMMAND
+                CRYPTOAIRDROP<span style={{ color: "var(--accent)" }}>AI</span> / DHARA COMMAND
               </h1>
               <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 500 }}>
                 Multi-Hub Automation &amp; Central Content Store
@@ -287,7 +424,7 @@ export default function AdminPage() {
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <div
               style={{
                 display: "flex",
@@ -308,6 +445,20 @@ export default function AdminPage() {
             <Link href="/" className="btn btn-outline btn-sm" target="_blank" style={{ background: "var(--surface)" }}>
               Live Site ↗
             </Link>
+
+            <button
+              onClick={handleLogout}
+              className="btn btn-outline btn-sm"
+              style={{
+                background: "var(--surface)",
+                borderColor: "#FCA5A5",
+                color: "#DC2626",
+                fontWeight: 700,
+                cursor: "pointer"
+              }}
+            >
+              🔒 Lock &amp; Exit
+            </button>
           </div>
         </div>
       </header>

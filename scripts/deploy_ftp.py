@@ -57,6 +57,25 @@ if (!file_exists($zipFile)) {{
     exit;
 }}
 
+function rrmdir($dir) {
+    if (is_dir($dir)) {
+        $objects = scandir($dir);
+        foreach ($objects as $object) {
+            if ($object !== "." && $object !== "..") {
+                if (is_dir($dir . "/" . $object) && !is_link($dir . "/" . $object)) {
+                    rrmdir($dir . "/" . $object);
+                } else {
+                    @unlink($dir . "/" . $object);
+                }
+            }
+        }
+        @rmdir($dir);
+    }
+}
+// Clean up removed routes
+rrmdir(__DIR__ . '/career');
+rrmdir(__DIR__ . '/admin');
+
 $zip = new ZipArchive();
 if ($zip->open($zipFile) === TRUE) {{
     $zip->extractTo(__DIR__ . '/');
