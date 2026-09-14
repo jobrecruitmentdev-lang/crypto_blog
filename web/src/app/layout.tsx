@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import BackToTop from "@/components/BackToTop";
+import ConditionalShell from "@/components/ConditionalShell";
 import "./globals.css";
 
 const inter = Inter({
@@ -135,10 +133,7 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }} />
-        <Header />
-        {children}
-        <Footer />
-        <BackToTop />
+        <ConditionalShell>{children}</ConditionalShell>
       </body>
     </html>
   );
