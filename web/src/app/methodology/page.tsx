@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
+import ArticleCardGrid from "@/components/ArticleCardGrid";
+import { getArticles } from "@/lib/contentStore";
 
 export const metadata: Metadata = {
   title: "Evaluation Methodology & Protocol Risk Scoring Framework",
@@ -9,13 +11,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/methodology/" },
 };
 
-export default function MethodologyPage() {
+export default async function MethodologyPage() {
+  const articles = await getArticles("methodology");
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Methodology", "item": "https://cryptoairdropai.com/methodology" }
+      { "@type": "ListItem", "position": 2, "name": "Methodology", "item": "https://cryptoairdropai.com/methodology/" }
     ]
   };
 
@@ -61,100 +65,72 @@ export default function MethodologyPage() {
     <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+      <div className="wrap" style={{ maxWidth: 960, margin: "0 auto" }}>
         <div className="breadcrumb" style={{ marginBottom: 24 }}>
-          <Link href="/">Home</Link> / Methodology
+          <Link href="/">Home</Link> / Methodology &amp; Audit Framework
         </div>
 
         <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
           <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge">🔬 Scientific Vetting Framework</span>
+            <span className="pill-badge">🔬 Quantitative Protocol Evaluation</span>
           </div>
           <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
-            Our 5-Step Evaluation Methodology
+            The 5-Stage Audit Framework
           </h1>
-          <p style={{ fontSize: "1.2rem", color: "var(--muted)", maxWidth: 680, margin: "0 auto", lineHeight: 1.6 }}>
-            A rigorous, multi-chain vetting framework designed to filter out fraudulent schemes and rank authentic Web3 opportunities.
+          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, margin: "0 auto", lineHeight: 1.6 }}>
+            Every crypto project cataloged on Crypto Airdrop AI must pass through our deterministic 5-stage cryptographic filter.
           </p>
         </MotionFade>
 
-        {/* 5-Step Radar Cards */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 48 }}>
-          {steps.map((item, idx) => (
-            <MotionCard key={idx} style={{ padding: 28 }}>
-              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 12 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(124, 92, 255, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>
-                    {item.icon}
-                  </div>
-                  <div>
-                    <span style={{ fontSize: "0.8rem", color: "var(--accent)", fontWeight: 800, textTransform: "uppercase" }}>
-                      Phase {item.step}
-                    </span>
-                    <h2 style={{ fontSize: "1.25rem", fontWeight: 800, margin: "2px 0 0" }}>{item.title}</h2>
-                  </div>
+        {/* 5-Stage Framework Bento */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 54 }}>
+          {steps.map((s, idx) => (
+            <MotionCard key={idx} style={{ padding: "24px 28px", display: "flex", alignItems: "flex-start", gap: 20 }}>
+              <div style={{ fontSize: "1.8rem", flexShrink: 0, marginTop: 2 }}>{s.icon}</div>
+              <div style={{ flexGrow: 1 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 6 }}>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0 }}>
+                    Stage {s.step}: {s.title}
+                  </h3>
+                  <span className="pill-badge success" style={{ fontSize: "0.72rem" }}>
+                    {s.metric}
+                  </span>
                 </div>
-                <span className="pill-badge success" style={{ fontSize: "0.75rem" }}>
-                  {item.metric}
-                </span>
+                <p style={{ color: "var(--muted)", fontSize: "0.93rem", lineHeight: 1.6, margin: 0 }}>
+                  {s.desc}
+                </p>
               </div>
-              <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
-                {item.desc}
-              </p>
             </MotionCard>
           ))}
         </div>
 
-        {/* Risk Scoring Matrix */}
+        {/* 8K Methodology & Audit Articles Section */}
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 20 }}>
-            Risk Classification Matrix
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
-            <MotionCard style={{ padding: 24, borderTop: "3px solid #00e0a4" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <span style={{ width: 10, height: 10, borderRadius: 5, background: "#00e0a4" }} />
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0 }}>Low Risk / Confirmed</h3>
-              </div>
-              <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.6, margin: 0 }}>
-                Audited smart contracts, confirmed foundation governance budget, established team with verifiable GitHub activity.
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+            <div>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, margin: 0 }}>
+                Security &amp; Audit Research Papers
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.92rem", margin: "4px 0 0" }}>
+                Deep forensic audits, bytecode analysis, and protocol risk score breakdowns
               </p>
-            </MotionCard>
-
-            <MotionCard style={{ padding: 24, borderTop: "3px solid #ffb547" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <span style={{ width: 10, height: 10, borderRadius: 5, background: "#ffb547" }} />
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0 }}>Moderate Risk / Points</h3>
-              </div>
-              <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.6, margin: 0 }}>
-                Active points campaign, unconfirmed tokenomics snapshot, contract upgrades possible via multi-sig timelocks.
-              </p>
-            </MotionCard>
-
-            <MotionCard style={{ padding: 24, borderTop: "3px solid #ff5c7c" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <span style={{ width: 10, height: 10, borderRadius: 5, background: "#ff5c7c" }} />
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0 }}>High Risk / Testnet</h3>
-              </div>
-              <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.6, margin: 0 }}>
-                Early experimental code, un-audited testnet contracts. Strict zero-real-funds isolation recommended.
-              </p>
-            </MotionCard>
+            </div>
           </div>
+          <ArticleCardGrid articles={articles} basePath="/methodology/" />
         </div>
 
-        {/* Footer Navigation */}
-        <MotionCard style={{ padding: 28, textAlign: "center" }}>
-          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Have a Protocol for Review?</h3>
+        {/* Cross Links */}
+        <MotionCard style={{ padding: 28, textAlign: "center", background: "rgba(10, 17, 34, 0.6)" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Need to Report a Security Concern?</h3>
           <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
-            Submit your protocol&apos;s smart contract addresses and audit documentation for consideration.
+            Reach our Security Sentinel desk for expedited smart contract vulnerability reviews.
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>
-            <Link href="/contact" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
-              Submit for Vetting
+            <Link href="/editorial-policy/" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+              Editorial Charter
             </Link>
-            <Link href="/editorial-policy" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
-              Editorial Guidelines
+            <Link href="/contact/" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
+              Submit Vulnerability
             </Link>
           </div>
         </MotionCard>

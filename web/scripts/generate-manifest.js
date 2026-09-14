@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const OUT_DIR = path.join(__dirname, '..', 'out');
 const MANIFEST_PATH = path.join(OUT_DIR, 'deployment-manifest.json');
 
-const IGNORED_ROUTES = new Set(['/404/', '/_not-found/', '/search/']);
+const IGNORED_ROUTES = new Set(['/404/', '/_not-found/', '/search/', '/admin/']);
 
 function computeFileSha256(filePath) {
   if (!fs.existsSync(filePath)) return null;

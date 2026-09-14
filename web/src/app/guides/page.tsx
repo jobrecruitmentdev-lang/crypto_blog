@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import GuideGrid from "@/components/GuideGrid";
+import ArticleCardGrid from "@/components/ArticleCardGrid";
+import { getArticles } from "@/lib/contentStore";
 import { GUIDES } from "@/lib/data";
-import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
+import { MotionFade } from "@/components/ui/MotionWrapper";
 
 export const metadata: Metadata = {
   title: "Airdrop & Layer-2 Farming Guides — Step-by-Step Tutorials",
@@ -10,17 +11,41 @@ export const metadata: Metadata = {
   alternates: { canonical: "/guides/" },
 };
 
-export default function GuidesPage() {
+export default async function GuidesPage() {
+  let guides = await getArticles("guides");
+  if (!guides || guides.length === 0) {
+    // fallback to GUIDES mapped to Article
+    guides = GUIDES.map((g) => ({
+      slug: g.slug,
+      pageType: "guides",
+      tag: "Farming Playbook",
+      title: g.title,
+      excerpt: g.desc,
+      tldr: g.desc,
+      keyTakeaways: ["Follow multi-wallet hygiene", "Execute weekly transaction cadence"],
+      date: "2026-08-20",
+      read: "6 min read",
+      authorSlug: g.authorSlug || "ai-intelligence-engine",
+      body: g.body,
+      featuredImage: `/images/generated/${g.slug}-featured.jpg`,
+      middleImage: `/images/generated/${g.slug}-middle.jpg`,
+      preFaqImage: `/images/generated/${g.slug}-pre_faq.jpg`,
+      faqs: [
+        { question: "How to avoid sybil detection?", answer: "Do not fund multiple wallets from the exact same centralized exchange address at the same timestamp." }
+      ]
+    }));
+  }
+
   const guideCollectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Crypto Airdrop AI Step-by-Step Guides",
     "url": "https://cryptoairdropai.com/guides/",
     "description": "Educational guides for on-chain crypto security, testnet farming, and snapshot eligibility.",
-    "hasPart": GUIDES.map((g) => ({
+    "hasPart": guides.map((g) => ({
       "@type": "HowTo",
       "name": g.title,
-      "description": g.desc,
+      "description": g.excerpt,
       "url": `https://cryptoairdropai.com/guides/${g.slug}/`
     }))
   };
@@ -52,22 +77,12 @@ export default function GuidesPage() {
             Airdrop &amp; DeFi Strategy Guides
           </h1>
           <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, lineHeight: 1.6 }}>
-            Everything you need to interact with smart contracts safely, optimize gas fees, and avoid sybil clustering.
+            Step-by-step walkthroughs to interact with smart contracts safely, optimize gas fees, and avoid sybil clustering.
           </p>
         </MotionFade>
 
-        {/* Guides Grid */}
-        <GuideGrid guides={GUIDES} />
-
-        {/* Security Alert Callout */}
-        <MotionCard style={{ marginTop: 64, padding: 32, borderLeft: "4px solid var(--accent2)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-            <span className="pill-badge success" style={{ fontSize: "0.72rem" }}>🔒 Security First Rule</span>
-          </div>
-          <p style={{ color: "var(--muted)", margin: 0, fontSize: "0.95rem", lineHeight: 1.6 }}>
-            Never enter your seed phrase on any website. Use dedicated burning wallets for unverified testnets and revoke token allowances with <a href="https://revoke.cash" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent)", textDecoration: "underline" }}>Revoke.cash</a> after interacting.
-          </p>
-        </MotionCard>
+        {/* 8K Guides Card Grid */}
+        <ArticleCardGrid articles={guides} basePath="/guides/" />
       </div>
     </section>
   );

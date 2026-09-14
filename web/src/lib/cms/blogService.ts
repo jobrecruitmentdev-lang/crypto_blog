@@ -68,7 +68,21 @@ export async function getAllPosts(): Promise<BlogPost[]> {
     // Fallback to local
   }
 
-  // 3. Fallback to local verified static posts
+  // 3. Read from centralized contentStore
+  try {
+    const { getArticles } = await import('../contentStore');
+    const articles = await getArticles("intelligence");
+    if (articles && articles.length > 0) {
+      return articles.map((a) => ({
+        ...a,
+        coverImage: a.featuredImage
+      }));
+    }
+  } catch (e) {
+    // fallback
+  }
+
+  // 4. Fallback to local verified static posts
   return BLOG_POSTS;
 }
 
@@ -97,6 +111,19 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | undefined>
     } catch (e) {
       console.warn('Supabase getPostBySlug failed, falling back:', e);
     }
+  }
+
+  try {
+    const { getArticleBySlug } = await import('../contentStore');
+    const article = await getArticleBySlug(slug);
+    if (article) {
+      return {
+        ...article,
+        coverImage: article.featuredImage
+      };
+    }
+  } catch (e) {
+    // fallback
   }
 
   return getLocalPostBySlug(slug);

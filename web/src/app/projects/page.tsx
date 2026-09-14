@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import FilterableGrid from "@/components/FilterableGrid";
+import { getProjects } from "@/lib/contentStore";
 import { AIRDROPS } from "@/lib/data";
 import { MotionFade } from "@/components/ui/MotionWrapper";
 
@@ -10,14 +11,17 @@ export const metadata: Metadata = {
   alternates: { canonical: "/projects/" },
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+  const projectList = projects.length > 0 ? projects : AIRDROPS;
+
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "Verified Crypto Airdrop Deployments & Intelligence",
     "url": "https://cryptoairdropai.com/projects/",
     "description": "Directory of fact-checked crypto token airdrops, protocols, and testnet reward deployments.",
-    "hasPart": AIRDROPS.map((a) => ({
+    "hasPart": projectList.map((a) => ({
       "@type": "Article",
       "headline": `${a.name} Airdrop Farming Guide`,
       "description": a.desc,
@@ -57,7 +61,7 @@ export default function ProjectsPage() {
         </MotionFade>
 
         {/* Interactive Filterable Grid with Guaranteed Static Anchor Links */}
-        <FilterableGrid airdrops={AIRDROPS} />
+        <FilterableGrid airdrops={projectList} />
       </div>
     </section>
   );

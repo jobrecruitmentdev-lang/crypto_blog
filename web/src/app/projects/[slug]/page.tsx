@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AIRDROPS, getAirdropBySlug, getRelatedAirdrops } from "@/lib/data";
+import { getProjects, getProjectBySlug } from "@/lib/contentStore";
+import { AIRDROPS, getAirdropBySlug as getLocalAirdropBySlug, getRelatedAirdrops } from "@/lib/data";
+import type { ProjectItem } from "@/lib/types";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 import RiskScoreCard from "@/components/RiskScoreCard";
+import Image from "next/image";
 
 function initials(name: string): string {
   return name.slice(0, 2).toUpperCase();
 }
 
-export function generateStaticParams() {
-  return AIRDROPS.map((a) => ({ slug: a.slug }));
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  const slugs = new Set(projects.map((p) => p.slug));
+  AIRDROPS.forEach((a) => slugs.add(a.slug));
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 type Props = {
@@ -19,7 +25,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const airdrop = getAirdropBySlug(slug);
+  const airdrop = (await getProjectBySlug(slug)) || getLocalAirdropBySlug(slug);
   if (!airdrop) return {};
   return {
     title: `${airdrop.name} Airdrop Guide & Farming Strategy — Crypto Airdrop AI`,
@@ -30,17 +36,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
-  const airdrop = getAirdropBySlug(slug);
-  if (!airdrop) notFound();
+  const rawAirdrop = (await getProjectBySlug(slug)) || getLocalAirdropBySlug(slug);
+  if (!rawAirdrop) {
+    notFound();
+  }
+  const airdrop: ProjectItem = rawAirdrop as ProjectItem;
 
   const related = getRelatedAirdrops(airdrop);
-  const steps = [
-    `Go to the official ${airdrop.name} verified portal or dApp interface.`,
-    `Connect a dedicated non-custodial Web3 wallet (MetaMask, Rabby, or Phantom).`,
-    `Execute the protocol interaction: ${airdrop.desc.toLowerCase()}`,
-    `Maintain periodic activity — transacting once or twice weekly rather than in a single cluster.`,
-    `Monitor official Discord or X announcement channels for official snapshot block height updates.`,
-  ];
+  const steps: string[] = airdrop.farmingSteps && airdrop.farmingSteps.length > 0
+    ? airdrop.farmingSteps.map((s: { title: string; desc: string }) => `${s.title}: ${s.desc}`)
+    : [
+        `Go to the official ${airdrop.name} verified portal or dApp interface.`,
+        `Connect a dedicated non-custodial Web3 wallet (MetaMask, Rabby, or Phantom).`,
+        `Execute the protocol interaction: ${airdrop.desc.toLowerCase()}`,
+        `Maintain periodic activity — transacting once or twice weekly rather than in a single cluster.`,
+        `Monitor official Discord or X announcement channels for official snapshot block height updates.`,
+      ];
 
   const jsonLdArticle = {
     "@context": "https://schema.org",
@@ -115,6 +126,29 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             </div>
           </div>
+
+          {airdrop.featuredImage && (
+            <div 
+              style={{ 
+                position: "relative", 
+                width: "100%", 
+                aspectRatio: "16/9", 
+                borderRadius: "14px", 
+                overflow: "hidden", 
+                marginBottom: 24, 
+                border: "1px solid var(--border)" 
+              }}
+            >
+              <Image 
+                src={airdrop.featuredImage} 
+                alt={airdrop.name} 
+                fill 
+                priority 
+                sizes="(max-width: 940px) 100vw, 940px" 
+                style={{ objectFit: "cover" }} 
+              />
+            </div>
+          )}
 
           <p style={{ fontSize: "1.1rem", lineHeight: 1.65, color: "var(--muted)", marginBottom: 28 }}>
             {airdrop.desc}

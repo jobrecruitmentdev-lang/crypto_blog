@@ -46,8 +46,11 @@ export interface BlogFaq {
   answer: string;
 }
 
-export interface BlogPost {
+export type PageType = "intelligence" | "guides" | "methodology" | "editorial";
+
+export interface Article {
   slug: string;
+  pageType?: PageType;
   tag: string;
   title: string;
   excerpt: string;
@@ -58,7 +61,25 @@ export interface BlogPost {
   read: string;
   authorSlug: string;
   body: string;
+  featuredImage?: string;
+  middleImage?: string;
+  preFaqImage?: string;
   faqs?: BlogFaq[];
+  seo?: {
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string[];
+  };
+}
+
+export interface ProjectItem extends Airdrop {
+  featuredImage?: string;
+  farmingSteps?: { step: number; title: string; desc: string; link?: string }[];
+  officialLinks?: { website?: string; twitter?: string; discord?: string; docs?: string };
+  riskScore?: number;
+}
+
+export interface BlogPost extends Article {
   coverImage?: string;
 }
 
@@ -70,9 +91,14 @@ export interface Guide {
   body: string;
   authorSlug?: string;
   updatedAt?: string;
+  featuredImage?: string;
+  middleImage?: string;
+  preFaqImage?: string;
+  faqs?: BlogFaq[];
 }
 
 export interface Faq {
   q: string;
   a: string;
 }
+

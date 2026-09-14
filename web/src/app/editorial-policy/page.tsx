@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
+import ArticleCardGrid from "@/components/ArticleCardGrid";
+import { getArticles } from "@/lib/contentStore";
 
 export const metadata: Metadata = {
   title: "Editorial Policy & Fact-Checking Standards",
@@ -9,13 +11,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/editorial-policy/" },
 };
 
-export default function EditorialPolicyPage() {
+export default async function EditorialPolicyPage() {
+  const articles = await getArticles("editorial");
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Editorial Policy", "item": "https://cryptoairdropai.com/editorial-policy" }
+      { "@type": "ListItem", "position": 2, "name": "Editorial Policy", "item": "https://cryptoairdropai.com/editorial-policy/" }
     ]
   };
 
@@ -50,9 +54,9 @@ export default function EditorialPolicyPage() {
     <section className="section" style={{ position: "relative" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+      <div className="wrap" style={{ maxWidth: 960, margin: "0 auto" }}>
         <div className="breadcrumb" style={{ marginBottom: 24 }}>
-          <Link href="/">Home</Link> / Editorial Policy
+          <Link href="/">Home</Link> / Editorial Policy &amp; Standards
         </div>
 
         <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
@@ -60,74 +64,53 @@ export default function EditorialPolicyPage() {
             <span className="pill-badge success">🛡️ Integrity &amp; Transparency Mandate</span>
           </div>
           <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
-            Editorial Policy &amp; Fact-Checking Standards
+            Editorial Policy &amp; Ethics
           </h1>
-          <p style={{ fontSize: "1.2rem", color: "var(--muted)", maxWidth: 680, margin: "0 auto", lineHeight: 1.6 }}>
-            Our commitment to verifiable research, on-chain proof of execution, and zero paid listing bias.
+          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, margin: "0 auto", lineHeight: 1.6 }}>
+            Our binding charter for fact-checking, zero sponsored listings, and algorithmic non-custodial research.
           </p>
         </MotionFade>
 
-        {/* Independence Banner */}
-        <MotionCard style={{ padding: 32, marginBottom: 40, borderLeft: "4px solid var(--accent)" }}>
-          <h2 style={{ fontSize: "1.4rem", fontWeight: 800, marginBottom: 12 }}>
-            1. Uncompromising Editorial Independence
-          </h2>
-          <p style={{ color: "var(--muted)", fontSize: "1rem", lineHeight: 1.7, margin: 0 }}>
-            Crypto Airdrop AI operates under a strict firewall separating our technical research desk from external commercial entities. We do not accept sponsored tokens, paid ranking placements, or hidden bounty arrangements. Every protocol evaluated is scored strictly based on verifiable merit and security.
-          </p>
-        </MotionCard>
+        {/* 4 Pillars Bento Grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 54 }}>
+          {steps.map((item, idx) => (
+            <MotionCard key={idx} style={{ padding: 28 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+                <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--accent)" }}>{item.num}</span>
+                <span className="pill-badge" style={{ fontSize: "0.72rem" }}>{item.badge}</span>
+              </div>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 10px" }}>{item.title}</h3>
+              <p style={{ color: "var(--muted)", fontSize: "0.93rem", lineHeight: 1.6, margin: 0 }}>
+                {item.desc}
+              </p>
+            </MotionCard>
+          ))}
+        </div>
 
-        {/* 4-Stage Fact-Checking Stepper */}
+        {/* 8K Editorial Articles Section */}
         <div style={{ marginBottom: 48 }}>
-          <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 24 }}>
-            2. The 4-Stage Fact-Checking Protocol
-          </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
-            {steps.map((s, idx) => (
-              <MotionCard key={idx} style={{ padding: 28 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                  <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--accent)" }}>{s.num}</span>
-                  <span className="pill-badge" style={{ fontSize: "0.75rem" }}>{s.badge}</span>
-                </div>
-                <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8 }}>{s.title}</h3>
-                <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>{s.desc}</p>
-              </MotionCard>
-            ))}
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+            <div>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, margin: 0 }}>
+                Editorial Integrity &amp; Ethics Publications
+              </h2>
+              <p style={{ color: "var(--muted)", fontSize: "0.92rem", margin: "4px 0 0" }}>
+                Deep dives on crypto journalism standards, compliance, and regulatory disclosures
+              </p>
+            </div>
           </div>
+          <ArticleCardGrid articles={articles} basePath="/editorial-policy/" />
         </div>
 
-        {/* AI Transparency & Corrections */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 48 }}>
-          <MotionCard style={{ padding: 28 }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 12 }}>🤖 AI Governance &amp; Ethics</h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7 }}>
-              Our AI algorithmic crawlers aggregate contract events and telemetry continuously. However, all generated guides undergo mandatory deterministic verification and technical review before being marked as Verified.
-            </p>
-          </MotionCard>
-
-          <MotionCard style={{ padding: 28 }}>
-            <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 12 }}>⚡ Rapid Corrections Protocol</h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.7 }}>
-              If a smart contract rule changes or an exploit is detected, our research desk issues transparent timestamped correction updates within 2 to 4 hours.
-            </p>
-          </MotionCard>
-        </div>
-
-        {/* Bottom Cross-links */}
-        <MotionCard style={{ padding: 28, textAlign: "center" }}>
-          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Explore Our Trust Framework</h3>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
-            Discover our risk-scoring metrics or request a fact-checking review from our editors.
+        {/* Accountability Statement */}
+        <MotionCard style={{ padding: 32, textAlign: "center", background: "rgba(10, 17, 34, 0.6)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 8 }}>Found an Inaccuracy or Outdated Information?</h3>
+          <p style={{ color: "var(--muted)", fontSize: "0.95rem", maxWidth: 640, margin: "0 auto 20px" }}>
+            We guarantee a 24–48 hour turn-around for verified factual corrections.
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>
-            <Link href="/methodology" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
-              🔬 Evaluation Methodology
-            </Link>
-            <Link href="/authors" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
-              🤖 Meet the AI Nodes
-            </Link>
-            <Link href="/contact" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
-              ✉️ Submit a Correction
+            <Link href="/contact/" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
+              Submit Correction to Editorial Desk
             </Link>
           </div>
         </MotionCard>

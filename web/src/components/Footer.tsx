@@ -138,6 +138,7 @@ export default function Footer() {
               <li><Link href="/guides/setting-up-a-farming-wallet/">Wallet Isolation Manual</Link></li>
               <li><Link href="/guides/avoiding-sybil-detection/">Sybil Defense Playbook</Link></li>
               <li><Link href="/guides/bridging-to-layer-2-networks/">Layer-2 Bridging Guide</Link></li>
+              <li><Link href="/guides/understanding-snapshot-mechanics/">Snapshot Mechanics Guide</Link></li>
               <li><Link href="/faq/">Protocol Security FAQ</Link></li>
             </ul>
           </div>
@@ -149,6 +150,7 @@ export default function Footer() {
               <li><Link href="/about/">About Us &amp; Mission</Link></li>
               <li><Link href="/career/">Careers &amp; Opportunities</Link></li>
               <li><Link href="/authors/">Our AI &amp; Human Analysts</Link></li>
+              <li><Link href="/editorial/">Editorial Hub</Link></li>
               <li><Link href="/editorial-policy/">Editorial Policy &amp; Ethics</Link></li>
               <li><Link href="/methodology/">5-Stage Audit Framework</Link></li>
               <li><Link href="/contact/">Editorial &amp; Corrections Desk</Link></li>

@@ -18,7 +18,7 @@ ASSET_EXTENSIONS = {
     ".xml", ".txt", ".json", ".css", ".js", ".mjs", ".webmanifest"
 }
 
-IGNORED_ROUTES = {"/404/", "/_not-found/", "/search/"}
+IGNORED_ROUTES = {"/404/", "/_not-found/", "/search/", "/admin/"}
 
 PRIMARY_HUBS = {
     "/",

@@ -2,14 +2,22 @@ import Link from "next/link";
 import BlogGrid from "@/components/BlogGrid";
 import Newsletter from "@/components/Newsletter";
 import FilterableGrid from "@/components/FilterableGrid";
-import { GUIDES, AIRDROPS } from "@/lib/data";
+import { GUIDES } from "@/lib/data";
 import { getAllPosts } from "@/lib/cms/blogService";
+import { getProjects, getArticles } from "@/lib/contentStore";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
 export default async function Home() {
-  const allPosts = await getAllPosts();
+  const [allPosts, allProjects, guideArticles, methodologyArticles] = await Promise.all([
+    getAllPosts(),
+    getProjects(),
+    getArticles("guides"),
+    getArticles("methodology"),
+  ]);
+
   const featuredPost = allPosts[0];
-  const otherPosts = allPosts;
+  const otherPosts = allPosts.slice(0, 6);
+  const activeGuides = guideArticles.length > 0 ? guideArticles : GUIDES;
 
   return (
     <>
@@ -81,12 +89,12 @@ export default async function Home() {
                   [ ESSENTIAL PLAYBOOKS ]
                 </h2>
                 <Link href="/guides/" style={{ fontSize: "0.8rem", color: "var(--muted)", textDecoration: "underline" }}>
-                  ALL ({GUIDES.length})
+                  ALL ({activeGuides.length})
                 </Link>
               </div>
 
               <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, justifyContent: "space-around" }}>
-                {GUIDES.slice(0, 4).map((g) => (
+                {activeGuides.slice(0, 4).map((g) => (
                   <Link
                     key={g.slug}
                     href={`/guides/${g.slug}/`}
@@ -100,8 +108,12 @@ export default async function Home() {
                     }}
                   >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-                      <span className="pill-badge success" style={{ fontSize: "0.68rem", padding: "2px 6px" }}>{g.level}</span>
-                      <span style={{ fontSize: "0.74rem", color: "var(--muted)", fontFamily: "monospace" }}>5 MIN READ</span>
+                      <span className="pill-badge success" style={{ fontSize: "0.68rem", padding: "2px 6px" }}>
+                        {'level' in g ? g.level : (g.tag || 'Tactical')}
+                      </span>
+                      <span style={{ fontSize: "0.74rem", color: "var(--muted)", fontFamily: "monospace" }}>
+                        {'read' in g ? g.read : "6 MIN READ"}
+                      </span>
                     </div>
                     <div style={{ fontWeight: 700, fontSize: "0.92rem", color: "var(--text)" }}>{g.title}</div>
                   </Link>
@@ -120,7 +132,7 @@ export default async function Home() {
             <div>
               <span className="pill-badge" style={{ marginBottom: 6 }}>📡 [ PROTOCOL SCANNER ]</span>
               <h2 style={{ fontSize: "1.85rem", fontWeight: 900, letterSpacing: "-0.02em", color: "var(--text-bright)" }}>
-                Active &amp; Potential Distributions
+                Active &amp; Potential Distributions ({allProjects.length})
               </h2>
             </div>
             <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
@@ -132,7 +144,7 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-          <FilterableGrid airdrops={AIRDROPS} />
+          <FilterableGrid airdrops={allProjects} />
         </div>
       </section>
 
@@ -154,8 +166,66 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Trust & E-E-A-T Guarantee Banner */}
+      {/* Methodology & Sybil Defense Hub Section */}
       <section className="section">
+        <div className="wrap">
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
+            <div>
+              <span className="pill-badge gold">🔬 [ AUDIT &amp; METHODOLOGY ]</span>
+              <h2 style={{ fontSize: "1.85rem", fontWeight: 900, marginTop: 6, color: "var(--text-bright)" }}>
+                Cryptographic Verification Standards
+              </h2>
+            </div>
+            <Link href="/methodology/" className="btn btn-outline btn-sm">
+              Full Methodology →
+            </Link>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            <MotionCard style={{ padding: 24 }}>
+              <div style={{ fontSize: "1.6rem", marginBottom: 12 }}>🛡️</div>
+              <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8, color: "var(--cyan)" }}>
+                5-Stage Contract Audit
+              </h3>
+              <p style={{ fontSize: "0.88rem", color: "var(--muted)", lineHeight: 1.6 }}>
+                Bytecode decompilation, proxy admin timelocks, and reentrancy detection across EVM, SVM, and Move runtimes.
+              </p>
+              <Link href="/methodology/5-stage-smart-contract-audit-telemetry-framework/" style={{ display: "inline-block", marginTop: 12, fontSize: "0.82rem", color: "var(--cyan)", textDecoration: "underline" }}>
+                Read Audit Framework →
+              </Link>
+            </MotionCard>
+
+            <MotionCard style={{ padding: 24 }}>
+              <div style={{ fontSize: "1.6rem", marginBottom: 12 }}>🧬</div>
+              <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8, color: "var(--emerald)" }}>
+                Sybil Clustering Defense
+              </h3>
+              <p style={{ fontSize: "0.88rem", color: "var(--muted)", lineHeight: 1.6 }}>
+                Heuristic modeling of temporal clustering, funding graph overlap, and CEX batch deposit signatures.
+              </p>
+              <Link href="/methodology/" style={{ display: "inline-block", marginTop: 12, fontSize: "0.82rem", color: "var(--emerald)", textDecoration: "underline" }}>
+                Explore Sybil Heuristics →
+              </Link>
+            </MotionCard>
+
+            <MotionCard style={{ padding: 24 }}>
+              <div style={{ fontSize: "1.6rem", marginBottom: 12 }}>⚖️</div>
+              <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 8, color: "var(--amber)" }}>
+                Strict Editorial Integrity
+              </h3>
+              <p style={{ fontSize: "0.88rem", color: "var(--muted)", lineHeight: 1.6 }}>
+                100% unsponsored protocol evaluations with zero token allocations accepted from featured crypto teams.
+              </p>
+              <Link href="/editorial-policy/editorial-integrity-charter-and-fact-checking-code/" style={{ display: "inline-block", marginTop: 12, fontSize: "0.82rem", color: "var(--amber)", textDecoration: "underline" }}>
+                View Editorial Charter →
+              </Link>
+            </MotionCard>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust & E-E-A-T Guarantee Banner */}
+      <section className="section" style={{ background: "rgba(8, 13, 26, 0.5)", borderTop: "1px solid var(--border)" }}>
         <div className="wrap">
           <MotionCard style={{ padding: 36, textAlign: "center", background: "linear-gradient(180deg, rgba(10, 17, 34, 0.9), rgba(4, 7, 13, 0.98))" }}>
             <div style={{ display: "inline-flex", marginBottom: 10 }}>
@@ -165,7 +235,7 @@ export default async function Home() {
               Built on Transparent Evaluation &amp; Zero Custody
             </h2>
             <p style={{ color: "var(--muted)", maxWidth: 620, margin: "0 auto 20px", fontSize: "0.98rem", lineHeight: 1.6 }}>
-              We never take paid compensation for rankings or listings. Every guide undergoes 4-stage smart contract auditing and on-chain simulation.
+              We never take paid compensation for rankings or listings. Every guide undergoes multi-stage smart contract auditing and on-chain simulation.
             </p>
             <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 10 }}>
               <Link href="/about/" className="btn btn-outline btn-sm">About Us</Link>

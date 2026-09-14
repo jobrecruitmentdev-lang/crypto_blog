@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/cms/blogService';
+import { getProjects, getArticles } from '@/lib/contentStore';
 import { AIRDROPS, GUIDES, AUTHORS } from '@/lib/data';
 
 export const revalidate = 3600; // ISR revalidate hourly
@@ -51,6 +52,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/editorial/`,
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/editorial-policy/`,
@@ -105,20 +112,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  // Dynamic Project Entries
-  const projectEntries: MetadataRoute.Sitemap = AIRDROPS.map((airdrop) => ({
-    url: `${baseUrl}/projects/${airdrop.slug}/`,
+  // Dynamic Project Entries (Merged from store & static)
+  const storedProjects = await getProjects();
+  const projectSlugMap = new Map<string, Date>();
+  storedProjects.forEach((p) => projectSlugMap.set(p.slug, now));
+  AIRDROPS.forEach((a) => {
+    if (!projectSlugMap.has(a.slug)) {
+      projectSlugMap.set(a.slug, now);
+    }
+  });
+
+  const projectEntries: MetadataRoute.Sitemap = Array.from(projectSlugMap.keys()).map((slug) => ({
+    url: `${baseUrl}/projects/${slug}/`,
     lastModified: now,
     changeFrequency: 'weekly',
     priority: 0.85,
   }));
 
-  // Dynamic Guides Entries
-  const guideEntries: MetadataRoute.Sitemap = GUIDES.map((guide) => ({
-    url: `${baseUrl}/guides/${guide.slug}/`,
-    lastModified: now,
+  // Dynamic Guides Entries (Merged from store & static)
+  const storedGuides = await getArticles("guides");
+  const guideSlugMap = new Map<string, Date>();
+  storedGuides.forEach((g) => guideSlugMap.set(g.slug, g.updatedAt ? new Date(g.updatedAt) : new Date(g.date)));
+  GUIDES.forEach((g) => {
+    if (!guideSlugMap.has(g.slug)) {
+      guideSlugMap.set(g.slug, g.updatedAt ? new Date(g.updatedAt) : now);
+    }
+  });
+
+  const guideEntries: MetadataRoute.Sitemap = Array.from(guideSlugMap.entries()).map(([slug, lastMod]) => ({
+    url: `${baseUrl}/guides/${slug}/`,
+    lastModified: lastMod,
     changeFrequency: 'weekly',
     priority: 0.85,
+  }));
+
+  // Dynamic Methodology Entries
+  const methodologyArticles = await getArticles("methodology");
+  const methodologyEntries: MetadataRoute.Sitemap = methodologyArticles.map((m) => ({
+    url: `${baseUrl}/methodology/${m.slug}/`,
+    lastModified: m.updatedAt ? new Date(m.updatedAt) : new Date(m.date),
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }));
+
+  // Dynamic Editorial Policy Entries
+  const editorialArticles = await getArticles("editorial");
+  const editorialEntries: MetadataRoute.Sitemap = editorialArticles.map((e) => ({
+    url: `${baseUrl}/editorial-policy/${e.slug}/`,
+    lastModified: e.updatedAt ? new Date(e.updatedAt) : new Date(e.date),
+    changeFrequency: 'monthly',
+    priority: 0.8,
   }));
 
   // Dynamic Author Entries
@@ -134,6 +177,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...blogEntries,
     ...projectEntries,
     ...guideEntries,
+    ...methodologyEntries,
+    ...editorialEntries,
     ...authorEntries,
   ];
 }

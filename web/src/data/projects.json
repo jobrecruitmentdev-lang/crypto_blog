@@ -1,0 +1,721 @@
+[
+  {
+    "slug": "initia",
+    "name": "Initia",
+    "chain": "Cosmos / MoveVM",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$500 - $2,200",
+    "difficulty": "Easy",
+    "time": "15 min/week",
+    "heat": 340,
+    "desc": "Network for interwoven rollups, combining Layer 1 architecture with application-specific L2s across EVM, Wasm, and MoveVM.",
+    "tags": [
+      "Cosmos",
+      "Interwoven",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/initia-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Install Initia Wallet",
+        "desc": "Setup your Initia wallet and claim testnet INIT from faucet."
+      },
+      {
+        "step": 2,
+        "title": "Adopt and Feed Jennie Pet",
+        "desc": "Feed your virtual Jennie mascot daily by completing on-chain quests."
+      },
+      {
+        "step": 3,
+        "title": "Swap and Bridge across Minitias",
+        "desc": "Bridge tokens between Blackwing, Tucana, and Lunch Minitias."
+      },
+      {
+        "step": 4,
+        "title": "Stake INIT with Active Validators",
+        "desc": "Delegate INIT to participate in governance proposals."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://initia.xyz",
+      "twitter": "https://twitter.com/initiaFDN",
+      "docs": "https://docs.initia.xyz"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "symbiotic",
+    "name": "Symbiotic",
+    "chain": "Ethereum",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$1,200 - $5,000",
+    "difficulty": "Medium",
+    "time": "10 min",
+    "heat": 510,
+    "desc": "Permissionless shared security restaking protocol allowing any asset to secure decentralized networks.",
+    "tags": [
+      "Restaking",
+      "Ethereum",
+      "DeFi"
+    ],
+    "featuredImage": "/images/generated/symbiotic-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Acquire Supported LSTs or LRTs",
+        "desc": "Obtain wstETH, cbETH, or rETH on Ethereum mainnet."
+      },
+      {
+        "step": 2,
+        "title": "Deposit into Symbiotic Restaking Vaults",
+        "desc": "Deposit assets when vault caps open to earn Symbiotic points."
+      },
+      {
+        "step": 3,
+        "title": "Deploy into Mellow Protocol Curated Vaults",
+        "desc": "Multiply point yields by participating in ecosystem partner vaults."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://symbiotic.fi",
+      "twitter": "https://twitter.com/symbioticfi",
+      "docs": "https://docs.symbiotic.fi"
+    },
+    "riskScore": 25
+  },
+  {
+    "slug": "fuel-network",
+    "name": "Fuel Network",
+    "chain": "Fuel (Sway VM)",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$600 - $2,800",
+    "difficulty": "Easy",
+    "time": "15 min/week",
+    "heat": 285,
+    "desc": "The fastest modular execution layer designed for Ethereum, powered by parallel transaction processing and the Sway programming language.",
+    "tags": [
+      "Modular",
+      "Layer 2",
+      "Rollup"
+    ],
+    "featuredImage": "/images/generated/fuel-network-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Install Fuel Wallet",
+        "desc": "Download and install the official Fuel Browser Extension."
+      },
+      {
+        "step": 2,
+        "title": "Bridge Assets via Fuel Native Bridge",
+        "desc": "Bridge Sepolia ETH to Fuel Sepolia testnet."
+      },
+      {
+        "step": 3,
+        "title": "Trade and LP on Mira DEX",
+        "desc": "Execute swaps between ETH and USDC and provide liquidity to verified pairs."
+      },
+      {
+        "step": 4,
+        "title": "Borrow & Lend on SwayLend",
+        "desc": "Deposit collateral to borrow testnet stablecoins."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://fuel.network",
+      "twitter": "https://twitter.com/fuel_network",
+      "docs": "https://docs.fuel.network"
+    },
+    "riskScore": 18
+  },
+  {
+    "slug": "babylon",
+    "name": "Babylon",
+    "chain": "Bitcoin / Cosmos",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "20 min",
+    "heat": 415,
+    "desc": "Trustless Bitcoin staking protocol bringing decentralized proof-of-stake security to PoS chains using native BTC.",
+    "tags": [
+      "Bitcoin",
+      "Staking",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/babylon-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Setup OKX or UniSat Bitcoin Wallet",
+        "desc": "Ensure your wallet supports native SegWit or Taproot address formats."
+      },
+      {
+        "step": 2,
+        "title": "Deposit BTC into Staking Cap Pools",
+        "desc": "Stake BTC directly during Babylon phase caps to start accruing staking points."
+      },
+      {
+        "step": 3,
+        "title": "Delegate to Top Validators",
+        "desc": "Split allocations across multiple active network finality providers."
+      },
+      {
+        "step": 4,
+        "title": "Verify Points on Official Dashboard",
+        "desc": "Check the official Babylon staking leaderboard to track eligible epoch points."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://babylonchain.io",
+      "twitter": "https://twitter.com/babylonlabs_io",
+      "docs": "https://docs.babylonchain.io"
+    },
+    "riskScore": 20
+  },
+  {
+    "slug": "story-protocol",
+    "name": "Story Protocol",
+    "chain": "Story Chain (EVM)",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$1,000 - $4,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 320,
+    "desc": "Decentralized Intellectual Property blockchain enabling creator tokenization and programmable IP licensing.",
+    "tags": [
+      "Layer 1",
+      "IP",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/story-protocol-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Claim Odyssey Testnet IP Faucet",
+        "desc": "Request testnet IP tokens from the official Story Protocol Odyssey faucet."
+      },
+      {
+        "step": 2,
+        "title": "Register Intellectual Property Asset (IPA)",
+        "desc": "Mint and register an on-chain IP NFT using Story Protocol SDK or partner dApps."
+      },
+      {
+        "step": 3,
+        "title": "Create Licensing Agreement",
+        "desc": "Attach commercial terms and royalty distributions to your registered IP assets."
+      },
+      {
+        "step": 4,
+        "title": "Interact with Ecosystem dApps",
+        "desc": "Swap and trade licensed IP on secondary marketplaces to record diverse contract transactions."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://storyprotocol.xyz",
+      "twitter": "https://twitter.com/storyprotocol",
+      "docs": "https://docs.storyprotocol.xyz"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "monad",
+    "name": "Monad",
+    "chain": "Monad",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$500-$5000",
+    "difficulty": "Medium",
+    "time": "20 min",
+    "heat": 145,
+    "desc": "Explore mainnet and testnet features across the high-performance parallel L1.",
+    "tags": [
+      "L1",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/monad-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Monad interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Explore mainnet and testnet features across the high-performance parallel L1."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://monad.io",
+      "twitter": "https://twitter.com/monad"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "jupiter",
+    "name": "Jupiter",
+    "chain": "Solana",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "Claim Live",
+    "difficulty": "Easy",
+    "time": "5 min",
+    "heat": 88,
+    "desc": "Stake JUP to be eligible for ongoing ASR governance token rewards.",
+    "tags": [
+      "Solana",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/jupiter-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Jupiter interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Stake JUP to be eligible for ongoing ASR governance token rewards."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://jupiter.io",
+      "twitter": "https://twitter.com/jupiter"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "gmgn",
+    "name": "GMGN",
+    "chain": "Robinhood Chain",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$500-$3000",
+    "difficulty": "Easy",
+    "time": "25 min/week",
+    "heat": 52,
+    "desc": "Multi-chain meme token trading terminal with copy trading and smart-money tracking.",
+    "tags": [
+      "Trading",
+      "DeFi"
+    ],
+    "featuredImage": "/images/generated/gmgn-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to GMGN interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Multi-chain meme token trading terminal with copy trading and smart-money tracking."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://gmgn.io",
+      "twitter": "https://twitter.com/gmgn"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "privacy-pools",
+    "name": "Privacy Pools",
+    "chain": "Ethereum",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$200-$800",
+    "difficulty": "Medium",
+    "time": "15 min",
+    "heat": 38,
+    "desc": "Generate entropy, complete contribution and deposit for privacy-preserving pools.",
+    "tags": [
+      "Privacy",
+      "Ethereum"
+    ],
+    "featuredImage": "/images/generated/privacy-pools-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Privacy Pools interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Generate entropy, complete contribution and deposit for privacy-preserving pools."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://privacy-pools.io",
+      "twitter": "https://twitter.com/privacy-pools"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "legend",
+    "name": "Legend",
+    "chain": "Solana",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$300-$1200",
+    "difficulty": "Easy",
+    "time": "10 min",
+    "heat": 41,
+    "desc": "Sign up, deposit, trade and refer users on this fast-growing platform.",
+    "tags": [
+      "Trading",
+      "Solana"
+    ],
+    "featuredImage": "/images/generated/legend-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Legend interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Sign up, deposit, trade and refer users on this fast-growing platform."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://legend.io",
+      "twitter": "https://twitter.com/legend"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "ducat",
+    "name": "Ducat",
+    "chain": "Base",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "TBA",
+    "difficulty": "Easy",
+    "time": "5 min",
+    "heat": 29,
+    "desc": "Join Discord, request and redeem code to participate.",
+    "tags": [
+      "Discord",
+      "Base"
+    ],
+    "featuredImage": "/images/generated/ducat-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Ducat interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Join Discord, request and redeem code to participate."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://ducat.io",
+      "twitter": "https://twitter.com/ducat"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "arcus",
+    "name": "Arcus",
+    "chain": "Arbitrum",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$400-$1500",
+    "difficulty": "Medium",
+    "time": "20 min",
+    "heat": 492,
+    "desc": "Sign up, join waitlist and trade spot markets on Arcus.",
+    "tags": [
+      "Trading",
+      "L2"
+    ],
+    "featuredImage": "/images/generated/arcus-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Arcus interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Sign up, join waitlist and trade spot markets on Arcus."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://arcus.io",
+      "twitter": "https://twitter.com/arcus"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "solpump",
+    "name": "SolPump",
+    "chain": "Solana",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$50-$300",
+    "difficulty": "Easy",
+    "time": "5 min/hr",
+    "heat": 411,
+    "desc": "Participate hourly to grab free SOL rewards.",
+    "tags": [
+      "Solana",
+      "Gaming"
+    ],
+    "featuredImage": "/images/generated/solpump-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to SolPump interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Participate hourly to grab free SOL rewards."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://solpump.io",
+      "twitter": "https://twitter.com/solpump"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "ondo-perps",
+    "name": "Ondo Perps",
+    "chain": "Ethereum",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$1000+",
+    "difficulty": "Medium",
+    "time": "30 min",
+    "heat": 301,
+    "desc": "Join and start trading perpetuals with confirmed token rewards.",
+    "tags": [
+      "DeFi",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/ondo-perps-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Ondo Perps interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Join and start trading perpetuals with confirmed token rewards."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://ondo-perps.io",
+      "twitter": "https://twitter.com/ondo-perps"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "hypertrade",
+    "name": "Hypertrade",
+    "chain": "Base",
+    "status": [
+      "Ongoing"
+    ],
+    "reward": "$300-$900",
+    "difficulty": "Easy",
+    "time": "15 min",
+    "heat": 276,
+    "desc": "Make swaps and add liquidity to earn potential allocation.",
+    "tags": [
+      "DeFi",
+      "Base"
+    ],
+    "featuredImage": "/images/generated/hypertrade-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to Hypertrade interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Make swaps and add liquidity to earn potential allocation."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://hypertrade.io",
+      "twitter": "https://twitter.com/hypertrade"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "3jane",
+    "name": "3Jane",
+    "chain": "Ethereum",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$200-$700",
+    "difficulty": "Easy",
+    "time": "10 min",
+    "heat": 24,
+    "desc": "Supply USDC to the protocol for confirmed reward eligibility.",
+    "tags": [
+      "DeFi",
+      "Stablecoin"
+    ],
+    "featuredImage": "/images/generated/3jane-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to 3Jane interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Supply USDC to the protocol for confirmed reward eligibility."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://3jane.io",
+      "twitter": "https://twitter.com/3jane"
+    },
+    "riskScore": 15
+  },
+  {
+    "slug": "hoodtracker",
+    "name": "HoodTracker",
+    "chain": "Robinhood Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$150-$600",
+    "difficulty": "Easy",
+    "time": "10 min",
+    "heat": 19,
+    "desc": "Connect X, complete social tasks and hold HDTX tokens.",
+    "tags": [
+      "Social",
+      "Robinhood Chain"
+    ],
+    "featuredImage": "/images/generated/hoodtracker-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Connect Non-Custodial Wallet",
+        "desc": "Connect MetaMask, Rabby, or Phantom to HoodTracker interface."
+      },
+      {
+        "step": 2,
+        "title": "Execute Protocol Action",
+        "desc": "Connect X, complete social tasks and hold HDTX tokens."
+      },
+      {
+        "step": 3,
+        "title": "Maintain Cadence",
+        "desc": "Perform volume transactions weekly to prevent sybil exclusion."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://hoodtracker.io",
+      "twitter": "https://twitter.com/hoodtracker"
+    },
+    "riskScore": 15
+  }
+]
