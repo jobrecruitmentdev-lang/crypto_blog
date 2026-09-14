@@ -67,17 +67,19 @@ export default function AirdropCard({ airdrop }: { airdrop: Airdrop | ProjectIte
         <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "14px" }}>
           <div
             style={{
-              width: "46px",
-              height: "46px",
-              borderRadius: "10px",
+              position: "relative",
+              width: "52px",
+              height: "52px",
+              borderRadius: "12px",
               background: "var(--bg-alt)",
               border: "1px solid var(--border)",
+              boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontWeight: 800,
               fontSize: "1rem",
-              color: "var(--cyan)",
+              color: "var(--accent)",
               fontFamily: "var(--font-mono)",
               flexShrink: 0,
               overflow: "hidden",
@@ -86,13 +88,13 @@ export default function AirdropCard({ airdrop }: { airdrop: Airdrop | ProjectIte
             <img
               src={imageSrc}
               alt={airdrop.name}
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", zIndex: 2 }}
               onError={(e) => {
                 // Fallback to text initials
                 (e.target as HTMLElement).style.display = "none";
               }}
             />
-            <span style={{ position: "absolute" }}>{initials(airdrop.name)}</span>
+            <span style={{ position: "absolute", zIndex: 1 }}>{initials(airdrop.name)}</span>
           </div>
           <div>
             <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-sans)" }}>

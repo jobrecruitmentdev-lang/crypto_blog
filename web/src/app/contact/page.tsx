@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import ContactForm from "@/components/ContactForm";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
@@ -97,6 +98,34 @@ export default function ContactPage() {
             Reach our research desk, submit protocol updates, or flag smart contract vulnerabilities.
           </p>
         </MotionFade>
+
+        {/* 8K Dedicated Communication Nexus Banner */}
+        <div 
+          style={{ 
+            position: "relative", 
+            width: "100%", 
+            aspectRatio: "21/9", 
+            borderRadius: "14px", 
+            overflow: "hidden", 
+            marginBottom: 44,
+            border: "1px solid var(--border)",
+            boxShadow: "0 6px 24px rgba(0, 0, 0, 0.05)"
+          }}
+        >
+          <Image
+            src="/images/generated/editorial-integrity-charter-and-fact-checking-code-featured.jpg"
+            alt="Crypto Airdrop AI Dedicated Research Inboxes"
+            fill
+            priority
+            sizes="(max-width: 940px) 100vw, 940px"
+            style={{ objectFit: "cover" }}
+          />
+          <div style={{ position: "absolute", bottom: 12, right: 14 }}>
+            <span className="pill-badge" style={{ background: "rgba(255, 255, 255, 0.92)", color: "var(--emerald)", fontWeight: 800, fontSize: "0.72rem", border: "1px solid var(--border)" }}>
+              ● 8K VERIFIED COMMUNICATIONS
+            </span>
+          </div>
+        </div>
 
         {/* Dedicated Channels */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 48 }}>

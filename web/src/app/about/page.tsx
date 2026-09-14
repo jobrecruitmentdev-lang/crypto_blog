@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { AUTHORS } from "@/lib/data";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
 
@@ -70,6 +71,34 @@ export default function AboutPage() {
             Decentralized protocol research, algorithmic tokenomics indexing, and actionable security standards for modern Web3 participants.
           </p>
         </MotionFade>
+
+        {/* 8K Institutional Hero Banner */}
+        <div 
+          style={{ 
+            position: "relative", 
+            width: "100%", 
+            aspectRatio: "21/9", 
+            borderRadius: "14px", 
+            overflow: "hidden", 
+            marginBottom: 44,
+            border: "1px solid var(--border)",
+            boxShadow: "0 6px 24px rgba(0, 0, 0, 0.05)"
+          }}
+        >
+          <Image
+            src="/images/generated/monad-parallel-evm-testnet-2026-featured.jpg"
+            alt="Crypto Airdrop AI Autonomous Telemetry Array"
+            fill
+            priority
+            sizes="(max-width: 980px) 100vw, 980px"
+            style={{ objectFit: "cover" }}
+          />
+          <div style={{ position: "absolute", bottom: 12, right: 14 }}>
+            <span className="pill-badge" style={{ background: "rgba(255, 255, 255, 0.92)", color: "var(--emerald)", fontWeight: 800, fontSize: "0.72rem", border: "1px solid var(--border)" }}>
+              ● 8K VERIFIED AI TELEMETRY
+            </span>
+          </div>
+        </div>
 
         {/* Telemetry Bento Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: 16, marginBottom: 48 }}>

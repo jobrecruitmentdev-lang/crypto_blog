@@ -89,6 +89,7 @@ export default async function ProjectPage({ params }: Props) {
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div
                 style={{
+                  position: "relative",
                   width: 64,
                   height: 64,
                   borderRadius: 16,
@@ -100,9 +101,18 @@ export default async function ProjectPage({ params }: Props) {
                   fontSize: "1.5rem",
                   fontWeight: 800,
                   color: "var(--accent)",
+                  overflow: "hidden",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)"
                 }}
               >
-                {initials(airdrop.name)}
+                <Image
+                  src={airdrop.featuredImage || `/images/generated/${airdrop.slug}-project.jpg`}
+                  alt={airdrop.name}
+                  fill
+                  sizes="64px"
+                  style={{ objectFit: "cover", zIndex: 2 }}
+                />
+                <span style={{ position: "absolute", zIndex: 1 }}>{initials(airdrop.name)}</span>
               </div>
               <div>
                 <div style={{ display: "flex", gap: 6, marginBottom: 6 }}>
