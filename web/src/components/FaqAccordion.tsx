@@ -34,12 +34,14 @@ export default function FaqAccordion({ faqs }: FaqAccordionProps) {
         return (
           <div
             key={idx}
-            className="tui-panel"
+            className="card"
             style={{
               borderRadius: "var(--radius-sm)",
               overflow: "hidden",
-              border: isOpen ? "1px solid var(--border-glow)" : "1px solid var(--border)",
-              transition: "border-color 0.2s ease",
+              background: "var(--surface)",
+              border: isOpen ? "1px solid var(--accent)" : "1px solid var(--border)",
+              boxShadow: isOpen ? "0 4px 12px rgba(37, 99, 235, 0.08)" : "0 1px 3px rgba(0, 0, 0, 0.04)",
+              transition: "all 0.2s ease",
             }}
           >
             <button
@@ -57,9 +59,9 @@ export default function FaqAccordion({ faqs }: FaqAccordionProps) {
                 gap: "12px",
                 background: "transparent",
                 border: "none",
-                color: isOpen ? "var(--cyan)" : "var(--text-bright)",
+                color: isOpen ? "var(--accent)" : "var(--text-bright)",
                 textAlign: "left",
-                fontWeight: 800,
+                fontWeight: 700,
                 fontSize: "1.02rem",
                 cursor: "pointer",
                 minHeight: "44px",
@@ -74,7 +76,7 @@ export default function FaqAccordion({ faqs }: FaqAccordionProps) {
                   alignItems: "center",
                   justifyContent: "center",
                   flexShrink: 0,
-                  color: "var(--cyan)",
+                  color: isOpen ? "var(--accent)" : "var(--muted)",
                   fontSize: "0.85rem",
                 }}
                 aria-hidden="true"
@@ -97,10 +99,10 @@ export default function FaqAccordion({ faqs }: FaqAccordionProps) {
                   <div
                     style={{
                       padding: "0 20px 20px",
-                      color: "var(--muted)",
-                      lineHeight: 1.65,
+                      color: "var(--text)",
+                      lineHeight: 1.68,
                       fontSize: "0.95rem",
-                      borderTop: "1px solid rgba(0, 240, 255, 0.06)",
+                      borderTop: "1px solid var(--border-subtle)",
                       paddingTop: "14px",
                     }}
                   >

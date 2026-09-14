@@ -15,7 +15,7 @@ export default function DisclaimerPage() {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Disclaimer", "item": "https://cryptoairdropai.com/disclaimer" }
+      { "@type": "ListItem", "position": 2, "name": "Disclaimer", "item": "https://cryptoairdropai.com/disclaimer/" }
     ]
   };
 
@@ -118,13 +118,13 @@ export default function DisclaimerPage() {
             Read how we safeguard your data and audit protocols before publishing.
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>
-            <Link href="/privacy" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+            <Link href="/privacy/" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
               🔒 Privacy Policy
             </Link>
-            <Link href="/terms" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
+            <Link href="/terms/" className="btn btn-outline" style={{ fontSize: "0.85rem" }}>
               📜 Terms of Service
             </Link>
-            <Link href="/methodology" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
+            <Link href="/methodology/" className="btn btn-primary" style={{ fontSize: "0.85rem" }}>
               🔬 Evaluation Methodology
             </Link>
           </div>

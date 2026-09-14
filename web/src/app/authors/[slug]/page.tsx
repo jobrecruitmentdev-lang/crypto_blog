@@ -61,18 +61,18 @@ export default async function AuthorDetailPage({ params }: Props) {
 
       <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
         <div className="breadcrumb" style={{ marginBottom: 24 }}>
-          <Link href="/">Home</Link> / <Link href="/authors">Authors</Link> / {author.name}
+          <Link href="/">Home</Link> / <Link href="/authors/">Authors</Link> / {author.name}
         </div>
 
         {/* Hero Card */}
-        <MotionCard style={{ padding: 36, marginBottom: 44 }}>
+        <MotionCard style={{ padding: 36, marginBottom: 44, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 24, alignItems: "flex-start" }}>
-            <div style={{ width: 84, height: 84, borderRadius: 42, background: "rgba(124, 92, 255, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 42, flexShrink: 0 }}>
+            <div style={{ width: 84, height: 84, borderRadius: 42, background: "var(--surface-sunken)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 42, flexShrink: 0 }}>
               {author.avatar}
             </div>
             <div style={{ flex: 1, minWidth: 260 }}>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                <h1 style={{ fontSize: "2.2rem", fontWeight: 900, margin: 0, letterSpacing: "-0.02em" }}>
+                <h1 style={{ fontSize: "2.2rem", fontWeight: 800, margin: 0, letterSpacing: "-0.02em", color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                   {author.name}
                 </h1>
                 <span className="pill-badge success">Verified Node</span>
@@ -80,18 +80,18 @@ export default async function AuthorDetailPage({ params }: Props) {
               <div style={{ color: "var(--accent)", fontWeight: 700, fontSize: "1rem", marginBottom: 12 }}>
                 {author.role}
               </div>
-              <p style={{ color: "var(--muted)", fontSize: "1.02rem", lineHeight: 1.7, margin: "0 0 16px" }}>
+              <p style={{ color: "var(--text)", fontSize: "1.02rem", lineHeight: 1.7, margin: "0 0 16px", opacity: 0.9 }}>
                 {author.bio}
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
                 {author.credentials?.map((cred: string, idx: number) => (
-                  <span key={idx} className="pill-badge" style={{ fontSize: "0.75rem", textTransform: "none" }}>
+                  <span key={idx} className="pill-badge" style={{ fontSize: "0.75rem", textTransform: "none", background: "var(--surface-sunken)", border: "1px solid var(--border)" }}>
                     ✓ {cred}
                   </span>
                 ))}
               </div>
               {author.xUrl && (
-                <a href={author.xUrl} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline">
+                <a href={author.xUrl} target="_blank" rel="noopener noreferrer" className="btn btn-sm btn-outline" style={{ background: "var(--surface)" }}>
                   Follow on X
                 </a>
               )}
@@ -101,32 +101,32 @@ export default async function AuthorDetailPage({ params }: Props) {
 
         {/* Authored Guides Section */}
         <div>
-          <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: 20 }}>
+          <h2 style={{ fontSize: "1.6rem", fontWeight: 800, marginBottom: 20, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
             Research &amp; Guides Authored by {author.name}
           </h2>
           {authorPosts.length === 0 ? (
-            <MotionCard style={{ padding: 24, textAlign: "center", color: "var(--muted)" }}>
+            <MotionCard style={{ padding: 24, textAlign: "center", color: "var(--muted)", background: "var(--surface)", border: "1px solid var(--border)" }}>
               No articles published under this profile yet.
             </MotionCard>
           ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
               {authorPosts.map((post) => (
-                <MotionCard key={post.slug} style={{ padding: 24 }}>
+                <MotionCard key={post.slug} style={{ padding: 24, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                    <span className="pill-badge" style={{ fontSize: "0.75rem" }}>
+                    <span className="pill-badge" style={{ fontSize: "0.75rem", background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>
                       {post.tag}
                     </span>
-                    <span style={{ fontSize: "0.85rem", color: "var(--muted)" }}>
+                    <span style={{ fontSize: "0.85rem", color: "var(--muted)", fontWeight: 500 }}>
                       {post.date} · {post.read} read
                     </span>
                   </div>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, margin: "8px 0" }}>
-                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, margin: "8px 0", fontFamily: "var(--font-serif)" }}>
+                    <Link href={`/blog/${post.slug}/`} style={{ color: "var(--text-bright)", textDecoration: "none" }}>{post.title}</Link>
                   </h3>
-                  <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: "8px 0 16px" }}>
+                  <p style={{ color: "var(--text)", fontSize: "0.95rem", lineHeight: 1.6, margin: "8px 0 16px", opacity: 0.88 }}>
                     {post.excerpt}
                   </p>
-                  <Link href={`/blog/${post.slug}`} style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.9rem" }}>
+                  <Link href={`/blog/${post.slug}/`} style={{ color: "var(--accent)", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>
                     Read Full Guide →
                   </Link>
                 </MotionCard>

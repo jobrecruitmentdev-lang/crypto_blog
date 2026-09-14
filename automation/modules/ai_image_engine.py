@@ -21,26 +21,26 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 PROMPT_STYLES = {
     "featured": (
-        "Cinematic 8k photorealistic concept art for {topic}, futuristic Web3 blockchain network, "
-        "glowing neon cryptographic holographic nodes, dark obsidian glass, iridescent cyan and emerald accents, "
-        "depth of field, ray tracing, octane render 8k resolution, volumetric atmospheric fog, masterpiece, "
-        "ultra-detailed architectural rendering, sharp focus, 8k wallpaper quality, no text"
+        "Clean bright studio lighting 8k photorealistic concept art for {topic}, modern institutional Web3 blockchain visualization, "
+        "pristine white and soft slate architectural backdrop, frosted glass cryptographic nodes, royal blue and gold accents, "
+        "depth of field, subtle ray tracing, octane render 8k resolution, soft natural architectural shadows, masterpiece, "
+        "ultra-detailed financial journalism visual, sharp focus, 8k magazine quality, no text"
     ),
     "middle": (
-        "Hyper-detailed 8k technical visualization of {topic} protocol infrastructure and on-chain telemetry, "
-        "decentralized smart contract data streams, abstract cybernetic network nodes, volumetric god rays, "
-        "dark cyberpunk aesthetics, 8k octane render, hyper-realistic, unreal engine 5 cinematics, "
+        "Hyper-detailed 8k technical 3D visualization of {topic} protocol infrastructure and on-chain telemetry, "
+        "clean white minimalist studio lighting, decentralized smart contract data architecture, elegant blue glass geometric nodes, "
+        "pristine bright composition, 8k octane render, hyper-realistic, soft ambient occlusion, "
         "clean sharp isometric composition, highly intricate, no text"
     ),
     "pre_faq": (
-        "Futuristic 8k security telemetry shield and algorithmic verification matrix for {topic}, "
-        "glowing biometric blockchain audit holographic interface, neon gold and electric blue data visualization, "
-        "8k resolution, high contrast, cinematic studio lighting, masterpiece, clean modern Web3 graphic, no text"
+        "High-end 8k cryptographic security telemetry emblem and algorithmic verification matrix for {topic}, "
+        "bright daylight studio lighting, frosted crystal audit holographic interface, refined royal blue and warm amber data visualization, "
+        "clean white canvas, 8k resolution, crisp studio shadows, masterpiece, modern institutional Web3 graphic, no text"
     ),
     "project": (
-        "Ultra-crisp 8k official protocol badge and futuristic 3D emblem for {topic} crypto ecosystem, "
-        "glowing holographic token orb, dark metallic brushed titanium pedestal, volumetric studio rim lighting, "
-        "octane render 8k, photorealistic ray tracing, clean emblem design, no text"
+        "Ultra-crisp 8k official protocol emblem and 3D token icon for {topic} crypto ecosystem, "
+        "gleaming polished metallic and glass token sphere, pristine white studio pedestal, soft directional rim lighting, "
+        "octane render 8k, clean photorealistic ray tracing, institutional fintech badge design, no text"
     )
 }
 

@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#020408", borderTop: "1px solid var(--border)", paddingTop: 60, paddingBottom: 36, marginTop: 70 }}>
+    <footer style={{ background: "var(--bg-alt)", borderTop: "1px solid var(--border)", paddingTop: 60, paddingBottom: 36, marginTop: 70 }}>
       <div className="wrap">
         
         {/* Top E-E-A-T Trust Telemetry Strip */}
@@ -13,9 +13,10 @@ export default function Footer() {
             gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
             gap: 16,
             padding: "20px 24px",
-            background: "rgba(10, 17, 34, 0.6)",
+            background: "#FFFFFF",
             border: "1px solid var(--border)",
             borderRadius: "var(--radius-sm)",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.03)",
             marginBottom: 48,
           }}
         >
@@ -58,17 +59,17 @@ export default function Footer() {
             <Link className="logo" href="/" style={{ display: "inline-flex", alignItems: "center", gap: 10, marginBottom: 14, textDecoration: "none" }}>
               <Image src="/icon.svg" alt="Crypto Airdrop AI" width={32} height={32} />
               <span style={{ fontSize: "1.24rem", fontWeight: 900, letterSpacing: "-0.025em", display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <span style={{ color: "#FFFFFF" }}>Crypto</span>
+                <span style={{ color: "var(--text-bright)" }}>Crypto</span>
                 <span style={{ color: "var(--cyan)" }}>Airdrop</span>
                 <span style={{ 
                   fontSize: "0.65rem", 
                   fontWeight: 900, 
                   color: "var(--emerald)", 
-                  background: "var(--emerald-glow)", 
-                  border: "1px solid rgba(16, 185, 129, 0.35)", 
+                  background: "rgba(5, 150, 105, 0.1)", 
+                  border: "1px solid rgba(5, 150, 105, 0.25)", 
                   padding: "2px 6px", 
                   borderRadius: "4px",
-                  fontFamily: "ui-monospace, monospace",
+                  fontFamily: "var(--font-mono)",
                   letterSpacing: "0.06em",
                   marginLeft: "2px"
                 }}>AI</span>
@@ -84,17 +85,19 @@ export default function Footer() {
                 href="https://twitter.com/cryptoairdropai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tui-panel"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
                   padding: "8px 14px",
                   fontSize: "0.8rem",
-                  fontWeight: 800,
+                  fontWeight: 700,
                   color: "var(--text-bright)",
                   textDecoration: "none",
+                  background: "#FFFFFF",
                   border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-sm)",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -107,17 +110,19 @@ export default function Footer() {
                 href="https://t.me/cryptoairdropai"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="tui-panel"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
                   padding: "8px 14px",
                   fontSize: "0.8rem",
-                  fontWeight: 800,
+                  fontWeight: 700,
                   color: "var(--cyan)",
                   textDecoration: "none",
+                  background: "#FFFFFF",
                   border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-sm)",
+                  boxShadow: "0 1px 4px rgba(0,0,0,0.03)",
                 }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">

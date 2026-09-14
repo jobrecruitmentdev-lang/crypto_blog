@@ -72,12 +72,14 @@ export default async function MethodologyPage() {
 
         <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
           <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge">🔬 Quantitative Protocol Evaluation</span>
+            <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)", fontWeight: 700 }}>
+              🔬 Quantitative Protocol Evaluation
+            </span>
           </div>
-          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 800, letterSpacing: "-0.025em", margin: "8px 0 16px", fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
             The 5-Stage Audit Framework
           </h1>
-          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, margin: "0 auto", lineHeight: 1.6 }}>
+          <p style={{ fontSize: "1.15rem", color: "var(--text)", maxWidth: 720, margin: "0 auto", lineHeight: 1.65, opacity: 0.88 }}>
             Every crypto project cataloged on Crypto Airdrop AI must pass through our deterministic 5-stage cryptographic filter.
           </p>
         </MotionFade>
@@ -85,18 +87,18 @@ export default async function MethodologyPage() {
         {/* 5-Stage Framework Bento */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 54 }}>
           {steps.map((s, idx) => (
-            <MotionCard key={idx} style={{ padding: "24px 28px", display: "flex", alignItems: "flex-start", gap: 20 }}>
+            <MotionCard key={idx} style={{ padding: "24px 28px", display: "flex", alignItems: "flex-start", gap: 20, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <div style={{ fontSize: "1.8rem", flexShrink: 0, marginTop: 2 }}>{s.icon}</div>
               <div style={{ flexGrow: 1 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 6 }}>
-                  <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0 }}>
+                  <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                     Stage {s.step}: {s.title}
                   </h3>
                   <span className="pill-badge success" style={{ fontSize: "0.72rem" }}>
                     {s.metric}
                   </span>
                 </div>
-                <p style={{ color: "var(--muted)", fontSize: "0.93rem", lineHeight: 1.6, margin: 0 }}>
+                <p style={{ color: "var(--text)", fontSize: "0.93rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
                   {s.desc}
                 </p>
               </div>
@@ -108,10 +110,10 @@ export default async function MethodologyPage() {
         <div style={{ marginBottom: 48 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
             <div>
-              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, margin: 0 }}>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                 Security &amp; Audit Research Papers
               </h2>
-              <p style={{ color: "var(--muted)", fontSize: "0.92rem", margin: "4px 0 0" }}>
+              <p style={{ color: "var(--muted)", fontSize: "0.92rem", margin: "4px 0 0", fontWeight: 500 }}>
                 Deep forensic audits, bytecode analysis, and protocol risk score breakdowns
               </p>
             </div>
@@ -120,9 +122,9 @@ export default async function MethodologyPage() {
         </div>
 
         {/* Cross Links */}
-        <MotionCard style={{ padding: 28, textAlign: "center", background: "rgba(10, 17, 34, 0.6)" }}>
-          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Need to Report a Security Concern?</h3>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
+        <MotionCard style={{ padding: 32, textAlign: "center", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Need to Report a Security Concern?</h3>
+          <p style={{ color: "var(--text)", fontSize: "0.95rem", marginBottom: 20, opacity: 0.88 }}>
             Reach our Security Sentinel desk for expedited smart contract vulnerability reviews.
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>

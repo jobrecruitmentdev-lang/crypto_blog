@@ -49,12 +49,14 @@ export default async function BlogPage() {
 
         <MotionFade delay={0.05} direction="up" style={{ marginBottom: 40 }}>
           <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge">🧠 Research &amp; Market Intelligence</span>
+            <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)", fontWeight: 700 }}>
+              🧠 Research &amp; Market Intelligence
+            </span>
           </div>
-          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 800, letterSpacing: "-0.025em", margin: "8px 0 16px", fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
             Crypto News &amp; Protocol Deep Dives
           </h1>
-          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, lineHeight: 1.6 }}>
+          <p style={{ fontSize: "1.15rem", color: "var(--text)", maxWidth: 720, lineHeight: 1.65, opacity: 0.88 }}>
             Fact-checked protocol walkthroughs, tokenomics breakdowns, and quantitative market intelligence.
           </p>
         </MotionFade>

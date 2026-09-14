@@ -18,7 +18,7 @@ export default function ContactForm() {
       style={{ display: "flex", flexDirection: "column", gap: 16 }}
     >
       <div>
-        <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--muted)" }}>
+        <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 8, color: "var(--text-bright)" }}>
           Department Routing
         </label>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -33,9 +33,10 @@ export default function ContactForm() {
               onClick={() => setCategory(tab.id)}
               className="btn btn-sm"
               style={{
-                background: category === tab.id ? "var(--accent)" : "rgba(255,255,255,0.05)",
-                color: category === tab.id ? "#fff" : "var(--muted)",
+                background: category === tab.id ? "var(--accent)" : "var(--surface)",
+                color: category === tab.id ? "#fff" : "var(--text)",
                 border: "1px solid var(--border)",
+                fontWeight: 600,
               }}
             >
               {tab.label}
@@ -46,7 +47,7 @@ export default function ContactForm() {
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
         <div>
-          <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--muted)" }}>
+          <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>
             Your Name / Pseudonym
           </label>
           <input
@@ -56,16 +57,17 @@ export default function ContactForm() {
             style={{
               width: "100%",
               padding: "12px 16px",
-              background: "rgba(255,255,255,0.03)",
+              background: "var(--surface-sunken)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
-              color: "var(--text)",
+              color: "var(--text-bright)",
+              fontFamily: "var(--font-sans)",
               outline: "none",
             }}
           />
         </div>
         <div>
-          <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--muted)" }}>
+          <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>
             Email Address
           </label>
           <input
@@ -75,10 +77,11 @@ export default function ContactForm() {
             style={{
               width: "100%",
               padding: "12px 16px",
-              background: "rgba(255,255,255,0.03)",
+              background: "var(--surface-sunken)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
-              color: "var(--text)",
+              color: "var(--text-bright)",
+              fontFamily: "var(--font-sans)",
               outline: "none",
             }}
           />
@@ -86,7 +89,7 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--muted)" }}>
+        <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>
           Message / On-Chain Contract Links
         </label>
         <textarea
@@ -96,10 +99,11 @@ export default function ContactForm() {
           style={{
             width: "100%",
             padding: "12px 16px",
-            background: "rgba(255,255,255,0.03)",
+            background: "var(--surface-sunken)",
             border: "1px solid var(--border)",
             borderRadius: "var(--radius)",
-            color: "var(--text)",
+            color: "var(--text-bright)",
+            fontFamily: "var(--font-sans)",
             outline: "none",
             resize: "vertical",
           }}
@@ -107,7 +111,7 @@ export default function ContactForm() {
       </div>
 
       <button className="btn btn-primary" type="submit" style={{ alignSelf: "flex-start", marginTop: 4 }}>
-        🚀 Submit Message (24–48h SLA)
+        Submit Message (24–48h SLA) →
       </button>
 
       {sent && (
@@ -115,13 +119,13 @@ export default function ContactForm() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           style={{
-            padding: "12px 16px",
+            padding: "14px 18px",
             borderRadius: "var(--radius)",
-            background: "rgba(0, 224, 164, 0.1)",
-            border: "1px solid rgba(0, 224, 164, 0.3)",
-            color: "var(--accent2)",
-            fontSize: "0.9rem",
-            fontWeight: 600,
+            background: "rgba(5, 150, 105, 0.08)",
+            border: "1px solid rgba(5, 150, 105, 0.3)",
+            color: "var(--emerald)",
+            fontSize: "0.92rem",
+            fontWeight: 700,
           }}
         >
           ✓ Message received! Our research desk will review your inquiry within 24 to 48 hours.

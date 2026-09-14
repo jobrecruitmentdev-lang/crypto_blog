@@ -10,23 +10,25 @@ export default function Newsletter() {
     <section className="section" style={{ padding: "32px 0 48px" }}>
       <div className="wrap">
         <div
-          className="tui-panel newsletter-bento"
+          className="newsletter-bento card"
           style={{
             padding: "36px 32px",
-            background: "linear-gradient(135deg, rgba(10, 17, 34, 0.95), rgba(4, 7, 13, 0.95))",
+            background: "var(--surface)",
             border: "1px solid var(--border)",
+            borderRadius: "var(--radius-lg)",
+            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.04)",
           }}
         >
           <div>
             <div style={{ display: "inline-flex", marginBottom: 10 }}>
-              <span className="pill-badge" style={{ fontSize: "0.72rem" }}>
-                ⚡ [ ALPHA TELEMETRY DISPATCH ]
+              <span className="pill-badge" style={{ fontSize: "0.72rem", background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>
+                ⚡ ALPHA TELEMETRY DISPATCH
               </span>
             </div>
-            <h3 style={{ fontSize: "1.7rem", fontWeight: 900, letterSpacing: "-0.02em", color: "var(--text-bright)", marginBottom: 8 }}>
+            <h3 style={{ fontSize: "1.7rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--text-bright)", marginBottom: 8, fontFamily: "var(--font-serif)" }}>
               Never Miss a Snapshot Window
             </h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
+            <p style={{ color: "var(--text)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0, opacity: 0.88 }}>
               Get verified smart contract updates, point system changes, and confirmed token airdrops delivered weekly. Zero spam, zero ads.
             </p>
           </div>
@@ -48,11 +50,11 @@ export default function Newsletter() {
                   flex: 1,
                   minWidth: 220,
                   padding: "12px 16px",
-                  background: "rgba(0, 240, 255, 0.04)",
+                  background: "var(--surface-sunken)",
                   border: "1px solid var(--border)",
                   borderRadius: "var(--radius-sm)",
-                  color: "var(--text)",
-                  fontFamily: "ui-monospace, monospace",
+                  color: "var(--text-bright)",
+                  fontFamily: "var(--font-sans)",
                   fontSize: "0.9rem",
                   outline: "none",
                 }}
@@ -61,7 +63,7 @@ export default function Newsletter() {
                 Subscribe →
               </button>
             </form>
-            <div style={{ display: "flex", gap: 16, marginTop: 12, fontSize: "0.76rem", color: "var(--muted)", fontFamily: "monospace" }}>
+            <div style={{ display: "flex", gap: 16, marginTop: 12, fontSize: "0.76rem", color: "var(--muted)", fontWeight: 600 }}>
               <span>🔒 256-BIT ENCRYPTED</span>
               <span>⚡ INSTANT UNSUBSCRIBE</span>
             </div>

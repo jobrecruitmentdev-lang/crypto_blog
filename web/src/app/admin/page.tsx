@@ -261,13 +261,13 @@ export default function AdminPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--bg-dark)", color: "var(--text)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--surface-sunken)", color: "var(--text)" }}>
       {/* Admin Top Navigation */}
       <header
         style={{
           borderBottom: "1px solid var(--border)",
-          background: "rgba(10, 15, 29, 0.9)",
-          backdropFilter: "blur(10px)",
+          background: "var(--surface)",
+          boxShadow: "0 1px 2px rgba(0, 0, 0, 0.03)",
           position: "sticky",
           top: 0,
           zIndex: 40,
@@ -278,10 +278,10 @@ export default function AdminPage() {
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <span style={{ fontSize: "1.5rem" }}>⚡</span>
             <div>
-              <h1 style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--text-bright)", margin: 0 }}>
-                CRYPTOAIRDROP<span style={{ color: "var(--cyan)" }}>AI</span> / ADMIN COMMAND
+              <h1 style={{ fontSize: "1.25rem", fontWeight: 900, color: "var(--text-bright)", margin: 0, letterSpacing: "-0.02em" }}>
+                CRYPTOAIRDROP<span style={{ color: "var(--accent)" }}>AI</span> / ADMIN COMMAND
               </h1>
-              <span style={{ fontSize: "0.75rem", color: "var(--muted)", fontFamily: "monospace" }}>
+              <span style={{ fontSize: "0.78rem", color: "var(--muted)", fontWeight: 500 }}>
                 Multi-Hub Automation &amp; Central Content Store
               </span>
             </div>
@@ -293,19 +293,19 @@ export default function AdminPage() {
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
-                padding: "4px 12px",
+                padding: "6px 14px",
                 borderRadius: 20,
-                background: serverOnline ? "rgba(16, 185, 129, 0.1)" : "rgba(245, 158, 11, 0.1)",
-                border: `1px solid ${serverOnline ? "var(--emerald)" : "var(--amber)"}`,
+                background: serverOnline ? "rgba(5, 150, 105, 0.08)" : "rgba(217, 119, 6, 0.08)",
+                border: `1px solid ${serverOnline ? "rgba(5, 150, 105, 0.25)" : "rgba(217, 119, 6, 0.25)"}`,
                 fontSize: "0.78rem",
-                fontFamily: "monospace",
+                fontWeight: 600,
               }}
             >
-              <span style={{ color: serverOnline ? "var(--emerald)" : "var(--amber)" }}>●</span>
-              <span>DAEMON: {serverOnline ? "ONLINE (PORT 8080)" : "OFFLINE (RUN admin_server.py)"}</span>
+              <span style={{ color: serverOnline ? "var(--emerald)" : "var(--amber)", fontWeight: 800 }}>●</span>
+              <span style={{ color: serverOnline ? "var(--emerald)" : "var(--amber)" }}>DAEMON: {serverOnline ? "ONLINE (PORT 8080)" : "OFFLINE (RUN admin_server.py)"}</span>
             </div>
 
-            <Link href="/" className="btn btn-outline btn-sm" target="_blank">
+            <Link href="/" className="btn btn-outline btn-sm" target="_blank" style={{ background: "var(--surface)" }}>
               Live Site ↗
             </Link>
           </div>
@@ -316,18 +316,20 @@ export default function AdminPage() {
       <div style={{ maxWidth: 1400, margin: "0 auto", padding: "28px 24px" }}>
         
         {/* Navigation Tabs */}
-        <div style={{ display: "flex", gap: 8, borderBottom: "1px solid var(--border)", paddingBottom: 12, marginBottom: 28 }}>
+        <div style={{ display: "flex", gap: 10, borderBottom: "1px solid var(--border)", paddingBottom: 14, marginBottom: 28, flexWrap: "wrap" }}>
           <button
             onClick={() => setActiveTab("overview")}
             style={{
               padding: "10px 20px",
               borderRadius: "var(--radius-sm)",
-              fontWeight: 800,
+              fontWeight: 700,
               fontSize: "0.9rem",
-              background: activeTab === "overview" ? "var(--cyan)" : "transparent",
-              color: activeTab === "overview" ? "#000" : "var(--text)",
-              border: "1px solid var(--border)",
+              background: activeTab === "overview" ? "var(--accent)" : "var(--surface)",
+              color: activeTab === "overview" ? "#FFFFFF" : "var(--text)",
+              border: activeTab === "overview" ? "1px solid var(--accent)" : "1px solid var(--border)",
+              boxShadow: activeTab === "overview" ? "0 2px 4px rgba(37, 99, 235, 0.2)" : "0 1px 2px rgba(0,0,0,0.03)",
               cursor: "pointer",
+              transition: "all 0.15s ease",
             }}
           >
             📊 Telemetry &amp; Overview
@@ -337,12 +339,14 @@ export default function AdminPage() {
             style={{
               padding: "10px 20px",
               borderRadius: "var(--radius-sm)",
-              fontWeight: 800,
+              fontWeight: 700,
               fontSize: "0.9rem",
-              background: activeTab === "projects" ? "var(--cyan)" : "transparent",
-              color: activeTab === "projects" ? "#000" : "var(--text)",
-              border: "1px solid var(--border)",
+              background: activeTab === "projects" ? "var(--accent)" : "var(--surface)",
+              color: activeTab === "projects" ? "#FFFFFF" : "var(--text)",
+              border: activeTab === "projects" ? "1px solid var(--accent)" : "1px solid var(--border)",
+              boxShadow: activeTab === "projects" ? "0 2px 4px rgba(37, 99, 235, 0.2)" : "0 1px 2px rgba(0,0,0,0.03)",
               cursor: "pointer",
+              transition: "all 0.15s ease",
             }}
           >
             📡 Projects Manager ({projects.length})
@@ -352,12 +356,14 @@ export default function AdminPage() {
             style={{
               padding: "10px 20px",
               borderRadius: "var(--radius-sm)",
-              fontWeight: 800,
+              fontWeight: 700,
               fontSize: "0.9rem",
-              background: activeTab === "articles" ? "var(--cyan)" : "transparent",
-              color: activeTab === "articles" ? "#000" : "var(--text)",
-              border: "1px solid var(--border)",
+              background: activeTab === "articles" ? "var(--accent)" : "var(--surface)",
+              color: activeTab === "articles" ? "#FFFFFF" : "var(--text)",
+              border: activeTab === "articles" ? "1px solid var(--accent)" : "1px solid var(--border)",
+              boxShadow: activeTab === "articles" ? "0 2px 4px rgba(37, 99, 235, 0.2)" : "0 1px 2px rgba(0,0,0,0.03)",
               cursor: "pointer",
+              transition: "all 0.15s ease",
             }}
           >
             📝 Multi-Hub Articles ({articles.length})
@@ -367,12 +373,14 @@ export default function AdminPage() {
             style={{
               padding: "10px 20px",
               borderRadius: "var(--radius-sm)",
-              fontWeight: 800,
+              fontWeight: 700,
               fontSize: "0.9rem",
-              background: activeTab === "automation" ? "var(--cyan)" : "transparent",
-              color: activeTab === "automation" ? "#000" : "var(--text)",
-              border: "1px solid var(--border)",
+              background: activeTab === "automation" ? "var(--accent)" : "var(--surface)",
+              color: activeTab === "automation" ? "#FFFFFF" : "var(--text)",
+              border: activeTab === "automation" ? "1px solid var(--accent)" : "1px solid var(--border)",
+              boxShadow: activeTab === "automation" ? "0 2px 4px rgba(37, 99, 235, 0.2)" : "0 1px 2px rgba(0,0,0,0.03)",
               cursor: "pointer",
+              transition: "all 0.15s ease",
             }}
           >
             ⚡ Automation Triggers
@@ -386,34 +394,34 @@ export default function AdminPage() {
           <div>
             {/* Top Metrics Grid */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, marginBottom: 28 }}>
-              <div style={{ padding: 20, background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
-                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase" }}>Total Projects Scraped</div>
-                <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--cyan)", marginTop: 6 }}>{projects.length}</div>
-                <div style={{ fontSize: "0.75rem", color: "var(--emerald)", marginTop: 4 }}>✓ 100% 8K Emblems Generated</div>
+              <div style={{ padding: 22, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Total Projects Scraped</div>
+                <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--accent)", marginTop: 6 }}>{projects.length}</div>
+                <div style={{ fontSize: "0.75rem", color: "var(--emerald)", marginTop: 4, fontWeight: 600 }}>✓ 100% 8K Emblems Generated</div>
               </div>
 
-              <div style={{ padding: 20, background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
-                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase" }}>Total Deep-Dive Articles</div>
+              <div style={{ padding: 22, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Total Deep-Dive Articles</div>
                 <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--text-bright)", marginTop: 6 }}>{articles.length}</div>
-                <div style={{ fontSize: "0.75rem", color: "var(--cyan)", marginTop: 4 }}>Across 4 Knowledge Hubs</div>
+                <div style={{ fontSize: "0.75rem", color: "var(--accent)", marginTop: 4, fontWeight: 600 }}>Across 4 Knowledge Hubs</div>
               </div>
 
-              <div style={{ padding: 20, background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
-                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase" }}>Visual Engine Coverage</div>
+              <div style={{ padding: 22, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Visual Engine Coverage</div>
                 <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--emerald)", marginTop: 6 }}>100%</div>
-                <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginTop: 4 }}>3 Unique 8K Images / Article</div>
+                <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginTop: 4, fontWeight: 500 }}>3 Unique 8K Images / Article</div>
               </div>
 
-              <div style={{ padding: 20, background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
-                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase" }}>Word Count Compliance</div>
+              <div style={{ padding: 22, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+                <div style={{ fontSize: "0.8rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 700 }}>Word Count Compliance</div>
                 <div style={{ fontSize: "2.2rem", fontWeight: 900, color: "var(--amber)", marginTop: 6 }}>2,200 - 2,500w</div>
-                <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginTop: 4 }}>High-Depth SEO Standard</div>
+                <div style={{ fontSize: "0.75rem", color: "var(--muted)", marginTop: 4, fontWeight: 500 }}>High-Depth SEO Standard</div>
               </div>
             </div>
 
             {/* Category Breakdown Table */}
-            <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 24, marginBottom: 28 }}>
-              <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 16, color: "var(--text-bright)" }}>
+            <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 24, marginBottom: 28, boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+              <h2 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 16, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                 Knowledge Hub Architecture &amp; Independent Automations
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
@@ -426,14 +434,14 @@ export default function AdminPage() {
                         padding: 16,
                         border: "1px solid var(--border-subtle)",
                         borderRadius: "var(--radius-sm)",
-                        background: "rgba(255, 255, 255, 0.02)",
+                        background: "var(--surface-sunken)",
                       }}
                     >
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                         <span style={{ fontSize: "1.2rem" }}>{cat.icon}</span>
-                        <span className="pill-badge">{count} Articles</span>
+                        <span className="pill-badge" style={{ background: "var(--surface)", border: "1px solid var(--border)", fontWeight: 700 }}>{count} Articles</span>
                       </div>
-                      <h3 style={{ fontSize: "1rem", fontWeight: 700, margin: "0 0 6px" }}>{cat.label}</h3>
+                      <h3 style={{ fontSize: "1rem", fontWeight: 700, margin: "0 0 6px", color: "var(--text-bright)" }}>{cat.label}</h3>
                       <p style={{ fontSize: "0.82rem", color: "var(--muted)", lineHeight: 1.5, margin: 0 }}>
                         {cat.desc}
                       </p>
@@ -445,10 +453,10 @@ export default function AdminPage() {
 
             {/* Quick Actions & Sync */}
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <button onClick={() => downloadJSON(projects, "projects.json")} className="btn btn-outline btn-sm">
+              <button onClick={() => downloadJSON(projects, "projects.json")} className="btn btn-outline btn-sm" style={{ background: "var(--surface)" }}>
                 ⬇ Export projects.json
               </button>
-              <button onClick={() => downloadJSON(articles, "articles.json")} className="btn btn-outline btn-sm">
+              <button onClick={() => downloadJSON(articles, "articles.json")} className="btn btn-outline btn-sm" style={{ background: "var(--surface)" }}>
                 ⬇ Export articles.json
               </button>
               <button
@@ -477,11 +485,12 @@ export default function AdminPage() {
                 style={{
                   padding: "10px 16px",
                   borderRadius: "var(--radius-sm)",
-                  background: "var(--card-bg)",
+                  background: "var(--surface)",
                   border: "1px solid var(--border)",
-                  color: "#fff",
+                  color: "var(--text-bright)",
                   minWidth: 320,
                   fontSize: "0.9rem",
+                  outline: "none",
                 }}
               />
 
@@ -514,30 +523,30 @@ export default function AdminPage() {
                 >
                   + Add Project
                 </button>
-                <button onClick={() => downloadJSON(projects, "projects.json")} className="btn btn-outline btn-sm">
+                <button onClick={() => downloadJSON(projects, "projects.json")} className="btn btn-outline btn-sm" style={{ background: "var(--surface)" }}>
                   ⬇ Export JSON
                 </button>
               </div>
             </div>
 
             {/* Projects Table */}
-            <div style={{ overflowX: "auto", border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
+            <div style={{ overflowX: "auto", border: "1px solid var(--border)", borderRadius: "var(--radius)", background: "var(--surface)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.88rem" }}>
                 <thead>
-                  <tr style={{ background: "rgba(255, 255, 255, 0.04)", borderBottom: "1px solid var(--border)" }}>
-                    <th style={{ padding: "12px 16px" }}>Emblem</th>
-                    <th style={{ padding: "12px 16px" }}>Name &amp; Slug</th>
-                    <th style={{ padding: "12px 16px" }}>Chain</th>
-                    <th style={{ padding: "12px 16px" }}>Status</th>
-                    <th style={{ padding: "12px 16px" }}>Reward</th>
-                    <th style={{ padding: "12px 16px" }}>Difficulty</th>
-                    <th style={{ padding: "12px 16px" }}>Risk Score</th>
-                    <th style={{ padding: "12px 16px", textAlign: "right" }}>Actions</th>
+                  <tr style={{ background: "var(--surface-sunken)", borderBottom: "1px solid var(--border)" }}>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Emblem</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Name &amp; Slug</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Chain</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Status</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Reward</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Difficulty</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Risk Score</th>
+                    <th style={{ padding: "12px 16px", textAlign: "right", color: "var(--muted)", fontWeight: 700 }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredProjects.map((p) => (
-                    <tr key={p.slug} style={{ borderBottom: "1px solid var(--border-subtle)", transition: "background 0.2s" }}>
+                    <tr key={p.slug} style={{ borderBottom: "1px solid var(--border-subtle)", transition: "background 0.2s" }} className="hover:bg-slate-50">
                       <td style={{ padding: "12px 16px" }}>
                         {p.featuredImage ? (
                           <img
@@ -549,7 +558,7 @@ export default function AdminPage() {
                             }}
                           />
                         ) : (
-                          <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800 }}>
+                          <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--surface-sunken)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, color: "var(--accent)" }}>
                             {p.name.slice(0, 2).toUpperCase()}
                           </div>
                         )}
@@ -559,7 +568,7 @@ export default function AdminPage() {
                         <div style={{ fontSize: "0.76rem", color: "var(--muted)", fontFamily: "monospace" }}>/projects/{p.slug}/</div>
                       </td>
                       <td style={{ padding: "12px 16px" }}>
-                        <span className="pill-badge">{p.chain}</span>
+                        <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>{p.chain}</span>
                       </td>
                       <td style={{ padding: "12px 16px" }}>
                         {p.status.map((st) => (
@@ -574,12 +583,12 @@ export default function AdminPage() {
                           {p.difficulty}
                         </span>
                       </td>
-                      <td style={{ padding: "12px 16px", fontFamily: "monospace", color: "var(--cyan)" }}>
+                      <td style={{ padding: "12px 16px", fontWeight: 700, color: "var(--accent)" }}>
                         {p.riskScore ?? 15} / 100
                       </td>
                       <td style={{ padding: "12px 16px", textAlign: "right" }}>
                         <div style={{ display: "inline-flex", gap: 8 }}>
-                          <Link href={`/projects/${p.slug}/`} target="_blank" className="btn btn-outline btn-sm" style={{ padding: "4px 8px", fontSize: "0.76rem" }}>
+                          <Link href={`/projects/${p.slug}/`} target="_blank" className="btn btn-outline btn-sm" style={{ padding: "4px 8px", fontSize: "0.76rem", background: "var(--surface)" }}>
                             View ↗
                           </Link>
                           <button
@@ -588,14 +597,14 @@ export default function AdminPage() {
                               setIsNewProject(false);
                             }}
                             className="btn btn-outline btn-sm"
-                            style={{ padding: "4px 8px", fontSize: "0.76rem" }}
+                            style={{ padding: "4px 8px", fontSize: "0.76rem", background: "var(--surface)" }}
                           >
                             Edit
                           </button>
                           <button
                             onClick={() => handleDeleteProject(p.slug, p.name)}
                             className="btn btn-outline btn-sm"
-                            style={{ padding: "4px 8px", fontSize: "0.76rem", borderColor: "rgba(239, 68, 68, 0.4)", color: "#ef4444" }}
+                            style={{ padding: "4px 8px", fontSize: "0.76rem", borderColor: "rgba(239, 68, 68, 0.4)", color: "#ef4444", background: "var(--surface)" }}
                           >
                             Del
                           </button>
@@ -619,6 +628,7 @@ export default function AdminPage() {
                 <button
                   onClick={() => setSelectedCategory("all")}
                   className={`btn btn-sm ${selectedCategory === "all" ? "btn-primary" : "btn-outline"}`}
+                  style={{ background: selectedCategory === "all" ? undefined : "var(--surface)" }}
                 >
                   All ({articles.length})
                 </button>
@@ -627,6 +637,7 @@ export default function AdminPage() {
                     key={cat.key}
                     onClick={() => setSelectedCategory(cat.key)}
                     className={`btn btn-sm ${selectedCategory === cat.key ? "btn-primary" : "btn-outline"}`}
+                    style={{ background: selectedCategory === cat.key ? undefined : "var(--surface)" }}
                   >
                     {cat.icon} {cat.label} ({articles.filter((a) => a.pageType === cat.key).length})
                   </button>
@@ -642,10 +653,11 @@ export default function AdminPage() {
                   style={{
                     padding: "8px 14px",
                     borderRadius: "var(--radius-sm)",
-                    background: "var(--card-bg)",
+                    background: "var(--surface)",
                     border: "1px solid var(--border)",
-                    color: "#fff",
+                    color: "var(--text-bright)",
                     fontSize: "0.85rem",
+                    outline: "none",
                   }}
                 />
                 <button
@@ -678,24 +690,24 @@ export default function AdminPage() {
                 >
                   + Write Article
                 </button>
-                <button onClick={() => downloadJSON(articles, "articles.json")} className="btn btn-outline btn-sm">
+                <button onClick={() => downloadJSON(articles, "articles.json")} className="btn btn-outline btn-sm" style={{ background: "var(--surface)" }}>
                   ⬇ Export JSON
                 </button>
               </div>
             </div>
 
             {/* Articles Table */}
-            <div style={{ overflowX: "auto", border: "1px solid var(--border)", borderRadius: "var(--radius)" }}>
+            <div style={{ overflowX: "auto", border: "1px solid var(--border)", borderRadius: "var(--radius)", background: "var(--surface)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", fontSize: "0.88rem" }}>
                 <thead>
-                  <tr style={{ background: "rgba(255, 255, 255, 0.04)", borderBottom: "1px solid var(--border)" }}>
-                    <th style={{ padding: "12px 16px" }}>Image</th>
-                    <th style={{ padding: "12px 16px" }}>Hub Category</th>
-                    <th style={{ padding: "12px 16px" }}>Title &amp; Slug</th>
-                    <th style={{ padding: "12px 16px" }}>Word Count</th>
-                    <th style={{ padding: "12px 16px" }}>FAQs</th>
-                    <th style={{ padding: "12px 16px" }}>Date</th>
-                    <th style={{ padding: "12px 16px", textAlign: "right" }}>Actions</th>
+                  <tr style={{ background: "var(--surface-sunken)", borderBottom: "1px solid var(--border)" }}>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Image</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Hub Category</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Title &amp; Slug</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Word Count</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>FAQs</th>
+                    <th style={{ padding: "12px 16px", color: "var(--muted)", fontWeight: 700 }}>Date</th>
+                    <th style={{ padding: "12px 16px", textAlign: "right", color: "var(--muted)", fontWeight: 700 }}>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -704,7 +716,7 @@ export default function AdminPage() {
                     const isCompliant = words >= 2000;
                     const hubPath = art.pageType === "guides" ? "guides" : art.pageType === "methodology" ? "methodology" : art.pageType === "editorial" ? "editorial-policy" : "blog";
                     return (
-                      <tr key={art.slug} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                      <tr key={art.slug} style={{ borderBottom: "1px solid var(--border-subtle)", transition: "background 0.2s" }} className="hover:bg-slate-50">
                         <td style={{ padding: "12px 16px" }}>
                           {art.featuredImage ? (
                             <img
@@ -737,7 +749,7 @@ export default function AdminPage() {
                             {words.toLocaleString()}w {isCompliant ? "✓" : "⚠️"}
                           </span>
                         </td>
-                        <td style={{ padding: "12px 16px", fontFamily: "monospace" }}>
+                        <td style={{ padding: "12px 16px", fontFamily: "monospace", color: "var(--text-bright)" }}>
                           {art.faqs?.length ?? 0} FAQs
                         </td>
                         <td style={{ padding: "12px 16px", fontSize: "0.8rem", color: "var(--muted)" }}>
@@ -745,7 +757,7 @@ export default function AdminPage() {
                         </td>
                         <td style={{ padding: "12px 16px", textAlign: "right" }}>
                           <div style={{ display: "inline-flex", gap: 8 }}>
-                            <Link href={`/${hubPath}/${art.slug}/`} target="_blank" className="btn btn-outline btn-sm" style={{ padding: "4px 8px", fontSize: "0.76rem" }}>
+                            <Link href={`/${hubPath}/${art.slug}/`} target="_blank" className="btn btn-outline btn-sm" style={{ padding: "4px 8px", fontSize: "0.76rem", background: "var(--surface)" }}>
                               View ↗
                             </Link>
                             <button
@@ -754,14 +766,14 @@ export default function AdminPage() {
                                 setIsNewArticle(false);
                               }}
                               className="btn btn-outline btn-sm"
-                              style={{ padding: "4px 8px", fontSize: "0.76rem" }}
+                              style={{ padding: "4px 8px", fontSize: "0.76rem", background: "var(--surface)" }}
                             >
                               Edit
                             </button>
                             <button
                               onClick={() => handleDeleteArticle(art.slug, art.title)}
                               className="btn btn-outline btn-sm"
-                              style={{ padding: "4px 8px", fontSize: "0.76rem", borderColor: "rgba(239, 68, 68, 0.4)", color: "#ef4444" }}
+                              style={{ padding: "4px 8px", fontSize: "0.76rem", borderColor: "rgba(239, 68, 68, 0.4)", color: "#ef4444", background: "var(--surface)" }}
                             >
                               Del
                             </button>
@@ -783,29 +795,30 @@ export default function AdminPage() {
           <div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 28 }}>
               {/* Trigger Hub Article Generator */}
-              <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 24 }}>
+              <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 24, boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
                   <span style={{ fontSize: "1.5rem" }}>⚡</span>
-                  <h2 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0 }}>
+                  <h2 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                     Trigger Deep-Dive Article Generator
                   </h2>
                 </div>
-                <p style={{ fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5, marginBottom: 20 }}>
+                <p style={{ fontSize: "0.85rem", color: "var(--text)", lineHeight: 1.55, marginBottom: 20, opacity: 0.88 }}>
                   Generates an exhaustive 2,200–2,500 word publication, 3 topic-based 8K photorealistic Flux images, 4–6 randomized FAQs with schema, and auto-saves to the central store.
                 </p>
 
                 <div style={{ marginBottom: 16 }}>
-                  <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, marginBottom: 6 }}>Target Knowledge Hub:</label>
+                  <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>Target Knowledge Hub:</label>
                   <select
                     value={autoCategory}
                     onChange={(e) => setAutoCategory(e.target.value as PageType)}
                     style={{
                       width: "100%",
                       padding: "10px 14px",
-                      background: "rgba(0,0,0,0.3)",
+                      background: "var(--surface-sunken)",
                       border: "1px solid var(--border)",
-                      color: "#fff",
+                      color: "var(--text-bright)",
                       borderRadius: "var(--radius-sm)",
+                      outline: "none",
                     }}
                   >
                     <option value="intelligence">🧠 Intelligence Hub (/blog)</option>
@@ -816,7 +829,7 @@ export default function AdminPage() {
                 </div>
 
                 <div style={{ marginBottom: 20 }}>
-                  <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, marginBottom: 6 }}>
+                  <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>
                     Specific Topic (Leave blank for automated trend scouting):
                   </label>
                   <input
@@ -827,11 +840,12 @@ export default function AdminPage() {
                     style={{
                       width: "100%",
                       padding: "10px 14px",
-                      background: "rgba(0,0,0,0.3)",
+                      background: "var(--surface-sunken)",
                       border: "1px solid var(--border)",
-                      color: "#fff",
+                      color: "var(--text-bright)",
                       borderRadius: "var(--radius-sm)",
                       fontSize: "0.88rem",
+                      outline: "none",
                     }}
                   />
                 </div>
@@ -847,21 +861,21 @@ export default function AdminPage() {
               </div>
 
               {/* Trigger Project Scraper */}
-              <div style={{ background: "var(--card-bg)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 24, display: "flex", flexDirection: "column", justifyContent: "space-between", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
                 <div>
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
                     <span style={{ fontSize: "1.5rem" }}>📡</span>
-                    <h2 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0 }}>
+                    <h2 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                       Crypto Airdrop Project Scraper
                     </h2>
                   </div>
-                  <p style={{ fontSize: "0.85rem", color: "var(--muted)", lineHeight: 1.5, marginBottom: 20 }}>
+                  <p style={{ fontSize: "0.85rem", color: "var(--text)", lineHeight: 1.55, marginBottom: 20, opacity: 0.88 }}>
                     Crawls decentralized sources, discovers high-potential testnets and confirmed token distributions, synthesizes step-by-step checklist tasks, generates 8K protocol emblems, and updates <code>projects.json</code>.
                   </p>
 
-                  <div style={{ padding: 14, background: "rgba(0, 240, 255, 0.04)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-sm)", marginBottom: 20 }}>
-                    <div style={{ fontSize: "0.78rem", color: "var(--cyan)", fontFamily: "monospace" }}>CRAWLER TELEMETRY</div>
-                    <div style={{ fontSize: "0.85rem", marginTop: 4 }}>
+                  <div style={{ padding: 14, background: "var(--surface-sunken)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-sm)", marginBottom: 20 }}>
+                    <div style={{ fontSize: "0.78rem", color: "var(--accent)", fontWeight: 700 }}>CRAWLER TELEMETRY</div>
+                    <div style={{ fontSize: "0.85rem", marginTop: 4, color: "var(--text)" }}>
                       Active Sources: Coingecko, DefiLlama, Twitter RPC, GitHub Deployments
                     </div>
                   </div>
@@ -871,7 +885,7 @@ export default function AdminPage() {
                   disabled={isRunningAuto}
                   onClick={handleRunProjectScraper}
                   className="btn btn-outline"
-                  style={{ width: "100%", borderColor: "var(--cyan)", color: "var(--cyan)" }}
+                  style={{ width: "100%", borderColor: "var(--accent)", color: "var(--accent)", background: "var(--surface)" }}
                 >
                   {isRunningAuto ? "⏳ Scraping & Synthesizing..." : "📡 Run Project Discovery & 8K Badge Generator"}
                 </button>
@@ -879,14 +893,14 @@ export default function AdminPage() {
             </div>
 
             {/* Terminal Log Console */}
-            <div style={{ background: "#050811", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 20 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, borderBottom: "1px solid rgba(255,255,255,0.08)", paddingBottom: 8 }}>
-                <span style={{ fontSize: "0.82rem", color: "var(--cyan)", fontFamily: "monospace", fontWeight: 700 }}>
+            <div style={{ background: "#0F172A", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: 20, boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: 8 }}>
+                <span style={{ fontSize: "0.82rem", color: "#60A5FA", fontFamily: "monospace", fontWeight: 700 }}>
                   TERMINAL EXECUTION LOG
                 </span>
                 <button
                   onClick={() => setTerminalLog([])}
-                  style={{ background: "none", border: "none", color: "var(--muted)", fontSize: "0.75rem", cursor: "pointer" }}
+                  style={{ background: "none", border: "none", color: "#94A3B8", fontSize: "0.75rem", cursor: "pointer" }}
                 >
                   Clear Log
                 </button>
@@ -896,7 +910,7 @@ export default function AdminPage() {
                 style={{
                   fontFamily: "monospace",
                   fontSize: "0.82rem",
-                  color: "#94a3b8",
+                  color: "#CBD5E1",
                   maxHeight: 280,
                   overflowY: "auto",
                   display: "flex",
@@ -905,10 +919,10 @@ export default function AdminPage() {
                 }}
               >
                 {terminalLog.length === 0 ? (
-                  <div style={{ color: "var(--muted)" }}>No commands executed yet. Trigger an action above or run scripts in terminal.</div>
+                  <div style={{ color: "#64748B" }}>No commands executed yet. Trigger an action above or run scripts in terminal.</div>
                 ) : (
                   terminalLog.map((line, idx) => (
-                    <div key={idx} style={{ color: line.includes("Failed") || line.includes("Error") ? "#ef4444" : line.includes("Succeeded") ? "var(--emerald)" : "#94a3b8" }}>
+                    <div key={idx} style={{ color: line.includes("Failed") || line.includes("Error") ? "#EF4444" : line.includes("Succeeded") ? "#10B981" : "#CBD5E1" }}>
                       {line}
                     </div>
                   ))
@@ -928,7 +942,7 @@ export default function AdminPage() {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.8)",
+            background: "rgba(15, 23, 42, 0.6)",
             backdropFilter: "blur(6px)",
             display: "flex",
             alignItems: "center",
@@ -939,9 +953,10 @@ export default function AdminPage() {
         >
           <div
             style={{
-              background: "var(--card-bg)",
+              background: "var(--surface)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
+              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
               width: "100%",
               maxWidth: 700,
               maxHeight: "90vh",
@@ -950,7 +965,7 @@ export default function AdminPage() {
             }}
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, margin: 0 }}>
+              <h2 style={{ fontSize: "1.3rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                 {isNewProject ? "Add New Project" : `Edit Project: ${editingProject.name}`}
               </h2>
               <button
@@ -964,54 +979,54 @@ export default function AdminPage() {
             <form onSubmit={handleSaveProject} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Name:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Name:</label>
                   <input
                     type="text"
                     required
                     value={editingProject.name}
                     onChange={(e) => setEditingProject({ ...editingProject, name: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Slug:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Slug:</label>
                   <input
                     type="text"
                     required
                     value={editingProject.slug}
                     onChange={(e) => setEditingProject({ ...editingProject, slug: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Chain:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Chain:</label>
                   <input
                     type="text"
                     required
                     value={editingProject.chain}
                     onChange={(e) => setEditingProject({ ...editingProject, chain: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Reward Estimate:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Reward Estimate:</label>
                   <input
                     type="text"
                     required
                     value={editingProject.reward}
                     onChange={(e) => setEditingProject({ ...editingProject, reward: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Difficulty:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Difficulty:</label>
                   <select
                     value={editingProject.difficulty}
                     onChange={(e) => setEditingProject({ ...editingProject, difficulty: e.target.value as Difficulty })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   >
                     <option value="Easy">Easy</option>
                     <option value="Medium">Medium</option>
@@ -1021,27 +1036,27 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Description:</label>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Description:</label>
                 <textarea
                   rows={3}
                   value={editingProject.desc}
                   onChange={(e) => setEditingProject({ ...editingProject, desc: e.target.value })}
-                  style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                  style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                 />
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>8K Emblem Image Path:</label>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>8K Emblem Image Path:</label>
                 <input
                   type="text"
                   value={editingProject.featuredImage || ""}
                   onChange={(e) => setEditingProject({ ...editingProject, featuredImage: e.target.value })}
-                  style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                  style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                 />
               </div>
 
               <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 12 }}>
-                <button type="button" onClick={() => setEditingProject(null)} className="btn btn-outline btn-sm">
+                <button type="button" onClick={() => setEditingProject(null)} className="btn btn-outline btn-sm" style={{ background: "var(--surface)" }}>
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary btn-sm">
@@ -1061,7 +1076,7 @@ export default function AdminPage() {
           style={{
             position: "fixed",
             inset: 0,
-            background: "rgba(0,0,0,0.8)",
+            background: "rgba(15, 23, 42, 0.6)",
             backdropFilter: "blur(6px)",
             display: "flex",
             alignItems: "center",
@@ -1072,9 +1087,10 @@ export default function AdminPage() {
         >
           <div
             style={{
-              background: "var(--card-bg)",
+              background: "var(--surface)",
               border: "1px solid var(--border)",
               borderRadius: "var(--radius)",
+              boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
               width: "100%",
               maxWidth: 900,
               maxHeight: "92vh",
@@ -1084,7 +1100,7 @@ export default function AdminPage() {
           >
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
               <div>
-                <h2 style={{ fontSize: "1.3rem", fontWeight: 800, margin: 0 }}>
+                <h2 style={{ fontSize: "1.3rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                   {isNewArticle ? "Write New Article" : `Edit Article: ${editingArticle.title}`}
                 </h2>
                 <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginTop: 4 }}>
@@ -1102,11 +1118,11 @@ export default function AdminPage() {
             <form onSubmit={handleSaveArticle} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 14 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Knowledge Hub:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Knowledge Hub:</label>
                   <select
                     value={editingArticle.pageType}
                     onChange={(e) => setEditingArticle({ ...editingArticle, pageType: e.target.value as PageType })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   >
                     <option value="intelligence">🧠 Intelligence (/blog)</option>
                     <option value="guides">📘 Guides (/guides)</option>
@@ -1115,92 +1131,92 @@ export default function AdminPage() {
                   </select>
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Article Title:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Article Title:</label>
                   <input
                     type="text"
                     required
                     value={editingArticle.title}
                     onChange={(e) => setEditingArticle({ ...editingArticle, title: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
               </div>
 
               <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: 14 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Slug:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Slug:</label>
                   <input
                     type="text"
                     required
                     value={editingArticle.slug}
                     onChange={(e) => setEditingArticle({ ...editingArticle, slug: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Tag:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Tag:</label>
                   <input
                     type="text"
                     value={editingArticle.tag}
                     onChange={(e) => setEditingArticle({ ...editingArticle, tag: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Read Time:</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Read Time:</label>
                   <input
                     type="text"
                     value={editingArticle.read}
                     onChange={(e) => setEditingArticle({ ...editingArticle, read: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                    style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                   />
                 </div>
               </div>
 
               <div>
-                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>Excerpt:</label>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>Excerpt:</label>
                 <textarea
                   rows={2}
                   value={editingArticle.excerpt}
                   onChange={(e) => setEditingArticle({ ...editingArticle, excerpt: e.target.value })}
-                  style={{ width: "100%", padding: "8px 12px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4 }}
+                  style={{ width: "100%", padding: "8px 12px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, outline: "none" }}
                 />
               </div>
 
               {/* 3 8K Images */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 700, marginBottom: 4 }}>1. Featured 8K Image:</label>
+                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>1. Featured 8K Image:</label>
                   <input
                     type="text"
                     value={editingArticle.featuredImage || ""}
                     onChange={(e) => setEditingArticle({ ...editingArticle, featuredImage: e.target.value })}
-                    style={{ width: "100%", padding: "6px 10px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4, fontSize: "0.8rem" }}
+                    style={{ width: "100%", padding: "6px 10px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, fontSize: "0.8rem", outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 700, marginBottom: 4 }}>2. Middle 8K Image:</label>
+                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>2. Middle 8K Image:</label>
                   <input
                     type="text"
                     value={editingArticle.middleImage || ""}
                     onChange={(e) => setEditingArticle({ ...editingArticle, middleImage: e.target.value })}
-                    style={{ width: "100%", padding: "6px 10px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4, fontSize: "0.8rem" }}
+                    style={{ width: "100%", padding: "6px 10px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, fontSize: "0.8rem", outline: "none" }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 700, marginBottom: 4 }}>3. Pre-FAQ 8K Image:</label>
+                  <label style={{ display: "block", fontSize: "0.76rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>3. Pre-FAQ 8K Image:</label>
                   <input
                     type="text"
                     value={editingArticle.preFaqImage || ""}
                     onChange={(e) => setEditingArticle({ ...editingArticle, preFaqImage: e.target.value })}
-                    style={{ width: "100%", padding: "6px 10px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4, fontSize: "0.8rem" }}
+                    style={{ width: "100%", padding: "6px 10px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, fontSize: "0.8rem", outline: "none" }}
                   />
                 </div>
               </div>
 
               {/* Body Content */}
               <div>
-                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4 }}>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, marginBottom: 4, color: "var(--text-bright)" }}>
                   Full Article Body (Markdown / HTML):
                 </label>
                 <textarea
@@ -1208,12 +1224,12 @@ export default function AdminPage() {
                   required
                   value={editingArticle.body}
                   onChange={(e) => setEditingArticle({ ...editingArticle, body: e.target.value })}
-                  style={{ width: "100%", padding: "10px 14px", background: "rgba(0,0,0,0.3)", border: "1px solid var(--border)", color: "#fff", borderRadius: 4, fontFamily: "monospace", fontSize: "0.85rem" }}
+                  style={{ width: "100%", padding: "10px 14px", background: "var(--surface-sunken)", border: "1px solid var(--border)", color: "var(--text-bright)", borderRadius: 4, fontFamily: "monospace", fontSize: "0.85rem", outline: "none" }}
                 />
               </div>
 
               <div style={{ display: "flex", justifyContent: "flex-end", gap: 12, marginTop: 12 }}>
-                <button type="button" onClick={() => setEditingArticle(null)} className="btn btn-outline btn-sm">
+                <button type="button" onClick={() => setEditingArticle(null)} className="btn btn-outline btn-sm" style={{ background: "var(--surface)" }}>
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary btn-sm">

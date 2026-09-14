@@ -22,12 +22,14 @@ export default async function EditorialHubPage() {
 
         <MotionFade delay={0.05} direction="up" style={{ marginBottom: 40 }}>
           <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge success">🛡️ Journalistic Integrity</span>
+            <span className="pill-badge" style={{ background: "rgba(5, 150, 105, 0.08)", color: "var(--emerald)", fontWeight: 700 }}>
+              🛡️ Journalistic Integrity
+            </span>
           </div>
-          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 800, letterSpacing: "-0.025em", margin: "8px 0 16px", fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
             Editorial Standards &amp; Publications
           </h1>
-          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, lineHeight: 1.6 }}>
+          <p style={{ fontSize: "1.15rem", color: "var(--text)", maxWidth: 720, lineHeight: 1.65, opacity: 0.88 }}>
             Our verified policies on non-financial advice, anti-shilling rules, and cryptographic source verification.
           </p>
         </MotionFade>

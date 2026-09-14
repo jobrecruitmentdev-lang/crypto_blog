@@ -33,18 +33,20 @@ export default function CareerPage() {
 
         <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 40 }}>
           <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge success">💼 Open Opportunities</span>
+            <span className="pill-badge" style={{ background: "rgba(5, 150, 105, 0.08)", color: "var(--emerald)", fontWeight: 700 }}>
+              💼 Open Opportunities
+            </span>
           </div>
-          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 800, letterSpacing: "-0.025em", margin: "8px 0 16px", fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
             Careers &amp; Opportunities
           </h1>
-          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 680, margin: "0 auto", lineHeight: 1.6 }}>
+          <p style={{ fontSize: "1.15rem", color: "var(--text)", maxWidth: 680, margin: "0 auto", lineHeight: 1.65, opacity: 0.88 }}>
             Join our mission to bring cryptographic verification, real-time analytics, and transparent research to decentralized ecosystems.
           </p>
         </MotionFade>
 
         {/* PR Marketing Careers Widget for Apex Pvt Limited */}
-        <MotionCard style={{ padding: "32px 24px", marginBottom: 48, background: "rgba(10, 17, 34, 0.75)", border: "1px solid var(--border)", minHeight: "450px" }}>
+        <MotionCard style={{ padding: "32px 24px", marginBottom: 48, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)", minHeight: "450px" }}>
           {/* PR Marketing Careers Widget for Apex Pvt Limited */}
           <div id="crm-careers" data-company="apex-pvt-limited" style={{ minHeight: "400px", width: "100%" }} />
           <script src="https://prmarketingventures.com/assets/career-widget.js" async></script>
@@ -52,35 +54,35 @@ export default function CareerPage() {
 
         {/* Culture & Benefits Bento Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 48 }}>
-          <MotionCard style={{ padding: 24 }}>
+          <MotionCard style={{ padding: 24, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
             <div style={{ fontSize: 28, marginBottom: 12 }}>🌐</div>
-            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Global &amp; Remote-First</h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Global &amp; Remote-First</h3>
+            <p style={{ color: "var(--text)", fontSize: "0.92rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
               Work autonomously from anywhere in the world. We value deep work, output, and cryptographic precision over arbitrary hours.
             </p>
           </MotionCard>
 
-          <MotionCard style={{ padding: 24 }}>
+          <MotionCard style={{ padding: 24, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
             <div style={{ fontSize: 28, marginBottom: 12 }}>⚡</div>
-            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Cutting-Edge Tech Stack</h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Cutting-Edge Tech Stack</h3>
+            <p style={{ color: "var(--text)", fontSize: "0.92rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
               Build high-performance distributed scrapers, indexing pipelines, and real-time Web3 security tools across 50+ blockchains.
             </p>
           </MotionCard>
 
-          <MotionCard style={{ padding: 24 }}>
+          <MotionCard style={{ padding: 24, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
             <div style={{ fontSize: 28, marginBottom: 12 }}>📈</div>
-            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Rapid Career Growth</h3>
-            <p style={{ color: "var(--muted)", fontSize: "0.92rem", lineHeight: 1.6, margin: 0 }}>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Rapid Career Growth</h3>
+            <p style={{ color: "var(--text)", fontSize: "0.92rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
               Collaborate directly with senior engineers, protocol researchers, and growth leads in high-impact Web3 initiatives.
             </p>
           </MotionCard>
         </div>
 
         {/* Trust & Standards Link Hub */}
-        <MotionCard style={{ padding: 28, textAlign: "center" }}>
-          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8 }}>Have Questions About Working With Us?</h3>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", marginBottom: 20 }}>
+        <MotionCard style={{ padding: 32, textAlign: "center", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
+          <h3 style={{ fontSize: "1.2rem", fontWeight: 800, marginBottom: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Have Questions About Working With Us?</h3>
+          <p style={{ color: "var(--text)", fontSize: "0.95rem", marginBottom: 20, opacity: 0.88 }}>
             Learn more about our organizational standards or reach our talent team.
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>

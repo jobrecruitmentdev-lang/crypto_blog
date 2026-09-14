@@ -29,7 +29,7 @@ export default function FaqPage() {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://cryptoairdropai.com/faq" }
+      { "@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://cryptoairdropai.com/faq/" }
     ]
   };
 
@@ -67,10 +67,10 @@ export default function FaqPage() {
             Reach our research and editorial desk directly for contract inquiries or technical clarifications.
           </p>
           <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
-            <Link href="/contact" className="btn btn-primary btn-sm">
+            <Link href="/contact/" className="btn btn-primary btn-sm">
               Contact Desk
             </Link>
-            <Link href="/methodology" className="btn btn-outline btn-sm">
+            <Link href="/methodology/" className="btn btn-outline btn-sm">
               View Audit Methodology
             </Link>
           </div>

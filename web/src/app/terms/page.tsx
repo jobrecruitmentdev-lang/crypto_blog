@@ -14,7 +14,7 @@ export default function TermsPage() {
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://cryptoairdropai.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": "https://cryptoairdropai.com/terms" }
+      { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": "https://cryptoairdropai.com/terms/" }
     ]
   };
 

@@ -61,12 +61,14 @@ export default async function EditorialPolicyPage() {
 
         <MotionFade delay={0.05} direction="up" style={{ textAlign: "center", marginBottom: 48 }}>
           <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge success">🛡️ Integrity &amp; Transparency Mandate</span>
+            <span className="pill-badge" style={{ background: "rgba(5, 150, 105, 0.08)", color: "var(--emerald)", fontWeight: 700 }}>
+              🛡️ Integrity &amp; Transparency Mandate
+            </span>
           </div>
-          <h1 style={{ fontSize: "2.8rem", fontWeight: 900, letterSpacing: "-0.03em", margin: "8px 0 16px" }}>
+          <h1 style={{ fontSize: "2.8rem", fontWeight: 800, letterSpacing: "-0.025em", margin: "8px 0 16px", fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
             Editorial Policy &amp; Ethics
           </h1>
-          <p style={{ fontSize: "1.15rem", color: "var(--muted)", maxWidth: 720, margin: "0 auto", lineHeight: 1.6 }}>
+          <p style={{ fontSize: "1.15rem", color: "var(--text)", maxWidth: 720, margin: "0 auto", lineHeight: 1.65, opacity: 0.88 }}>
             Our binding charter for fact-checking, zero sponsored listings, and algorithmic non-custodial research.
           </p>
         </MotionFade>
@@ -74,13 +76,13 @@ export default async function EditorialPolicyPage() {
         {/* 4 Pillars Bento Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 54 }}>
           {steps.map((item, idx) => (
-            <MotionCard key={idx} style={{ padding: 28 }}>
+            <MotionCard key={idx} style={{ padding: 28, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                 <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--accent)" }}>{item.num}</span>
-                <span className="pill-badge" style={{ fontSize: "0.72rem" }}>{item.badge}</span>
+                <span className="pill-badge" style={{ fontSize: "0.72rem", background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>{item.badge}</span>
               </div>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 10px" }}>{item.title}</h3>
-              <p style={{ color: "var(--muted)", fontSize: "0.93rem", lineHeight: 1.6, margin: 0 }}>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 10px", color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>{item.title}</h3>
+              <p style={{ color: "var(--text)", fontSize: "0.93rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
                 {item.desc}
               </p>
             </MotionCard>
@@ -91,10 +93,10 @@ export default async function EditorialPolicyPage() {
         <div style={{ marginBottom: 48 }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
             <div>
-              <h2 style={{ fontSize: "1.8rem", fontWeight: 900, margin: 0 }}>
+              <h2 style={{ fontSize: "1.8rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                 Editorial Integrity &amp; Ethics Publications
               </h2>
-              <p style={{ color: "var(--muted)", fontSize: "0.92rem", margin: "4px 0 0" }}>
+              <p style={{ color: "var(--muted)", fontSize: "0.92rem", margin: "4px 0 0", fontWeight: 500 }}>
                 Deep dives on crypto journalism standards, compliance, and regulatory disclosures
               </p>
             </div>
@@ -103,9 +105,9 @@ export default async function EditorialPolicyPage() {
         </div>
 
         {/* Accountability Statement */}
-        <MotionCard style={{ padding: 32, textAlign: "center", background: "rgba(10, 17, 34, 0.6)" }}>
-          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 8 }}>Found an Inaccuracy or Outdated Information?</h3>
-          <p style={{ color: "var(--muted)", fontSize: "0.95rem", maxWidth: 640, margin: "0 auto 20px" }}>
+        <MotionCard style={{ padding: 32, textAlign: "center", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Found an Inaccuracy or Outdated Information?</h3>
+          <p style={{ color: "var(--text)", fontSize: "0.95rem", maxWidth: 640, margin: "0 auto 20px", opacity: 0.88 }}>
             We guarantee a 24–48 hour turn-around for verified factual corrections.
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12 }}>

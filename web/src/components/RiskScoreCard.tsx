@@ -69,12 +69,13 @@ export default function RiskScoreCard({
 
   return (
     <div
-      className="tui-panel"
+      className="card"
       style={{
         padding: "24px",
         borderRadius: "var(--radius)",
-        background: "rgba(10, 15, 30, 0.85)",
+        background: "var(--surface)",
         border: "1px solid var(--border)",
+        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)",
         margin: "24px 0",
         position: "relative",
       }}
@@ -94,8 +95,8 @@ export default function RiskScoreCard({
       >
         <div style={{ flex: "1 1 240px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px", flexWrap: "wrap" }}>
-            <span className="pill-badge" style={{ fontSize: "0.68rem", fontFamily: "monospace" }}>
-              [ RESEARCH DATASET ]
+            <span className="pill-badge" style={{ fontSize: "0.68rem", background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>
+              RESEARCH DATASET
             </span>
             <span
               className="pill-badge"
@@ -103,13 +104,14 @@ export default function RiskScoreCard({
                 fontSize: "0.68rem",
                 color: getScoreColor(totalScore),
                 borderColor: getScoreColor(totalScore),
-                background: "rgba(255,255,255,0.03)",
+                background: "rgba(255, 255, 255, 0.9)",
+                fontWeight: 700,
               }}
             >
               {getScoreBadge(totalScore)}
             </span>
           </div>
-          <h3 style={{ fontSize: "1.3rem", fontWeight: 900, margin: 0, color: "var(--text-bright)" }}>
+          <h3 style={{ fontSize: "1.3rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
             {projectName} Protocol Risk Index
           </h3>
           <div style={{ fontSize: "0.8rem", color: "var(--muted)", marginTop: "4px" }}>
@@ -119,7 +121,7 @@ export default function RiskScoreCard({
 
         <div 
           style={{ 
-            background: "rgba(0, 240, 255, 0.03)", 
+            background: "var(--surface-sunken)", 
             border: `1px solid ${getScoreColor(totalScore)}`,
             borderRadius: "var(--radius-sm)",
             padding: "8px 16px",
@@ -130,7 +132,7 @@ export default function RiskScoreCard({
           <div style={{ fontSize: "0.7rem", color: "var(--muted)", textTransform: "uppercase", fontWeight: 800, letterSpacing: "0.05em" }}>
             HEALTH INDEX
           </div>
-          <div style={{ fontSize: "2.2rem", fontWeight: 900, color: getScoreColor(totalScore), lineHeight: 1.1, fontFamily: "monospace" }}>
+          <div style={{ fontSize: "2.2rem", fontWeight: 800, color: getScoreColor(totalScore), lineHeight: 1.1 }}>
             {totalScore}<span style={{ fontSize: "1rem", color: "var(--muted)" }}>/100</span>
           </div>
         </div>
@@ -144,11 +146,11 @@ export default function RiskScoreCard({
             <div key={idx}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.85rem", marginBottom: "6px" }}>
                 <span style={{ fontWeight: 700, color: "var(--text-bright)" }}>{vec.label}</span>
-                <span style={{ fontFamily: "monospace", fontWeight: 800, color: vColor }}>
+                <span style={{ fontWeight: 800, color: vColor }}>
                   {vec.score} / {vec.max}
                 </span>
               </div>
-              <div style={{ width: "100%", height: "8px", background: "rgba(255,255,255,0.06)", borderRadius: "4px", overflow: "hidden" }}>
+              <div style={{ width: "100%", height: "8px", background: "var(--border-subtle)", borderRadius: "4px", overflow: "hidden" }}>
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${(vec.score / vec.max) * 100}%` }}
@@ -183,9 +185,9 @@ export default function RiskScoreCard({
         }}
       >
         <div>
-          Verified: <strong style={{ color: "var(--text)" }}>{breakdown.verifiedDate || "2026-08-24"}</strong> ({breakdown.sourcesCount || 12} on-chain telemetry feeds)
+          Verified: <strong style={{ color: "var(--text-bright)" }}>{breakdown.verifiedDate || "2026-08-24"}</strong> ({breakdown.sourcesCount || 12} on-chain telemetry feeds)
         </div>
-        <Link href="/methodology/" style={{ color: "var(--cyan)", fontWeight: 700, textDecoration: "none" }}>
+        <Link href="/methodology/" style={{ color: "var(--accent)", fontWeight: 700, textDecoration: "none" }}>
           Methodology Framework →
         </Link>
       </div>

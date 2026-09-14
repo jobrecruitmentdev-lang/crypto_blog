@@ -22,7 +22,19 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
       {articles.map((article) => (
-        <MotionCard key={article.slug} style={{ display: "flex", flexDirection: "column", height: "100%", padding: 0, overflow: "hidden" }}>
+        <MotionCard 
+          key={article.slug} 
+          style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            height: "100%", 
+            padding: 0, 
+            overflow: "hidden",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.05)"
+          }}
+        >
           {/* Card 8K Image Banner */}
           <Link href={`${cleanBasePath}/${article.slug}/`} style={{ textDecoration: "none", display: "block" }}>
             <div 
@@ -30,7 +42,7 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
                 position: "relative", 
                 width: "100%", 
                 aspectRatio: "16/9", 
-                background: "rgba(255,255,255,0.03)", 
+                background: "var(--surface-sunken)", 
                 borderBottom: "1px solid var(--border)",
                 overflow: "hidden"
               }}
@@ -44,7 +56,17 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
                 className="hover:scale-105"
               />
               <div style={{ position: "absolute", top: 12, left: 12 }}>
-                <span className="pill-badge" style={{ fontSize: "0.72rem", background: "rgba(2, 4, 8, 0.8)", backdropFilter: "blur(4px)" }}>
+                <span 
+                  className="pill-badge" 
+                  style={{ 
+                    fontSize: "0.72rem", 
+                    background: "rgba(255, 255, 255, 0.95)", 
+                    color: "var(--accent)",
+                    border: "1px solid var(--border)",
+                    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.06)",
+                    fontWeight: 700
+                  }}
+                >
                   {article.tag}
                 </span>
               </div>
@@ -53,31 +75,31 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
 
           {/* Card Content & Details */}
           <div style={{ padding: "20px 22px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
-            <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: 8, display: "flex", justifyContent: "space-between" }}>
+            <div style={{ fontSize: "0.78rem", color: "var(--muted)", marginBottom: 8, display: "flex", justifyContent: "space-between", fontWeight: 600 }}>
               <span>{article.date}</span>
               <span>{article.read}</span>
             </div>
 
-            <h3 style={{ fontSize: "1.18rem", fontWeight: 800, lineHeight: 1.35, margin: "0 0 10px" }}>
+            <h3 style={{ fontSize: "1.2rem", fontWeight: 800, lineHeight: 1.35, margin: "0 0 10px", fontFamily: "var(--font-serif)" }}>
               <Link 
                 href={`${cleanBasePath}/${article.slug}/`} 
-                style={{ color: "var(--text)", textDecoration: "none", transition: "color 0.2s" }}
+                style={{ color: "var(--text-bright)", textDecoration: "none", transition: "color 0.2s" }}
               >
                 {article.title}
               </Link>
             </h3>
 
-            <p style={{ color: "var(--muted)", fontSize: "0.9rem", lineHeight: 1.55, margin: "0 0 16px", flexGrow: 1 }}>
+            <p style={{ color: "var(--text)", fontSize: "0.9rem", lineHeight: 1.55, margin: "0 0 16px", flexGrow: 1, opacity: 0.88 }}>
               {article.excerpt.length > 130 ? `${article.excerpt.substring(0, 130)}...` : article.excerpt}
             </p>
 
             <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: "0.76rem", color: "var(--emerald)", fontFamily: "monospace" }}>
+              <span style={{ fontSize: "0.74rem", color: "var(--emerald)", fontWeight: 700, letterSpacing: "0.02em" }}>
                 ● 8K VERIFIED
               </span>
               <Link 
                 href={`${cleanBasePath}/${article.slug}/`} 
-                style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent2)", textDecoration: "none" }}
+                style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent)", textDecoration: "none" }}
               >
                 Read Analysis →
               </Link>

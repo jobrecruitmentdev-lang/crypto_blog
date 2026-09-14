@@ -82,34 +82,36 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
       )}
 
-      <div className="wrap post-body" style={{ maxWidth: 920, margin: "0 auto" }}>
+      <div className="wrap post-body" style={{ maxWidth: 820, margin: "0 auto", padding: "0 16px" }}>
         
         {/* Breadcrumb */}
-        <div className="breadcrumb" style={{ marginBottom: 24, fontSize: "0.88rem", color: "var(--muted)" }}>
-          <Link href="/">Home</Link> / <Link href={hubPath}>{hubTitle}</Link> / <span style={{ color: "var(--text)" }}>{article.tag}</span>
+        <div className="breadcrumb" style={{ marginBottom: 24, fontSize: "0.88rem", color: "var(--muted)", fontWeight: 500 }}>
+          <Link href="/">Home</Link> / <Link href={hubPath}>{hubTitle}</Link> / <span style={{ color: "var(--text-bright)", fontWeight: 600 }}>{article.tag}</span>
         </div>
 
         <MotionFade delay={0.05} direction="up">
-          <div style={{ display: "inline-flex", marginBottom: 12 }}>
-            <span className="pill-badge">{article.tag}</span>
+          <div style={{ display: "inline-flex", marginBottom: 14 }}>
+            <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)", border: "1px solid rgba(37, 99, 235, 0.2)", fontWeight: 700 }}>
+              {article.tag}
+            </span>
           </div>
 
-          <h1 style={{ fontSize: "2.6rem", lineHeight: 1.18, marginBottom: 18, fontWeight: 900, letterSpacing: "-0.025em" }}>
+          <h1 style={{ fontSize: "2.5rem", lineHeight: 1.22, marginBottom: 20, fontWeight: 800, fontFamily: "var(--font-serif)", color: "var(--text-bright)", letterSpacing: "-0.02em" }}>
             {article.title}
           </h1>
 
           {/* Author & Verification Strip */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 28, paddingBottom: 16, borderBottom: "1px solid var(--border)" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16, marginBottom: 32, paddingBottom: 18, borderBottom: "1px solid var(--border)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-              <div style={{ width: 44, height: 44, borderRadius: 22, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 22, background: "var(--surface-sunken)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>
                 {author?.avatar || "🤖"}
               </div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>
-                  <Link href={`/authors/${author?.slug || 'editorial-desk'}`} style={{ color: "var(--text)" }}>
+                  <Link href={`/authors/${author?.slug || 'editorial-desk'}/`} style={{ color: "var(--text-bright)", textDecoration: "none" }}>
                     {author?.name || "Crypto Airdrop AI Intelligence Desk"}
                   </Link>
-                  <span className="pill-badge success" style={{ marginLeft: 8, fontSize: "0.68rem", padding: "2px 8px" }}>
+                  <span className="pill-badge success" style={{ marginLeft: 8, fontSize: "0.7rem", padding: "2px 8px" }}>
                     ✓ Fact-Checked
                   </span>
                 </div>
@@ -119,7 +121,7 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
               </div>
             </div>
             <div>
-              <Link href="/editorial-policy/" className="btn btn-sm btn-outline" style={{ fontSize: "0.8rem" }}>
+              <Link href="/editorial-policy/" className="btn btn-sm btn-outline" style={{ fontSize: "0.8rem", background: "var(--surface)" }}>
                 Editorial Policy
               </Link>
             </div>
@@ -133,11 +135,11 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
               position: "relative", 
               width: "100%", 
               aspectRatio: "16/9", 
-              borderRadius: "16px", 
+              borderRadius: "14px", 
               overflow: "hidden", 
               marginBottom: 36,
               border: "1px solid var(--border)",
-              boxShadow: "0 12px 40px rgba(0, 224, 164, 0.08)"
+              boxShadow: "0 8px 30px rgba(0, 0, 0, 0.06)"
             }}
           >
             <Image
@@ -145,21 +147,22 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
               alt={article.title}
               fill
               priority
-              sizes="(max-width: 920px) 100vw, 920px"
+              sizes="(max-width: 820px) 100vw, 820px"
               style={{ objectFit: "cover" }}
             />
             <div style={{
               position: "absolute",
               bottom: 12,
               right: 12,
-              background: "rgba(2, 4, 8, 0.75)",
+              background: "rgba(255, 255, 255, 0.94)",
               backdropFilter: "blur(6px)",
               padding: "4px 10px",
               borderRadius: "6px",
               fontSize: "0.72rem",
-              fontFamily: "monospace",
+              fontWeight: 700,
               color: "var(--emerald)",
-              border: "1px solid rgba(16, 185, 129, 0.3)"
+              border: "1px solid var(--border)",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.06)"
             }}>
               ● 8K VERIFIED AI ASSET
             </div>
@@ -168,11 +171,11 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
 
         {/* TL;DR Box */}
         {article.tldr && (
-          <MotionCard style={{ padding: 24, marginBottom: 32, borderLeft: "4px solid var(--accent)" }}>
+          <MotionCard style={{ padding: 24, marginBottom: 32, borderLeft: "4px solid var(--accent)", background: "var(--surface-sunken)", borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-              <span className="pill-badge" style={{ fontSize: "0.72rem" }}>⚡ Quick TL;DR Takeaway</span>
+              <span className="pill-badge" style={{ fontSize: "0.72rem", background: "rgba(37, 99, 235, 0.1)", color: "var(--accent)" }}>⚡ Executive Summary (TL;DR)</span>
             </div>
-            <p style={{ margin: 0, color: "var(--text)", fontSize: "1.02rem", lineHeight: 1.65 }}>
+            <p style={{ margin: 0, color: "var(--text)", fontSize: "1.02rem", lineHeight: 1.7, fontWeight: 500 }}>
               {article.tldr}
             </p>
           </MotionCard>
@@ -180,11 +183,11 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
 
         {/* Key Takeaways */}
         {article.keyTakeaways && article.keyTakeaways.length > 0 && (
-          <MotionCard style={{ padding: 24, marginBottom: 36 }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 12 }}>Key Findings &amp; Quick Facts</h3>
-            <ul style={{ paddingLeft: 20, margin: 0, display: "flex", flexDirection: "column", gap: 8, color: "var(--muted)", lineHeight: 1.6 }}>
+          <MotionCard style={{ padding: 24, marginBottom: 36, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+            <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 14, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Key Findings &amp; Core Telemetry</h3>
+            <ul style={{ paddingLeft: 20, margin: 0, display: "flex", flexDirection: "column", gap: 10, color: "var(--text)", lineHeight: 1.6 }}>
               {article.keyTakeaways.map((item, idx) => (
-                <li key={idx}><strong>{item}</strong></li>
+                <li key={idx}><strong style={{ color: "var(--text-bright)" }}>{item}</strong></li>
               ))}
             </ul>
           </MotionCard>
@@ -196,12 +199,12 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
           dangerouslySetInnerHTML={{
             __html: firstHalf.replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>')
           }}
-          style={{ fontSize: "1.08rem", lineHeight: 1.75 }}
+          style={{ fontSize: "1.08rem", lineHeight: 1.8, color: "var(--text)" }}
         />
 
         {/* 2. MIDDLE 8K CONTEXTUAL IMAGE */}
         {article.middleImage && (
-          <div style={{ margin: "40px 0" }}>
+          <div style={{ margin: "44px 0" }}>
             <div
               style={{
                 position: "relative",
@@ -210,18 +213,18 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
                 borderRadius: "14px",
                 overflow: "hidden",
                 border: "1px solid var(--border)",
-                boxShadow: "0 8px 32px rgba(124, 92, 255, 0.08)"
+                boxShadow: "0 6px 24px rgba(0, 0, 0, 0.06)"
               }}
             >
               <Image
                 src={article.middleImage}
                 alt={`${article.title} - Protocol Architecture`}
                 fill
-                sizes="(max-width: 920px) 100vw, 920px"
+                sizes="(max-width: 820px) 100vw, 820px"
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <p style={{ fontSize: "0.82rem", color: "var(--muted)", textAlign: "center", marginTop: 8, fontStyle: "italic" }}>
+            <p style={{ fontSize: "0.82rem", color: "var(--muted)", textAlign: "center", marginTop: 10, fontStyle: "italic" }}>
               Figure 1.0: Protocol infrastructure telemetry and on-chain interaction mapping.
             </p>
           </div>
@@ -233,7 +236,7 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
           dangerouslySetInnerHTML={{
             __html: secondHalf.replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>')
           }}
-          style={{ fontSize: "1.08rem", lineHeight: 1.75 }}
+          style={{ fontSize: "1.08rem", lineHeight: 1.8, color: "var(--text)" }}
         />
 
         {/* 3. PRE-FAQ 8K TACTICAL VERIFICATION IMAGE */}
@@ -247,18 +250,18 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
                 borderRadius: "14px",
                 overflow: "hidden",
                 border: "1px solid var(--border)",
-                boxShadow: "0 8px 32px rgba(0, 224, 164, 0.08)"
+                boxShadow: "0 6px 24px rgba(0, 0, 0, 0.06)"
               }}
             >
               <Image
                 src={article.preFaqImage}
                 alt={`${article.title} - Verification Matrix`}
                 fill
-                sizes="(max-width: 920px) 100vw, 920px"
+                sizes="(max-width: 820px) 100vw, 820px"
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <p style={{ fontSize: "0.82rem", color: "var(--muted)", textAlign: "center", marginTop: 8, fontStyle: "italic" }}>
+            <p style={{ fontSize: "0.82rem", color: "var(--muted)", textAlign: "center", marginTop: 10, fontStyle: "italic" }}>
               Figure 2.0: Multi-vector security audit matrix and sybil-resistance validation shield.
             </p>
           </div>
@@ -266,11 +269,11 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
 
         {/* 4–6 FAQs Accordion */}
         {article.faqs && article.faqs.length > 0 && (
-          <div style={{ marginTop: 40, paddingTop: 32, borderTop: "1px solid var(--border)" }}>
-            <div style={{ display: "inline-flex", marginBottom: 10 }}>
-              <span className="pill-badge">🔍 Critical Inquiries</span>
+          <div style={{ marginTop: 48, paddingTop: 36, borderTop: "1px solid var(--border)" }}>
+            <div style={{ display: "inline-flex", marginBottom: 12 }}>
+              <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>🔍 Inquiries &amp; Resolution</span>
             </div>
-            <h2 style={{ fontSize: "1.7rem", fontWeight: 900, marginBottom: 20 }}>
+            <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: 22, fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
               Frequently Asked Questions (FAQ)
             </h2>
             <FaqAccordion faqs={article.faqs} />
@@ -279,16 +282,16 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
 
         {/* Author Bio Box */}
         {author && (
-          <MotionCard style={{ marginTop: 48, padding: 28, display: "flex", gap: 20, alignItems: "flex-start" }}>
-            <div style={{ width: 60, height: 60, borderRadius: 30, background: "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 30, flexShrink: 0 }}>
+          <MotionCard style={{ marginTop: 48, padding: 28, display: "flex", gap: 20, alignItems: "flex-start", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
+            <div style={{ width: 60, height: 60, borderRadius: 30, background: "var(--surface-sunken)", border: "1px solid var(--border)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 30, flexShrink: 0 }}>
               {author.avatar}
             </div>
             <div>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 4px" }}>
-                Written by <Link href={`/authors/${author.slug}/`} style={{ color: "var(--accent)" }}>{author.name}</Link>
+              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 4px", fontFamily: "var(--font-serif)", color: "var(--text-bright)" }}>
+                Written by <Link href={`/authors/${author.slug}/`} style={{ color: "var(--accent)", textDecoration: "none" }}>{author.name}</Link>
               </h3>
-              <div style={{ fontSize: "0.85rem", color: "var(--muted)", marginBottom: 8 }}>{author.role}</div>
-              <p style={{ fontSize: "0.92rem", color: "var(--muted)", lineHeight: 1.5, margin: "0 0 12px" }}>
+              <div style={{ fontSize: "0.85rem", color: "var(--muted)", marginBottom: 8, fontWeight: 500 }}>{author.role}</div>
+              <p style={{ fontSize: "0.92rem", color: "var(--text)", lineHeight: 1.55, margin: "0 0 14px", opacity: 0.9 }}>
                 {author.bio}
               </p>
               {author.xUrl && (
