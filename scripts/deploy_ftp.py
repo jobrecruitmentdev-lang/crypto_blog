@@ -41,21 +41,21 @@ def deploy():
     deploy_token = secrets.token_hex(16)
 
     # 3. Create deploy_unzip.php script
-    unzip_script = f"""<?php
+    unzip_script = """<?php
 header('Content-Type: application/json');
-$token = '{deploy_token}';
-if (!isset($_GET['token']) || $_GET['token'] !== $token) {{
+$token = '""" + deploy_token + """';
+if (!isset($_GET['token']) || $_GET['token'] !== $token) {
     http_response_code(403);
     echo json_encode(['success' => false, 'error' => 'Unauthorized']);
     exit;
-}}
+}
 
 $zipFile = __DIR__ . '/build.zip';
-if (!file_exists($zipFile)) {{
+if (!file_exists($zipFile)) {
     http_response_code(404);
     echo json_encode(['success' => false, 'error' => 'build.zip not found']);
     exit;
-}}
+}
 
 function rrmdir($dir) {
     if (is_dir($dir)) {
@@ -77,17 +77,17 @@ rrmdir(__DIR__ . '/career');
 rrmdir(__DIR__ . '/admin');
 
 $zip = new ZipArchive();
-if ($zip->open($zipFile) === TRUE) {{
+if ($zip->open($zipFile) === TRUE) {
     $zip->extractTo(__DIR__ . '/');
     $numFiles = $zip->numFiles;
     $zip->close();
     @unlink($zipFile);
     @unlink(__FILE__);
     echo json_encode(['success' => true, 'extracted' => $numFiles, 'message' => 'Deployment unpacked successfully']);
-}} else {{
+} else {
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Failed to open zip archive']);
-}}
+}
 """
     with open('deploy_unzip.php', 'w') as f:
         f.write(unzip_script)
