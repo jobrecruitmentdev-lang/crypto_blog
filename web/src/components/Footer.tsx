@@ -147,6 +147,7 @@ export default function Footer() {
             <h4>[ Trust &amp; E-E-A-T ]</h4>
             <ul>
               <li><Link href="/about/">About Us &amp; Mission</Link></li>
+              <li><Link href="/career/">Careers &amp; Opportunities</Link></li>
               <li><Link href="/authors/">Our AI &amp; Human Analysts</Link></li>
               <li><Link href="/editorial-policy/">Editorial Policy &amp; Ethics</Link></li>
               <li><Link href="/methodology/">5-Stage Audit Framework</Link></li>

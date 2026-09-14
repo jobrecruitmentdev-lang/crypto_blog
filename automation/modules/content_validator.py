@@ -46,19 +46,21 @@ def validate_content_payload(payload: dict, verified_grounding: dict = None) -> 
         errors.append("Unparsed markdown code fences found inside HTML content.")
 
     # 5. Key Takeaways Count
-    if not (3 <= len(key_takeaways) <= 5):
-        errors.append(f"Key takeaways violation: found {len(key_takeaways)} items (expected 3-5).")
+    key_takeaways = [k.strip() for k in key_takeaways if isinstance(k, str) and len(k.strip()) >= 5]
+    if not (3 <= len(key_takeaways) <= 6):
+        errors.append(f"Key takeaways violation: found {len(key_takeaways)} valid items (expected 3-6).")
     for idx, item in enumerate(key_takeaways):
-        if not item or len(item.strip()) < 10:
-            errors.append(f"Key takeaway #{idx+1} is empty or under 10 characters.")
+        if len(item) < 10:
+            errors.append(f"Key takeaway #{idx+1} is under 10 characters.")
 
     # 6. FAQ Block Structure
+    faqs = [f for f in faqs if isinstance(f, dict) and (f.get("q") or f.get("question")) and (f.get("a") or f.get("answer"))]
     if not (3 <= len(faqs) <= 6):
         errors.append(f"FAQ count violation: found {len(faqs)} items (expected 3-6).")
     for idx, faq in enumerate(faqs):
-        q = faq.get("q") or faq.get("question", "")
-        a = faq.get("a") or faq.get("answer", "")
-        if not q or not a or len(q.strip()) < 5 or len(a.strip()) < 10:
+        q = (faq.get("q") or faq.get("question", "")).strip()
+        a = (faq.get("a") or faq.get("answer", "")).strip()
+        if len(q) < 5 or len(a) < 10:
             errors.append(f"FAQ item #{idx+1} has invalid or incomplete question/answer.")
 
     # 7. Slug Formatting

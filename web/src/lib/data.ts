@@ -256,6 +256,67 @@ export const BLOG_POSTS: BlogPost[] = [
         answer: "Revoke claim contract approvals via Revoke.cash, assess tax liabilities in your jurisdiction, and transfer tokens to secure storage."
       }
     ]
+  },
+  {
+    slug: "berachain-v2-airdrop-strategy-guide-2026",
+    tag: "Airdrop Strategy",
+    title: "Berachain V2 Boyco Airdrop Strategy: Proof of Liquidity (PoL), Testnet Quests & BGT Staking",
+    excerpt: "The complete technical blueprint to qualifying for the Berachain token airdrop. Learn Proof of Liquidity (PoL) mechanics, BGT governance delegation, Boyco pre-deposit vault strategies, and verified dApp interactions.",
+    tldr: "Berachain's Proof of Liquidity (PoL) consensus aligns network security with decentralized liquidity. To maximize token allocation, farm BGT via native DEX pools (BEX), lend on Bend, trade perpetuals on Berps, delegate BGT to active validators, and participate in Boyco pre-launch liquidity vaults.",
+    keyTakeaways: [
+      "Berachain separates gas token ($BERA), governance token ($BGT), and native stablecoin ($HONEY).",
+      "BGT is non-transferable and can only be earned by providing liquidity to PoL-whitelisted pools.",
+      "Delegating earned BGT to active network validators unlocks ecosystem bribe rewards and governance voting power.",
+      "Boyco pre-deposits via Royco protocol allow liquidity providers to secure upfront Berachain ecosystem airdrops."
+    ],
+    date: "2026-08-25",
+    updatedAt: "2026-08-25",
+    read: "7 min",
+    authorSlug: "ai-intelligence-engine",
+    body: `
+      <h2>1. What is Berachain and Proof of Liquidity (PoL)?</h2>
+      <p>Berachain is an EVM-identical Layer-1 blockchain built on top of the Cosmos SDK and powered by the novel <strong>Proof of Liquidity (PoL)</strong> consensus mechanism. Unlike traditional Proof-of-Stake (PoS) where staking capital is locked away passively, PoL directs liquidity into native decentralized finance (DeFi) primitives to secure the network while simultaneously supercharging on-chain liquidity depth.</p>
+      
+      <h2>2. The Tri-Token Architecture Explained</h2>
+      <p>Berachain utilizes a distinct three-token model designed to create sustainable economic flywheels:</p>
+      <ul>
+        <li><strong>$BERA (Gas Token):</strong> Used to pay for transaction gas fees across the network.</li>
+        <li><strong>$BGT (Bera Governance Token):</strong> Soulbound (non-transferable) governance token earned exclusively by liquidity providers. Used to vote on validator emissions and governance proposals.</li>
+        <li><strong>$HONEY (Native Stablecoin):</strong> 100% collateralized algorithmic stablecoin pegged to $1.00 USD, powering decentralized lending and derivatives.</li>
+      </ul>
+
+      <h2>3. Step-by-Step Berachain Qualification Roadmap</h2>
+      <p>Follow these high-impact actionable steps to maximize eligibility scoring across official snapshot intervals:</p>
+      <ol>
+        <li><strong>Claim Testnet Faucet Funds:</strong> Request testnet $BERA from the official Berachain faucet at regular intervals.</li>
+        <li><strong>Swap and Provide Liquidity on BEX:</strong> Swap testnet $BERA into $STGUSDC and $HONEY. Provide liquidity to the $BERA/$HONEY and $HONEY/$STGUSDC pools to begin generating BGT yield.</li>
+        <li><strong>Mint $HONEY on the Honey dApp:</strong> Wrap stablecoins into $HONEY to prove unique contract interaction diversity.</li>
+        <li><strong>Supply Collateral on Bend:</strong> Deposit $WBTC or $WETH on Bend lending protocol to borrow $HONEY.</li>
+        <li><strong>Trade Perpetuals on Berps:</strong> Open leveraged long/short positions using $HONEY on Berps and deposit into the bHONEY vault.</li>
+        <li><strong>Delegate Earned BGT:</strong> Once you accumulate $BGT from LPing, navigate to the Berachain Governance Station and delegate your tokens to active validators distributing bribes.</li>
+      </ol>
+
+      <h2>4. Boyco &amp; Mainnet Pre-Liquidity Tactics</h2>
+      <p>Berachain's Boyco initiative enables users to commit liquidity prior to mainnet launch via Royco protocol. Users who bridge and lock assets in Boyco vaults receive guaranteed token allocations from over 30 leading Berachain ecosystem projects upon official mainnet release.</p>
+    `,
+    faqs: [
+      {
+        question: "Is Berachain testnet free to use?",
+        answer: "Yes, all Berachain testnet activities require only testnet faucet tokens and zero real capital."
+      },
+      {
+        question: "Can I buy BGT on an exchange?",
+        answer: "No. BGT is non-transferable and can only be earned on-chain by providing liquidity to whitelisted Proof of Liquidity pools."
+      },
+      {
+        question: "What is the primary factor for Berachain airdrop weighting?",
+        answer: "Consistent on-chain testnet activity across all native dApps (BEX, Bend, Berps, Honey), BGT delegation history, Boyco vault participation, and holding official Bong Bears / ecosystem NFTs."
+      },
+      {
+        question: "When is Berachain mainnet launching?",
+        answer: "Berachain is slated for public mainnet launch in 2026 following the conclusion of the final incentivized testnet phases."
+      }
+    ]
   }
 ];
 
