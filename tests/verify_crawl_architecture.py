@@ -7,9 +7,14 @@ from urllib.parse import urlparse
 from collections import deque
 
 # Force UTF-8 stdout encoding on Windows
-sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
-OUT_DIR = r"C:\hk\cryptodrop\web\out"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT_DIR = os.environ.get("OUT_DIR", os.path.join(REPO_ROOT, "web", "out"))
 DOMAIN = "cryptoairdropai.com"
 BASE_URL = f"https://{DOMAIN}"
 
