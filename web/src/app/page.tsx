@@ -17,7 +17,7 @@ export default async function Home() {
   ]);
 
   const featuredPost = allPosts[0];
-  const otherPosts = allPosts.slice(0, 6);
+  const otherPosts = allPosts.length > 1 ? allPosts.slice(1, 7) : allPosts;
   const activeGuides = guideArticles.length > 0 ? guideArticles : GUIDES;
 
   return (
