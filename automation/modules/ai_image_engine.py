@@ -7,6 +7,7 @@ import urllib.request
 import urllib.parse
 import io
 from pathlib import Path
+from dotenv import load_dotenv
 from PIL import Image, ImageDraw, ImageFilter
 
 # Force UTF-8 on Windows
@@ -18,18 +19,26 @@ if sys.platform == "win32":
         pass
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+AUTOMATION_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = PROJECT_ROOT / "web" / "public" / "images" / "generated"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
+# Load env variables
+load_dotenv(dotenv_path=AUTOMATION_ROOT / ".env")
+load_dotenv()
+
+HF_TOKEN = os.getenv("HF_TOKEN")
+HF_MODEL = os.getenv("HF_IMAGE_MODEL", "black-forest-labs/FLUX.1-schnell")
+
 THEME_PALETTES = {
-    "bitcoin": {"primary": (247, 147, 26), "secondary": (255, 215, 0), "bg_dark": (15, 12, 8), "glow": (255, 170, 0, 100)},
-    "solana": {"primary": (153, 69, 255), "secondary": (20, 241, 149), "bg_dark": (10, 8, 20), "glow": (180, 80, 255, 100)},
-    "ethereum": {"primary": (98, 126, 234), "secondary": (192, 214, 245), "bg_dark": (8, 12, 24), "glow": (100, 150, 255, 100)},
-    "security": {"primary": (239, 68, 68), "secondary": (59, 130, 246), "bg_dark": (18, 10, 15), "glow": (240, 70, 70, 100)},
-    "bridge": {"primary": (6, 182, 212), "secondary": (59, 130, 246), "bg_dark": (6, 16, 26), "glow": (10, 200, 240, 100)},
-    "restaking": {"primary": (168, 85, 247), "secondary": (236, 72, 153), "bg_dark": (16, 8, 24), "glow": (200, 90, 250, 100)},
-    "fast": {"primary": (16, 185, 129), "secondary": (6, 182, 212), "bg_dark": (6, 20, 16), "glow": (20, 220, 150, 100)},
-    "default": {"primary": (37, 99, 235), "secondary": (14, 165, 233), "bg_dark": (10, 15, 28), "glow": (40, 120, 255, 100)},
+    "bitcoin": {"primary": (247, 147, 26), "secondary": (255, 215, 0), "bg_dark": (15, 12, 8)},
+    "solana": {"primary": (153, 69, 255), "secondary": (20, 241, 149), "bg_dark": (10, 8, 20)},
+    "ethereum": {"primary": (98, 126, 234), "secondary": (192, 214, 245), "bg_dark": (8, 12, 24)},
+    "security": {"primary": (239, 68, 68), "secondary": (59, 130, 246), "bg_dark": (18, 10, 15)},
+    "bridge": {"primary": (6, 182, 212), "secondary": (59, 130, 246), "bg_dark": (6, 16, 26)},
+    "restaking": {"primary": (168, 85, 247), "secondary": (236, 72, 153), "bg_dark": (16, 8, 24)},
+    "fast": {"primary": (16, 185, 129), "secondary": (6, 182, 212), "bg_dark": (6, 20, 16)},
+    "default": {"primary": (37, 99, 235), "secondary": (14, 165, 233), "bg_dark": (10, 15, 28)},
 }
 
 def detect_palette(text: str) -> dict:
@@ -80,10 +89,7 @@ def build_topic_prompt(topic: str, placement: str) -> str:
         return f"3D holographic security matrix and cryptographic verification shield for {clean_topic}, glowing circuit traces, {material}, tamper-proof seal, 8k"
 
 def render_procedural_fallback(topic: str, placement: str, target_dim: tuple) -> Image.Image:
-    """
-    Renders a high-tech procedural 3D cybernetic illustration if online API is unavailable.
-    Guarantees no broken visual, no flat HTML card, and pure graphic aesthetics.
-    """
+    """Procedural 3D cybernetic fallback if both HF and Pollinations are offline."""
     w, h = target_dim
     pal = detect_palette(topic)
     p_color = pal["primary"]
@@ -93,19 +99,18 @@ def render_procedural_fallback(topic: str, placement: str, target_dim: tuple) ->
     img = Image.new("RGB", (w, h), bg)
     draw = ImageDraw.Draw(img)
 
-    # Background subtle tech grid
+    # Tech grid
     grid_spacing = 40
     for x in range(0, w, grid_spacing):
         draw.line([(x, 0), (x, h)], fill=(bg[0] + 12, bg[1] + 12, bg[2] + 18), width=1)
     for y in range(0, h, grid_spacing):
         draw.line([(0, y), (w, y)], fill=(bg[0] + 12, bg[1] + 12, bg[2] + 18), width=1)
 
-    # Core 3D visual geometry
     center_x, center_y = w // 2, h // 2
     seed = abs(hash(topic + placement)) % 100000
     random.seed(seed)
 
-    # Outer ambient glow
+    # Ambient glow
     glow_img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     glow_draw = ImageDraw.Draw(glow_img)
     for r in range(min(w, h) // 2, 60, -20):
@@ -127,24 +132,18 @@ def render_procedural_fallback(topic: str, placement: str, target_dim: tuple) ->
         angle = (2 * math.pi * i) / num_nodes + (seed % 360) * (math.pi / 180)
         dist = base_radius * (0.8 + 0.35 * math.sin(i * 1.7))
         nx = center_x + int(math.cos(angle) * dist)
-        ny = center_y + int(math.sin(angle) * dist * 0.75) # isometric tilt
+        ny = center_y + int(math.sin(angle) * dist * 0.75)
         nodes.append((nx, ny))
 
-    # Draw circuit pathways between nodes
     for i in range(len(nodes)):
         for j in range(i + 1, len(nodes)):
             if random.random() > 0.45:
                 color = s_color if (i + j) % 2 == 0 else p_color
                 draw.line([nodes[i], nodes[j]], fill=color, width=2)
 
-    # Draw Central Hologram Structure
     c_rad = int(min(w, h) * (0.22 if placement == "project" else 0.18))
-    # Outer ring
-    draw.ellipse(
-        [(center_x - c_rad, center_y - c_rad), (center_x + c_rad, center_y + c_rad)],
-        outline=s_color, width=4
-    )
-    # Inner glowing crystal polygon
+    draw.ellipse([(center_x - c_rad, center_y - c_rad), (center_x + c_rad, center_y + c_rad)], outline=s_color, width=4)
+
     poly_points = []
     num_pts = 6 if placement != "pre_faq" else 8
     for i in range(num_pts):
@@ -153,52 +152,66 @@ def render_procedural_fallback(topic: str, placement: str, target_dim: tuple) ->
         poly_points.append((center_x + int(math.cos(ang) * r), center_y + int(math.sin(ang) * r)))
     draw.polygon(poly_points, outline=p_color, fill=(bg[0] + 20, bg[1] + 25, bg[2] + 40))
 
-    # Node points
     for nx, ny in nodes:
         draw.ellipse([(nx - 6, ny - 6), (nx + 6, ny + 6)], fill=s_color, outline=(255, 255, 255), width=2)
 
-    # Dynamic cryptographic HUD markers (corners)
     hud_color = (120, 140, 170)
-    draw.line([(30, 30), (70, 30)], fill=hud_color, width=2)
-    draw.line([(30, 30), (30, 70)], fill=hud_color, width=2)
-    draw.line([(w - 30, 30), (w - 70, 30)], fill=hud_color, width=2)
-    draw.line([(w - 30, 30), (w - 30, 70)], fill=hud_color, width=2)
-    draw.line([(30, h - 30), (70, h - 30)], fill=hud_color, width=2)
-    draw.line([(30, h - 30), (30, h - 70)], fill=hud_color, width=2)
-    draw.line([(w - 30, h - 30), (w - 70, h - 30)], fill=hud_color, width=2)
-    draw.line([(w - 30, h - 30), (w - 30, h - 70)], fill=hud_color, width=2)
+    for offset_x in [30, w - 30]:
+        for offset_y in [30, h - 30]:
+            dx = 40 if offset_x == 30 else -40
+            dy = 40 if offset_y == 30 else -40
+            draw.line([(offset_x, offset_y), (offset_x + dx, offset_y)], fill=hud_color, width=2)
+            draw.line([(offset_x, offset_y), (offset_x, offset_y + dy)], fill=hud_color, width=2)
 
     return img
 
 def generate_8k_image(topic: str, slug: str, placement: str = "featured", category: str = "MARKET INTELLIGENCE") -> str:
     """
-    Autonomous AI Image Generation Engine:
-    1. Checks cache in web/public/images/generated/
-    2. Dynamically prompts Pollinations with topic-specific 3D octane render prompt
-    3. Crops out watermark via Pillow and resizes cleanly with LANCZOS
-    4. Automatically falls back to high-tech procedural cybernetic 3D visual if offline
+    State-of-the-Art Autonomous AI Image Generation Engine:
+    - Tier 1: Hugging Face FLUX.1-schnell (Ultra-crisp 8K, Zero watermark, Photorealistic)
+    - Tier 2: Pollinations AI (Flux / Sana fallback with auto-crop)
+    - Tier 3: High-aesthetic Procedural 3D Cybernetic HUD (Offline fail-safe)
     """
     safe_slug = slug.replace("/", "-").strip("-")
-    filename = f"{safe_slug}-{placement}.jpg"
+    filename = f"{safe_slug}-{placement}-3d.jpg"
     target_path = OUTPUT_DIR / filename
     web_url = f"/images/generated/{filename}"
 
-    # Reuse if already exists and is genuine (>50KB)
+    # Reuse if already exists and is high quality (>50KB)
     if target_path.exists() and target_path.stat().st_size > 50000:
         print(f"[+] Reusing existing high-res visual for {slug} [{placement}]: {web_url} ({target_path.stat().st_size:,} bytes)")
         return web_url
 
-    print(f"[*] Generating bespoke 3D photorealistic visual for '{topic}' [{placement}]...")
     is_square = (placement == "project")
     target_dim = (800, 800) if is_square else (1280, 720)
     prompt = build_topic_prompt(topic, placement)
 
-    # Attempt Pollinations with retry
+    # -------------------------------------------------------------
+    # Tier 1: Hugging Face FLUX.1-schnell
+    # -------------------------------------------------------------
+    if HF_TOKEN:
+        print(f"[*] [Tier 1: FLUX.1-schnell] Generating bespoke 3D photorealistic visual for '{topic}' [{placement}]...")
+        try:
+            from huggingface_hub import InferenceClient
+            client = InferenceClient(token=HF_TOKEN)
+            gen_w, gen_h = (1024, 1024) if is_square else (1280, 720)
+            img = client.text_to_image(prompt, model=HF_MODEL, width=gen_w, height=gen_h)
+            if img:
+                final = img.resize(target_dim, Image.Resampling.LANCZOS)
+                final.save(target_path, quality=95)
+                print(f"[✓] FLUX.1-schnell rendered successfully ({target_path.stat().st_size:,} bytes) -> {web_url}")
+                return web_url
+        except Exception as e:
+            print(f"[-] Hugging Face FLUX error: {e}. Falling back to Tier 2...")
+
+    # -------------------------------------------------------------
+    # Tier 2: Pollinations AI (with Pillow crop)
+    # -------------------------------------------------------------
+    print(f"[*] [Tier 2: Pollinations AI] Generating visual for '{topic}' [{placement}]...")
     seed = abs(hash(slug + placement)) % 100000
     w_req, h_req = (1024, 1024) if is_square else (1024, 576)
     encoded = urllib.parse.quote(prompt)
 
-    success = False
     for attempt in range(1, 3):
         url = f"https://image.pollinations.ai/prompt/{encoded}?width={w_req}&height={h_req}&seed={seed + attempt * 17}"
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
@@ -207,33 +220,32 @@ def generate_8k_image(topic: str, slug: str, placement: str = "featured", catego
                 data = resp.read()
             if len(data) > 20000:
                 img = Image.open(io.BytesIO(data))
-                # Crop watermark cleanly from bottom
                 crop_h = 45 if is_square else 35
                 cropped = img.crop((0, 0, img.size[0], img.size[1] - crop_h))
                 final = cropped.resize(target_dim, Image.Resampling.LANCZOS)
                 final.save(target_path, quality=95)
-                print(f"[✓] Successfully rendered AI 3D visual ({target_path.stat().st_size:,} bytes) -> {web_url}")
-                success = True
-                break
+                print(f"[✓] Pollinations AI rendered ({target_path.stat().st_size:,} bytes) -> {web_url}")
+                return web_url
         except Exception as e:
             print(f"[-] Pollinations attempt {attempt} failed: {e}")
             time.sleep(2)
 
-    if not success:
-        print(f"[!] Triggering high-aesthetic procedural 3D visual fallback for '{topic}' [{placement}]...")
-        fallback_img = render_procedural_fallback(topic, placement, target_dim)
-        fallback_img.save(target_path, quality=95)
-        print(f"[✓] Saved procedural 3D cybernetic visual ({target_path.stat().st_size:,} bytes) -> {web_url}")
-
+    # -------------------------------------------------------------
+    # Tier 3: Procedural 3D Cybernetic Fallback
+    # -------------------------------------------------------------
+    print(f"[!] [Tier 3: Procedural Fallback] Rendering cybernetic HUD visual for '{topic}' [{placement}]...")
+    fallback_img = render_procedural_fallback(topic, placement, target_dim)
+    fallback_img.save(target_path, quality=95)
+    print(f"[✓] Procedural 3D visual saved ({target_path.stat().st_size:,} bytes) -> {web_url}")
     return web_url
 
 def generate_article_images_trio(topic: str, slug: str, category: str = "MARKET INTELLIGENCE") -> dict:
     """Generates all 3 unique visuals for an article (Featured, Middle, Pre-FAQ)."""
     print(f"\n🎨 Starting 3-Visual Generation Pipeline for: {topic}")
     featured = generate_8k_image(topic, slug, placement="featured", category=category)
-    time.sleep(2.5)
+    time.sleep(2.0)
     middle = generate_8k_image(topic, slug, placement="middle", category=category)
-    time.sleep(2.5)
+    time.sleep(2.0)
     pre_faq = generate_8k_image(topic, slug, placement="pre_faq", category=category)
 
     return {
@@ -243,6 +255,6 @@ def generate_article_images_trio(topic: str, slug: str, category: str = "MARKET 
     }
 
 if __name__ == "__main__":
-    print("Testing AI Image Engine...")
-    trio = generate_article_images_trio("Test Protocol Alpha 2026", "test-protocol-alpha-2026")
+    print("Testing FLUX.1-schnell Engine...")
+    trio = generate_article_images_trio("Sonic SVM High Throughput Incentive Points Framework", "sonic-svm-test")
     print("Result Trio:", trio)
