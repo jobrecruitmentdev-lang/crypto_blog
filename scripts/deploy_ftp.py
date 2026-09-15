@@ -99,25 +99,37 @@ if ($zip->open($zipFile) === TRUE) {{
     with open(deploy_filename, 'w') as f:
         f.write(unzip_script)
 
-    # 4. Connect to FTP
+    # 4. Connect to FTP with robust retry loop
     print(f"🔌 Connecting to FTP: {server} as {user}...")
     ftp = None
-    try:
-        ftp = ftplib.FTP_TLS(timeout=30)
-        ftp.connect(server, 21)
-        ftp.login(user, password)
-        ftp.prot_p()
-        print("🔒 Connected securely via FTPS (TLS)")
-    except Exception as e:
-        print(f"Notice: FTPS TLS fallback ({e}), attempting standard FTP...")
+    connected = False
+
+    for attempt in range(5):
         try:
-            ftp = ftplib.FTP(timeout=30)
-            ftp.connect(server, 21)
-            ftp.login(user, password)
-            print("Connected via standard FTP")
+            print(f"[*] FTP connection attempt {attempt+1}/5...")
+            try:
+                ftp = ftplib.FTP_TLS(timeout=60)
+                ftp.connect(server, 21)
+                ftp.login(user, password)
+                ftp.prot_p()
+                print("🔒 Connected securely via FTPS (TLS)")
+                connected = True
+                break
+            except Exception as tls_err:
+                print(f"Notice: FTPS TLS failed ({tls_err}), attempting standard FTP...")
+                ftp = ftplib.FTP(timeout=60)
+                ftp.connect(server, 21)
+                ftp.login(user, password)
+                print("Connected via standard FTP")
+                connected = True
+                break
         except Exception as err:
-            print(f"FTP connection failed: {err}")
-            sys.exit(1)
+            print(f"[-] Attempt {attempt+1} failed: {err}. Waiting 5s...")
+            time.sleep(5)
+
+    if not connected or not ftp:
+        print("❌ FTP connection failed after 5 attempts.")
+        sys.exit(1)
 
     ftp.set_pasv(True)
 
