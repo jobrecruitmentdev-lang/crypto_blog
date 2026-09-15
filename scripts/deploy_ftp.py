@@ -37,59 +37,66 @@ def deploy():
     zip_size_mb = os.path.getsize(zip_path) / (1024 * 1024)
     print(f"📦 build.zip created successfully ({zip_size_mb:.2f} MB)")
 
-    # 2. Generate secure random deploy token
+    # 2. Generate secure random deploy token & unique script name
     deploy_token = secrets.token_hex(16)
+    deploy_filename = f"deploy_unzip_{deploy_token}.php"
 
-    # 3. Create deploy_unzip.php script
-    unzip_script = """<?php
+    # 3. Create unique unpacker script
+    unzip_script = f"""<?php
 header('Content-Type: application/json');
-$token = '""" + deploy_token + """';
-if (!isset($_GET['token']) || $_GET['token'] !== $token) {
+if (function_exists('opcache_reset')) {{
+    @opcache_reset();
+}}
+$token = '{deploy_token}';
+if (!isset($_GET['token']) || $_GET['token'] !== $token) {{
     http_response_code(403);
     echo json_encode(['success' => false, 'error' => 'Unauthorized']);
     exit;
-}
+}}
 
 $zipFile = __DIR__ . '/build.zip';
-if (!file_exists($zipFile)) {
+if (!file_exists($zipFile)) {{
     http_response_code(404);
     echo json_encode(['success' => false, 'error' => 'build.zip not found']);
     exit;
-}
+}}
 
-function rrmdir($dir) {
-    if (is_dir($dir)) {
+function rrmdir($dir) {{
+    if (is_dir($dir)) {{
         $objects = scandir($dir);
-        foreach ($objects as $object) {
-            if ($object !== "." && $object !== "..") {
-                if (is_dir($dir . "/" . $object) && !is_link($dir . "/" . $object)) {
+        foreach ($objects as $object) {{
+            if ($object !== "." && $object !== "..") {{
+                if (is_dir($dir . "/" . $object) && !is_link($dir . "/" . $object)) {{
                     rrmdir($dir . "/" . $object);
-                } else {
+                }} else {{
                     @unlink($dir . "/" . $object);
-                }
-            }
-        }
+                }}
+            }}
+        }}
         @rmdir($dir);
-    }
-}
+    }}
+}}
 // Clean up removed routes
 rrmdir(__DIR__ . '/career');
 rrmdir(__DIR__ . '/admin');
 
 $zip = new ZipArchive();
-if ($zip->open($zipFile) === TRUE) {
+if ($zip->open($zipFile) === TRUE) {{
     $zip->extractTo(__DIR__ . '/');
     $numFiles = $zip->numFiles;
     $zip->close();
     @unlink($zipFile);
     @unlink(__FILE__);
+    if (function_exists('opcache_reset')) {{
+        @opcache_reset();
+    }}
     echo json_encode(['success' => true, 'extracted' => $numFiles, 'message' => 'Deployment unpacked successfully']);
-} else {
+}} else {{
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Failed to open zip archive']);
-}
+}}
 """
-    with open('deploy_unzip.php', 'w') as f:
+    with open(deploy_filename, 'w') as f:
         f.write(unzip_script)
 
     # 4. Connect to FTP
@@ -114,31 +121,35 @@ if ($zip->open($zipFile) === TRUE) {
 
     ftp.set_pasv(True)
 
-    # Navigate to public_html
-    root_files = ftp.nlst()
-    if 'domains' in root_files:
+    # Navigate to public_html directly
+    cwd_success = False
+    for target_dir in ['domains/cryptoairdropai.com/public_html', 'public_html']:
         try:
-            ftp.cwd('domains/cryptoairdropai.com/public_html')
-            print("📁 Directory: domains/cryptoairdropai.com/public_html")
+            ftp.cwd(target_dir)
+            print(f"📁 Working Directory set to: {target_dir}")
+            cwd_success = True
+            break
         except Exception:
             pass
-    elif 'public_html' in root_files:
-        try:
-            ftp.cwd('public_html')
-            print("📁 Directory: public_html")
-        except Exception:
-            pass
+    if not cwd_success:
+        print(f"📁 Current Directory: {ftp.pwd()}")
 
-    # 5. Upload build.zip and deploy_unzip.php
+    # Clean up any leftover deploy scripts
+    try:
+        ftp.delete('deploy_unzip.php')
+    except Exception:
+        pass
+
+    # 5. Upload build.zip and dynamic deploy script
     print("⬆️ Uploading build.zip ...")
     with open(zip_path, 'rb') as f:
         ftp.storbinary('STOR build.zip', f)
     print("✅ Uploaded build.zip")
 
-    print("⬆️ Uploading deploy_unzip.php ...")
-    with open('deploy_unzip.php', 'rb') as f:
-        ftp.storbinary('STOR deploy_unzip.php', f)
-    print("✅ Uploaded deploy_unzip.php")
+    print(f"⬆️ Uploading {deploy_filename} ...")
+    with open(deploy_filename, 'rb') as f:
+        ftp.storbinary(f'STOR {deploy_filename}', f)
+    print(f"✅ Uploaded {deploy_filename}")
 
     # Upload .htaccess
     htaccess_path = './web/public/.htaccess'
@@ -151,30 +162,39 @@ if ($zip->open($zipFile) === TRUE) {
 
     # 6. Trigger Remote Unpack via HTTPS
     print("⚡ Triggering server-side instant extraction...")
-    trigger_url = f"https://cryptoairdropai.com/deploy_unzip.php?token={deploy_token}"
-    
-    try:
-        req = urllib.request.Request(
-            trigger_url,
-            headers={'User-Agent': 'CryptoAirdropAI-Deployer/1.0'}
-        )
-        with urllib.request.urlopen(req, timeout=30) as response:
-            res_data = response.read().decode('utf-8')
-            res_json = json.loads(res_data)
-            if res_json.get('success'):
-                extracted = res_json.get('extracted', 0)
-                elapsed = time.time() - start_time
-                print(f"🎉 SUCCESS: Extracted {extracted} files on Hostinger in {elapsed:.2f} seconds!")
-            else:
-                print(f"Extraction response: {res_data}")
-    except Exception as e:
-        print(f"Extraction trigger note: {e}")
+    trigger_url = f"https://cryptoairdropai.com/{deploy_filename}?token={deploy_token}"
+    extracted_success = False
+
+    for attempt in range(4):
+        try:
+            req = urllib.request.Request(
+                trigger_url,
+                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'}
+            )
+            with urllib.request.urlopen(req, timeout=45) as response:
+                res_data = response.read().decode('utf-8')
+                res_json = json.loads(res_data)
+                if res_json.get('success'):
+                    extracted = res_json.get('extracted', 0)
+                    elapsed = time.time() - start_time
+                    print(f"🎉 SUCCESS: Extracted {extracted} files on Hostinger in {elapsed:.2f} seconds!")
+                    extracted_success = True
+                    break
+                else:
+                    print(f"Extraction attempt {attempt+1} response: {res_data}")
+        except Exception as e:
+            print(f"Extraction attempt {attempt+1} note: {e}")
+            time.sleep(3)
 
     # Cleanup local temp files
     if os.path.exists(zip_path):
         os.remove(zip_path)
-    if os.path.exists('deploy_unzip.php'):
-        os.remove('deploy_unzip.php')
+    if os.path.exists(deploy_filename):
+        os.remove(deploy_filename)
+
+    if not extracted_success:
+        print("❌ Server-side extraction failed! Build was not unpacked.")
+        sys.exit(1)
 
     print(f"\n=======================================================")
     print(f"✨ Fast Deployment Completed in {time.time() - start_time:.2f}s!")
