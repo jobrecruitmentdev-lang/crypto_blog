@@ -1,5 +1,268 @@
 [
   {
+    "slug": "solayer-restaking",
+    "name": "Solayer",
+    "chain": "Solana",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$900 - $3,800",
+    "difficulty": "Easy",
+    "time": "10 min",
+    "heat": 470,
+    "desc": "Native restaking network built on Solana to empower decentralized applications with shared validator security.",
+    "tags": [
+      "Solana",
+      "Restaking",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/solayer-restaking-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Stake SOL for sSOL",
+        "desc": "Deposit native SOL into Solayer pools to receive restaked sSOL."
+      },
+      {
+        "step": 2,
+        "title": "Delegate to Endogenous AVSs",
+        "desc": "Allocate restaked stake to Solana decentralized applications."
+      },
+      {
+        "step": 3,
+        "title": "Track Epoch Point Multipliers",
+        "desc": "Check the official dashboard for loyalty multiplier upgrades."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://solayer.org",
+      "twitter": "https://twitter.com/solayer_labs",
+      "docs": "https://docs.solayer.org"
+    },
+    "riskScore": 16
+  },
+  {
+    "slug": "hyperliquid-dex",
+    "name": "Hyperliquid",
+    "chain": "Hyperliquid L1",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$2,000 - $8,500",
+    "difficulty": "Medium",
+    "time": "20 min/week",
+    "heat": 620,
+    "desc": "Custom Layer 1 blockchain optimized for high-performance decentralized perpetuals and spot order-book trading.",
+    "tags": [
+      "DEX",
+      "Layer 1",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/hyperliquid-dex-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Deposit USDC via Arbitrum Bridge",
+        "desc": "Bridge USDC from Arbitrum into native Hyperliquid L1 custody."
+      },
+      {
+        "step": 2,
+        "title": "Execute Spot & Perpetual Trades",
+        "desc": "Build genuine non-linear trading volume across BTC, ETH, and altcoin pairs."
+      },
+      {
+        "step": 3,
+        "title": "Provide Liquidity to HLP Vault",
+        "desc": "Deposit capital into the community market maker vault to earn yield."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://hyperliquid.xyz",
+      "twitter": "https://twitter.com/HyperliquidX",
+      "docs": "https://hyperliquid.gitbook.io"
+    },
+    "riskScore": 25
+  },
+  {
+    "slug": "mitosis-expedition",
+    "name": "Mitosis",
+    "chain": "Multi-Chain Liquidity",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$700 - $2,900",
+    "difficulty": "Medium",
+    "time": "15 min",
+    "heat": 360,
+    "desc": "Ecosystem-owned liquidity protocol transforming DeFi through programmable cross-chain liquidity tokens.",
+    "tags": [
+      "DeFi",
+      "Liquidity",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/mitosis-expedition-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Deposit weETH or wstETH into Vaults",
+        "desc": "Deposit liquid staking tokens on Arbitrum or Ethereum to mint miAssets."
+      },
+      {
+        "step": 2,
+        "title": "Earn Mitosis Expedition Points",
+        "desc": "Hold and accrue daily MITO expedition points across partner rollups."
+      },
+      {
+        "step": 3,
+        "title": "Participate in Governance Voting",
+        "desc": "Vote on weekly liquidity distribution proposals to earn multiplier badges."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://mitosis.org",
+      "twitter": "https://twitter.com/MitosisOrg",
+      "docs": "https://docs.mitosis.org"
+    },
+    "riskScore": 19
+  },
+  {
+    "slug": "sonic-svm",
+    "name": "Sonic",
+    "chain": "Solana SVM / Fantom Sonic",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,200",
+    "difficulty": "Easy",
+    "time": "10 min/day",
+    "heat": 430,
+    "desc": "Next-generation sub-second finality layer processing 10,000 TPS with massive 200,000,000 token incentive pool.",
+    "tags": [
+      "SVM",
+      "Layer 1",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/sonic-svm-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Claim Sonic Testnet Shards",
+        "desc": "Connect Web3 wallet and claim daily testnet tokens from the Sonic faucet."
+      },
+      {
+        "step": 2,
+        "title": "Complete Daily Odyssey Quests",
+        "desc": "Interact with featured dApps to collect rings and mystery box rewards."
+      },
+      {
+        "step": 3,
+        "title": "Bridge Assets via Sonic Gateway",
+        "desc": "Transfer test assets between Sepolia and Sonic testnet."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://sonic.game",
+      "twitter": "https://twitter.com/SonicSVM",
+      "docs": "https://docs.sonic.game"
+    },
+    "riskScore": 12
+  },
+  {
+    "slug": "megaeth",
+    "name": "MegaETH",
+    "chain": "Ethereum L2 (Real-Time EVM)",
+    "status": [
+      "Potential",
+      "Confirmed"
+    ],
+    "reward": "$1,500 - $6,000",
+    "difficulty": "Medium",
+    "time": "10 min/week",
+    "heat": 580,
+    "desc": "The first real-time Ethereum Layer 2 capable of streaming 100,000 transactions per second with sub-millisecond latency.",
+    "tags": [
+      "Layer 2",
+      "High Throughput",
+      "DeFi"
+    ],
+    "featuredImage": "/images/generated/megaeth-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Register on Early Access Portal",
+        "desc": "Connect non-custodial Web3 wallet to the official MegaETH developer portal."
+      },
+      {
+        "step": 2,
+        "title": "Participate in Public Benchmarks",
+        "desc": "Run synthetic load-testing transactions during scheduled stress-test epochs."
+      },
+      {
+        "step": 3,
+        "title": "Interact with Native AMM Pairs",
+        "desc": "Execute rapid micro-swaps on partner testnet decentralized exchanges."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://megaeth.systems",
+      "twitter": "https://twitter.com/megaeth_labs",
+      "docs": "https://docs.megaeth.systems"
+    },
+    "riskScore": 22
+  },
+  {
+    "slug": "movement-labs",
+    "name": "Movement Labs",
+    "chain": "Movement (Move-EVM)",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$1,000 - $4,200",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 490,
+    "desc": "Modular network of Move-based blockchains powered by Move-EVM execution engine and Celestia data availability.",
+    "tags": [
+      "MoveVM",
+      "Layer 2",
+      "Confirmed"
+    ],
+    "featuredImage": "/images/generated/movement-labs-project.jpg",
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Install Nightly or Razor Wallet",
+        "desc": "Configure Move-EVM RPC settings on the official Porto testnet."
+      },
+      {
+        "step": 2,
+        "title": "Claim Testnet MOVE Faucet",
+        "desc": "Request daily MOVE testnet tokens from the Discord and web faucets."
+      },
+      {
+        "step": 3,
+        "title": "Execute Swaps on Henry DEX",
+        "desc": "Trade testnet tokens and provide liquidity to the MOVE/USDC pool."
+      },
+      {
+        "step": 4,
+        "title": "Deploy Testnet Move Contract",
+        "desc": "Publish an open-source test smart contract using the Movement CLI."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://movementlabs.xyz",
+      "twitter": "https://twitter.com/movementlabsxyz",
+      "docs": "https://docs.movementnetwork.xyz"
+    },
+    "riskScore": 14
+  },
+  {
     "slug": "initia",
     "name": "Initia",
     "chain": "Cosmos / MoveVM",
