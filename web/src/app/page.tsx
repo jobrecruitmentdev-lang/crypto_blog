@@ -291,7 +291,7 @@ export default async function Home() {
             <MotionCard style={{ padding: 0, overflow: "hidden", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderBottom: "1px solid var(--border)", overflow: "hidden" }}>
                 <Image
-                  src="/images/generated/5-stage-smart-contract-audit-telemetry-framework-featured.jpg"
+                  src="/images/generated/5-stage-smart-contract-audit-telemetry-framework-featured-v2.jpg"
                   alt="5-Stage Contract Audit"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -315,7 +315,7 @@ export default async function Home() {
             <MotionCard style={{ padding: 0, overflow: "hidden", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderBottom: "1px solid var(--border)", overflow: "hidden" }}>
                 <Image
-                  src="/images/generated/solana-multi-wallet-isolation-sybil-defense-masterclass-2026-featured.jpg"
+                  src="/images/generated/solana-multi-wallet-isolation-sybil-defense-masterclass-2026-featured-v2.jpg"
                   alt="Sybil Clustering Defense"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -339,7 +339,7 @@ export default async function Home() {
             <MotionCard style={{ padding: 0, overflow: "hidden", background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderBottom: "1px solid var(--border)", overflow: "hidden" }}>
                 <Image
-                  src="/images/generated/editorial-integrity-charter-and-fact-checking-code-featured.jpg"
+                  src="/images/generated/editorial-integrity-charter-and-fact-checking-code-featured-v2.jpg"
                   alt="Strict Editorial Integrity"
                   fill
                   sizes="(max-width: 768px) 100vw, 33vw"

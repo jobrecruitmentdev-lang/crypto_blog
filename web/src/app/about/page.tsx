@@ -86,7 +86,7 @@ export default function AboutPage() {
           }}
         >
           <Image
-            src="/images/generated/monad-parallel-evm-testnet-2026-featured.jpg"
+            src="/images/generated/monad-parallel-evm-testnet-2026-featured-v2.jpg"
             alt="Crypto Airdrop AI Autonomous Telemetry Array"
             fill
             priority

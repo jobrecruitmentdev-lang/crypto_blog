@@ -113,7 +113,7 @@ export default function ContactPage() {
           }}
         >
           <Image
-            src="/images/generated/editorial-integrity-charter-and-fact-checking-code-featured.jpg"
+            src="/images/generated/editorial-integrity-charter-and-fact-checking-code-featured-v2.jpg"
             alt="Crypto Airdrop AI Dedicated Research Inboxes"
             fill
             priority
