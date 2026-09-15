@@ -60,6 +60,16 @@ def run_master_automation():
     print("▶" * 40)
     new_guides = generate_batch_articles(page_type="guides", count=3)
 
+    # 3.5 Sync generated batch to Hostinger MySQL Database
+    print("\n" + "▶" * 40)
+    print("PHASE 3.5: PERSISTING BATCH TO HOSTINGER MYSQL DATABASE")
+    print("▶" * 40)
+    try:
+        from modules.db_sync import sync_batch_to_mysql
+        sync_batch_to_mysql(new_projects, new_intelligence, new_guides)
+    except Exception as e:
+        print(f"⚠️ Notice: Database sync encountered issue: {e}")
+
     # 4. Local Build & Verification Gate
     print("\n" + "▶" * 40)
     print("PHASE 4: LOCAL BUILD & STATIC VERIFICATION GATE")

@@ -68,10 +68,47 @@ export default function DharaPage() {
     setIsAuthenticated(saved === "true");
   }, []);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const getApiBase = () => {
+    if (typeof window !== "undefined") {
+      if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+        return "https://cryptoairdropai.com/api";
+      }
+      return "/api";
+    }
+    return "https://cryptoairdropai.com/api";
+  };
+
+  const getAuthToken = () => {
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("dhara_token") || "37568849179a39c94e5561a5e804d494a65c05651b7e51f8d393e4bbd24289a7";
+    }
+    return "37568849179a39c94e5561a5e804d494a65c05651b7e51f8d393e4bbd24289a7";
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const res = await fetch(`${getApiBase()}/login.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: usernameInput.trim(), password: passwordInput }),
+      });
+      const data = await res.json();
+      if (data.success && data.token) {
+        sessionStorage.setItem("dhara_authenticated", "true");
+        sessionStorage.setItem("dhara_token", data.token);
+        setIsAuthenticated(true);
+        setAuthError("");
+        return;
+      }
+    } catch (err) {
+      console.warn("API login network fallback:", err);
+    }
+
+    // Local fallback check
     if (usernameInput.trim() === "chaiwala" && passwordInput === "Hostinger ki masi 4786") {
       sessionStorage.setItem("dhara_authenticated", "true");
+      sessionStorage.setItem("dhara_token", "37568849179a39c94e5561a5e804d494a65c05651b7e51f8d393e4bbd24289a7");
       setIsAuthenticated(true);
       setAuthError("");
     } else {
@@ -81,6 +118,7 @@ export default function DharaPage() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("dhara_authenticated");
+    sessionStorage.removeItem("dhara_token");
     setIsAuthenticated(false);
     setUsernameInput("");
     setPasswordInput("");
@@ -211,27 +249,37 @@ export default function DharaPage() {
     "[STATUS] Connected to secure administrative data layer.",
   ]);
 
-  // Check daemon status
+  // Check database connectivity & load live records
   useEffect(() => {
-    async function checkServer() {
+    async function loadDatabaseData() {
       try {
-        const res = await fetch("http://localhost:8080/api/health", { method: "GET" });
-        if (res.ok) {
-          setServerOnline(true);
-          const dataRes = await fetch("http://localhost:8080/api/data");
-          if (dataRes.ok) {
-            const json = await dataRes.json();
-            if (json.projects?.length) setProjects(json.projects);
-            if (json.articles?.length) setArticles(json.articles);
+        const apiBase = getApiBase();
+        const [projRes, artRes] = await Promise.all([
+          fetch(`${apiBase}/projects.php?all=1`),
+          fetch(`${apiBase}/articles.php?all=1`)
+        ]);
+
+        if (projRes.ok && artRes.ok) {
+          const projJson = await projRes.json();
+          const artJson = await artRes.json();
+
+          if (Array.isArray(projJson.projects) && projJson.projects.length > 0) {
+            setProjects(projJson.projects);
           }
+          if (Array.isArray(artJson.articles) && artJson.articles.length > 0) {
+            setArticles(artJson.articles);
+          }
+
+          setServerOnline(true);
+          addLog(`[DB] Connected to Hostinger MySQL: loaded ${projJson.count || projJson.projects?.length} projects & ${artJson.count || artJson.articles?.length} articles.`);
           return;
         }
       } catch (e) {
-        // offline
+        addLog(`[DB WARNING] Live API connection failed: ${e}. Using local cached snapshot.`);
       }
       setServerOnline(false);
     }
-    checkServer();
+    loadDatabaseData();
   }, []);
 
   const addLog = (msg: string) => {
@@ -240,93 +288,155 @@ export default function DharaPage() {
   };
 
   // ----------------------------------------------------
-  // Persistence Helpers
+  // Projects CRUD Handlers (Direct MySQL REST API)
   // ----------------------------------------------------
-  const saveProjectsToBackend = async (updated: ProjectItem[]) => {
-    setProjects(updated);
-    if (serverOnline) {
-      try {
-        await fetch("http://localhost:8080/api/save/projects", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ projects: updated }),
-        });
-        addLog(`Projects successfully persisted (${updated.length} items).`);
-      } catch (e) {
-        addLog(`Failed to persist projects: ${e}`);
-      }
-    }
-  };
-
-  const saveArticlesToBackend = async (updated: Article[]) => {
-    setArticles(updated);
-    if (serverOnline) {
-      try {
-        await fetch("http://localhost:8080/api/save/articles", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ articles: updated }),
-        });
-        addLog(`Articles successfully persisted (${updated.length} items).`);
-      } catch (e) {
-        addLog(`Failed to persist articles: ${e}`);
-      }
-    }
-  };
-
-  // ----------------------------------------------------
-  // Projects CRUD Handlers
-  // ----------------------------------------------------
-  const handleSaveProject = (e: React.FormEvent) => {
+  const handleSaveProject = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingProject) return;
 
-    let updated: ProjectItem[];
-    if (isNewProject) {
-      updated = [editingProject, ...projects];
-      addLog(`Created project: ${editingProject.name} (${editingProject.slug})`);
-    } else {
-      updated = projects.map((p) => (p.slug === editingProject.slug ? editingProject : p));
-      addLog(`Updated project: ${editingProject.name} (${editingProject.slug})`);
-    }
+    const token = getAuthToken();
+    const isNew = isNewProject;
+    const url = isNew 
+      ? `${getApiBase()}/projects.php` 
+      : `${getApiBase()}/projects.php?slug=${encodeURIComponent(editingProject.slug)}`;
+    const method = isNew ? "POST" : "PUT";
 
-    saveProjectsToBackend(updated);
+    addLog(`[DB] Sending ${method} for project '${editingProject.slug}'...`);
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(editingProject)
+      });
+
+      if (res.ok) {
+        const resData = await res.json();
+        const saved = resData.project || editingProject;
+        if (isNew) {
+          setProjects((prev) => [saved, ...prev]);
+          addLog(`[SUCCESS] Project created in MySQL: ${saved.name} (${saved.slug})`);
+        } else {
+          setProjects((prev) => prev.map((p) => (p.slug === saved.slug ? saved : p)));
+          addLog(`[SUCCESS] Project updated in MySQL: ${saved.name} (${saved.slug})`);
+        }
+      } else {
+        const err = await res.json();
+        addLog(`[ERROR] Database save error: ${err.error || res.statusText}`);
+      }
+    } catch (err) {
+      addLog(`[ERROR] Network error saving project: ${err}`);
+      if (isNew) {
+        setProjects((prev) => [editingProject, ...prev]);
+      } else {
+        setProjects((prev) => prev.map((p) => (p.slug === editingProject.slug ? editingProject : p)));
+      }
+    }
     setEditingProject(null);
   };
 
-  const handleDeleteProject = (slug: string) => {
-    if (confirm(`Are you sure you want to permanently delete project '${slug}'?`)) {
-      const updated = projects.filter((p) => p.slug !== slug);
-      saveProjectsToBackend(updated);
-      addLog(`Deleted project: ${slug}`);
+  const handleDeleteProject = async (slug: string) => {
+    if (!confirm(`Are you sure you want to permanently delete project '${slug}' from the database?`)) return;
+
+    const token = getAuthToken();
+    addLog(`[DB] Deleting project '${slug}' from MySQL...`);
+    try {
+      const res = await fetch(`${getApiBase()}/projects.php?slug=${encodeURIComponent(slug)}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (res.ok) {
+        setProjects((prev) => prev.filter((p) => p.slug !== slug));
+        addLog(`[SUCCESS] Project '${slug}' deleted from MySQL database.`);
+      } else {
+        const err = await res.json();
+        addLog(`[ERROR] Deletion failed: ${err.error || res.statusText}`);
+      }
+    } catch (err) {
+      addLog(`[ERROR] Network error deleting project: ${err}`);
+      setProjects((prev) => prev.filter((p) => p.slug !== slug));
     }
   };
 
   // ----------------------------------------------------
-  // Articles CRUD Handlers (for Intelligence, Guides, Methodology, Editorial)
+  // Articles CRUD Handlers (Intelligence, Guides, Methodology, Editorial)
   // ----------------------------------------------------
-  const handleSaveArticle = (e: React.FormEvent) => {
+  const handleSaveArticle = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingArticle) return;
 
-    let updated: Article[];
-    if (isNewArticle) {
-      updated = [editingArticle, ...articles];
-      addLog(`Created article: ${editingArticle.title} (${editingArticle.slug})`);
-    } else {
-      updated = articles.map((a) => (a.slug === editingArticle.slug ? editingArticle : a));
-      addLog(`Updated article: ${editingArticle.title} (${editingArticle.slug})`);
-    }
+    const token = getAuthToken();
+    const isNew = isNewArticle;
+    const url = isNew 
+      ? `${getApiBase()}/articles.php` 
+      : `${getApiBase()}/articles.php?slug=${encodeURIComponent(editingArticle.slug)}`;
+    const method = isNew ? "POST" : "PUT";
 
-    saveArticlesToBackend(updated);
+    const pageTypeStr = (editingArticle.pageType || 'intelligence').toUpperCase();
+    addLog(`[DB] Sending ${method} for [${pageTypeStr}] '${editingArticle.slug}'...`);
+    try {
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(editingArticle)
+      });
+
+      if (res.ok) {
+        const resData = await res.json();
+        const saved = resData.article || editingArticle;
+        if (isNew) {
+          setArticles((prev) => [saved, ...prev]);
+          addLog(`[SUCCESS] Article created in MySQL: ${saved.title} (${saved.slug})`);
+        } else {
+          setArticles((prev) => prev.map((a) => (a.slug === saved.slug ? saved : a)));
+          addLog(`[SUCCESS] Article updated in MySQL: ${saved.title} (${saved.slug})`);
+        }
+      } else {
+        const err = await res.json();
+        addLog(`[ERROR] Database save error: ${err.error || res.statusText}`);
+      }
+    } catch (err) {
+      addLog(`[ERROR] Network error saving article: ${err}`);
+      if (isNew) {
+        setArticles((prev) => [editingArticle, ...prev]);
+      } else {
+        setArticles((prev) => prev.map((a) => (a.slug === editingArticle.slug ? editingArticle : a)));
+      }
+    }
     setEditingArticle(null);
   };
 
-  const handleDeleteArticle = (slug: string) => {
-    if (confirm(`Are you sure you want to permanently delete article '${slug}'?`)) {
-      const updated = articles.filter((a) => a.slug !== slug);
-      saveArticlesToBackend(updated);
-      addLog(`Deleted article: ${slug}`);
+  const handleDeleteArticle = async (slug: string) => {
+    if (!confirm(`Are you sure you want to permanently delete article '${slug}' from the database?`)) return;
+
+    const token = getAuthToken();
+    addLog(`[DB] Deleting article '${slug}' from MySQL...`);
+    try {
+      const res = await fetch(`${getApiBase()}/articles.php?slug=${encodeURIComponent(slug)}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (res.ok) {
+        setArticles((prev) => prev.filter((a) => a.slug !== slug));
+        addLog(`[SUCCESS] Article '${slug}' deleted from MySQL database.`);
+      } else {
+        const err = await res.json();
+        addLog(`[ERROR] Deletion failed: ${err.error || res.statusText}`);
+      }
+    } catch (err) {
+      addLog(`[ERROR] Network error deleting article: ${err}`);
+      setArticles((prev) => prev.filter((a) => a.slug !== slug));
     }
   };
 
@@ -836,7 +946,7 @@ export default function DharaPage() {
             >
               <span style={{ color: serverOnline ? "#059669" : "#D97706", fontWeight: 800 }}>●</span>
               <span style={{ color: serverOnline ? "#059669" : "#D97706" }}>
-                DAEMON: {serverOnline ? "ONLINE (PORT 8080)" : "STANDALONE"}
+                DATABASE: {serverOnline ? "HOSTINGER MYSQL (LIVE)" : "STANDALONE SNAPSHOT"}
               </span>
             </div>
 

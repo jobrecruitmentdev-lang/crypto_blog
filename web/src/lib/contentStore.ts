@@ -91,6 +91,24 @@ export function getProjectsSync(): ProjectItem[] {
 }
 
 export async function getProjects(): Promise<ProjectItem[]> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch('https://cryptoairdropai.com/api/projects.php', {
+      signal: controller.signal,
+      next: { revalidate: 60 }
+    } as RequestInit);
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.projects) && data.projects.length > 0) {
+        return data.projects;
+      }
+    }
+  } catch (err) {
+    // Fallback quietly to file snapshot
+  }
   return getProjectsSync();
 }
 
@@ -149,6 +167,27 @@ export function getArticlesSync(pageType?: PageType): Article[] {
 }
 
 export async function getArticles(pageType?: PageType): Promise<Article[]> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+    const url = pageType 
+      ? `https://cryptoairdropai.com/api/articles.php?type=${encodeURIComponent(pageType)}`
+      : 'https://cryptoairdropai.com/api/articles.php';
+    const res = await fetch(url, {
+      signal: controller.signal,
+      next: { revalidate: 60 }
+    } as RequestInit);
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.articles) && data.articles.length > 0) {
+        return data.articles;
+      }
+    }
+  } catch (err) {
+    // Fallback quietly to file snapshot
+  }
   return getArticlesSync(pageType);
 }
 

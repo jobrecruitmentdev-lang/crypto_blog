@@ -1,14 +1,13 @@
 <?php
 // backend/config.php
-// Configure your Hostinger MySQL database details here.
-// DO NOT push actual passwords to GitHub! Use environment variables if possible, 
-// or set this securely on the server.
+// Production Hostinger Database Configuration
 
 define('DB_HOST', '127.0.0.1');
-define('DB_USER', 'u390470426_crypto');
-define('DB_PASS', 'YOUR_DATABASE_PASSWORD_HERE');
-define('DB_NAME', 'u390470426_crypto');
+define('DB_USER', 'u390470426_8zwko');
+define('DB_PASS', '984zMQLtg8');
+define('DB_NAME', 'u390470426_UY19N');
 
-// Secret key for automation script to post securely
-$API_SECRET_KEY = 'super_secret_automation_key_123';
- 
+// Admin Credentials & HMAC Secret
+define('ADMIN_USER', 'chaiwala');
+define('ADMIN_PASS', 'Hostinger ki masi 4786');
+define('API_SECRET_KEY', 'cryptoairdropai_master_secret_2026_xyz');

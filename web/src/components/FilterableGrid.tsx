@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Airdrop, ProjectItem } from "@/lib/types";
 import AirdropCard from "./AirdropCard";
@@ -15,28 +15,49 @@ const FILTERS: { key: string; label: string }[] = [
 
 export default function FilterableGrid({ airdrops }: { airdrops: (Airdrop | ProjectItem)[] }) {
   const [active, setActive] = useState("all");
+  const [liveAirdrops, setLiveAirdrops] = useState<(Airdrop | ProjectItem)[]>(airdrops);
+
+  useEffect(() => {
+    async function syncLatest() {
+      try {
+        const apiBase = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+          ? "https://cryptoairdropai.com/api"
+          : "/api";
+        const res = await fetch(`${apiBase}/projects.php`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.projects) && data.projects.length > 0) {
+            setLiveAirdrops(data.projects);
+          }
+        }
+      } catch (e) {
+        // silent fallback to pre-rendered
+      }
+    }
+    syncLatest();
+  }, []);
 
   const filtered = useMemo(() => {
-    if (active === "all") return airdrops;
-    return airdrops.filter(
+    if (active === "all") return liveAirdrops;
+    return liveAirdrops.filter(
       (a) =>
         a.status.some((s) => s.toLowerCase() === active) ||
         a.difficulty.toLowerCase() === active
     );
-  }, [airdrops, active]);
+  }, [liveAirdrops, active]);
 
   const filterCounts = useMemo(() => {
-    const counts: Record<string, number> = { all: airdrops.length };
+    const counts: Record<string, number> = { all: liveAirdrops.length };
     for (const f of FILTERS) {
       if (f.key === "all") continue;
-      counts[f.key] = airdrops.filter(
+      counts[f.key] = liveAirdrops.filter(
         (a) =>
           a.status.some((s) => s.toLowerCase() === f.key) ||
           a.difficulty.toLowerCase() === f.key
       ).length;
     }
     return counts;
-  }, [airdrops]);
+  }, [liveAirdrops]);
 
   return (
     <>
