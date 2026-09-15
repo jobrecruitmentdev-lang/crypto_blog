@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -7,9 +8,32 @@ import type { BlogPost } from "@/lib/types";
 import { getAuthorBySlug } from "@/lib/data";
 
 export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
+  const [livePosts, setLivePosts] = useState<BlogPost[]>(posts);
+
+  useEffect(() => {
+    async function syncPostsFromDatabase() {
+      try {
+        const apiBase = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+          ? "https://cryptoairdropai.com/api"
+          : "/api";
+
+        const res = await fetch(`${apiBase}/articles.php?type=intelligence`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.articles) && data.articles.length > 0) {
+            setLivePosts(data.articles);
+          }
+        }
+      } catch (err) {
+        // fallback to initial static posts
+      }
+    }
+    syncPostsFromDatabase();
+  }, []);
+
   return (
     <div className="blog-grid">
-      {posts.map((p, idx) => {
+      {livePosts.map((p, idx) => {
         const author = getAuthorBySlug(p.authorSlug);
         const imageSrc = (p as any).featuredImage || (p as any).coverImage || `/images/generated/${p.slug}-featured.jpg` || "/images/generated/berachain-v2-proof-of-liquidity-tge-breakdown-2026-featured.jpg";
 

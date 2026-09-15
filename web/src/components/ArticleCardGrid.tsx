@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Article } from "@/lib/types";
@@ -9,7 +12,38 @@ interface ArticleCardGridProps {
 }
 
 export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridProps) {
-  if (!articles || articles.length === 0) {
+  const [liveArticles, setLiveArticles] = useState<Article[]>(articles);
+
+  useEffect(() => {
+    async function syncArticlesFromDatabase() {
+      try {
+        const cleanPath = basePath.toLowerCase().replace(/\/+$/, "");
+        let typeParam = "";
+        if (cleanPath.includes("blog")) typeParam = "intelligence";
+        else if (cleanPath.includes("guide")) typeParam = "guides";
+        else if (cleanPath.includes("methodology")) typeParam = "methodology";
+        else if (cleanPath.includes("editorial")) typeParam = "editorial";
+
+        const apiBase = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+          ? "https://cryptoairdropai.com/api"
+          : "/api";
+
+        const url = typeParam ? `${apiBase}/articles.php?type=${typeParam}` : `${apiBase}/articles.php`;
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.articles) && data.articles.length > 0) {
+            setLiveArticles(data.articles);
+          }
+        }
+      } catch (err) {
+        // quiet fallback to static initial props
+      }
+    }
+    syncArticlesFromDatabase();
+  }, [basePath]);
+
+  if (!liveArticles || liveArticles.length === 0) {
     return (
       <div style={{ textAlign: "center", padding: "48px 0", color: "var(--muted)" }}>
         No published articles found in this category. Check back shortly for new automated intelligence drops.
@@ -21,7 +55,7 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
-      {articles.map((article) => (
+      {liveArticles.map((article) => (
         <MotionCard 
           key={article.slug} 
           style={{ 

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { Article } from "@/lib/types";
@@ -11,7 +14,29 @@ interface ArticleViewProps {
   hubPath: string;
 }
 
-export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewProps) {
+export default function ArticleView({ article: initialArticle, hubTitle, hubPath }: ArticleViewProps) {
+  const [article, setArticle] = useState<Article>(initialArticle);
+
+  useEffect(() => {
+    async function syncArticleFromDatabase() {
+      try {
+        const apiBase = typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+          ? "https://cryptoairdropai.com/api"
+          : "/api";
+        const res = await fetch(`${apiBase}/articles.php?slug=${encodeURIComponent(initialArticle.slug)}`);
+        if (res.ok) {
+          const liveData = await res.json();
+          if (liveData && liveData.slug) {
+            setArticle(liveData);
+          }
+        }
+      } catch (err) {
+        // quiet fallback to initial pre-rendered article
+      }
+    }
+    syncArticleFromDatabase();
+  }, [initialArticle.slug]);
+
   const author = getAuthorBySlug(article.authorSlug);
 
   // Split article body around the middle to inject the Middle 8K Image
