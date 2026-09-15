@@ -161,7 +161,7 @@ export default async function Home() {
 
               <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: 1, justifyContent: "space-between" }}>
                 {activeGuides.slice(0, 4).map((g) => {
-                  const guideImg = (g as any).featuredImage || `/images/generated/${g.slug}-featured.jpg` || "/images/generated/solana-multi-wallet-isolation-sybil-defense-masterclass-2026-featured.jpg";
+                  const guideImg = (g as any).featuredImage || `/images/generated/${g.slug}-featured-v4.jpg` || "/images/generated/solana-multi-wallet-isolation-sybil-defense-masterclass-2026-featured-v2.jpg";
                   return (
                     <Link
                       key={g.slug}

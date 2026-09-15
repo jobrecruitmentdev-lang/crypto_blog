@@ -69,9 +69,9 @@ export default async function GuidePage({ params }: Props) {
       read: "7 min read",
       authorSlug: fallback.authorSlug || "security-sentinel-ai",
       body: fallback.body,
-      featuredImage: `/images/generated/${fallback.slug}-featured.jpg`,
-      middleImage: `/images/generated/${fallback.slug}-middle.jpg`,
-      preFaqImage: `/images/generated/${fallback.slug}-pre_faq.jpg`,
+      featuredImage: `/images/generated/${fallback.slug}-featured-v4.jpg`,
+      middleImage: `/images/generated/${fallback.slug}-middle-v2.jpg`,
+      preFaqImage: `/images/generated/${fallback.slug}-pre_faq-v2.jpg`,
       faqs: [
         { question: "How does the protocol detect sybils?", answer: "Sybils are flagged by shared deposit addresses, sequential transaction timestamps, and matching gas balances." },
         { question: "What is the recommended testnet cadence?", answer: "Interact 1-2 times weekly across at least 3 distinct smart contracts over a 60-day window." }

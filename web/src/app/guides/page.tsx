@@ -27,9 +27,9 @@ export default async function GuidesPage() {
       read: "6 min read",
       authorSlug: g.authorSlug || "ai-intelligence-engine",
       body: g.body,
-      featuredImage: `/images/generated/${g.slug}-featured.jpg`,
-      middleImage: `/images/generated/${g.slug}-middle.jpg`,
-      preFaqImage: `/images/generated/${g.slug}-pre_faq.jpg`,
+      featuredImage: `/images/generated/${g.slug}-featured-v4.jpg`,
+      middleImage: `/images/generated/${g.slug}-middle-v2.jpg`,
+      preFaqImage: `/images/generated/${g.slug}-pre_faq-v2.jpg`,
       faqs: [
         { question: "How to avoid sybil detection?", answer: "Do not fund multiple wallets from the exact same centralized exchange address at the same timestamp." }
       ]
