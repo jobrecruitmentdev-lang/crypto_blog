@@ -384,7 +384,7 @@ def create_editorial_html(config):
     </div>
     <div class="top-meta">
       <div class="badge-cat">{category}</div>
-      <div class="badge-verified"><div class="dot"></div> {config.get("status_badge", "8K VERIFIED STANDARD")}</div>
+      <div class="badge-verified"><div class="dot"></div> {config.get("status_badge", "VERIFIED PROTOCOL")}</div>
     </div>
   </div>
 

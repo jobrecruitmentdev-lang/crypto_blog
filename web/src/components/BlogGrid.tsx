@@ -81,7 +81,6 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
                     </div>
                     <span style={{ fontWeight: 600, color: "var(--text-bright)", fontSize: "0.85rem" }}>{author?.name || "Editorial Desk"}</span>
                   </div>
-                  <span style={{ fontSize: "0.74rem", color: "var(--emerald)", fontWeight: 700 }}>● 8K VERIFIED</span>
                 </div>
               </div>
             </Link>

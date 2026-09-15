@@ -93,11 +93,6 @@ export default function AboutPage() {
             sizes="(max-width: 980px) 100vw, 980px"
             style={{ objectFit: "cover" }}
           />
-          <div style={{ position: "absolute", bottom: 12, right: 14 }}>
-            <span className="pill-badge" style={{ background: "rgba(255, 255, 255, 0.92)", color: "var(--emerald)", fontWeight: 800, fontSize: "0.72rem", border: "1px solid var(--border)" }}>
-              ● 8K VERIFIED AI TELEMETRY
-            </span>
-          </div>
         </div>
 
         {/* Telemetry Bento Grid */}

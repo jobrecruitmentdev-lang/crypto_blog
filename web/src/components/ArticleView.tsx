@@ -150,22 +150,6 @@ export default function ArticleView({ article, hubTitle, hubPath }: ArticleViewP
               sizes="(max-width: 820px) 100vw, 820px"
               style={{ objectFit: "cover" }}
             />
-            <div style={{
-              position: "absolute",
-              bottom: 12,
-              right: 12,
-              background: "rgba(255, 255, 255, 0.94)",
-              backdropFilter: "blur(6px)",
-              padding: "4px 10px",
-              borderRadius: "6px",
-              fontSize: "0.72rem",
-              fontWeight: 700,
-              color: "var(--emerald)",
-              border: "1px solid var(--border)",
-              boxShadow: "0 2px 6px rgba(0,0,0,0.06)"
-            }}>
-              ● 8K VERIFIED AI ASSET
-            </div>
           </div>
         )}
 

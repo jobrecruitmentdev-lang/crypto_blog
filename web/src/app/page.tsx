@@ -85,11 +85,6 @@ export default async function Home() {
                     ⚡ FEATURED INTEL REPORT
                   </span>
                 </div>
-                <div style={{ position: "absolute", bottom: 12, right: 14 }}>
-                  <span className="pill-badge" style={{ background: "rgba(255, 255, 255, 0.92)", color: "var(--emerald)", fontWeight: 800, fontSize: "0.72rem", border: "1px solid var(--border)" }}>
-                    ● 8K VERIFIED
-                  </span>
-                </div>
               </div>
 
               <div style={{ padding: "28px 32px" }}>

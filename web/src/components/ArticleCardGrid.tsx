@@ -93,10 +93,7 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
               {article.excerpt.length > 130 ? `${article.excerpt.substring(0, 130)}...` : article.excerpt}
             </p>
 
-            <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 14, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: "0.74rem", color: "var(--emerald)", fontWeight: 700, letterSpacing: "0.02em" }}>
-                ● 8K VERIFIED
-              </span>
+            <div style={{ borderTop: "1px solid var(--border-subtle)", paddingTop: 14, display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
               <Link 
                 href={`${cleanBasePath}/${article.slug}/`} 
                 style={{ fontSize: "0.85rem", fontWeight: 700, color: "var(--accent)", textDecoration: "none" }}
