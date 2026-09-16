@@ -57,12 +57,19 @@
     RewriteEngine On
     RewriteBase /
     
+    # 0. Pass Authorization header to PHP (FastCGI / PHP-FPM)
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+    
     # 1. Force HTTPS on primary canonical domain
     RewriteCond %{HTTPS} !=on [OR]
     RewriteCond %{HTTP_HOST} ^www\.cryptoairdropai\.com$ [NC]
     RewriteRule ^ https://cryptoairdropai.com%{REQUEST_URI} [R=301,L]
     
-    # 2. Force Trailing Slash on non-file, non-directory paths
+    # 2. Redirect legacy /editorial/<slug> to canonical /editorial-policy/<slug>/
+    RewriteRule ^editorial/(.+)/?$ /editorial-policy/$1/ [R=301,L]
+    
+    # 3. Force Trailing Slash on non-file, non-directory paths
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} !/$

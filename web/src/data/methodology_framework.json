@@ -1,0 +1,37 @@
+[
+  {
+    "step": "01",
+    "title": "Smart Contract & Bytecode Verification",
+    "icon": "🛡️",
+    "desc": "We verify contract source code on block explorers, analyze proxy upgradeability timelocks, and check audit reports from CertiK, OpenZeppelin, or Trail of Bits.",
+    "metric": "Explorer Verification & Timelock Status"
+  },
+  {
+    "step": "02",
+    "title": "Core Team & GitHub Development Cadence",
+    "icon": "👥",
+    "desc": "Evaluation of developer commit frequency, code freshness, institutional venture backing, and public leadership track records.",
+    "metric": "Active GitHub Repos & Public Commits"
+  },
+  {
+    "step": "03",
+    "title": "Tokenomics & Airdrop Allocation Model",
+    "icon": "📊",
+    "desc": "Analysis of total supply distribution, insider lockups, community pool percentages, and anti-dumping vesting cliffs.",
+    "metric": "Community Allocation >= 10%"
+  },
+  {
+    "step": "04",
+    "title": "Gas Efficiency & Capital Requirements",
+    "icon": "⛽",
+    "desc": "Clear documentation of estimated gas costs, mandatory minimum deposits, and risk-adjusted ROI expectations.",
+    "metric": "Zero Pay-to-Win Exploits"
+  },
+  {
+    "step": "05",
+    "title": "Continuous Telemetry & Lifecycle Monitoring",
+    "icon": "📡",
+    "desc": "Post-publication RPC indexing to track snapshot block heights, contract deprecations, and point system updates.",
+    "metric": "24/7 Node State Monitoring"
+  }
+]

@@ -11,8 +11,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/editorial-policy/" },
 };
 
+import EditorialFrameworkView from "@/components/EditorialFrameworkView";
+import initialEditorialPillars from "@/data/editorial_framework.json";
+
 export default async function EditorialPolicyPage() {
   const articles = await getArticles("editorial");
+  const steps = initialEditorialPillars;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -22,33 +26,6 @@ export default async function EditorialPolicyPage() {
       { "@type": "ListItem", "position": 2, "name": "Editorial Policy", "item": "https://cryptoairdropai.com/editorial-policy/" }
     ]
   };
-
-  const steps = [
-    {
-      num: "01",
-      title: "Cryptographic Source Ingestion",
-      desc: "All protocol announcements must originate from verifiable DNS records, signed developer commits, or verified smart contracts.",
-      badge: "Cryptographic Ingestion",
-    },
-    {
-      num: "02",
-      title: "Testnet / Mainnet Simulation",
-      desc: "Our technical nodes execute qualifying deposit or interaction steps directly to evaluate gas consumption and contract approvals.",
-      badge: "On-Chain Simulation",
-    },
-    {
-      num: "03",
-      title: "Sybil & Security Audit",
-      desc: "Code repositories and audit reports are scanned for malicious proxy patterns, honeypots, or centralized rug-pull attack vectors.",
-      badge: "Security Filter",
-    },
-    {
-      num: "04",
-      title: "Human Editorial Peer Review",
-      desc: "Before publication, research leads verify plain-language clarity, risk disclaimers, and step-by-step reproducibility.",
-      badge: "Peer Review",
-    },
-  ];
 
   return (
     <section className="section" style={{ position: "relative" }}>
@@ -74,20 +51,7 @@ export default async function EditorialPolicyPage() {
         </MotionFade>
 
         {/* 4 Pillars Bento Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 54 }}>
-          {steps.map((item, idx) => (
-            <MotionCard key={idx} style={{ padding: 28, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "var(--accent)" }}>{item.num}</span>
-                <span className="pill-badge" style={{ fontSize: "0.72rem", background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>{item.badge}</span>
-              </div>
-              <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: "0 0 10px", color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>{item.title}</h3>
-              <p style={{ color: "var(--text)", fontSize: "0.93rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
-                {item.desc}
-              </p>
-            </MotionCard>
-          ))}
-        </div>
+        <EditorialFrameworkView initialPillars={steps} />
 
         {/* 8K Editorial Articles Section */}
         <div style={{ marginBottom: 48 }}>

@@ -11,8 +11,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/methodology/" },
 };
 
+import MethodologyFrameworkView from "@/components/MethodologyFrameworkView";
+import initialMethodologySteps from "@/data/methodology_framework.json";
+
 export default async function MethodologyPage() {
   const articles = await getArticles("methodology");
+  const steps = initialMethodologySteps;
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -22,44 +26,6 @@ export default async function MethodologyPage() {
       { "@type": "ListItem", "position": 2, "name": "Methodology", "item": "https://cryptoairdropai.com/methodology/" }
     ]
   };
-
-  const steps = [
-    {
-      step: "01",
-      title: "Smart Contract & Bytecode Verification",
-      icon: "🛡️",
-      desc: "We verify contract source code on block explorers, analyze proxy upgradeability timelocks, and check audit reports from CertiK, OpenZeppelin, or Trail of Bits.",
-      metric: "Explorer Verification & Timelock Status",
-    },
-    {
-      step: "02",
-      title: "Core Team & GitHub Development Cadence",
-      icon: "👥",
-      desc: "Evaluation of developer commit frequency, code freshness, institutional venture backing, and public leadership track records.",
-      metric: "Active GitHub Repos & Public Commits",
-    },
-    {
-      step: "03",
-      title: "Tokenomics & Airdrop Allocation Model",
-      icon: "📊",
-      desc: "Analysis of total supply distribution, insider lockups, community pool percentages, and anti-dumping vesting cliffs.",
-      metric: "Community Allocation >= 10%",
-    },
-    {
-      step: "04",
-      title: "Gas Efficiency & Capital Requirements",
-      icon: "⛽",
-      desc: "Clear documentation of estimated gas costs, mandatory minimum deposits, and risk-adjusted ROI expectations.",
-      metric: "Zero Pay-to-Win Exploits",
-    },
-    {
-      step: "05",
-      title: "Continuous Telemetry & Lifecycle Monitoring",
-      icon: "📡",
-      desc: "Post-publication RPC indexing to track snapshot block heights, contract deprecations, and point system updates.",
-      metric: "24/7 Node State Monitoring",
-    },
-  ];
 
   return (
     <section className="section" style={{ position: "relative" }}>
@@ -85,26 +51,7 @@ export default async function MethodologyPage() {
         </MotionFade>
 
         {/* 5-Stage Framework Bento */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, marginBottom: 54 }}>
-          {steps.map((s, idx) => (
-            <MotionCard key={idx} style={{ padding: "24px 28px", display: "flex", alignItems: "flex-start", gap: 20, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.04)" }}>
-              <div style={{ fontSize: "1.8rem", flexShrink: 0, marginTop: 2 }}>{s.icon}</div>
-              <div style={{ flexGrow: 1 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8, marginBottom: 6 }}>
-                  <h3 style={{ fontSize: "1.2rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
-                    Stage {s.step}: {s.title}
-                  </h3>
-                  <span className="pill-badge success" style={{ fontSize: "0.72rem" }}>
-                    {s.metric}
-                  </span>
-                </div>
-                <p style={{ color: "var(--text)", fontSize: "0.93rem", lineHeight: 1.65, margin: 0, opacity: 0.88 }}>
-                  {s.desc}
-                </p>
-              </div>
-            </MotionCard>
-          ))}
-        </div>
+        <MethodologyFrameworkView initialSteps={steps} />
 
         {/* 8K Methodology & Audit Articles Section */}
         <div style={{ marginBottom: 48 }}>

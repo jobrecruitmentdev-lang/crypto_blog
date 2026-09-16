@@ -102,9 +102,9 @@ def run_master_automation():
     else:
         print("\n⚠️ Notice: Git push completed or no changes to push.")
 
-    # 6. IndexNow Ping for Instant Search Discovery
+    # 6. Search Discovery Broadcast (Google Indexing API + IndexNow)
     print("\n" + "▶" * 40)
-    print("PHASE 6: INSTANT SEARCH DISCOVERY (INDEXNOW NOTIFICATION)")
+    print("PHASE 6: SEARCH DISCOVERY BROADCAST (GOOGLE + INDEXNOW)")
     print("▶" * 40)
     new_urls = []
     for p in new_projects:
@@ -115,23 +115,10 @@ def run_master_automation():
         new_urls.append(f"https://cryptoairdropai.com/guides/{g['slug']}/")
 
     try:
-        import urllib.request
-        import json
-        payload = {
-            "host": "cryptoairdropai.com",
-            "key": "2499d30ca8ff40c490a187a5f6e80b2a",
-            "keyLocation": "https://cryptoairdropai.com/2499d30ca8ff40c490a187a5f6e80b2a.txt",
-            "urlList": new_urls
-        }
-        req = urllib.request.Request(
-            "https://api.indexnow.org/IndexNow",
-            data=json.dumps(payload).encode('utf-8'),
-            headers={"Content-Type": "application/json; charset=utf-8"}
-        )
-        with urllib.request.urlopen(req, timeout=10) as r:
-            print(f"[✓] IndexNow ping sent for {len(new_urls)} URLs (HTTP {r.status}).")
+        from modules.submit_indexing import notify_search_engines
+        notify_search_engines(new_urls)
     except Exception as e:
-        print(f"[*] IndexNow ping note: {e}")
+        print(f"[*] Search indexing broadcast note: {e}")
 
     elapsed = time.time() - start_time
     print("\n" + "=" * 80)

@@ -32,7 +32,7 @@ export default function ArticleCardGrid({ articles, basePath }: ArticleCardGridP
         const res = await fetch(url);
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data.articles) && data.articles.length > 0) {
+          if (Array.isArray(data.articles)) {
             setLiveArticles(data.articles);
           }
         }

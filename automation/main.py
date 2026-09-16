@@ -159,6 +159,16 @@ def run_pipeline(dry_run: bool = False):
                 sheets_manager.update_status(row_idx, "Staged")
             except Exception:
                 pass
+
+        # 8. Instant Search Discovery Broadcast (Google Indexing API + IndexNow)
+        try:
+            from modules.submit_indexing import notify_search_engines
+            post_url = f"{Config.SITE_URL}/blog/{slug}/"
+            logger.info(f"📡 Broadcasting new article to search engines: {post_url}")
+            notify_search_engines([post_url])
+        except Exception as e:
+            logger.warning(f"Search discovery notification note: {e}")
+
         return True
     else:
         logger.error("[-] GitHub dispatch failed.")

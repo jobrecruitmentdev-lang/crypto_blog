@@ -1,0 +1,26 @@
+[
+  {
+    "num": "01",
+    "title": "Cryptographic Source Ingestion",
+    "desc": "All protocol announcements must originate from verifiable DNS records, signed developer commits, or verified smart contracts.",
+    "badge": "Cryptographic Ingestion"
+  },
+  {
+    "num": "02",
+    "title": "Testnet / Mainnet Simulation",
+    "desc": "Our technical nodes execute qualifying deposit or interaction steps directly to evaluate gas consumption and contract approvals.",
+    "badge": "On-Chain Simulation"
+  },
+  {
+    "num": "03",
+    "title": "Sybil & Security Audit",
+    "desc": "Code repositories and audit reports are scanned for malicious proxy patterns, honeypots, or centralized rug-pull attack vectors.",
+    "badge": "Security Filter"
+  },
+  {
+    "num": "04",
+    "title": "Human Editorial Peer Review",
+    "desc": "Before publication, research leads verify plain-language clarity, risk disclaimers, and step-by-step reproducibility.",
+    "badge": "Peer Review"
+  }
+]

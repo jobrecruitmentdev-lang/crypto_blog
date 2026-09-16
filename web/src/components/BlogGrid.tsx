@@ -20,7 +20,7 @@ export default function BlogGrid({ posts }: { posts: BlogPost[] }) {
         const res = await fetch(`${apiBase}/articles.php?type=intelligence`);
         if (res.ok) {
           const data = await res.json();
-          if (Array.isArray(data.articles) && data.articles.length > 0) {
+          if (Array.isArray(data.articles)) {
             setLivePosts(data.articles);
           }
         }

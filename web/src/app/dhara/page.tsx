@@ -7,6 +7,23 @@ import type { ProjectItem, Article, PageType, Difficulty, AirdropStatus } from "
 // Default seed data
 import initialProjectsData from "@/data/projects.json";
 import initialArticlesData from "@/data/articles.json";
+import initialMethodologyStepsData from "@/data/methodology_framework.json";
+import initialEditorialPillarsData from "@/data/editorial_framework.json";
+
+interface MethodologyStepItem {
+  step: string;
+  title: string;
+  icon: string;
+  desc: string;
+  metric: string;
+}
+
+interface EditorialPillarItem {
+  num: string;
+  title: string;
+  desc: string;
+  badge: string;
+}
 
 type NavSection =
   | "home"
@@ -249,15 +266,37 @@ export default function DharaPage() {
     "[STATUS] Connected to secure administrative data layer.",
   ]);
 
+  // Framework Steps & Pillars CRUD
+  const [methodologySteps, setMethodologySteps] = useState<MethodologyStepItem[]>(initialMethodologyStepsData as MethodologyStepItem[]);
+  const [editorialPillars, setEditorialPillars] = useState<EditorialPillarItem[]>(initialEditorialPillarsData as EditorialPillarItem[]);
+  const [editingStep, setEditingStep] = useState<MethodologyStepItem | null>(null);
+  const [editingPillar, setEditingPillar] = useState<EditorialPillarItem | null>(null);
+
   // Check database connectivity & load live records
   useEffect(() => {
     async function loadDatabaseData() {
       try {
         const apiBase = getApiBase();
-        const [projRes, artRes] = await Promise.all([
+        const [projRes, artRes, methRes, editRes] = await Promise.all([
           fetch(`${apiBase}/projects.php?all=1`),
-          fetch(`${apiBase}/articles.php?all=1`)
+          fetch(`${apiBase}/articles.php?all=1`),
+          fetch(`${apiBase}/framework.php?type=methodology`),
+          fetch(`${apiBase}/framework.php?type=editorial`)
         ]);
+
+        if (methRes && methRes.ok) {
+          const methJson = await methRes.json();
+          if (Array.isArray(methJson.steps) && methJson.steps.length > 0) {
+            setMethodologySteps(methJson.steps);
+          }
+        }
+
+        if (editRes && editRes.ok) {
+          const editJson = await editRes.json();
+          if (Array.isArray(editJson.pillars) && editJson.pillars.length > 0) {
+            setEditorialPillars(editJson.pillars);
+          }
+        }
 
         if (projRes.ok && artRes.ok) {
           const projJson = await projRes.json();
@@ -438,6 +477,49 @@ export default function DharaPage() {
       addLog(`[ERROR] Network error deleting article: ${err}`);
       setArticles((prev) => prev.filter((a) => a.slug !== slug));
     }
+  };
+
+  // ----------------------------------------------------
+  // Framework Steps & Pillars Handlers
+  // ----------------------------------------------------
+  const handleSaveMethodologyStep = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingStep) return;
+    const updated = methodologySteps.map((s) => s.step === editingStep.step ? editingStep : s);
+    setMethodologySteps(updated);
+    addLog(`[FRAMEWORK] Updated Methodology Stage ${editingStep.step}: ${editingStep.title}`);
+    try {
+      const token = getAuthToken();
+      await fetch(`${getApiBase()}/framework.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({ type: "methodology", steps: updated })
+      });
+      addLog(`[SUCCESS] Methodology Framework saved live.`);
+    } catch (err) {
+      addLog(`[FRAMEWORK] Saved locally: ${err}`);
+    }
+    setEditingStep(null);
+  };
+
+  const handleSaveEditorialPillar = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingPillar) return;
+    const updated = editorialPillars.map((p) => p.num === editingPillar.num ? editingPillar : p);
+    setEditorialPillars(updated);
+    addLog(`[FRAMEWORK] Updated Editorial Pillar ${editingPillar.num}: ${editingPillar.title}`);
+    try {
+      const token = getAuthToken();
+      await fetch(`${getApiBase()}/framework.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({ type: "editorial", pillars: updated })
+      });
+      addLog(`[SUCCESS] Editorial Pillars saved live.`);
+    } catch (err) {
+      addLog(`[FRAMEWORK] Saved locally: ${err}`);
+    }
+    setEditingPillar(null);
   };
 
   // ----------------------------------------------------
@@ -1003,7 +1085,13 @@ export default function DharaPage() {
                 }}
                 style={{ padding: "8px 16px", borderRadius: 8, background: "#2563EB", color: "#FFF", fontWeight: 700, fontSize: "0.85rem", border: "none", cursor: "pointer", boxShadow: "0 2px 6px rgba(37,99,235,0.2)" }}
               >
-                + Create Article
+                {activeSection === "methodology" 
+                  ? "+ Add Methodology Paper" 
+                  : activeSection === "editorial" 
+                    ? "+ Add Editorial Policy" 
+                    : activeSection === "guides" 
+                      ? "+ Add Guide" 
+                      : "+ Create Article"}
               </button>
             )}
 
@@ -1252,13 +1340,18 @@ export default function DharaPage() {
                     const words = countWords(art.body);
                     const hasAllImages = Boolean(art.featuredImage && art.middleImage && art.preFaqImage);
                     const faqCount = art.faqs?.length || 0;
+                    const sectionPath = activeSection === "intelligence" 
+                      ? "blog" 
+                      : activeSection === "editorial" 
+                        ? "editorial-policy" 
+                        : activeSection;
 
                     return (
                       <tr key={art.slug} style={{ borderBottom: "1px solid #F1F5F9" }}>
                         <td style={{ padding: "14px 16px" }}>
                           <div style={{ fontWeight: 800, color: "#0F172A" }}>{art.title}</div>
                           <div style={{ fontSize: "0.75rem", color: "#64748B" }}>
-                            /{activeSection === "intelligence" ? "blog" : activeSection}/{art.slug}/
+                            /{sectionPath}/{art.slug}/
                           </div>
                         </td>
                         <td style={{ padding: "14px 16px" }}>
@@ -1291,6 +1384,14 @@ export default function DharaPage() {
                           </span>
                         </td>
                         <td style={{ padding: "14px 16px", textAlign: "right" }}>
+                          <a
+                            href={`https://cryptoairdropai.com/${sectionPath}/${art.slug}/`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ padding: "5px 10px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#059669", fontWeight: 700, fontSize: "0.78rem", textDecoration: "none", marginRight: 8, display: "inline-block" }}
+                          >
+                            View ↗
+                          </a>
                           <button
                             onClick={() => {
                               setEditingArticle({ ...art });
@@ -1313,6 +1414,100 @@ export default function DharaPage() {
                 </tbody>
               </table>
             </div>
+
+            {/* Live Methodology 5-Stage Framework Editor */}
+            {activeSection === "methodology" && (
+              <div style={{ marginTop: 36, background: "#FFFFFF", borderRadius: 12, border: "1px solid #E2E8F0", padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18, flexWrap: "wrap", gap: 10 }}>
+                  <div>
+                    <h3 style={{ fontSize: "1.15rem", fontWeight: 800, margin: 0 }}>
+                      🛡️ The 5-Stage Audit Framework Configuration (Live Bento)
+                    </h3>
+                    <p style={{ color: "#64748B", fontSize: "0.82rem", margin: "4px 0 0" }}>
+                      Configure the 5 quantitative filter stages displayed prominently on the public /methodology/ page.
+                    </p>
+                  </div>
+                  <a
+                    href="https://cryptoairdropai.com/methodology/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ padding: "6px 12px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#059669", fontSize: "0.8rem", fontWeight: 700, textDecoration: "none" }}
+                  >
+                    View Public Methodology Page ↗
+                  </a>
+                </div>
+
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  {methodologySteps.map((step) => (
+                    <div key={step.step} style={{ padding: 16, background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
+                      <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+                        <div style={{ fontSize: "1.6rem" }}>{step.icon}</div>
+                        <div>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                            <span style={{ fontWeight: 800, fontSize: "0.95rem" }}>Stage {step.step}: {step.title}</span>
+                            <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#059669", background: "rgba(5,150,105,0.1)", padding: "2px 6px", borderRadius: 4 }}>{step.metric}</span>
+                          </div>
+                          <div style={{ fontSize: "0.83rem", color: "#475569", lineHeight: 1.5 }}>{step.desc}</div>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => setEditingStep({ ...step })}
+                        style={{ padding: "6px 12px", borderRadius: 6, background: "#FFFFFF", border: "1px solid #CBD5E1", color: "#2563EB", fontWeight: 700, fontSize: "0.78rem", cursor: "pointer", flexShrink: 0 }}
+                      >
+                        Edit Stage
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Live Editorial 4-Pillars Framework Editor */}
+            {activeSection === "editorial" && (
+              <div style={{ marginTop: 36, background: "#FFFFFF", borderRadius: 12, border: "1px solid #E2E8F0", padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18, flexWrap: "wrap", gap: 10 }}>
+                  <div>
+                    <h3 style={{ fontSize: "1.15rem", fontWeight: 800, margin: 0 }}>
+                      ⚖️ 4 Pillars of Integrity Framework Configuration (Live Bento)
+                    </h3>
+                    <p style={{ color: "#64748B", fontSize: "0.82rem", margin: "4px 0 0" }}>
+                      Configure the 4 core pillars displayed prominently on the public /editorial-policy/ page.
+                    </p>
+                  </div>
+                  <a
+                    href="https://cryptoairdropai.com/editorial-policy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ padding: "6px 12px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#059669", fontSize: "0.8rem", fontWeight: 700, textDecoration: "none" }}
+                  >
+                    View Public Editorial Policy Page ↗
+                  </a>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
+                  {editorialPillars.map((pillar) => (
+                    <div key={pillar.num} style={{ padding: 16, background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                      <div>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                          <span style={{ fontSize: "1.2rem", fontWeight: 900, color: "#2563EB" }}>{pillar.num}</span>
+                          <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#2563EB", background: "rgba(37,99,235,0.1)", padding: "2px 6px", borderRadius: 4 }}>{pillar.badge}</span>
+                        </div>
+                        <div style={{ fontWeight: 800, fontSize: "0.95rem", marginBottom: 6 }}>{pillar.title}</div>
+                        <div style={{ fontSize: "0.82rem", color: "#475569", lineHeight: 1.5, marginBottom: 14 }}>{pillar.desc}</div>
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <button
+                          onClick={() => setEditingPillar({ ...pillar })}
+                          style={{ padding: "6px 12px", borderRadius: 6, background: "#FFFFFF", border: "1px solid #CBD5E1", color: "#2563EB", fontWeight: 700, fontSize: "0.78rem", cursor: "pointer" }}
+                        >
+                          Edit Pillar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -1720,6 +1915,35 @@ export default function DharaPage() {
             </div>
 
             <form onSubmit={handleSaveArticle} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              {/* Category & Tag Bar */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Target Hub / Section</label>
+                  <select
+                    value={editingArticle.pageType || "intelligence"}
+                    onChange={(e) => setEditingArticle({ ...editingArticle, pageType: e.target.value as PageType })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontWeight: 700, background: "#FFFFFF" }}
+                  >
+                    <option value="intelligence">🧠 Intelligence Hub (/blog/)</option>
+                    <option value="guides">📘 Tactical Guides (/guides/)</option>
+                    <option value="methodology">🔬 Methodology Papers (/methodology/)</option>
+                    <option value="editorial">⚖️ Editorial Policy (/editorial-policy/)</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Badge / Tag</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingArticle.tag || ""}
+                    onChange={(e) => setEditingArticle({ ...editingArticle, tag: e.target.value })}
+                    placeholder="e.g. Audit Framework, Editorial Standard, Farming Playbook"
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+              </div>
+
+              {/* Title & Slug */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                 <div>
                   <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Title</label>
@@ -1732,7 +1956,7 @@ export default function DharaPage() {
                   />
                 </div>
                 <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Slug</label>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Slug (URL Identifier)</label>
                   <input
                     type="text"
                     required
@@ -1744,8 +1968,43 @@ export default function DharaPage() {
                 </div>
               </div>
 
+              {/* Author, Read Time, Date */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Author</label>
+                  <select
+                    value={editingArticle.authorSlug || "security-sentinel-ai"}
+                    onChange={(e) => setEditingArticle({ ...editingArticle, authorSlug: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", background: "#FFFFFF" }}
+                  >
+                    <option value="security-sentinel-ai">Security Sentinel AI</option>
+                    <option value="ai-intelligence-engine">AI Intelligence Engine</option>
+                    <option value="editorial-desk">Editorial Desk</option>
+                  </select>
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Estimated Read Time</label>
+                  <input
+                    type="text"
+                    value={editingArticle.read || "8 min read"}
+                    onChange={(e) => setEditingArticle({ ...editingArticle, read: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Publish Date</label>
+                  <input
+                    type="date"
+                    value={editingArticle.date || new Date().toISOString().split("T")[0]}
+                    onChange={(e) => setEditingArticle({ ...editingArticle, date: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+              </div>
+
+              {/* Excerpt */}
               <div>
-                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Excerpt (Summary)</label>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Excerpt (Summary for Cards)</label>
                 <textarea
                   rows={2}
                   value={editingArticle.excerpt}
@@ -1754,6 +2013,19 @@ export default function DharaPage() {
                 />
               </div>
 
+              {/* TLDR */}
+              <div>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>TL;DR Executive Takeaway</label>
+                <input
+                  type="text"
+                  value={editingArticle.tldr || ""}
+                  onChange={(e) => setEditingArticle({ ...editingArticle, tldr: e.target.value })}
+                  placeholder="Single key takeaway for executive preview"
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                />
+              </div>
+
+              {/* 3 8K Images */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
                 <div>
                   <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Featured 8K Image</label>
@@ -1784,16 +2056,87 @@ export default function DharaPage() {
                 </div>
               </div>
 
+              {/* Article Body */}
               <div>
                 <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>
                   Full Article Body Markdown (2,200 to 2,500 words)
                 </label>
                 <textarea
-                  rows={10}
+                  rows={9}
                   value={editingArticle.body}
                   onChange={(e) => setEditingArticle({ ...editingArticle, body: e.target.value })}
                   style={{ width: "100%", padding: "10px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontFamily: "monospace", fontSize: "0.85rem", lineHeight: 1.5 }}
                 />
+              </div>
+
+              {/* Structured Schema FAQs Editor */}
+              <div style={{ border: "1px solid #E2E8F0", borderRadius: 8, padding: 14, background: "#F8FAFC" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                  <label style={{ fontSize: "0.85rem", fontWeight: 800, color: "#1E293B", margin: 0 }}>
+                    Structured Schema FAQs ({editingArticle.faqs?.length || 0})
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const currentFaqs = editingArticle.faqs || [];
+                      setEditingArticle({
+                        ...editingArticle,
+                        faqs: [...currentFaqs, { question: "New FAQ Question?", answer: "Comprehensive, factual answer." }]
+                      });
+                    }}
+                    style={{ padding: "4px 10px", borderRadius: 4, background: "#2563EB", color: "#FFF", border: "none", fontSize: "0.75rem", fontWeight: 700, cursor: "pointer" }}
+                  >
+                    + Add FAQ
+                  </button>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10, maxHeight: 180, overflowY: "auto" }}>
+                  {(editingArticle.faqs || []).map((faq, fIdx) => (
+                    <div key={fIdx} style={{ background: "#FFF", border: "1px solid #CBD5E1", borderRadius: 6, padding: 10 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginBottom: 6 }}>
+                        <input
+                          type="text"
+                          placeholder="Question"
+                          value={faq.question}
+                          onChange={(e) => {
+                            const next = [...(editingArticle.faqs || [])];
+                            next[fIdx].question = e.target.value;
+                            setEditingArticle({ ...editingArticle, faqs: next });
+                          }}
+                          style={{ flex: 1, padding: "6px 8px", borderRadius: 4, border: "1px solid #E2E8F0", fontSize: "0.82rem", fontWeight: 700 }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const next = (editingArticle.faqs || []).filter((_, i) => i !== fIdx);
+                            setEditingArticle({ ...editingArticle, faqs: next });
+                          }}
+                          style={{ background: "rgba(220,38,38,0.1)", border: "none", color: "#DC2626", borderRadius: 4, padding: "2px 8px", cursor: "pointer", fontSize: "0.75rem", fontWeight: 700 }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <textarea
+                        rows={2}
+                        placeholder="Answer"
+                        value={faq.answer}
+                        onChange={(e) => {
+                          const next = [...(editingArticle.faqs || [])];
+                          next[fIdx].answer = e.target.value;
+                          setEditingArticle({ ...editingArticle, faqs: next });
+                        }}
+                        style={{ width: "100%", padding: "6px 8px", borderRadius: 4, border: "1px solid #E2E8F0", fontSize: "0.8rem", resize: "vertical" }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Public URL Live Banner */}
+              <div style={{ background: "#EFF6FF", border: "1px solid #BFDBFE", borderRadius: 6, padding: "8px 12px", fontSize: "0.8rem", color: "#1D4ED8", display: "flex", alignItems: "center", gap: 6 }}>
+                <span>🔗 Public URL:</span>
+                <strong>
+                  https://cryptoairdropai.com/{editingArticle.pageType === 'intelligence' ? 'blog' : editingArticle.pageType === 'editorial' ? 'editorial-policy' : editingArticle.pageType || 'blog'}/{editingArticle.slug}/
+                </strong>
               </div>
 
               <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 14 }}>
@@ -1809,6 +2152,140 @@ export default function DharaPage() {
                   style={{ padding: "8px 16px", borderRadius: 6, background: "#2563EB", color: "#FFF", border: "none", cursor: "pointer", fontWeight: 700 }}
                 >
                   Save Article
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
+      {/* EDIT METHODOLOGY STAGE MODAL */}
+      {/* ==================================================== */}
+      {editingStep && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(15, 23, 42, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 110, padding: 20 }}>
+          <div style={{ background: "#FFFFFF", borderRadius: 16, maxWidth: 540, width: "100%", padding: 28, boxShadow: "0 10px 40px rgba(0,0,0,0.2)" }}>
+            <h2 style={{ fontSize: "1.25rem", fontWeight: 900, margin: "0 0 16px" }}>
+              Edit Methodology Stage {editingStep.step}
+            </h2>
+            <form onSubmit={handleSaveMethodologyStep} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "80px 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Icon</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingStep.icon}
+                    onChange={(e) => setEditingStep({ ...editingStep, icon: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontSize: "1.2rem", textAlign: "center" }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Stage Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingStep.title}
+                    onChange={(e) => setEditingStep({ ...editingStep, title: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Metric / Badge</label>
+                <input
+                  type="text"
+                  required
+                  value={editingStep.metric}
+                  onChange={(e) => setEditingStep({ ...editingStep, metric: e.target.value })}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                />
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Description</label>
+                <textarea
+                  rows={4}
+                  required
+                  value={editingStep.desc}
+                  onChange={(e) => setEditingStep({ ...editingStep, desc: e.target.value })}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontSize: "0.85rem", resize: "vertical" }}
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 10 }}>
+                <button
+                  type="button"
+                  onClick={() => setEditingStep(null)}
+                  style={{ padding: "8px 16px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", cursor: "pointer", fontWeight: 700 }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  style={{ padding: "8px 16px", borderRadius: 6, background: "#2563EB", color: "#FFF", border: "none", cursor: "pointer", fontWeight: 700 }}
+                >
+                  Save Stage
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
+      {/* EDIT EDITORIAL PILLAR MODAL */}
+      {/* ==================================================== */}
+      {editingPillar && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(15, 23, 42, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 110, padding: 20 }}>
+          <div style={{ background: "#FFFFFF", borderRadius: 16, maxWidth: 540, width: "100%", padding: 28, boxShadow: "0 10px 40px rgba(0,0,0,0.2)" }}>
+            <h2 style={{ fontSize: "1.25rem", fontWeight: 900, margin: "0 0 16px" }}>
+              Edit Editorial Pillar {editingPillar.num}
+            </h2>
+            <form onSubmit={handleSaveEditorialPillar} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Pillar Title</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingPillar.title}
+                    onChange={(e) => setEditingPillar({ ...editingPillar, title: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Badge / Tag</label>
+                  <input
+                    type="text"
+                    required
+                    value={editingPillar.badge}
+                    onChange={(e) => setEditingPillar({ ...editingPillar, badge: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+              </div>
+              <div>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Description</label>
+                <textarea
+                  rows={4}
+                  required
+                  value={editingPillar.desc}
+                  onChange={(e) => setEditingPillar({ ...editingPillar, desc: e.target.value })}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontSize: "0.85rem", resize: "vertical" }}
+                />
+              </div>
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 10 }}>
+                <button
+                  type="button"
+                  onClick={() => setEditingPillar(null)}
+                  style={{ padding: "8px 16px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", cursor: "pointer", fontWeight: 700 }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  style={{ padding: "8px 16px", borderRadius: 6, background: "#2563EB", color: "#FFF", border: "none", cursor: "pointer", fontWeight: 700 }}
+                >
+                  Save Pillar
                 </button>
               </div>
             </form>

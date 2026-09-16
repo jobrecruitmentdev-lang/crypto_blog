@@ -192,6 +192,25 @@ export async function getArticles(pageType?: PageType): Promise<Article[]> {
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | undefined> {
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch(`https://cryptoairdropai.com/api/articles.php?slug=${encodeURIComponent(slug)}`, {
+      signal: controller.signal,
+      next: { revalidate: 60 }
+    } as RequestInit);
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const art = await res.json();
+      if (art && art.slug) {
+        return art;
+      }
+    }
+  } catch (e) {
+    // API network fallback
+  }
+
   const articles = await getArticles();
   return articles.find((a) => a.slug === slug);
 }
