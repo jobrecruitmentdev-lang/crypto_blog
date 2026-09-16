@@ -173,15 +173,21 @@ if ($zip->open($zipFile) === TRUE) {{
     ftp.quit()
 
     # 6. Trigger Remote Unpack via HTTPS
+    print("⚡ Waiting 5s for Hostinger filesystem and CDN propagation...")
+    time.sleep(5)
     print("⚡ Triggering server-side instant extraction...")
     trigger_url = f"https://cryptoairdropai.com/{deploy_filename}?token={deploy_token}"
     extracted_success = False
 
-    for attempt in range(4):
+    for attempt in range(6):
         try:
             req = urllib.request.Request(
                 trigger_url,
-                headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'}
+                headers={
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache'
+                }
             )
             with urllib.request.urlopen(req, timeout=45) as response:
                 res_data = response.read().decode('utf-8')
@@ -194,9 +200,13 @@ if ($zip->open($zipFile) === TRUE) {{
                     break
                 else:
                     print(f"Extraction attempt {attempt+1} response: {res_data}")
+        except urllib.error.HTTPError as he:
+            err_body = he.read().decode('utf-8', errors='ignore')[:300]
+            print(f"Extraction attempt {attempt+1} HTTP {he.code}: {err_body}")
+            time.sleep(5)
         except Exception as e:
             print(f"Extraction attempt {attempt+1} note: {e}")
-            time.sleep(3)
+            time.sleep(5)
 
     # Cleanup local temp files
     if os.path.exists(zip_path):

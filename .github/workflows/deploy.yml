@@ -27,6 +27,7 @@ concurrency:
 jobs:
   build-test-deploy:
     runs-on: ubuntu-latest
+    if: "${{ secrets.SERVER_IP != '' }}"
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v4
