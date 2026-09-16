@@ -7,8 +7,9 @@ echo ===========================================================================
 echo     CRYPTO AIRDROP AI - AUTONOMOUS BATCH PUBLISHING ENGINE (3x3x3)
 echo ===============================================================================
 echo.
-echo   [*] Target: 3 Projects + 3 Intelligence Articles + 3 Guides Playbooks
-echo   [*] Standard: Topic-Specific Bespoke Visuals, Full Invariants, Live Deploy
+echo   [*] Target:   3 Fresh Projects + 3 Intelligence Articles + 3 Guides Playbooks
+echo   [*] Standard: Live DeFi Scraping, Groq LLM Writing, Bespoke 3D AI Visuals
+echo   [*] Security: Zero Duplicates Contract, Next.js Build Gate, Live Hostinger Sync
 echo.
 echo ===============================================================================
 echo.
@@ -18,12 +19,16 @@ python automation\batch_runner.py
 if %ERRORLEVEL% NEQ 0 (
     color 0C
     echo.
+    echo ===============================================================================
     echo [ERROR] Batch automation encountered a failure. Please check logs above.
+    echo ===============================================================================
     echo.
 ) else (
     color 0A
     echo.
-    echo [SUCCESS] Batch automation completed and pushed to production!
+    echo ===============================================================================
+    echo [SUCCESS] 100%% Batch automation completed and pushed to production live!
+    echo ===============================================================================
     echo.
 )
 

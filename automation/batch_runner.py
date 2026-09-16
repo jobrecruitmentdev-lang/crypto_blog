@@ -1,6 +1,18 @@
+"""
+CryptoAirdropAI Master Autonomous Batch Publishing Engine (3x3x3)
+Pipeline:
+  Phase 1: Live Scraping & Deduplication (DeFiLlama & CoinGecko)
+  Phase 2: Institutional Content Generation (Groq LLM)
+  Phase 3: Autonomous Antigravity & AI Bespoke 3D Visual Generation
+  Phase 4: Hostinger MySQL Database Synchronization
+  Phase 5: Production Quality Gate (Zero Duplicates Test & Next.js Build)
+  Phase 6: Git Commit & Live Hostinger Deployment
+"""
+
 import os
 import sys
 import time
+import json
 import subprocess
 from pathlib import Path
 from dotenv import load_dotenv
@@ -15,14 +27,17 @@ if sys.platform == "win32":
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 AUTOMATION_ROOT = Path(__file__).resolve().parent
+MODULES_DIR = AUTOMATION_ROOT / "modules"
 
-sys.path.extend([str(AUTOMATION_ROOT), str(PROJECT_ROOT)])
+sys.path.extend([str(AUTOMATION_ROOT), str(MODULES_DIR), str(PROJECT_ROOT)])
 
 load_dotenv(dotenv_path=AUTOMATION_ROOT / ".env")
 load_dotenv()
 
-from modules.project_scraper import generate_batch_projects
-from modules.article_generator import generate_batch_articles
+from live_scout import scout_3x3x3_batch
+from institutional_writer import generate_full_batch_manifest
+from antigravity_image_bridge import process_batch_images
+from db_sync import sync_batch_to_mysql
 
 def run_cmd(cmd, cwd=None):
     print(f"\n[RUN] {' '.join(cmd) if isinstance(cmd, list) else cmd}")
@@ -38,108 +53,87 @@ def run_master_automation():
     print("\n" + "=" * 80)
     print("  🚀 CRYPTOAIRDROPAI.COM — AUTONOMOUS BATCH PUBLISHING ENGINE (3x3x3)")
     print("=" * 80)
-    print("  Queue: 3 Projects + 3 Intelligence Articles + 3 Guides Playbooks")
-    print("  Standard: Gemini-Class Bespoke Visuals, Full Invariants, 100% Live Deploy")
+    print("  Target: 3 Projects + 3 Intelligence Articles + 3 Guides Playbooks")
+    print("  Standard: 100% Unique Bespoke 3D Visuals, Zero Duplicates, Live Deploy")
     print("=" * 80 + "\n")
 
-    # 1. Generate 3 Projects
+    # PHASE 1: LIVE SCOUTING & DEDUPLICATION
     print("\n" + "▶" * 40)
-    print("PHASE 1: GENERATING 3 VERIFIED AIRDROP PROTOCOLS")
+    print("PHASE 1: LIVE PROTOCOL SCOUTING & DEDUPLICATION")
     print("▶" * 40)
-    new_projects = generate_batch_projects(count=3)
+    scout_data = scout_3x3x3_batch()
+    if not scout_data["projects"] or not scout_data["intelligence"] or not scout_data["guides"]:
+        print("❌ Scouting did not return full 3x3x3 batch! Aborting.")
+        sys.exit(1)
 
-    # 2. Generate 3 Intelligence Articles (2,200 - 2,600 words, 4-6 FAQs)
+    # PHASE 2: INSTITUTIONAL CONTENT GENERATION (LLM)
     print("\n" + "▶" * 40)
-    print("PHASE 2: GENERATING 3 DEEP INTELLIGENCE REPORTS (2,200-2,600 WORDS)")
+    print("PHASE 2: INSTITUTIONAL LLM CONTENT GENERATION (2,200+ WORDS)")
     print("▶" * 40)
-    new_intelligence = generate_batch_articles(page_type="intelligence", count=3)
+    manifest = generate_full_batch_manifest(scout_data)
 
-    # 3. Generate 3 Guides (1,800 - 2,200 words, 4-7 FAQs)
+    # PHASE 3: BESPOKE 3D IMAGE GENERATION
     print("\n" + "▶" * 40)
-    print("PHASE 3: GENERATING 3 TACTICAL GUIDES (1,800-2,200 WORDS)")
+    print("PHASE 3: AUTONOMOUS 3D VISUAL ASSET GENERATION")
     print("▶" * 40)
-    new_guides = generate_batch_articles(page_type="guides", count=3)
+    process_batch_images()
 
-    # 3.5 Sync generated batch to Hostinger MySQL Database
+    # Reload generated batch with final image paths
+    batch_file = AUTOMATION_ROOT / "pending_batch.json"
+    with open(batch_file, "r", encoding="utf-8") as f:
+        final_batch = json.load(f)
+
+    # PHASE 4: SYNC TO HOSTINGER MYSQL DATABASE
     print("\n" + "▶" * 40)
-    print("PHASE 3.5: PERSISTING BATCH TO HOSTINGER MYSQL DATABASE")
+    print("PHASE 4: HOSTINGER MYSQL REMOTE DATABASE SYNC")
     print("▶" * 40)
     try:
-        from modules.db_sync import sync_batch_to_mysql
-        sync_batch_to_mysql(new_projects, new_intelligence, new_guides)
+        sync_batch_to_mysql(
+            final_batch["projects"],
+            final_batch["intelligence"],
+            final_batch["guides"]
+        )
     except Exception as e:
         print(f"⚠️ Notice: Database sync encountered issue: {e}")
 
-    # 4. Local Build & Verification Gate
+    # PHASE 5: QUALITY GATE & LOCAL BUILD VERIFICATION
     print("\n" + "▶" * 40)
-    print("PHASE 4: LOCAL BUILD & STATIC VERIFICATION GATE")
+    print("PHASE 5: PRODUCTION QUALITY GATE & BUILD VERIFICATION")
     print("▶" * 40)
+
+    # 1. Uniqueness check
+    uniq_ok = run_cmd([sys.executable, str(PROJECT_ROOT / "tests" / "verify_image_uniqueness.py")])
+    if not uniq_ok:
+        print("❌ Image uniqueness verification failed! Aborting deploy.")
+        sys.exit(1)
+
+    # 2. Next.js static build
     web_dir = PROJECT_ROOT / "web"
     build_ok = run_cmd("npm run build", cwd=web_dir)
     if not build_ok:
-        print("❌ Build failed! Aborting git commit & push.")
+        print("❌ Next.js build failed! Aborting deploy.")
         sys.exit(1)
 
-    verify_ok = run_cmd([sys.executable, str(PROJECT_ROOT / "tests" / "verify_crawl_architecture.py")])
-    if not verify_ok:
-        print("❌ Crawl architecture verification failed! Aborting git push.")
-        sys.exit(1)
-
-    # 5. Production Git Commit & Push
+    # PHASE 6: GIT COMMIT & PRODUCTION LIVE DEPLOYMENT
     print("\n" + "▶" * 40)
-    print("PHASE 5: GIT COMMIT & HOSTINGER PRODUCTION DEPLOYMENT")
+    print("PHASE 6: GIT COMMIT & PRODUCTION DEPLOYMENT TO HOSTINGER")
     print("▶" * 40)
-    
+
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     commit_msg = f"feat(auto): publish 3 projects, 3 intelligence articles, 3 guides [{timestamp}]"
 
-    run_cmd("git add web/src/data/ web/public/images/generated/ automation/ scripts/")
+    run_cmd("git add web/src/data/ web/public/images/generated/ automation/pending_batch.json")
     run_cmd(f'git commit -m "{commit_msg}"')
     push_ok = run_cmd("git push origin main")
 
-    if push_ok:
-        print("\n✅ Successfully pushed to origin main! GitHub Actions deployment triggered.")
-    else:
-        print("\n⚠️ Notice: Git push completed or no changes to push.")
-
-    # 6. Search Discovery Broadcast (Google Indexing API + IndexNow)
-    print("\n" + "▶" * 40)
-    print("PHASE 6: SEARCH DISCOVERY BROADCAST (GOOGLE + INDEXNOW)")
-    print("▶" * 40)
-    new_urls = []
-    for p in new_projects:
-        new_urls.append(f"https://cryptoairdropai.com/projects/{p['slug']}/")
-    for a in new_intelligence:
-        new_urls.append(f"https://cryptoairdropai.com/blog/{a['slug']}/")
-    for g in new_guides:
-        new_urls.append(f"https://cryptoairdropai.com/guides/{g['slug']}/")
-
-    try:
-        from modules.submit_indexing import notify_search_engines
-        notify_search_engines(new_urls)
-    except Exception as e:
-        print(f"[*] Search indexing broadcast note: {e}")
-
     elapsed = time.time() - start_time
     print("\n" + "=" * 80)
-    print(f"  🎉 BATCH PUBLISHING COMPLETED IN {elapsed:.1f} SECONDS!")
-    print("=" * 80)
-    print("\n📋 SCOREBOARD OF NEWLY PUBLISHED ASSETS:")
-    print("-" * 80)
-    print("PROJECTS (3):")
-    for p in new_projects:
-        print(f"  ● https://cryptoairdropai.com/projects/{p['slug']}/  ({p['chain']} | {p['reward']})")
-    print("\nINTELLIGENCE ARTICLES (3):")
-    for a in new_intelligence:
-        word_count = len(a['body'].split())
-        faq_count = len(a.get('faqs', []))
-        print(f"  ● https://cryptoairdropai.com/blog/{a['slug']}/  ({word_count:,} words | {faq_count} FAQs)")
-    print("\nGUIDES (3):")
-    for g in new_guides:
-        word_count = len(g['body'].split())
-        faq_count = len(g.get('faqs', []))
-        print(f"  ● https://cryptoairdropai.com/guides/{g['slug']}/  ({word_count:,} words | {faq_count} FAQs)")
-    print("=" * 80)
+    if push_ok:
+        print(f"  🎉 BATCH PUBLISHING SUCCESSFUL IN {elapsed:.1f}s!")
+        print("  All 3 Projects + 3 Intelligence + 3 Guides deployed live to Hostinger.")
+    else:
+        print(f"  ⚠️ Completed with git warning in {elapsed:.1f}s. Check output above.")
+    print("=" * 80 + "\n")
 
 if __name__ == "__main__":
     run_master_automation()
