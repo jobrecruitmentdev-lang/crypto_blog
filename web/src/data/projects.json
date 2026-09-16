@@ -993,7 +993,7 @@
     "difficulty": "Medium",
     "time": "15 min/week",
     "heat": 420,
-    "desc": "OpenTrade is a multi‑chain marketplace that tokenizes real‑world assets, allowing institutions to access and trade RWA with on‑chain settlement. It delivers value through fee‑based services and liquidity provision without a native token.",
+    "desc": "OpenTrade is a multi\u2011chain marketplace that tokenizes real\u2011world assets, allowing institutions to access and trade RWA with on\u2011chain settlement. It delivers value through fee\u2011based services and liquidity provision without a native token.",
     "tags": [
       "RWA",
       "Confirmed",
@@ -1002,13 +1002,13 @@
     "farmingSteps": [
       {
         "step": 1,
-        "title": "On‑chain Asset Tokenization Review",
-        "desc": "Examine how OpenTrade tokenizes real‑world assets and the legal framework supporting ownership rights."
+        "title": "On\u2011chain Asset Tokenization Review",
+        "desc": "Examine how OpenTrade tokenizes real\u2011world assets and the legal framework supporting ownership rights."
       },
       {
         "step": 2,
         "title": "Liquidity & Market Depth Analysis",
-        "desc": "Assess the depth of order books, available capital, and cross‑chain liquidity mechanisms."
+        "desc": "Assess the depth of order books, available capital, and cross\u2011chain liquidity mechanisms."
       },
       {
         "step": 3,
@@ -1028,7 +1028,7 @@
     },
     "riskScore": 18,
     "visual_theme": "OpenTrade RWA Multi-Chain",
-    "featuredImage": "/images/generated/opentrade-project-gemini-v3.jpg"
+    "featuredImage": "/images/generated/opentrade-project-gemini-v4.jpg"
   },
   {
     "name": "GTBTC",
@@ -1042,7 +1042,7 @@
     "difficulty": "Medium",
     "time": "15 min/week",
     "heat": 420,
-    "desc": "GTBTC enables Bitcoin holders to earn yield by restaking BTC on a layer‑2 solution without issuing a new token. It captures value through protocol fees and liquidity incentives, offering a tokenless, permissionless return on BTC.",
+    "desc": "GTBTC enables Bitcoin holders to earn yield by restaking BTC on a layer\u20112 solution without issuing a new token. It captures value through protocol fees and liquidity incentives, offering a tokenless, permissionless return on BTC.",
     "tags": [
       "Restaked BTC",
       "Confirmed",
@@ -1077,7 +1077,7 @@
     },
     "riskScore": 18,
     "visual_theme": "GTBTC Restaked BTC Bitcoin",
-    "featuredImage": "/images/generated/gtbtc-project-gemini-v3.jpg"
+    "featuredImage": "/images/generated/gtbtc-project-gemini-v4.jpg"
   },
   {
     "name": "CIAN Yield Layer",
@@ -1091,7 +1091,7 @@
     "difficulty": "Medium",
     "time": "15 min/week",
     "heat": 420,
-    "desc": "CIAN Yield Layer is a multi‑chain yield aggregator that automatically routes capital to the highest‑APY strategies across DeFi. It delivers tokenless value by optimizing returns without requiring a native governance token, reducing dilution risk for institutional investors.",
+    "desc": "CIAN Yield Layer is a multi\u2011chain yield aggregator that automatically routes capital to the highest\u2011APY strategies across DeFi. It delivers tokenless value by optimizing returns without requiring a native governance token, reducing dilution risk for institutional investors.",
     "tags": [
       "Yield Aggregator",
       "Confirmed",
@@ -1101,7 +1101,7 @@
       {
         "step": 1,
         "title": "Initial Research",
-        "desc": "Review the platform’s documentation, roadmap, and team credentials."
+        "desc": "Review the platform\u2019s documentation, roadmap, and team credentials."
       },
       {
         "step": 2,
@@ -1126,6 +1126,6 @@
     },
     "riskScore": 18,
     "visual_theme": "CIAN Yield Layer Yield Aggregator Multi-Chain",
-    "featuredImage": "/images/generated/cian-yield-layer-project-gemini-v3.jpg"
+    "featuredImage": "/images/generated/cian-yield-layer-project-gemini-v4.jpg"
   }
 ]
