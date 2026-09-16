@@ -15,9 +15,9 @@
   - Top Confirmed Crypto Airdrops of 2026: https://cryptoairdropai.com/blog/top-confirmed-crypto-airdrops-2026-calendar/
 - **Step-by-Step Farming Guides**: https://cryptoairdropai.com/guides/
   - Setting Up a Secure Farming Wallet: https://cryptoairdropai.com/guides/setting-up-a-farming-wallet/
-  - Cross-Chain Bridging & Liquidity Routing: https://cryptoairdropai.com/guides/bridging-to-layer-2-networks/
-  - Understanding Snapshot Mechanics & Block Heights: https://cryptoairdropai.com/guides/understanding-snapshot-mechanics/
-  - Mastering On-Chain Sybil Resistance Heuristics: https://cryptoairdropai.com/guides/avoiding-sybil-detection/
+  - Cross-Chain Bridging & Liquidity Routing: https://cryptoairdropai.com/guides/cross-chain-bridging-liquidity-routing-security-manual/
+  - Understanding Snapshot Mechanics & Block Heights: https://cryptoairdropai.com/guides/understanding-snapshot-mechanics-block-heights-in-web3-airdrops/
+  - Mastering On-Chain Sybil Resistance Heuristics: https://cryptoairdropai.com/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/
 - **5-Stage Evaluation Methodology**: https://cryptoairdropai.com/methodology/
 - **Editorial Policy & Fact-Checking Standard**: https://cryptoairdropai.com/editorial-policy/
 - **Research Analysts & Reviewers**: https://cryptoairdropai.com/authors/

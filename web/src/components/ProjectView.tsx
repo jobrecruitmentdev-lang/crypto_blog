@@ -255,7 +255,7 @@ export default function ProjectView({ initialProject, related }: ProjectViewProp
                 <span className="pill-badge success" style={{ fontSize: "0.65rem", marginBottom: 6 }}>SECURITY</span>
                 <div style={{ fontWeight: 700, fontSize: "0.92rem", color: "var(--text-bright)" }}>Wallet Isolation Manual →</div>
               </Link>
-              <Link href="/guides/avoiding-sybil-detection/" className="card" style={{ padding: "14px 16px", textDecoration: "none", background: "var(--surface-sunken)", border: "1px solid var(--border)" }}>
+              <Link href="/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/" className="card" style={{ padding: "14px 16px", textDecoration: "none", background: "var(--surface-sunken)", border: "1px solid var(--border)" }}>
                 <span className="pill-badge gold" style={{ fontSize: "0.65rem", marginBottom: 6 }}>ANTI-SYBIL</span>
                 <div style={{ fontWeight: 700, fontSize: "0.92rem", color: "var(--text-bright)" }}>Sybil Defense Guide →</div>
               </Link>

@@ -333,7 +333,7 @@ export const GUIDES: Guide[] = [
     <p>Focus on maintaining 2 to 4 high-quality, distinct wallet identities rather than dozens of unmaintained accounts to minimize security exposure and sybil flagging.</p>`,
   },
   {
-    slug: "bridging-to-layer-2-networks",
+    slug: "cross-chain-bridging-liquidity-routing-security-manual",
     title: "Cross-Chain Bridging & Liquidity Routing Manual",
     level: "Beginner",
     desc: "Step-by-step security walkthrough of bridging ETH, SOL, and stablecoins across Layer-2 rollups.",
@@ -343,7 +343,7 @@ export const GUIDES: Guide[] = [
     <p>After bridging assets, engage with verified decentralized applications on the destination chain to establish an active, authentic on-chain presence.</p>`,
   },
   {
-    slug: "understanding-snapshot-mechanics",
+    slug: "understanding-snapshot-mechanics-block-heights-in-web3-airdrops",
     title: "Understanding Snapshot Mechanics & Block Heights",
     level: "Intermediate",
     desc: "How token snapshots are calculated, verified on-chain, and weighted across active epochs.",
@@ -353,7 +353,7 @@ export const GUIDES: Guide[] = [
     <p>Consistency over multiple calendar months delivers significantly higher allocation tiers than high-frequency single-day transaction bursts.</p>`,
   },
   {
-    slug: "avoiding-sybil-detection",
+    slug: "mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene",
     title: "Mastering On-Chain Sybil Resistance Heuristics",
     level: "Advanced",
     desc: "Advanced methodologies for wallet behavior analysis, clustering avoidance, and genuine contribution profiling.",

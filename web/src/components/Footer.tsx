@@ -141,9 +141,9 @@ export default function Footer() {
               <li><Link href="/blog/">Market Intelligence Feed</Link></li>
               <li><Link href="/guides/">Step-by-Step Farming Guides</Link></li>
               <li><Link href="/guides/setting-up-a-farming-wallet/">Wallet Isolation Manual</Link></li>
-              <li><Link href="/guides/avoiding-sybil-detection/">Sybil Defense Playbook</Link></li>
-              <li><Link href="/guides/bridging-to-layer-2-networks/">Layer-2 Bridging Guide</Link></li>
-              <li><Link href="/guides/understanding-snapshot-mechanics/">Snapshot Mechanics Guide</Link></li>
+              <li><Link href="/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/">Sybil Defense Playbook</Link></li>
+              <li><Link href="/guides/cross-chain-bridging-liquidity-routing-security-manual/">Layer-2 Bridging Guide</Link></li>
+              <li><Link href="/guides/understanding-snapshot-mechanics-block-heights-in-web3-airdrops/">Snapshot Mechanics Guide</Link></li>
               <li><Link href="/faq/">Protocol Security FAQ</Link></li>
             </ul>
           </div>
