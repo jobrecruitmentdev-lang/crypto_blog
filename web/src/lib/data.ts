@@ -362,6 +362,42 @@ export const GUIDES: Guide[] = [
     body: `<p>Avoid funding multiple addresses from the same exchange deposit hot wallet in rapid succession. Randomize withdrawal intervals and transaction amounts.</p>
     <p>Ensure distinct behavioral diversity across your active accounts — avoid identical transaction orders, identical gas limit presets, or mirrored dApp sequences.</p>`,
   },
+  {
+    slug: "solana-multi-wallet-isolation-sybil-defense-masterclass-2026",
+    title: "Solana Multi-Wallet Isolation & Sybil Defense Masterclass 2026",
+    level: "Advanced",
+    desc: "Complete operational security and clustering avoidance architecture for high-volume Solana ecosystem airdrop campaigns.",
+    authorSlug: "security-sentinel-ai",
+    updatedAt: "2026-09-14",
+    body: `<p>Solana cluster detection relies heavily on fee payer address reuse and rapid sequential account derivations. Maintain strict sub-account isolation and vary slot execution patterns.</p>`,
+  },
+  {
+    slug: "evm-gas-optimization-and-gwei-timing-for-airdrop-farmers",
+    title: "EVM Gas Optimization & Gwei Timing: Slashing On-Chain Farming Costs by 75%",
+    level: "Intermediate",
+    desc: "Master Ethereum, Arbitrum, Base, and Optimism gas fee dynamics, EIP-4844 blob pricing, and off-peak execution windows.",
+    authorSlug: "security-sentinel-ai",
+    updatedAt: "2026-09-16",
+    body: `<p>Gas friction is the primary barrier to scalable farming. Optimize execution during weekend low-Gwei windows and configure custom priority fee caps.</p>`,
+  },
+  {
+    slug: "hardware-wallet-multisig-airdrop-claim-security-manual",
+    title: "Hardware Wallet & Multisig Claiming Security: Neutralizing Airdrop Drainers",
+    level: "Advanced",
+    desc: "Step-by-step operational security for claiming token airdrops safely: Permit signature inspection and Safe multisig isolation.",
+    authorSlug: "security-sentinel-ai",
+    updatedAt: "2026-09-16",
+    body: `<p>Airdrop claims carry severe drainer risks. Verify EIP-712 permit spenders and route high-value allocations through air-gapped multisig vaults.</p>`,
+  },
+  {
+    slug: "automated-scripts-vs-manual-interaction-sybil-vectors",
+    title: "Automated Scripts vs. Manual Interaction: Avoiding Bot Clustering Filters",
+    level: "Advanced",
+    desc: "A deep dive into LayerZero, zkSync, and Arbitrum sybil detection heuristics: avoiding bot clustering filters with organic entropy.",
+    authorSlug: "security-sentinel-ai",
+    updatedAt: "2026-09-16",
+    body: `<p>Algorithmic community detection algorithms blacklist synchronized transaction graphs. Inject high temporal jitter and non-linear dApp call sequences.</p>`,
+  },
 ];
 
 export const FAQS: Faq[] = [

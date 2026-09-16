@@ -18,6 +18,10 @@
   - Cross-Chain Bridging & Liquidity Routing: https://cryptoairdropai.com/guides/cross-chain-bridging-liquidity-routing-security-manual/
   - Understanding Snapshot Mechanics & Block Heights: https://cryptoairdropai.com/guides/understanding-snapshot-mechanics-block-heights-in-web3-airdrops/
   - Mastering On-Chain Sybil Resistance Heuristics: https://cryptoairdropai.com/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/
+  - Solana Multi-Wallet Isolation & Sybil Defense: https://cryptoairdropai.com/guides/solana-multi-wallet-isolation-sybil-defense-masterclass-2026/
+  - EVM Gas Optimization & Gwei Timing: https://cryptoairdropai.com/guides/evm-gas-optimization-and-gwei-timing-for-airdrop-farmers/
+  - Hardware Wallet & Multisig Claiming Security: https://cryptoairdropai.com/guides/hardware-wallet-multisig-airdrop-claim-security-manual/
+  - Automated Scripts vs. Manual Interaction: https://cryptoairdropai.com/guides/automated-scripts-vs-manual-interaction-sybil-vectors/
 - **5-Stage Evaluation Methodology**: https://cryptoairdropai.com/methodology/
 - **Editorial Policy & Fact-Checking Standard**: https://cryptoairdropai.com/editorial-policy/
 - **Research Analysts & Reviewers**: https://cryptoairdropai.com/authors/
