@@ -32,6 +32,9 @@ jobs:
       with:
         python-version: '3.11'
 
+    - name: Verify 100% Unique Images (Zero Duplicates Contract)
+      run: python tests/verify_image_uniqueness.py
+
     - name: Deploy to Hostinger via Python FTP
       env:
         FTP_SERVER: ${{ secrets.FTP_SERVER }}

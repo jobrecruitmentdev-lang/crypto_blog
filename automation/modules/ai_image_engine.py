@@ -186,6 +186,32 @@ def generate_8k_image(topic: str, slug: str, placement: str = "featured", catego
     target_dim = (800, 800) if is_square else (1280, 720)
     prompt = build_topic_prompt(topic, placement)
 
+    # Dynamic SHA-256 salt with microsecond timestamp to guarantee unique randomness
+    seed = int(hashlib.sha256(f"{slug}_{placement}_{time.time_ns()}".encode()).hexdigest(), 16) % 900000 + 100000
+
+    # Build catalog of existing image hashes to detect and prevent collisions
+    existing_hashes = set()
+    for existing_file in OUTPUT_DIR.glob("*.jpg"):
+        if existing_file.name != filename:
+            try:
+                with open(existing_file, "rb") as efp:
+                    existing_hashes.add(hashlib.md5(efp.read()).hexdigest())
+            except Exception:
+                pass
+
+    def save_and_verify(image_obj: Image.Image) -> bool:
+        buf = io.BytesIO()
+        image_obj.save(buf, format="JPEG", quality=95)
+        raw_bytes = buf.getvalue()
+        new_hash = hashlib.md5(raw_bytes).hexdigest()
+        if new_hash in existing_hashes:
+            print(f"[!] Warning: Hash collision detected for {filename} ({new_hash[:8]}). Regenerating...")
+            return False
+        with open(target_path, "wb") as fp:
+            fp.write(raw_bytes)
+        print(f"[✓] Unique image saved: {filename} ({len(raw_bytes):,} bytes, hash: {new_hash[:8]}) -> {web_url}")
+        return True
+
     # -------------------------------------------------------------
     # Tier 1: Hugging Face FLUX.1-schnell
     # -------------------------------------------------------------
@@ -198,9 +224,8 @@ def generate_8k_image(topic: str, slug: str, placement: str = "featured", catego
             img = client.text_to_image(prompt, model=HF_MODEL, width=gen_w, height=gen_h)
             if img:
                 final = img.resize(target_dim, Image.Resampling.LANCZOS)
-                final.save(target_path, quality=95)
-                print(f"[✓] FLUX.1-schnell rendered successfully ({target_path.stat().st_size:,} bytes) -> {web_url}")
-                return web_url
+                if save_and_verify(final):
+                    return web_url
         except Exception as e:
             print(f"[-] Hugging Face FLUX error: {e}. Falling back to Tier 2...")
 
@@ -208,24 +233,22 @@ def generate_8k_image(topic: str, slug: str, placement: str = "featured", catego
     # Tier 2: Pollinations AI (with Pillow crop)
     # -------------------------------------------------------------
     print(f"[*] [Tier 2: Pollinations AI] Generating visual for '{topic}' [{placement}]...")
-    seed = abs(hash(slug + placement)) % 100000
     w_req, h_req = (1024, 1024) if is_square else (1024, 576)
     encoded = urllib.parse.quote(prompt)
 
-    for attempt in range(1, 3):
-        url = f"https://image.pollinations.ai/prompt/{encoded}?width={w_req}&height={h_req}&seed={seed + attempt * 17}"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+    for attempt in range(1, 4):
+        url = f"https://image.pollinations.ai/prompt/{encoded}?width={w_req}&height={h_req}&seed={seed + attempt * 73}&nologo=true"
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
         try:
-            with urllib.request.urlopen(req, timeout=22) as resp:
+            with urllib.request.urlopen(req, timeout=25) as resp:
                 data = resp.read()
             if len(data) > 20000:
                 img = Image.open(io.BytesIO(data))
                 crop_h = 45 if is_square else 35
                 cropped = img.crop((0, 0, img.size[0], img.size[1] - crop_h))
                 final = cropped.resize(target_dim, Image.Resampling.LANCZOS)
-                final.save(target_path, quality=95)
-                print(f"[✓] Pollinations AI rendered ({target_path.stat().st_size:,} bytes) -> {web_url}")
-                return web_url
+                if save_and_verify(final):
+                    return web_url
         except Exception as e:
             print(f"[-] Pollinations attempt {attempt} failed: {e}")
             time.sleep(2)
@@ -235,8 +258,7 @@ def generate_8k_image(topic: str, slug: str, placement: str = "featured", catego
     # -------------------------------------------------------------
     print(f"[!] [Tier 3: Procedural Fallback] Rendering cybernetic HUD visual for '{topic}' [{placement}]...")
     fallback_img = render_procedural_fallback(topic, placement, target_dim)
-    fallback_img.save(target_path, quality=95)
-    print(f"[✓] Procedural 3D visual saved ({target_path.stat().st_size:,} bytes) -> {web_url}")
+    save_and_verify(fallback_img)
     return web_url
 
 def generate_article_images_trio(topic: str, slug: str, category: str = "MARKET INTELLIGENCE") -> dict:
