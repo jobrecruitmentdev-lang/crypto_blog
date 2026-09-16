@@ -1,0 +1,13 @@
+{
+  "ticker": [
+    { "id": 1, "sym": "BTC", "price": "$64,250", "chg": "+2.4%", "up": true, "sort": 1 },
+    { "id": 2, "sym": "ETH", "price": "$3,480", "chg": "+1.8%", "up": true, "sort": 2 },
+    { "id": 3, "sym": "SOL", "price": "$152", "chg": "-0.5%", "up": false, "sort": 3 },
+    { "id": 4, "sym": "BERA", "price": "$14.20", "chg": "+8.9%", "up": true, "sort": 4 },
+    { "id": 5, "sym": "MONAD", "price": "$28.50", "chg": "+12.1%", "up": true, "sort": 5 }
+  ],
+  "alphaDispatch": {
+    "title": "2026 Security Playbook →",
+    "url": "/blog/how-to-farm-airdrops-safely-2026/"
+  }
+}

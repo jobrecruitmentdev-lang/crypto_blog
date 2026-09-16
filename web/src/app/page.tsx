@@ -7,6 +7,8 @@ import { GUIDES } from "@/lib/data";
 import { getAllPosts } from "@/lib/cms/blogService";
 import { getProjects, getArticles } from "@/lib/contentStore";
 import { MotionCard, MotionFade } from "@/components/ui/MotionWrapper";
+import HomeTickerStrip from "@/components/HomeTickerStrip";
+import initialTickerData from "@/data/ticker.json";
 
 export default async function Home() {
   const [allPosts, allProjects, guideArticles, methodologyArticles] = await Promise.all([
@@ -23,21 +25,10 @@ export default async function Home() {
   return (
     <>
       {/* CoinDesk Style Live Market Ticker Strip */}
-      <div className="tui-top-bar" style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)", color: "var(--muted)", fontSize: "0.82rem" }}>
-        <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
-          <span><span style={{ color: "var(--emerald)", fontWeight: 800 }}>●</span> RPC INGESTION: <b style={{ color: "var(--text-bright)" }}>OPTIMAL (14ms)</b></span>
-          <span>BTC: <b style={{ color: "var(--text-bright)" }}>$88,450</b> <span style={{ color: "var(--emerald)", fontSize: "0.75rem", fontWeight: 700 }}>+2.4%</span></span>
-          <span>ETH: <b style={{ color: "var(--text-bright)" }}>$3,210</b> <span style={{ color: "var(--emerald)", fontSize: "0.75rem", fontWeight: 700 }}>+1.8%</span></span>
-          <span>SOL: <b style={{ color: "var(--text-bright)" }}>$185</b> <span style={{ color: "var(--emerald)", fontSize: "0.75rem", fontWeight: 700 }}>+4.2%</span></span>
-          <span>ACTIVE CHAINS: <b style={{ color: "var(--text-bright)" }}>50+ INDEXED</b></span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontWeight: 600, color: "var(--accent)" }}>ALPHA DISPATCH: </span>
-          <Link href="/blog/how-to-farm-airdrops-safely-2026/" style={{ color: "var(--text-bright)", fontWeight: 600, textDecoration: "none" }}>
-            2026 Security Playbook →
-          </Link>
-        </div>
-      </div>
+      <HomeTickerStrip 
+        initialTicker={initialTickerData.ticker} 
+        initialAlphaDispatch={initialTickerData.alphaDispatch} 
+      />
 
       {/* CoinDesk Media Bento Hero Section */}
       <section className="section" style={{ padding: "36px 0 28px" }}>

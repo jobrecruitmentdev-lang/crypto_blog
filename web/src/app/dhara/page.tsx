@@ -9,6 +9,16 @@ import initialProjectsData from "@/data/projects.json";
 import initialArticlesData from "@/data/articles.json";
 import initialMethodologyStepsData from "@/data/methodology_framework.json";
 import initialEditorialPillarsData from "@/data/editorial_framework.json";
+import initialTickerData from "@/data/ticker.json";
+
+interface TickerItem {
+  id?: number;
+  sym: string;
+  price: string;
+  chg: string;
+  up: boolean;
+  sort?: number;
+}
 
 interface MethodologyStepItem {
   step: string;
@@ -347,13 +357,19 @@ export default function DharaPage() {
   // Home Page Settings
   const [homeHeroHeadline, setHomeHeroHeadline] = useState("Daily fact-checked crypto guides, retroactive airdrop tutorials, and DeFi market research.");
   const [homeLeadStorySlug, setHomeLeadStorySlug] = useState("berachain-v2-proof-of-liquidity-tge-breakdown-2026");
-  const [homeTickerItems, setHomeTickerItems] = useState([
-    { sym: "BTC", price: "$64,250", chg: "+2.4%", up: true },
-    { sym: "ETH", price: "$3,480", chg: "+1.8%", up: true },
-    { sym: "SOL", price: "$152", chg: "-0.5%", up: false },
-    { sym: "BERA", price: "$14.20", chg: "+8.9%", up: true },
-    { sym: "MONAD", price: "$28.50", chg: "+12.1%", up: true },
-  ]);
+  const [homeTickerItems, setHomeTickerItems] = useState<TickerItem[]>(
+    (initialTickerData.ticker || [
+      { sym: "BTC", price: "$64,250", chg: "+2.4%", up: true },
+      { sym: "ETH", price: "$3,480", chg: "+1.8%", up: true },
+      { sym: "SOL", price: "$152", chg: "-0.5%", up: false },
+      { sym: "BERA", price: "$14.20", chg: "+8.9%", up: true },
+      { sym: "MONAD", price: "$28.50", chg: "+12.1%", up: true },
+    ]) as TickerItem[]
+  );
+  const [alphaTitle, setAlphaTitle] = useState(initialTickerData.alphaDispatch?.title || "2026 Security Playbook →");
+  const [alphaUrl, setAlphaUrl] = useState(initialTickerData.alphaDispatch?.url || "/blog/how-to-farm-airdrops-safely-2026/");
+  const [editingTickerItem, setEditingTickerItem] = useState<TickerItem | null>(null);
+  const [isNewTicker, setIsNewTicker] = useState(false);
 
   // About Page Settings & Team CRUD
   const [aboutMission, setAboutMission] = useState(
@@ -470,12 +486,24 @@ export default function DharaPage() {
     async function loadDatabaseData() {
       try {
         const apiBase = getApiBase();
-        const [projRes, artRes, methRes, editRes] = await Promise.all([
+        const [projRes, artRes, methRes, editRes, tickerRes] = await Promise.all([
           fetch(`${apiBase}/projects.php?all=1`),
           fetch(`${apiBase}/articles.php?all=1`),
           fetch(`${apiBase}/framework.php?type=methodology`),
-          fetch(`${apiBase}/framework.php?type=editorial`)
+          fetch(`${apiBase}/framework.php?type=editorial`),
+          fetch(`${apiBase}/ticker.php`)
         ]);
+
+        if (tickerRes && tickerRes.ok) {
+          const tickerJson = await tickerRes.json();
+          if (Array.isArray(tickerJson.ticker) && tickerJson.ticker.length > 0) {
+            setHomeTickerItems(tickerJson.ticker);
+          }
+          if (tickerJson.alphaDispatch && tickerJson.alphaDispatch.title) {
+            setAlphaTitle(tickerJson.alphaDispatch.title);
+            setAlphaUrl(tickerJson.alphaDispatch.url);
+          }
+        }
 
         if (methRes && methRes.ok) {
           const methJson = await methRes.json();
@@ -726,6 +754,101 @@ export default function DharaPage() {
       addLog(`[FRAMEWORK] Saved locally: ${err}`);
     }
     setEditingPillar(null);
+  };
+
+  // ----------------------------------------------------
+  // Live Ticker & Alpha Dispatch Handlers
+  // ----------------------------------------------------
+  const handleSaveTickerItem = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingTickerItem) return;
+
+    const isUp = !editingTickerItem.chg.startsWith("-");
+    const payload = {
+      ...editingTickerItem,
+      sym: editingTickerItem.sym.toUpperCase(),
+      up: isUp
+    };
+
+    try {
+      const token = getAuthToken();
+      const method = isNewTicker ? "POST" : "PUT";
+      const url = isNewTicker ? `${getApiBase()}/ticker.php` : `${getApiBase()}/ticker.php?id=${editingTickerItem.id}`;
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        if (isNewTicker && data.item) {
+          setHomeTickerItems([...homeTickerItems, data.item]);
+          addLog(`[TICKER] Added ticker symbol: ${data.item.sym} (${data.item.price})`);
+        } else if (data.item) {
+          setHomeTickerItems(homeTickerItems.map(item => item.id === data.item.id ? data.item : item));
+          addLog(`[TICKER] Updated ticker symbol: ${data.item.sym} (${data.item.price})`);
+        }
+      } else {
+        if (isNewTicker) {
+          setHomeTickerItems([...homeTickerItems, { ...payload, id: Date.now() }]);
+        } else {
+          setHomeTickerItems(homeTickerItems.map(item => (item.id && item.id === editingTickerItem.id) || item.sym === editingTickerItem.sym ? payload : item));
+        }
+        addLog(`[TICKER] Saved locally (${data?.error || 'fallback'})`);
+      }
+    } catch (err) {
+      if (isNewTicker) {
+        setHomeTickerItems([...homeTickerItems, { ...payload, id: Date.now() }]);
+      } else {
+        setHomeTickerItems(homeTickerItems.map(item => (item.id && item.id === editingTickerItem.id) || item.sym === editingTickerItem.sym ? payload : item));
+      }
+      addLog(`[TICKER] Saved locally: ${err}`);
+    }
+    setEditingTickerItem(null);
+  };
+
+  const handleDeleteTickerItem = async (item: TickerItem, idx: number) => {
+    if (!confirm(`Delete ticker symbol ${item.sym}?`)) return;
+
+    setHomeTickerItems(homeTickerItems.filter((_, i) => i !== idx));
+    addLog(`[TICKER] Removed ticker symbol: ${item.sym}`);
+
+    if (item.id) {
+      try {
+        const token = getAuthToken();
+        await fetch(`${getApiBase()}/ticker.php?id=${item.id}`, {
+          method: "DELETE",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        addLog(`[TICKER] Deleted from live database: ${item.sym}`);
+      } catch (err) {
+        addLog(`[TICKER] Removed locally, error deleting from DB: ${err}`);
+      }
+    }
+  };
+
+  const handleSaveAlphaDispatch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const token = getAuthToken();
+      const res = await fetch(`${getApiBase()}/ticker.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+        body: JSON.stringify({
+          alphaDispatch: {
+            title: alphaTitle,
+            url: alphaUrl
+          }
+        })
+      });
+      if (res.ok) {
+        addLog(`[TICKER] Alpha Dispatch link saved live: ${alphaTitle}`);
+      } else {
+        addLog(`[TICKER] Alpha Dispatch saved locally.`);
+      }
+    } catch (err) {
+      addLog(`[TICKER] Alpha Dispatch saved locally: ${err}`);
+    }
   };
 
   // ----------------------------------------------------
@@ -1370,46 +1493,117 @@ export default function DharaPage() {
             {/* Live Ticker Items CRUD */}
             <div style={{ background: "#FFFFFF", borderRadius: 12, border: "1px solid #E2E8F0", padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0 }}>
-                  Top Ticker Announcement Strip
-                </h3>
+                <div>
+                  <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0 }}>
+                    Top Ticker Market Strip
+                  </h3>
+                  <p style={{ margin: "4px 0 0", fontSize: "0.82rem", color: "#64748B" }}>
+                    Live tokens shown at the very top of the homepage. Updates reflect immediately on the site.
+                  </p>
+                </div>
                 <button
+                  type="button"
                   onClick={() => {
-                    const sym = prompt("Token Symbol (e.g. SUI):", "SUI");
-                    const price = prompt("Price (e.g. $1.85):", "$1.85");
-                    const chg = prompt("24h Change (e.g. +4.2%):", "+4.2%");
-                    if (sym && price) {
-                      setHomeTickerItems([...homeTickerItems, { sym, price, chg: chg || "0%", up: !chg?.includes("-") }]);
-                      addLog(`Added ticker item: ${sym}`);
-                    }
+                    setEditingTickerItem({ sym: "", price: "$", chg: "+0.0%", up: true });
+                    setIsNewTicker(true);
                   }}
-                  style={{ padding: "6px 12px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", color: "#334155", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer" }}
+                  style={{ padding: "8px 14px", borderRadius: 8, background: "#2563EB", border: "none", color: "#FFFFFF", fontWeight: 700, fontSize: "0.82rem", cursor: "pointer", display: "flex", alignItems: "center", gap: 6 }}
                 >
-                  + Add Ticker Item
+                  <span>+</span> Add Ticker Item
                 </button>
               </div>
 
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
                 {homeTickerItems.map((item, idx) => (
-                  <div key={idx} style={{ padding: "12px 14px", background: "#F8FAFC", borderRadius: 8, border: "1px solid #E2E8F0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div key={item.id || item.sym || idx} style={{ padding: "14px 16px", background: "#F8FAFC", borderRadius: 10, border: "1px solid #E2E8F0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div>
-                      <div style={{ fontWeight: 800, fontSize: "0.95rem" }}>{item.sym}</div>
-                      <div style={{ fontSize: "0.82rem", color: "#64748B" }}>
-                        {item.price} <span style={{ color: item.up ? "#059669" : "#DC2626", fontWeight: 700 }}>{item.chg}</span>
+                      <div style={{ fontWeight: 800, fontSize: "1rem", color: "#0F172A", letterSpacing: "0.5px" }}>{item.sym}</div>
+                      <div style={{ fontSize: "0.85rem", color: "#475569", marginTop: 2, display: "flex", alignItems: "center", gap: 6 }}>
+                        <b>{item.price}</b> 
+                        <span style={{ color: item.up ? "#059669" : "#DC2626", fontWeight: 700, fontSize: "0.8rem", background: item.up ? "rgba(5, 150, 105, 0.1)" : "rgba(220, 38, 38, 0.1)", padding: "1px 6px", borderRadius: 4 }}>
+                          {item.chg}
+                        </span>
                       </div>
                     </div>
-                    <button
-                      onClick={() => {
-                        setHomeTickerItems(homeTickerItems.filter((_, i) => i !== idx));
-                        addLog(`Removed ticker item: ${item.sym}`);
-                      }}
-                      style={{ background: "none", border: "none", color: "#94A3B8", cursor: "pointer", fontSize: "1rem" }}
-                    >
-                      ✕
-                    </button>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <button
+                        type="button"
+                        title="Edit Ticker"
+                        onClick={() => {
+                          setEditingTickerItem(item);
+                          setIsNewTicker(false);
+                        }}
+                        style={{ background: "#FFFFFF", border: "1px solid #CBD5E1", borderRadius: 6, color: "#2563EB", cursor: "pointer", fontSize: "0.8rem", fontWeight: 700, padding: "4px 8px" }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        type="button"
+                        title="Delete Ticker"
+                        onClick={() => handleDeleteTickerItem(item, idx)}
+                        style={{ background: "#FFFFFF", border: "1px solid #CBD5E1", borderRadius: 6, color: "#DC2626", cursor: "pointer", fontSize: "0.8rem", fontWeight: 700, padding: "4px 8px" }}
+                      >
+                        ✕
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Live Alpha Dispatch Announcement Link */}
+            <div style={{ background: "#FFFFFF", borderRadius: 12, border: "1px solid #E2E8F0", padding: 24, boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
+              <div style={{ marginBottom: 16 }}>
+                <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: 0 }}>
+                  Alpha Dispatch Announcement Link
+                </h3>
+                <p style={{ margin: "4px 0 0", fontSize: "0.82rem", color: "#64748B" }}>
+                  The featured notice link displayed on the right side of the top ticker strip.
+                </p>
+              </div>
+
+              <form onSubmit={handleSaveAlphaDispatch} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#475569", marginBottom: 6 }}>
+                      Link Title / Text
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={alphaTitle}
+                      onChange={(e) => setAlphaTitle(e.target.value)}
+                      placeholder="2026 Security Playbook →"
+                      style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1px solid #CBD5E1", background: "#FFFFFF", fontSize: "0.9rem" }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#475569", marginBottom: 6 }}>
+                      Target Destination URL
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={alphaUrl}
+                      onChange={(e) => setAlphaUrl(e.target.value)}
+                      placeholder="/blog/how-to-farm-airdrops-safely-2026/"
+                      style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1px solid #CBD5E1", background: "#FFFFFF", fontSize: "0.9rem" }}
+                    />
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 4 }}>
+                  <div style={{ fontSize: "0.82rem", color: "#64748B" }}>
+                    Live Preview: <b style={{ color: "#2563EB" }}>ALPHA DISPATCH: </b> <span style={{ color: "#0F172A", fontWeight: 600 }}>{alphaTitle}</span> ({alphaUrl})
+                  </div>
+                  <button
+                    type="submit"
+                    style={{ padding: "9px 18px", borderRadius: 8, background: "#059669", color: "#FFFFFF", border: "none", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer" }}
+                  >
+                    Save Alpha Dispatch
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         )}
@@ -2605,6 +2799,98 @@ export default function DharaPage() {
                 Mark as Handled
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
+      {/* EDIT / ADD TICKER ITEM MODAL */}
+      {/* ==================================================== */}
+      {editingTickerItem && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(15, 23, 42, 0.6)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 110, padding: 20 }}>
+          <div style={{ background: "#FFFFFF", borderRadius: 16, maxWidth: 460, width: "100%", padding: 28, boxShadow: "0 10px 40px rgba(0,0,0,0.2)" }}>
+            <h2 style={{ fontSize: "1.25rem", fontWeight: 900, margin: "0 0 16px" }}>
+              {isNewTicker ? "Add Ticker Item" : `Edit Ticker: ${editingTickerItem.sym}`}
+            </h2>
+            <form onSubmit={handleSaveTickerItem} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+              <div>
+                <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>
+                  Symbol (e.g. BTC, ETH, SUI, MONAD)
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="BTC"
+                  value={editingTickerItem.sym}
+                  onChange={(e) => setEditingTickerItem({ ...editingTickerItem, sym: e.target.value.toUpperCase() })}
+                  style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontWeight: 700 }}
+                />
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>
+                    Price (e.g. $64,250)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="$64,250"
+                    value={editingTickerItem.price}
+                    onChange={(e) => setEditingTickerItem({ ...editingTickerItem, price: e.target.value })}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+
+                <div>
+                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>
+                    24h Change (e.g. +2.4% / -1.5%)
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="+2.4%"
+                    value={editingTickerItem.chg}
+                    onChange={(e) => {
+                      const val = e.target.value;
+                      setEditingTickerItem({
+                        ...editingTickerItem,
+                        chg: val,
+                        up: !val.startsWith("-")
+                      });
+                    }}
+                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1" }}
+                  />
+                </div>
+              </div>
+
+              {/* Live Preview Badge */}
+              <div style={{ background: "#F8FAFC", borderRadius: 8, padding: "10px 14px", border: "1px solid #E2E8F0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <span style={{ fontSize: "0.8rem", color: "#64748B", fontWeight: 600 }}>Live Preview:</span>
+                <span style={{ fontSize: "0.9rem", fontWeight: 700 }}>
+                  {editingTickerItem.sym || "TOKEN"}: <b>{editingTickerItem.price || "$0.00"}</b>{" "}
+                  <span style={{ color: !editingTickerItem.chg.startsWith("-") ? "#059669" : "#DC2626", fontWeight: 800 }}>
+                    {editingTickerItem.chg || "+0.0%"}
+                  </span>
+                </span>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 10 }}>
+                <button
+                  type="button"
+                  onClick={() => setEditingTickerItem(null)}
+                  style={{ padding: "8px 16px", borderRadius: 6, background: "#F1F5F9", border: "1px solid #CBD5E1", cursor: "pointer", fontWeight: 700 }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  style={{ padding: "8px 16px", borderRadius: 6, background: "#2563EB", color: "#FFF", border: "none", cursor: "pointer", fontWeight: 700 }}
+                >
+                  {isNewTicker ? "Add Item" : "Save Changes"}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
