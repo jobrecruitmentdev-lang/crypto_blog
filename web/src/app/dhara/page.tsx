@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import type { ProjectItem, Article, PageType, Difficulty, AirdropStatus } from "@/lib/types";
 
@@ -42,7 +42,9 @@ interface TeamMember {
   role: string;
   bio: string;
   avatar: string;
-  credentials: string;
+  credentials?: string;
+  twitter?: string;
+  linkedin?: string;
 }
 
 interface StatItem {
@@ -69,6 +71,197 @@ interface InboxDepartment {
   email: string;
   desc: string;
   sla: string;
+}
+
+function ImageUploadBox({
+  label,
+  guideline,
+  aspectRatio = "16:9",
+  prefix = "upload",
+  value,
+  onChange,
+  authToken,
+  apiBase,
+}: {
+  label: string;
+  guideline: string;
+  aspectRatio?: "1:1" | "16:9";
+  prefix?: string;
+  value?: string;
+  onChange: (url: string) => void;
+  authToken: string;
+  apiBase: string;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      setUploadError("Max file size is 5MB");
+      return;
+    }
+
+    setUploading(true);
+    setUploadError(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("type", prefix);
+
+    try {
+      const res = await fetch(`${apiBase}/upload.php`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success && data.url) {
+        onChange(data.url);
+      } else {
+        setUploadError(data.error || "Upload failed");
+      }
+    } catch (err: any) {
+      setUploadError(err.message || "Network upload error");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const previewHeight = aspectRatio === "1:1" ? 120 : 96;
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <label style={{ fontSize: "0.8rem", fontWeight: 700, color: "#334155" }}>
+        {label}
+      </label>
+
+      {/* Preview Box */}
+      <div
+        style={{
+          width: "100%",
+          height: previewHeight,
+          borderRadius: 8,
+          border: "2px dashed #CBD5E1",
+          background: "#F8FAFC",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {value ? (
+          <img
+            src={value}
+            alt={label}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: aspectRatio === "1:1" ? "contain" : "cover",
+            }}
+            onError={(e) => {
+              (e.target as HTMLElement).style.display = "none";
+            }}
+          />
+        ) : (
+          <div style={{ textAlign: "center", padding: "8px" }}>
+            <span style={{ fontSize: "1.3rem", display: "block" }}>📷</span>
+            <span style={{ fontSize: "0.72rem", color: "#94A3B8", fontWeight: 600 }}>No image uploaded</span>
+          </div>
+        )}
+
+        {uploading && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(15, 23, 42, 0.75)",
+              color: "#FFF",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "0.76rem",
+              fontWeight: 700,
+              gap: 6,
+              backdropFilter: "blur(2px)",
+            }}
+          >
+            ⏳ Uploading &amp; Optimizing...
+          </div>
+        )}
+      </div>
+
+      {/* Hidden File Input */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
+        style={{ display: "none" }}
+        onChange={handleFileChange}
+      />
+
+      {/* Action Buttons & Guideline */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <button
+          type="button"
+          disabled={uploading}
+          onClick={() => fileInputRef.current?.click()}
+          style={{
+            padding: "5px 10px",
+            fontSize: "0.75rem",
+            fontWeight: 700,
+            color: "#2563EB",
+            background: "rgba(37,99,235,0.08)",
+            border: "1px solid rgba(37,99,235,0.25)",
+            borderRadius: 6,
+            cursor: "pointer",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 4,
+          }}
+        >
+          📁 {value ? "Replace Image" : "Upload Image"}
+        </button>
+
+        {value && (
+          <button
+            type="button"
+            onClick={() => onChange("")}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "0.72rem",
+              color: "#EF4444",
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+          >
+            ✕ Remove
+          </button>
+        )}
+      </div>
+
+      {uploadError && (
+        <span style={{ fontSize: "0.72rem", color: "#EF4444", fontWeight: 600 }}>
+          ⚠️ {uploadError}
+        </span>
+      )}
+
+      <span style={{ fontSize: "0.7rem", color: "#64748B", fontWeight: 500 }}>
+        {guideline}
+      </span>
+    </div>
+  );
 }
 
 export default function DharaPage() {
@@ -340,7 +533,12 @@ export default function DharaPage() {
       : `${getApiBase()}/projects.php?slug=${encodeURIComponent(editingProject.slug)}`;
     const method = isNew ? "POST" : "PUT";
 
-    addLog(`[DB] Sending ${method} for project '${editingProject.slug}'...`);
+    const payload: ProjectItem = {
+      ...editingProject,
+      featuredImage: editingProject.featuredImage?.trim() || `/images/generated/${editingProject.slug}-project.jpg`,
+    };
+
+    addLog(`[DB] Sending ${method} for project '${payload.slug}'...`);
     try {
       const res = await fetch(url, {
         method,
@@ -348,12 +546,12 @@ export default function DharaPage() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(editingProject)
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
         const resData = await res.json();
-        const saved = resData.project || editingProject;
+        const saved = resData.project || payload;
         if (isNew) {
           setProjects((prev) => [saved, ...prev]);
           addLog(`[SUCCESS] Project created in MySQL: ${saved.name} (${saved.slug})`);
@@ -368,9 +566,9 @@ export default function DharaPage() {
     } catch (err) {
       addLog(`[ERROR] Network error saving project: ${err}`);
       if (isNew) {
-        setProjects((prev) => [editingProject, ...prev]);
+        setProjects((prev) => [payload, ...prev]);
       } else {
-        setProjects((prev) => prev.map((p) => (p.slug === editingProject.slug ? editingProject : p)));
+        setProjects((prev) => prev.map((p) => (p.slug === payload.slug ? payload : p)));
       }
     }
     setEditingProject(null);
@@ -416,8 +614,16 @@ export default function DharaPage() {
       : `${getApiBase()}/articles.php?slug=${encodeURIComponent(editingArticle.slug)}`;
     const method = isNew ? "POST" : "PUT";
 
-    const pageTypeStr = (editingArticle.pageType || 'intelligence').toUpperCase();
-    addLog(`[DB] Sending ${method} for [${pageTypeStr}] '${editingArticle.slug}'...`);
+    const isSpecializedSection = editingArticle.pageType === "methodology" || editingArticle.pageType === "editorial";
+    const payload: Article = {
+      ...editingArticle,
+      featuredImage: editingArticle.featuredImage?.trim() || (isSpecializedSection ? "" : `/images/generated/${editingArticle.slug}-featured.jpg`),
+      middleImage: editingArticle.middleImage?.trim() || (isSpecializedSection ? "" : `/images/generated/${editingArticle.slug}-middle.jpg`),
+      preFaqImage: editingArticle.preFaqImage?.trim() || (isSpecializedSection ? "" : `/images/generated/${editingArticle.slug}-pre_faq.jpg`),
+    };
+
+    const pageTypeStr = (payload.pageType || 'intelligence').toUpperCase();
+    addLog(`[DB] Sending ${method} for [${pageTypeStr}] '${payload.slug}'...`);
     try {
       const res = await fetch(url, {
         method,
@@ -425,12 +631,12 @@ export default function DharaPage() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify(editingArticle)
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
         const resData = await res.json();
-        const saved = resData.article || editingArticle;
+        const saved = resData.article || payload;
         if (isNew) {
           setArticles((prev) => [saved, ...prev]);
           addLog(`[SUCCESS] Article created in MySQL: ${saved.title} (${saved.slug})`);
@@ -445,9 +651,9 @@ export default function DharaPage() {
     } catch (err) {
       addLog(`[ERROR] Network error saving article: ${err}`);
       if (isNew) {
-        setArticles((prev) => [editingArticle, ...prev]);
+        setArticles((prev) => [payload, ...prev]);
       } else {
-        setArticles((prev) => prev.map((a) => (a.slug === editingArticle.slug ? editingArticle : a)));
+        setArticles((prev) => prev.map((a) => (a.slug === payload.slug ? payload : a)));
       }
     }
     setEditingArticle(null);
@@ -840,12 +1046,12 @@ export default function DharaPage() {
           </div>
 
           {[
-            { id: "home", label: "Home Page", icon: "🏠", badge: null },
-            { id: "projects", label: "Projects Hub", icon: "🚀", badge: projects.length },
-            { id: "intelligence", label: "Intelligence Hub", icon: "🧠", badge: articles.filter(a => a.pageType === "intelligence" || !a.pageType).length },
-            { id: "guides", label: "Tactical Guides", icon: "📘", badge: articles.filter(a => a.pageType === "guides").length },
-            { id: "methodology", label: "Methodology Papers", icon: "🔬", badge: articles.filter(a => a.pageType === "methodology").length },
-            { id: "editorial", label: "Editorial Policy", icon: "⚖️", badge: articles.filter(a => a.pageType === "editorial").length },
+            { id: "home", label: "Home", icon: "🏠", badge: null },
+            { id: "projects", label: "Projects", icon: "🚀", badge: projects.length },
+            { id: "intelligence", label: "Intelligence", icon: "🧠", badge: articles.filter(a => a.pageType === "intelligence" || !a.pageType).length },
+            { id: "guides", label: "Guides", icon: "📘", badge: articles.filter(a => a.pageType === "guides").length },
+            { id: "methodology", label: "Methodology", icon: "🔬", badge: articles.filter(a => a.pageType === "methodology").length },
+            { id: "editorial", label: "Editorial", icon: "🛡️", badge: articles.filter(a => a.pageType === "editorial").length },
           ].map((item) => (
             <button
               key={item.id}
@@ -895,9 +1101,9 @@ export default function DharaPage() {
           </div>
 
           {[
-            { id: "about", label: "About Us Page", icon: "🏛️", badge: teamMembers.length + " team" },
-            { id: "contact", label: "Contact Desk", icon: "📬", badge: contactMessages.filter(m => m.status === "new").length + " new" },
-            { id: "automation", label: "AI Automation Studio", icon: "🤖", badge: "GROQ" },
+            { id: "about", label: "About", icon: "🏛️", badge: teamMembers.length + " team" },
+            { id: "contact", label: "Inquiries", icon: "📩", badge: contactMessages.filter(m => m.status === "new").length + " new" },
+            { id: "automation", label: "Automation", icon: "🤖", badge: "GROQ" },
           ].map((item) => (
             <button
               key={item.id}
@@ -1000,15 +1206,15 @@ export default function DharaPage() {
               Dhara Enclave / {activeSection.toUpperCase()} CRUD
             </div>
             <h1 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#0F172A", margin: 0, letterSpacing: "-0.02em" }}>
-              {activeSection === "home" && "🏠 Home Page Management"}
-              {activeSection === "projects" && "🚀 Verified Crypto Projects"}
-              {activeSection === "intelligence" && "🧠 Market Intelligence Articles"}
-              {activeSection === "guides" && "📘 Tactical Farming Guides"}
-              {activeSection === "methodology" && "🔬 5-Stage Audit Methodology"}
-              {activeSection === "editorial" && "⚖️ Editorial Charters & Standards"}
-              {activeSection === "about" && "🏛️ About Us & Research Team"}
-              {activeSection === "contact" && "📬 Contact Desk & Inquiries"}
-              {activeSection === "automation" && "🤖 Autonomous AI Generation Studio"}
+              {activeSection === "home" && "🏠 Home Page"}
+              {activeSection === "projects" && "🚀 Projects"}
+              {activeSection === "intelligence" && "🧠 Intelligence"}
+              {activeSection === "guides" && "📘 Guides"}
+              {activeSection === "methodology" && "🔬 Methodology"}
+              {activeSection === "editorial" && "🛡️ Editorial"}
+              {activeSection === "about" && "🏛️ About"}
+              {activeSection === "contact" && "📩 Inquiries"}
+              {activeSection === "automation" && "🤖 Automation"}
             </h1>
           </div>
 
@@ -1091,7 +1297,7 @@ export default function DharaPage() {
                     ? "+ Add Editorial Policy" 
                     : activeSection === "guides" 
                       ? "+ Add Guide" 
-                      : "+ Create Article"}
+                      : "+ Add Article"}
               </button>
             )}
 
@@ -1251,8 +1457,20 @@ export default function DharaPage() {
                   {filteredProjects.map((p) => (
                     <tr key={p.slug} style={{ borderBottom: "1px solid #F1F5F9" }}>
                       <td style={{ padding: "14px 16px" }}>
-                        <div style={{ fontWeight: 800, color: "#0F172A" }}>{p.name}</div>
-                        <div style={{ fontSize: "0.75rem", color: "#64748B" }}>/projects/{p.slug}/</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                          <img
+                            src={p.featuredImage || `/images/generated/${p.slug}-project.jpg`}
+                            alt={p.name}
+                            style={{ width: 38, height: 38, borderRadius: 8, objectFit: "contain", background: "#F8FAFC", border: "1px solid #E2E8F0", padding: 2 }}
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpolyline points='21 15 16 10 5 21'/%3E%3C/svg%3E";
+                            }}
+                          />
+                          <div>
+                            <div style={{ fontWeight: 800, color: "#0F172A" }}>{p.name}</div>
+                            <div style={{ fontSize: "0.75rem", color: "#64748B" }}>/projects/{p.slug}/</div>
+                          </div>
+                        </div>
                       </td>
                       <td style={{ padding: "14px 16px" }}>
                         <span style={{ padding: "3px 8px", borderRadius: 4, background: "#F1F5F9", fontWeight: 700, fontSize: "0.75rem", color: "#334155" }}>
@@ -1349,9 +1567,23 @@ export default function DharaPage() {
                     return (
                       <tr key={art.slug} style={{ borderBottom: "1px solid #F1F5F9" }}>
                         <td style={{ padding: "14px 16px" }}>
-                          <div style={{ fontWeight: 800, color: "#0F172A" }}>{art.title}</div>
-                          <div style={{ fontSize: "0.75rem", color: "#64748B" }}>
-                            /{sectionPath}/{art.slug}/
+                          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                            {(activeSection === "intelligence" || activeSection === "guides") && (
+                              <img
+                                src={art.featuredImage || (art.slug ? `/images/generated/${art.slug}-featured.jpg` : "")}
+                                alt={art.title}
+                                style={{ width: 46, height: 32, borderRadius: 6, objectFit: "cover", background: "#F8FAFC", border: "1px solid #E2E8F0" }}
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='32' viewBox='0 0 24 24' fill='none' stroke='%2394A3B8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpolyline points='21 15 16 10 5 21'/%3E%3C/svg%3E";
+                                }}
+                              />
+                            )}
+                            <div>
+                              <div style={{ fontWeight: 800, color: "#0F172A" }}>{art.title}</div>
+                              <div style={{ fontSize: "0.75rem", color: "#64748B" }}>
+                                /{sectionPath}/{art.slug}/
+                              </div>
+                            </div>
                           </div>
                         </td>
                         <td style={{ padding: "14px 16px" }}>
@@ -1374,9 +1606,15 @@ export default function DharaPage() {
                           </span>
                         </td>
                         <td style={{ padding: "14px 16px" }}>
-                          <span style={{ fontSize: "0.78rem", fontWeight: 700, color: hasAllImages ? "#059669" : "#D97706" }}>
-                            {hasAllImages ? "✓ 3/3 8K Visuals" : "⚠️ Incomplete"}
-                          </span>
+                          {(activeSection === "intelligence" || activeSection === "guides") ? (
+                            <span style={{ fontSize: "0.78rem", fontWeight: 700, color: hasAllImages ? "#059669" : "#D97706" }}>
+                              {hasAllImages ? "✓ 3/3 Visuals" : "⚠️ Upload Visuals"}
+                            </span>
+                          ) : (
+                            <span style={{ fontSize: "0.78rem", fontWeight: 600, color: "#94A3B8" }}>
+                              — Text Only
+                            </span>
+                          )}
                         </td>
                         <td style={{ padding: "14px 16px" }}>
                           <span style={{ fontSize: "0.78rem", fontWeight: 700, color: faqCount >= 4 ? "#059669" : "#D97706" }}>
@@ -1732,10 +1970,10 @@ export default function DharaPage() {
                     onChange={(e) => setAutoCategory(e.target.value as PageType)}
                     style={{ width: "100%", padding: "10px 12px", borderRadius: 8, border: "1px solid #CBD5E1", background: "#FFFFFF", fontSize: "0.9rem", fontWeight: 600 }}
                   >
-                    <option value="intelligence">🧠 Intelligence Hub</option>
-                    <option value="guides">📘 Tactical Guides</option>
-                    <option value="methodology">🔬 Methodology Hub</option>
-                    <option value="editorial">⚖️ Editorial Policy</option>
+                    <option value="intelligence">🧠 Intelligence</option>
+                    <option value="guides">📘 Guides</option>
+                    <option value="methodology">🔬 Methodology</option>
+                    <option value="editorial">🛡️ Editorial</option>
                   </select>
                 </div>
 
@@ -1869,6 +2107,20 @@ export default function DharaPage() {
                 </div>
               </div>
 
+              {/* Project Logo / Card Image Upload */}
+              <div style={{ border: "1px solid #E2E8F0", borderRadius: 8, padding: 14, background: "#F8FAFC" }}>
+                <ImageUploadBox
+                  label="Project Logo / Card Image"
+                  guideline="Recommended: 1:1 Square (e.g. 500x500 px) • Auto WebP • Max 5MB"
+                  aspectRatio="1:1"
+                  prefix="project"
+                  value={editingProject.featuredImage || (editingProject.slug ? `/images/generated/${editingProject.slug}-project.jpg` : "")}
+                  onChange={(url) => setEditingProject({ ...editingProject, featuredImage: url })}
+                  authToken={getAuthToken()}
+                  apiBase={getApiBase()}
+                />
+              </div>
+
               <div>
                 <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Description</label>
                 <textarea
@@ -1924,10 +2176,10 @@ export default function DharaPage() {
                     onChange={(e) => setEditingArticle({ ...editingArticle, pageType: e.target.value as PageType })}
                     style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontWeight: 700, background: "#FFFFFF" }}
                   >
-                    <option value="intelligence">🧠 Intelligence Hub (/blog/)</option>
-                    <option value="guides">📘 Tactical Guides (/guides/)</option>
-                    <option value="methodology">🔬 Methodology Papers (/methodology/)</option>
-                    <option value="editorial">⚖️ Editorial Policy (/editorial-policy/)</option>
+                    <option value="intelligence">🧠 Intelligence (/blog/)</option>
+                    <option value="guides">📘 Guides (/guides/)</option>
+                    <option value="methodology">🔬 Methodology (/methodology/)</option>
+                    <option value="editorial">🛡️ Editorial (/editorial-policy/)</option>
                   </select>
                 </div>
                 <div>
@@ -2025,36 +2277,51 @@ export default function DharaPage() {
                 />
               </div>
 
-              {/* 3 8K Images */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12 }}>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Featured 8K Image</label>
-                  <input
-                    type="text"
-                    value={editingArticle.featuredImage || ""}
-                    onChange={(e) => setEditingArticle({ ...editingArticle, featuredImage: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontSize: "0.78rem" }}
-                  />
+              {/* 3 Dedicated Image Slots for Intelligence & Guides only */}
+              {(editingArticle.pageType === "intelligence" || editingArticle.pageType === "guides" || !editingArticle.pageType) && (
+                <div style={{ border: "1px solid #E2E8F0", borderRadius: 8, padding: 16, background: "#F8FAFC" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                    <label style={{ fontSize: "0.86rem", fontWeight: 800, color: "#1E293B", margin: 0 }}>
+                      📸 Article Visuals (3 Dedicated Image Slots)
+                    </label>
+                    <span style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 600 }}>
+                      Upload directly from computer • Auto WebP
+                    </span>
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
+                    <ImageUploadBox
+                      label="1. Featured Header Banner"
+                      guideline="Header 16:9 (e.g. 1200x675) • Max 5MB"
+                      aspectRatio="16:9"
+                      prefix="featured"
+                      value={editingArticle.featuredImage || (editingArticle.slug ? `/images/generated/${editingArticle.slug}-featured.jpg` : "")}
+                      onChange={(url) => setEditingArticle({ ...editingArticle, featuredImage: url })}
+                      authToken={getAuthToken()}
+                      apiBase={getApiBase()}
+                    />
+                    <ImageUploadBox
+                      label="2. Middle In-Article Image"
+                      guideline="In-Article 16:9 (e.g. 1200x675) • Max 5MB"
+                      aspectRatio="16:9"
+                      prefix="middle"
+                      value={editingArticle.middleImage || (editingArticle.slug ? `/images/generated/${editingArticle.slug}-middle.jpg` : "")}
+                      onChange={(url) => setEditingArticle({ ...editingArticle, middleImage: url })}
+                      authToken={getAuthToken()}
+                      apiBase={getApiBase()}
+                    />
+                    <ImageUploadBox
+                      label="3. Pre-FAQ Visual Infographic"
+                      guideline="Pre-FAQ 16:9 (e.g. 1200x675) • Max 5MB"
+                      aspectRatio="16:9"
+                      prefix="pre_faq"
+                      value={editingArticle.preFaqImage || (editingArticle.slug ? `/images/generated/${editingArticle.slug}-pre_faq.jpg` : "")}
+                      onChange={(url) => setEditingArticle({ ...editingArticle, preFaqImage: url })}
+                      authToken={getAuthToken()}
+                      apiBase={getApiBase()}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Middle 8K Image</label>
-                  <input
-                    type="text"
-                    value={editingArticle.middleImage || ""}
-                    onChange={(e) => setEditingArticle({ ...editingArticle, middleImage: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontSize: "0.78rem" }}
-                  />
-                </div>
-                <div>
-                  <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 700, color: "#475569", marginBottom: 4 }}>Pre-FAQ 8K Image</label>
-                  <input
-                    type="text"
-                    value={editingArticle.preFaqImage || ""}
-                    onChange={(e) => setEditingArticle({ ...editingArticle, preFaqImage: e.target.value })}
-                    style={{ width: "100%", padding: "8px 12px", borderRadius: 6, border: "1px solid #CBD5E1", fontSize: "0.78rem" }}
-                  />
-                </div>
-              </div>
+              )}
 
               {/* Article Body */}
               <div>
