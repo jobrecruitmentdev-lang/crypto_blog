@@ -41,7 +41,15 @@ from db_sync import sync_batch_to_mysql
 
 def run_cmd(cmd, cwd=None):
     print(f"\n[RUN] {' '.join(cmd) if isinstance(cmd, list) else cmd}")
-    res = subprocess.run(cmd, cwd=cwd or PROJECT_ROOT, shell=isinstance(cmd, str), text=True, capture_output=True)
+    res = subprocess.run(
+        cmd,
+        cwd=cwd or PROJECT_ROOT,
+        shell=isinstance(cmd, str),
+        text=True,
+        capture_output=True,
+        encoding="utf-8",
+        errors="replace"
+    )
     if res.stdout:
         print(res.stdout)
     if res.stderr:

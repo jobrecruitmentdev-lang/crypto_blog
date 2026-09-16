@@ -1,27 +1,29 @@
 import os
 import json
+import hmac
+import hashlib
 import urllib.request
 import urllib.parse
 from config import Config, logger
 
 API_BASE = "https://cryptoairdropai.com/api"
-API_SECRET = "cryptoairdropai_master_secret_2026_xyz"
+ADMIN_USER = "chaiwala"
+ADMIN_PASS = "Hostinger ki masi 4786"
+API_SECRET_KEY = b"cryptoairdropai_master_secret_2026_xyz"
+HMAC_TOKEN = hmac.new(API_SECRET_KEY, f"{ADMIN_USER}:{ADMIN_PASS}".encode("utf-8"), hashlib.sha256).hexdigest()
+
+API_HEADERS = {
+    "Content-Type": "application/json",
+    "Authorization": f"Bearer {HMAC_TOKEN}",
+    "User-Agent": "CryptoAirdropAI-Automation/1.0"
+}
 
 def sync_project_to_mysql(project_dict: dict) -> bool:
     """Inserts or updates a single project in Hostinger MySQL via API."""
     try:
         url = f"{API_BASE}/projects.php"
         data = json.dumps(project_dict).encode("utf-8")
-        req = urllib.request.Request(
-            url,
-            data=data,
-            headers={
-                "Content-Type": "application/json",
-                "X-Api-Key": API_SECRET,
-                "User-Agent": "CryptoAirdropAI-Automation/1.0"
-            },
-            method="POST"
-        )
+        req = urllib.request.Request(url, data=data, headers=API_HEADERS, method="POST")
         with urllib.request.urlopen(req, timeout=15) as res:
             res_data = json.loads(res.read().decode("utf-8"))
             if res_data.get("success"):
@@ -32,16 +34,7 @@ def sync_project_to_mysql(project_dict: dict) -> bool:
         if e.code == 409:
             try:
                 put_url = f"{API_BASE}/projects.php?slug={urllib.parse.quote(project_dict.get('slug', ''))}"
-                req = urllib.request.Request(
-                    put_url,
-                    data=data,
-                    headers={
-                        "Content-Type": "application/json",
-                        "X-Api-Key": API_SECRET,
-                        "User-Agent": "CryptoAirdropAI-Automation/1.0"
-                    },
-                    method="PUT"
-                )
+                req = urllib.request.Request(put_url, data=data, headers=API_HEADERS, method="PUT")
                 with urllib.request.urlopen(req, timeout=15) as res:
                     logger.info(f"[DB SYNC] Project '{project_dict.get('slug')}' updated in MySQL!")
                     return True
@@ -58,16 +51,7 @@ def sync_article_to_mysql(article_dict: dict) -> bool:
     try:
         url = f"{API_BASE}/articles.php"
         data = json.dumps(article_dict).encode("utf-8")
-        req = urllib.request.Request(
-            url,
-            data=data,
-            headers={
-                "Content-Type": "application/json",
-                "X-Api-Key": API_SECRET,
-                "User-Agent": "CryptoAirdropAI-Automation/1.0"
-            },
-            method="POST"
-        )
+        req = urllib.request.Request(url, data=data, headers=API_HEADERS, method="POST")
         with urllib.request.urlopen(req, timeout=15) as res:
             res_data = json.loads(res.read().decode("utf-8"))
             if res_data.get("success"):
@@ -78,16 +62,7 @@ def sync_article_to_mysql(article_dict: dict) -> bool:
         if e.code == 409:
             try:
                 put_url = f"{API_BASE}/articles.php?slug={urllib.parse.quote(article_dict.get('slug', ''))}"
-                req = urllib.request.Request(
-                    put_url,
-                    data=data,
-                    headers={
-                        "Content-Type": "application/json",
-                        "X-Api-Key": API_SECRET,
-                        "User-Agent": "CryptoAirdropAI-Automation/1.0"
-                    },
-                    method="PUT"
-                )
+                req = urllib.request.Request(put_url, data=data, headers=API_HEADERS, method="PUT")
                 with urllib.request.urlopen(req, timeout=15) as res:
                     logger.info(f"[DB SYNC] Article '{article_dict.get('slug')}' updated in MySQL!")
                     return True
