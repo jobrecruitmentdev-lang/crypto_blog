@@ -72,28 +72,16 @@ def build_bespoke_prompt(title: str, category: str, chain: str) -> str:
     return f"Photorealistic 3D render of {subject}, isometric octane render, dark futuristic minimalist background, 8k resolution, volumetric cinematic glow, zero flat 2D elements, no text, no watermark"
 
 def fetch_ai_image(prompt: str, seed: int = None) -> Image.Image:
-    """Fetches high-resolution 3D render from AI image generator."""
-    if seed is None:
-        seed = int(time.time() * 1000) % 999999
-    
-    encoded = urllib.parse.quote(prompt)
-    url = f"https://image.pollinations.ai/prompt/{encoded}?width=1280&height=720&nologo=true&seed={seed}"
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
-    
-    for attempt in range(4):
-        try:
-            with urllib.request.urlopen(req, timeout=35) as resp:
-                data = resp.read()
-                from io import BytesIO
-                img = Image.open(BytesIO(data))
-                if img.size[0] >= 500 and img.size[1] >= 300:
-                    return img
-        except Exception as e:
-            wait_t = 6 + (attempt * 4)
-            print(f"    ⚠️ AI image fetch attempt {attempt+1}/4 failed ({e}). Pacing {wait_t}s...")
-            time.sleep(wait_t)
-
-    raise RuntimeError(f"Could not generate high-quality AI image for prompt: {prompt[:50]}... Aborting to prevent duplicates!")
+    """
+    Antigravity Native Visual Pipeline.
+    Strictly forbids low-quality third-party services like pollinations.ai.
+    Images must be generated directly via Antigravity's native 3D visual engine (Gemini/Imagen).
+    """
+    raise RuntimeError(
+        "Direct pollinations.ai fallback is permanently disabled! "
+        "All visual assets must be generated via Antigravity's native generate_image tool "
+        "to ensure 8k resolution, bespoke 3D octane rendering, and zero watermarks."
+    )
 
 def process_batch_images():
     print("=" * 75)

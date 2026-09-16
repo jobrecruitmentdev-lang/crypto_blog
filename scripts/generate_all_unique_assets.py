@@ -61,21 +61,7 @@ def generate_bespoke_image(prompt: str, is_square: bool = True, seed: int = 42) 
             # Fallback quietly to Tier 2
             pass
 
-    # Tier 2: Pollinations AI with custom unique seed
-    try:
-        encoded = urllib.parse.quote(prompt)
-        p_w, p_h = (1024, 1024) if is_square else (1024, 576)
-        url = f"https://image.pollinations.ai/prompt/{encoded}?width={p_w}&height={p_h}&seed={seed}&nologo=true"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
-        with urllib.request.urlopen(req, timeout=25) as resp:
-            data = resp.read()
-        if len(data) > 15000:
-            img = Image.open(BytesIO(data))
-            crop_bottom = 35
-            cropped = img.crop((0, 0, img.size[0], img.size[1] - crop_bottom))
-            return cropped.resize(target_dim, Image.Resampling.LANCZOS)
-    except Exception as e:
-        pass
+    # Tier 2: Pollinations AI permanently disabled
 
     # Tier 3: High aesthetic procedural cybernetic visual
     w, h = target_dim

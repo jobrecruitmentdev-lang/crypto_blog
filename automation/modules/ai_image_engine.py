@@ -230,28 +230,8 @@ def generate_8k_image(topic: str, slug: str, placement: str = "featured", catego
             print(f"[-] Hugging Face FLUX error: {e}. Falling back to Tier 2...")
 
     # -------------------------------------------------------------
-    # Tier 2: Pollinations AI (with Pillow crop)
+    # Antigravity Image Standard: Pollinations AI permanently disabled
     # -------------------------------------------------------------
-    print(f"[*] [Tier 2: Pollinations AI] Generating visual for '{topic}' [{placement}]...")
-    w_req, h_req = (1024, 1024) if is_square else (1024, 576)
-    encoded = urllib.parse.quote(prompt)
-
-    for attempt in range(1, 4):
-        url = f"https://image.pollinations.ai/prompt/{encoded}?width={w_req}&height={h_req}&seed={seed + attempt * 73}&nologo=true"
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"})
-        try:
-            with urllib.request.urlopen(req, timeout=25) as resp:
-                data = resp.read()
-            if len(data) > 20000:
-                img = Image.open(io.BytesIO(data))
-                crop_h = 45 if is_square else 35
-                cropped = img.crop((0, 0, img.size[0], img.size[1] - crop_h))
-                final = cropped.resize(target_dim, Image.Resampling.LANCZOS)
-                if save_and_verify(final):
-                    return web_url
-        except Exception as e:
-            print(f"[-] Pollinations attempt {attempt} failed: {e}")
-            time.sleep(2)
 
     # -------------------------------------------------------------
     # Tier 3: Procedural 3D Cybernetic Fallback
