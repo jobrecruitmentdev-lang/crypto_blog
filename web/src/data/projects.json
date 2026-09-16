@@ -980,5 +980,152 @@
       "twitter": "https://twitter.com/hoodtracker"
     },
     "riskScore": 15
+  },
+  {
+    "name": "OpenTrade",
+    "slug": "opentrade",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "OpenTrade is a multi‑chain marketplace that tokenizes real‑world assets, allowing institutions to access and trade RWA with on‑chain settlement. It delivers value through fee‑based services and liquidity provision without a native token.",
+    "tags": [
+      "RWA",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "On‑chain Asset Tokenization Review",
+        "desc": "Examine how OpenTrade tokenizes real‑world assets and the legal framework supporting ownership rights."
+      },
+      {
+        "step": 2,
+        "title": "Liquidity & Market Depth Analysis",
+        "desc": "Assess the depth of order books, available capital, and cross‑chain liquidity mechanisms."
+      },
+      {
+        "step": 3,
+        "title": "Fee Structure & Revenue Model Evaluation",
+        "desc": "Analyze fee schedules, revenue sharing, and sustainability without a native token."
+      },
+      {
+        "step": 4,
+        "title": "Compliance & Institutional Risk Assessment",
+        "desc": "Review KYC/AML processes, regulatory compliance, and counterparty risk for institutional investors."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://www.opentrade.io",
+      "twitter": "https://twitter.com/opentrade_io",
+      "docs": "https://www.opentrade.io/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "OpenTrade RWA Multi-Chain",
+    "featuredImage": "/images/generated/opentrade-project-gemini-v3.jpg"
+  },
+  {
+    "name": "GTBTC",
+    "slug": "gtbtc",
+    "chain": "Bitcoin",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "GTBTC enables Bitcoin holders to earn yield by restaking BTC on a layer‑2 solution without issuing a new token. It captures value through protocol fees and liquidity incentives, offering a tokenless, permissionless return on BTC.",
+    "tags": [
+      "Restaked BTC",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Acquire BTC",
+        "desc": "Purchase or hold Bitcoin on a supported exchange or wallet."
+      },
+      {
+        "step": 2,
+        "title": "Transfer to GTBTC",
+        "desc": "Send your BTC to the GTBTC staking address via the provided portal."
+      },
+      {
+        "step": 3,
+        "title": "Lock and Restake",
+        "desc": "Lock your BTC in the GTBTC contract to begin earning restaked rewards."
+      },
+      {
+        "step": 4,
+        "title": "Monitor & Withdraw",
+        "desc": "Track accrued yields and withdraw or compound your rewards as needed."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://www.gate.com/staking/BTC",
+      "twitter": "https://twitter.com/Gate",
+      "docs": "https://www.gate.com/staking/BTC/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "GTBTC Restaked BTC Bitcoin",
+    "featuredImage": "/images/generated/gtbtc-project-gemini-v3.jpg"
+  },
+  {
+    "name": "CIAN Yield Layer",
+    "slug": "cian-yield-layer",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "CIAN Yield Layer is a multi‑chain yield aggregator that automatically routes capital to the highest‑APY strategies across DeFi. It delivers tokenless value by optimizing returns without requiring a native governance token, reducing dilution risk for institutional investors.",
+    "tags": [
+      "Yield Aggregator",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Initial Research",
+        "desc": "Review the platform’s documentation, roadmap, and team credentials."
+      },
+      {
+        "step": 2,
+        "title": "Smart Contract Audit Review",
+        "desc": "Examine audit reports and verify contract security on multiple chains."
+      },
+      {
+        "step": 3,
+        "title": "Strategy Evaluation",
+        "desc": "Analyze the underlying vault strategies, APY sources, and slippage controls."
+      },
+      {
+        "step": 4,
+        "title": "Ongoing Monitoring",
+        "desc": "Set up dashboards to track performance, gas costs, and any protocol updates."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://yieldlayer.cian.app/vaults/0xB13aa2d0345b0439b064f26B82D8dCf3f508775d?chainId=1&utm_source=TPFDZE",
+      "twitter": "https://twitter.com/CIAN_protocol",
+      "docs": "https://yieldlayer.cian.app/vaults/0xB13aa2d0345b0439b064f26B82D8dCf3f508775d?chainId=1&utm_source=TPFDZE/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "CIAN Yield Layer Yield Aggregator Multi-Chain",
+    "featuredImage": "/images/generated/cian-yield-layer-project-gemini-v3.jpg"
   }
 ]
