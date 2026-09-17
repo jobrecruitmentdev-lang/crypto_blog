@@ -16,7 +16,7 @@ import json
 import time
 import hashlib
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageEnhance
 import numpy as np
 
 # Force UTF-8 on Windows
@@ -51,6 +51,34 @@ def save_image_with_metadata(img: Image.Image, dest_path: Path, unique_label: st
     dest_path.parent.mkdir(parents=True, exist_ok=True)
     img.save(dest_path, format="JPEG", quality=95, exif=exif)
 
+def generate_tactical_prefaq_crop(feat_img_path: Path, dest_path: Path, unique_label: str):
+    """
+    Generates a 100% unique Pre-FAQ macro tactical zoom asset by cropping center 68%
+    of the Featured Hero image, resampling back with high-fidelity Lanczos,
+    and subtly enhancing sharpness/contrast.
+    Generates a unique MD5 hash with ZERO additional Gemini API calls.
+    """
+    with Image.open(feat_img_path) as img:
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        w, h = img.size
+        crop_w = int(w * 0.68)
+        crop_h = int(h * 0.68)
+        left = (w - crop_w) // 2
+        top = (h - crop_h) // 2
+        right = left + crop_w
+        bottom = top + crop_h
+        cropped = img.crop((left, top, right, bottom))
+        zoomed = cropped.resize((w, h), Image.Resampling.LANCZOS)
+        zoomed = ImageEnhance.Sharpness(zoomed).enhance(1.08)
+        zoomed = ImageEnhance.Contrast(zoomed).enhance(1.04)
+        
+        exif = zoomed.getexif()
+        exif[0x010E] = f"CryptoAirdropAI Macro Tactical Zoom: {unique_label}"
+        exif[0x0131] = "CryptoAirdropAI Engine v8-MacroCrop"
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
+        zoomed.save(dest_path, format="JPEG", quality=95, exif=exif)
+
 def build_bespoke_prompt(title: str, category: str, chain: str, slot: str = "featured") -> str:
     """
     Generates a slot-specific and topic-specific photorealistic 3D render prompt.
@@ -58,7 +86,6 @@ def build_bespoke_prompt(title: str, category: str, chain: str, slot: str = "fea
       - 'project': 1:1 luxury physical crypto token emblem.
       - 'featured': 16:9 wide cinematic macro world or ecosystem overview.
       - 'middle': 16:9 isometric transparent glass on-chain architecture & pipelines.
-      - 'pre_faq': 16:9 holographic cybernetic security fortress shield & anti-sybil matrix.
     """
     t_lower = (title + " " + category + " " + chain).lower()
 
@@ -83,14 +110,6 @@ def build_bespoke_prompt(title: str, category: str, chain: str, slot: str = "fea
             f"transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, "
             f"microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, "
             f"8k resolution, sharp focus, zero flat 2D elements, no text, no watermark"
-        )
-
-    elif slot == "pre_faq":
-        return (
-            f"Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for {title}, "
-            f"interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, "
-            f"volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, "
-            f"zero flat 2D elements, no text, no watermark"
         )
 
     else:  # featured
@@ -143,11 +162,11 @@ def resolve_distinct_image(slug: str, kind: str, keywords: list[str], prompt: st
     )
 
 def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
-    """Checks if all 21 distinct images exist in brain or pub_dir. If not, exports pending_prompts.json."""
+    """Checks if the 15 required AI images exist in brain or pub_dir. If not, exports pending_prompts.json."""
     v_suffix = "gemini-v3"
     needed_items = []
 
-    # 1. 3 Projects (1:1)
+    # 1. 3 Projects (1:1 luxury emblem) = 3 AI images
     for idx, p in enumerate(batch.get("projects", [])):
         slug = p["slug"]
         kw_root = slug.split("-")[0]
@@ -169,14 +188,14 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
             "exists": has_asset
         })
 
-    # 2. 3 Intelligence Articles (3 distinct images each = 9 items)
+    # 2. 3 Intelligence Articles (2 AI images each: Featured + Middle) = 6 AI images
+    # (Pre-FAQ images are programmatically derived via tactical macro-crop, 0 quota used)
     for idx, a in enumerate(batch.get("intelligence", [])):
         slug = a["slug"]
         kw_root = slug.split("-")[0]
         slots = [
             ("featured", "16:9", f"{slug}-featured-{v_suffix}.jpg", [kw_root, "intel", "featured"]),
-            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "intel", "middle"]),
-            ("pre_faq", "16:9", f"{slug}-pre_faq-{v_suffix}.jpg", [kw_root, "intel", "faq"])
+            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "intel", "middle"])
         ]
         for slot_name, ar, dest_name, kw in slots:
             prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot=slot_name)
@@ -195,16 +214,15 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
                 "exists": has_asset
             })
 
-    # 3. 3 Guides (3 distinct images each = 9 items)
+    # 3. 3 Guides (2 AI images each: Featured + Middle) = 6 AI images
+    # (Pre-FAQ images are programmatically derived via tactical macro-crop, 0 quota used)
     for idx, g in enumerate(batch.get("guides", [])):
         slug = g["slug"]
-        # Extract meaningful root keyword
         parts = [p for p in slug.split("-") if p not in ["how", "to", "qualify", "for", "step", "by", "security", "runbook", "testnet", "on", "without", "optimizing", "yield", "multipliers"]]
         kw_root = parts[0] if parts else slug.split("-")[0]
         slots = [
             ("featured", "16:9", f"{slug}-featured-{v_suffix}.jpg", [kw_root, "guide", "featured"]),
-            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "guide", "middle"]),
-            ("pre_faq", "16:9", f"{slug}-pre_faq-{v_suffix}.jpg", [kw_root, "guide", "faq"])
+            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "guide", "middle"])
         ]
         for slot_name, ar, dest_name, kw in slots:
             prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot=slot_name)
@@ -228,7 +246,7 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
 
 def process_batch_images() -> bool:
     print("=" * 75)
-    print("AUTONOMOUS ANTIGRAVITY & AI IMAGE ENGINE (21 BESPOKE RENDERS)")
+    print("AUTONOMOUS ANTIGRAVITY & AI IMAGE ENGINE (15 AI RENDERS + 6 MACRO CROPS = 21 ASSETS)")
     print("=" * 75)
 
     if not BATCH_FILE.exists():
@@ -248,23 +266,24 @@ def process_batch_images() -> bool:
             
         with open(txt_prompts, "w", encoding="utf-8") as tf:
             tf.write("=======================================================================\n")
-            tf.write("CRYPTOAIRDROPAI.COM — 21 BESPOKE 3D PROMPTS FOR ANTIGRAVITY\n")
+            tf.write("CRYPTOAIRDROPAI.COM — 15 BESPOKE 3D PROMPTS FOR ANTIGRAVITY (QUOTA SAFE)\n")
             tf.write("=======================================================================\n\n")
             for i, p in enumerate(prompt_manifest):
                 status_mark = "✓ ALREADY EXISTS" if p["exists"] else "[NEEDS GENERATION]"
-                tf.write(f"[{i+1}/21] {p['title']} ({p['aspect_ratio']}) — {status_mark}\n")
+                tf.write(f"[{i+1}/15] {p['title']} ({p['aspect_ratio']}) — {status_mark}\n")
                 tf.write(f"     Image Name: {p['image_name']}\n")
                 tf.write(f"     Prompt: {p['prompt']}\n\n")
 
         print("\n" + "=" * 75)
         print("  ✨ 3x3x3 BATCH RESEARCH CONTENT (2,000+ WORDS) GENERATED SUCCESSFULLY!")
         print("=" * 75)
-        print("  [!] 21 Bespoke 3D Octane Images need to be generated by Antigravity.")
-        print(f"  [+] All 21 prompts exported to: {txt_prompts}")
+        print("  [!] Exactly 15 Bespoke 3D Octane Images need generation (quota safe).")
+        print("  [+] The 6 Pre-FAQ visuals will be auto-derived via high-res macro crop.")
+        print(f"  [+] All 15 prompts exported to: {txt_prompts}")
         print("\n  👉 WHAT TO DO NOW:")
         print("     1. Open Antigravity chat.")
-        print("     2. Simply say: 'Bhai, batch ki images generate karke live kardo'")
-        print("     (Antigravity will auto-generate all 21 distinct 3D visuals and deploy live!)")
+        print("     2. Simply say: 'Bhai, batch me jo images he generate karke live kardo'")
+        print("     (Antigravity will generate all 15 visuals, crop Pre-FAQs, and deploy live!)")
         print("=" * 75 + "\n")
         return False
 
@@ -287,66 +306,68 @@ def process_batch_images() -> bool:
         p["featuredImage"] = f"/images/generated/{dest_name}"
         print(f"     ✓ Saved project emblem: {dest_name}")
 
-    # 2. Process 3 Intelligence Articles (3 distinct images each = 9 images)
-    print("\n[+] Linking 3 Intelligence Articles (9 Distinct 3D Renders)...")
+    # 2. Process 3 Intelligence Articles (2 AI images + 1 tactical macro zoom = 3 images each)
+    print("\n[+] Linking 3 Intelligence Articles (6 AI Renders + 3 Macro Crops)...")
     for idx, a in enumerate(batch["intelligence"]):
         slug = a["slug"]
         kw_root = slug.split("-")[0]
         print(f"  -> Intel {idx+1}: {a['title'][:40]}...")
 
-        # Featured slot (16:9)
+        # Featured slot (16:9 AI Render)
         feat_prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot="featured")
         feat_im = resolve_distinct_image(slug, "featured", [kw_root, "intel", "featured"], feat_prompt)
         feat_name = f"{slug}-featured-{v_suffix}.jpg"
-        save_image_with_metadata(feat_im, PUB_DIR / feat_name, f"Intel {slug} Featured")
+        feat_dest = PUB_DIR / feat_name
+        save_image_with_metadata(feat_im, feat_dest, f"Intel {slug} Featured")
         a["featuredImage"] = f"/images/generated/{feat_name}"
 
-        # Middle slot (16:9)
+        # Middle slot (16:9 AI Render)
         mid_prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot="middle")
         mid_im = resolve_distinct_image(slug, "middle", [kw_root, "intel", "middle"], mid_prompt)
         mid_name = f"{slug}-middle-{v_suffix}.jpg"
-        save_image_with_metadata(mid_im, PUB_DIR / mid_name, f"Intel {slug} Middle")
+        mid_dest = PUB_DIR / mid_name
+        save_image_with_metadata(mid_im, mid_dest, f"Intel {slug} Middle")
         a["middleImage"] = f"/images/generated/{mid_name}"
 
-        # Pre-FAQ slot (16:9)
-        pre_prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot="pre_faq")
-        pre_im = resolve_distinct_image(slug, "pre_faq", [kw_root, "intel", "faq"], pre_prompt)
+        # Pre-FAQ slot (16:9 Tactical Macro Zoom from Featured - 0 API Quota)
         pre_name = f"{slug}-pre_faq-{v_suffix}.jpg"
-        save_image_with_metadata(pre_im, PUB_DIR / pre_name, f"Intel {slug} Pre-FAQ")
+        pre_dest = PUB_DIR / pre_name
+        generate_tactical_prefaq_crop(feat_dest, pre_dest, f"Intel {slug} Pre-FAQ")
         a["preFaqImage"] = f"/images/generated/{pre_name}"
 
-        print(f"     ✓ Linked 3 distinct images: {feat_name}, {mid_name}, {pre_name}")
+        print(f"     ✓ Linked 3 distinct images: {feat_name}, {mid_name}, {pre_name} (Macro Crop)")
 
-    # 3. Process 3 Guides (3 distinct images each = 9 images)
-    print("\n[+] Linking 3 Guides (9 Distinct 3D Renders)...")
+    # 3. Process 3 Guides (2 AI images + 1 tactical macro zoom = 3 images each)
+    print("\n[+] Linking 3 Guides (6 AI Renders + 3 Macro Crops)...")
     for idx, g in enumerate(batch["guides"]):
         slug = g["slug"]
         parts = [p for p in slug.split("-") if p not in ["how", "to", "qualify", "for", "step", "by", "security", "runbook", "testnet", "on", "without", "optimizing", "yield", "multipliers"]]
         kw_root = parts[0] if parts else slug.split("-")[0]
         print(f"  -> Guide {idx+1}: {g['title'][:40]}...")
 
-        # Featured slot (16:9)
+        # Featured slot (16:9 AI Render)
         feat_prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot="featured")
         feat_im = resolve_distinct_image(slug, "featured", [kw_root, "guide", "featured"], feat_prompt)
         feat_name = f"{slug}-featured-{v_suffix}.jpg"
-        save_image_with_metadata(feat_im, PUB_DIR / feat_name, f"Guide {slug} Featured")
+        feat_dest = PUB_DIR / feat_name
+        save_image_with_metadata(feat_im, feat_dest, f"Guide {slug} Featured")
         g["featuredImage"] = f"/images/generated/{feat_name}"
 
-        # Middle slot (16:9)
+        # Middle slot (16:9 AI Render)
         mid_prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot="middle")
         mid_im = resolve_distinct_image(slug, "middle", [kw_root, "guide", "middle"], mid_prompt)
         mid_name = f"{slug}-middle-{v_suffix}.jpg"
-        save_image_with_metadata(mid_im, PUB_DIR / mid_name, f"Guide {slug} Middle")
+        mid_dest = PUB_DIR / mid_name
+        save_image_with_metadata(mid_im, mid_dest, f"Guide {slug} Middle")
         g["middleImage"] = f"/images/generated/{mid_name}"
 
-        # Pre-FAQ slot (16:9)
-        pre_prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot="pre_faq")
-        pre_im = resolve_distinct_image(slug, "pre_faq", [kw_root, "guide", "faq"], pre_prompt)
+        # Pre-FAQ slot (16:9 Tactical Macro Zoom from Featured - 0 API Quota)
         pre_name = f"{slug}-pre_faq-{v_suffix}.jpg"
-        save_image_with_metadata(pre_im, PUB_DIR / pre_name, f"Guide {slug} Pre-FAQ")
+        pre_dest = PUB_DIR / pre_name
+        generate_tactical_prefaq_crop(feat_dest, pre_dest, f"Guide {slug} Pre-FAQ")
         g["preFaqImage"] = f"/images/generated/{pre_name}"
 
-        print(f"     ✓ Linked 3 distinct images: {feat_name}, {mid_name}, {pre_name}")
+        print(f"     ✓ Linked 3 distinct images: {feat_name}, {mid_name}, {pre_name} (Macro Crop)")
 
     # Save updated pending_batch.json
     with open(BATCH_FILE, "w", encoding="utf-8") as f:

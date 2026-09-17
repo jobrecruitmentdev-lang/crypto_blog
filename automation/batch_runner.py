@@ -81,14 +81,14 @@ def run_master_automation(deploy_only=False):
         print("▶" * 40)
         manifest = generate_full_batch_manifest(scout_data)
 
-        # PHASE 3: BESPOKE 3D IMAGE GENERATION
-        print("\n" + "▶" * 40)
-        print("PHASE 3: AUTONOMOUS 3D VISUAL ASSET GENERATION")
-        print("▶" * 40)
-        images_ok = process_batch_images()
-        if not images_ok:
-            print("[*] Batch content saved! Awaiting Antigravity 3D image generation.")
-            sys.exit(0)
+    # PHASE 3: BESPOKE 3D IMAGE GENERATION & PRE-FAQ MACRO CROPS
+    print("\n" + "▶" * 40)
+    print("PHASE 3: AUTONOMOUS 3D VISUAL ASSET RESOLUTION & PRE-FAQ MACRO CROPS")
+    print("▶" * 40)
+    images_ok = process_batch_images()
+    if not images_ok:
+        print("[*] Stage 1 Complete: Content & 15 prompts saved! Awaiting Antigravity 3D image generation.")
+        sys.exit(0)
 
     # Reload generated batch with final image paths
     batch_file = AUTOMATION_ROOT / "pending_batch.json"
