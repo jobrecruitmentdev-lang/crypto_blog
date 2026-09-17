@@ -56,7 +56,7 @@ def run_cmd(cmd, cwd=None):
         print(res.stderr)
     return res.returncode == 0
 
-def run_master_automation():
+def run_master_automation(deploy_only=False):
     start_time = time.time()
     print("\n" + "=" * 80)
     print("  🚀 CRYPTOAIRDROPAI.COM — AUTONOMOUS BATCH PUBLISHING ENGINE (3x3x3)")
@@ -65,26 +65,27 @@ def run_master_automation():
     print("  Standard: 100% Unique Bespoke 3D Visuals, Zero Duplicates, Live Deploy")
     print("=" * 80 + "\n")
 
-    # PHASE 1: LIVE SCOUTING & DEDUPLICATION
-    print("\n" + "▶" * 40)
-    print("PHASE 1: LIVE PROTOCOL SCOUTING & DEDUPLICATION")
-    print("▶" * 40)
-    scout_data = scout_3x3x3_batch()
-    if not scout_data["projects"] or not scout_data["intelligence"] or not scout_data["guides"]:
-        print("❌ Scouting did not return full 3x3x3 batch! Aborting.")
-        sys.exit(1)
+    if not deploy_only:
+        # PHASE 1: LIVE SCOUTING & DEDUPLICATION
+        print("\n" + "▶" * 40)
+        print("PHASE 1: LIVE PROTOCOL SCOUTING & DEDUPLICATION")
+        print("▶" * 40)
+        scout_data = scout_3x3x3_batch()
+        if not scout_data["projects"] or not scout_data["intelligence"] or not scout_data["guides"]:
+            print("❌ Scouting did not return full 3x3x3 batch! Aborting.")
+            sys.exit(1)
 
-    # PHASE 2: INSTITUTIONAL CONTENT GENERATION (LLM)
-    print("\n" + "▶" * 40)
-    print("PHASE 2: INSTITUTIONAL LLM CONTENT GENERATION (2,200+ WORDS)")
-    print("▶" * 40)
-    manifest = generate_full_batch_manifest(scout_data)
+        # PHASE 2: INSTITUTIONAL CONTENT GENERATION (LLM)
+        print("\n" + "▶" * 40)
+        print("PHASE 2: INSTITUTIONAL LLM CONTENT GENERATION (2,200+ WORDS)")
+        print("▶" * 40)
+        manifest = generate_full_batch_manifest(scout_data)
 
-    # PHASE 3: BESPOKE 3D IMAGE GENERATION
-    print("\n" + "▶" * 40)
-    print("PHASE 3: AUTONOMOUS 3D VISUAL ASSET GENERATION")
-    print("▶" * 40)
-    process_batch_images()
+        # PHASE 3: BESPOKE 3D IMAGE GENERATION
+        print("\n" + "▶" * 40)
+        print("PHASE 3: AUTONOMOUS 3D VISUAL ASSET GENERATION")
+        print("▶" * 40)
+        process_batch_images()
 
     # Reload generated batch with final image paths
     batch_file = AUTOMATION_ROOT / "pending_batch.json"
@@ -130,9 +131,18 @@ def run_master_automation():
     timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
     commit_msg = f"feat(auto): publish 3 projects, 3 intelligence articles, 3 guides [{timestamp}]"
 
-    run_cmd("git add web/src/data/ web/public/images/generated/ automation/pending_batch.json")
+    run_cmd("git add web/src/data/ web/public/images/generated/ automation/pending_batch.json automation/modules/antigravity_image_bridge.py automation/batch_runner.py")
     run_cmd(f'git commit -m "{commit_msg}"')
     push_ok = run_cmd("git push origin main")
+
+    # PHASE 7: INSTANT SEARCH DISCOVERY NOTIFICATION
+    print("\n" + "▶" * 40)
+    print("PHASE 7: INSTANT SEARCH DISCOVERY BROADCAST (INDEXNOW)")
+    print("▶" * 40)
+    try:
+        run_cmd([sys.executable, str(MODULES_DIR / "submit_indexing.py"), "--discovery"])
+    except Exception as idx_err:
+        print(f"⚠️ Search engine notification note: {idx_err}")
 
     elapsed = time.time() - start_time
     print("\n" + "=" * 80)
@@ -144,4 +154,8 @@ def run_master_automation():
     print("=" * 80 + "\n")
 
 if __name__ == "__main__":
-    run_master_automation()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--deploy-only", action="store_true", help="Deploy existing pending_batch.json directly")
+    args = parser.parse_args()
+    run_master_automation(deploy_only=args.deploy_only)

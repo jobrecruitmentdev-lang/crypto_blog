@@ -993,7 +993,7 @@
     "difficulty": "Medium",
     "time": "15 min/week",
     "heat": 420,
-    "desc": "OpenTrade is a multi\u2011chain marketplace that tokenizes real\u2011world assets, allowing institutions to access and trade RWA with on\u2011chain settlement. It delivers value through fee\u2011based services and liquidity provision without a native token.",
+    "desc": "OpenTrade is a multi‑chain marketplace that tokenizes real‑world assets, allowing institutions to access and trade RWA with on‑chain settlement. It delivers value through fee‑based services and liquidity provision without a native token.",
     "tags": [
       "RWA",
       "Confirmed",
@@ -1002,13 +1002,13 @@
     "farmingSteps": [
       {
         "step": 1,
-        "title": "On\u2011chain Asset Tokenization Review",
-        "desc": "Examine how OpenTrade tokenizes real\u2011world assets and the legal framework supporting ownership rights."
+        "title": "On‑chain Asset Tokenization Review",
+        "desc": "Examine how OpenTrade tokenizes real‑world assets and the legal framework supporting ownership rights."
       },
       {
         "step": 2,
         "title": "Liquidity & Market Depth Analysis",
-        "desc": "Assess the depth of order books, available capital, and cross\u2011chain liquidity mechanisms."
+        "desc": "Assess the depth of order books, available capital, and cross‑chain liquidity mechanisms."
       },
       {
         "step": 3,
@@ -1042,7 +1042,7 @@
     "difficulty": "Medium",
     "time": "15 min/week",
     "heat": 420,
-    "desc": "GTBTC enables Bitcoin holders to earn yield by restaking BTC on a layer\u20112 solution without issuing a new token. It captures value through protocol fees and liquidity incentives, offering a tokenless, permissionless return on BTC.",
+    "desc": "GTBTC enables Bitcoin holders to earn yield by restaking BTC on a layer‑2 solution without issuing a new token. It captures value through protocol fees and liquidity incentives, offering a tokenless, permissionless return on BTC.",
     "tags": [
       "Restaked BTC",
       "Confirmed",
@@ -1091,7 +1091,7 @@
     "difficulty": "Medium",
     "time": "15 min/week",
     "heat": 420,
-    "desc": "CIAN Yield Layer is a multi\u2011chain yield aggregator that automatically routes capital to the highest\u2011APY strategies across DeFi. It delivers tokenless value by optimizing returns without requiring a native governance token, reducing dilution risk for institutional investors.",
+    "desc": "CIAN Yield Layer is a multi‑chain yield aggregator that automatically routes capital to the highest‑APY strategies across DeFi. It delivers tokenless value by optimizing returns without requiring a native governance token, reducing dilution risk for institutional investors.",
     "tags": [
       "Yield Aggregator",
       "Confirmed",
@@ -1101,7 +1101,7 @@
       {
         "step": 1,
         "title": "Initial Research",
-        "desc": "Review the platform\u2019s documentation, roadmap, and team credentials."
+        "desc": "Review the platform’s documentation, roadmap, and team credentials."
       },
       {
         "step": 2,
@@ -1127,5 +1127,152 @@
     "riskScore": 18,
     "visual_theme": "CIAN Yield Layer Yield Aggregator Multi-Chain",
     "featuredImage": "/images/generated/cian-yield-layer-project-gemini-v4.jpg"
+  },
+  {
+    "name": "Mellow Core",
+    "slug": "mellow-core",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "Mellow Core is a multi-chain on-chain capital allocator that automatically routes institutional funds into high-yield DeFi strategies while preserving capital efficiency. It operates without a native token, generating value solely through fee-based performance returns.",
+    "tags": [
+      "Onchain Capital Allocator",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Gather Protocol Documentation",
+        "desc": "Collect whitepaper, audit reports, and product walkthroughs from the Mellow Core website and GitHub."
+      },
+      {
+        "step": 2,
+        "title": "Analyze Allocation Mechanics",
+        "desc": "Review the smart contract code and strategy composition to understand how assets are allocated across chains and risk tiers."
+      },
+      {
+        "step": 3,
+        "title": "Assess Security and Compliance",
+        "desc": "Verify audit findings, check for insurance coverage, and ensure KYC/AML processes meet institutional standards."
+      },
+      {
+        "step": 4,
+        "title": "Compile Due Diligence Report",
+        "desc": "Summarize findings, risk score, and recommendation for investment committee review."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://app.mellow.finance/vaults",
+      "twitter": "https://twitter.com/mellowprotocol",
+      "docs": "https://app.mellow.finance/vaults/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "Mellow Core Onchain Capital Allocator Multi-Chain",
+    "featuredImage": "/images/generated/mellow-core-project-gemini-v3.jpg"
+  },
+  {
+    "name": "b14g",
+    "slug": "b14g",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "b14g is a multi‑chain restaking platform that lets validators lock assets to provide security and liquidity for emerging PoS networks. It generates value without a native token by capturing protocol fees and sharing them with participants.",
+    "tags": [
+      "Restaking",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Review Documentation",
+        "desc": "Read the official whitepaper, website, and developer docs to understand architecture and supported chains."
+      },
+      {
+        "step": 2,
+        "title": "Audit & Code Analysis",
+        "desc": "Check for third‑party smart‑contract audits, review source code repositories, and verify open‑source status."
+      },
+      {
+        "step": 3,
+        "title": "Economic & Incentive Model",
+        "desc": "Assess fee structures, reward distribution, and tokenless incentive mechanisms for sustainability."
+      },
+      {
+        "step": 4,
+        "title": "On‑Chain Monitoring",
+        "desc": "Track TVL, restaked amounts, and validator performance across supported chains using block explorers and analytics dashboards."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://www.b14g.xyz/",
+      "twitter": "https://twitter.com/b14g_network",
+      "docs": "https://www.b14g.xyz/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "b14g Restaking Multi-Chain",
+    "featuredImage": "/images/generated/b14g-project-gemini-v3.jpg"
+  },
+  {
+    "name": "BitFi Basis",
+    "slug": "bitfi-basis",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "BitFi Basis offers tokenless, algorithmic basis trading across multiple chains, enabling users to capture price differentials without exposure to native token risk. Its protocol automates funding rate arbitrage while maintaining capital efficiency and low slippage.",
+    "tags": [
+      "Basis Trading",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Review Documentation",
+        "desc": "Read the official whitepaper, technical docs, and UI guides to understand the protocol mechanics and tokenless design."
+      },
+      {
+        "step": 2,
+        "title": "On‑Chain Data Analysis",
+        "desc": "Examine liquidity pools, spread history, and funding rate data across supported chains to assess performance consistency."
+      },
+      {
+        "step": 3,
+        "title": "Security & Compliance Check",
+        "desc": "Verify audit reports, bug bounty programs, and regulatory compliance measures to gauge systemic risk."
+      },
+      {
+        "step": 4,
+        "title": "Due Diligence Report",
+        "desc": "Compile findings into a concise report highlighting value proposition, risks, and institutional suitability."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://www.bitfi.one",
+      "twitter": "https://twitter.com/Bitfi_Org",
+      "docs": "https://www.bitfi.one/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "BitFi Basis Basis Trading Multi-Chain",
+    "featuredImage": "/images/generated/bitfi-basis-project-gemini-v3.jpg"
   }
 ]

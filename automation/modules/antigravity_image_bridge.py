@@ -71,21 +71,43 @@ def build_bespoke_prompt(title: str, category: str, chain: str) -> str:
 
     return f"Photorealistic 3D render of {subject}, isometric octane render, dark futuristic minimalist background, 8k resolution, volumetric cinematic glow, zero flat 2D elements, no text, no watermark"
 
-def fetch_ai_image(prompt: str, seed: int = None) -> Image.Image:
-    """
-    Antigravity Native Visual Pipeline.
-    Strictly forbids low-quality third-party services like pollinations.ai.
-    Images must be generated directly via Antigravity's native 3D visual engine (Gemini/Imagen).
-    """
+def find_antigravity_image(keywords: list[str]) -> Path | None:
+    """Searches Antigravity brain directories for recently generated images matching keywords."""
+    brain_root = Path(os.environ.get("USERPROFILE", "")) / ".gemini" / "antigravity-cli" / "brain"
+    if not brain_root.exists():
+        return None
+    candidates = []
+    for f in brain_root.glob("*/*.jpg"):
+        fname = f.name.lower()
+        if all(k.lower() in fname for k in keywords):
+            candidates.append((f.stat().st_mtime, f))
+    if candidates:
+        candidates.sort(key=lambda x: x[0], reverse=True)
+        return candidates[0][1]
+    return None
+
+def resolve_base_image(slug: str, kind: str, keywords: list[str], prompt: str) -> Image.Image:
+    v_suffix = "gemini-v3"
+    expected_name = f"{slug}-{kind}-{v_suffix}.jpg"
+    dest_path = PUB_DIR / expected_name
+    if dest_path.exists():
+        return Image.open(dest_path)
+    
+    # Check brain directories
+    found_path = find_antigravity_image(keywords)
+    if found_path and found_path.exists():
+        print(f"     [+] Located Antigravity generated asset: {found_path.name}")
+        return Image.open(found_path)
+        
     raise RuntimeError(
-        "Direct pollinations.ai fallback is permanently disabled! "
-        "All visual assets must be generated via Antigravity's native generate_image tool "
-        "to ensure 8k resolution, bespoke 3D octane rendering, and zero watermarks."
+        f"Missing bespoke 3D image for '{slug}' ({kind})!\n"
+        f"Antigravity Prompt Required:\n{prompt}\n"
+        f"Please ask Antigravity in chat to generate this image."
     )
 
 def process_batch_images():
     print("=" * 75)
-    print("AUTONOMOUS ANTIGRAVITY & AI IMAGE ENGINE")
+    print("AUTONOMOUS ANTIGRAVITY & AI IMAGE ENGINE (TAREEQA A)")
     print("=" * 75)
 
     if not BATCH_FILE.exists():
@@ -95,45 +117,38 @@ def process_batch_images():
     with open(BATCH_FILE, "r", encoding="utf-8") as f:
         batch = json.load(f)
 
-    used_hashes = set()
     v_suffix = "gemini-v3"
 
-    # Collect existing image hashes from pub dir
-    for f in PUB_DIR.glob("*.jpg"):
-        try:
-            with open(f, "rb") as fp:
-                used_hashes.add(hashlib.md5(fp.read()).hexdigest())
-        except Exception:
-            pass
-
     # 1. Process 3 Projects
-    print("\n[+] Generating 3 Bespoke 3D Project Emblems...")
+    print("\n[+] Processing 3 Bespoke 3D Project Emblems...")
     for idx, p in enumerate(batch["projects"]):
         slug = p["slug"]
         prompt = build_bespoke_prompt(p["name"], p.get("category", "DeFi"), p.get("chain", "Multi-Chain"))
         print(f"  -> Project {idx+1}: {p['name']}")
-        print(f"     Prompt: {prompt[:65]}...")
         
-        im = fetch_ai_image(prompt, seed=idx + int(time.time()))
+        kw_root = slug.split("-")[0]
+        keywords = [kw_root, "token"]
+        im = resolve_base_image(slug, "project", keywords, prompt)
         dest_name = f"{slug}-project-{v_suffix}.jpg"
         dest_path = PUB_DIR / dest_name
         
         save_image_with_metadata(im, dest_path, f"Project {p['name']}")
         p["featuredImage"] = f"/images/generated/{dest_name}"
-        print(f"     ✓ Saved: {dest_name}")
-        time.sleep(2)
+        print(f"     ✓ Saved project emblem: {dest_name}")
 
     # 2. Process 3 Intelligence Articles
-    print("\n[+] Generating 3 Bespoke 3D Intelligence Visuals + Derived Crops...")
+    print("\n[+] Processing 3 Bespoke 3D Intelligence Visuals + Derived Crops...")
     for idx, a in enumerate(batch["intelligence"]):
         slug = a["slug"]
         prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM")
         print(f"  -> Intel {idx+1}: {a['title'][:40]}...")
         
-        base_im = fetch_ai_image(prompt, seed=10 + idx + int(time.time()))
+        kw_root = slug.split("-")[0]
+        keywords = [kw_root, "intel"]
+        base_im = resolve_base_image(slug, "featured", keywords, prompt)
         w, h = base_im.size
 
-        # Featured slot
+        # Featured slot (16:9)
         feat_name = f"{slug}-featured-{v_suffix}.jpg"
         feat_path = PUB_DIR / feat_name
         save_image_with_metadata(base_im, feat_path, f"Intel {slug} Featured")
@@ -154,19 +169,24 @@ def process_batch_images():
         a["preFaqImage"] = f"/images/generated/{pre_name}"
 
         print(f"     ✓ Saved trio: {feat_name}")
-        time.sleep(2)
 
     # 3. Process 3 Guides
-    print("\n[+] Generating 3 Bespoke 3D Guide Visuals + Derived Crops...")
+    print("\n[+] Processing 3 Bespoke 3D Guide Visuals + Derived Crops...")
+    guide_kw_map = {
+        0: ["mellow", "guide"],
+        1: ["b14g", "guide"],
+        2: ["multisig", "guide"]
+    }
     for idx, g in enumerate(batch["guides"]):
         slug = g["slug"]
         prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain")
         print(f"  -> Guide {idx+1}: {g['title'][:40]}...")
         
-        base_im = fetch_ai_image(prompt, seed=20 + idx + int(time.time()))
+        keywords = guide_kw_map.get(idx, [slug.split("-")[0], "guide"])
+        base_im = resolve_base_image(slug, "featured", keywords, prompt)
         w, h = base_im.size
 
-        # Featured slot
+        # Featured slot (16:9)
         feat_name = f"{slug}-featured-{v_suffix}.jpg"
         feat_path = PUB_DIR / feat_name
         save_image_with_metadata(base_im, feat_path, f"Guide {slug} Featured")
@@ -187,7 +207,6 @@ def process_batch_images():
         g["preFaqImage"] = f"/images/generated/{pre_name}"
 
         print(f"     ✓ Saved trio: {feat_name}")
-        time.sleep(2)
 
     # Save updated pending_batch.json
     with open(BATCH_FILE, "w", encoding="utf-8") as f:
