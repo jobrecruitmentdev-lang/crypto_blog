@@ -1,0 +1,335 @@
+[
+  {
+    "title": "Project Emblem: Figure Markets Democratized Prime",
+    "slug": "figure-markets-democratized-prime",
+    "slot": "project",
+    "type": "project",
+    "aspect_ratio": "1:1",
+    "image_name": "figure_token_render",
+    "dest_filename": "figure-markets-democratized-prime-project-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "token"
+    ],
+    "prompt": "Photorealistic 3D luxury physical crypto token emblem for Figure Markets Democratized Prime, translucent crystalline institutional vault, floating golden tokens, 1:1 square emblem on marble pedestal, octane render, cinema 4d, 8k, dramatic lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Project Emblem: DigiFT",
+    "slug": "digift",
+    "slot": "project",
+    "type": "project",
+    "aspect_ratio": "1:1",
+    "image_name": "digift_token_render",
+    "dest_filename": "digift-project-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "token"
+    ],
+    "prompt": "Photorealistic 3D luxury physical crypto token emblem for DigiFT, translucent crystalline institutional vault, floating golden tokens, 1:1 square emblem on marble pedestal, octane render, cinema 4d, 8k, dramatic lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Project Emblem: Plume Vaults",
+    "slug": "plume-vaults",
+    "slot": "project",
+    "type": "project",
+    "aspect_ratio": "1:1",
+    "image_name": "plume_token_render",
+    "dest_filename": "plume-vaults-project-gemini-v3.jpg",
+    "keywords": [
+      "plume",
+      "token"
+    ],
+    "prompt": "Photorealistic 3D luxury physical crypto token emblem for Plume Vaults, translucent crystalline institutional vault, floating golden tokens, 1:1 square emblem on marble pedestal, octane render, cinema 4d, 8k, dramatic lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [FEATURED]: Figure Markets Democratized Prime I",
+    "slug": "figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive",
+    "slot": "featured",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "figure_intel_featured",
+    "dest_filename": "figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive-featured-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "intel",
+      "featured"
+    ],
+    "prompt": "Photorealistic 3D cinematic concept art of futuristic decentralized blockchain nexus core for Figure Markets Democratized Prime Incentive Architecture & Points Valuation Deep Dive, iridescent glass facets, volumetric studio illumination, wide 16:9 perspective, octane render, 8k resolution, highly detailed, sharp focus, volumetric lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [MIDDLE]: Figure Markets Democratized Prime I",
+    "slug": "figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive",
+    "slot": "middle",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "figure_intel_middle",
+    "dest_filename": "figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive-middle-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "intel",
+      "middle"
+    ],
+    "prompt": "Photorealistic 3D isometric architectural schematic and transaction execution conduits for Figure Markets Democratized Prime Incentive Architecture & Points Valuation Deep Dive, transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [PRE_FAQ]: Figure Markets Democratized Prime I",
+    "slug": "figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive",
+    "slot": "pre_faq",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "figure_intel_faq",
+    "dest_filename": "figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive-pre_faq-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "intel",
+      "faq"
+    ],
+    "prompt": "Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for Figure Markets Democratized Prime Incentive Architecture & Points Valuation Deep Dive, interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [FEATURED]: DigiFT Liquidity Flywheel & Token G",
+    "slug": "digift-liquidity-flywheel-token-generation-event-tge-model",
+    "slot": "featured",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "digift_intel_featured",
+    "dest_filename": "digift-liquidity-flywheel-token-generation-event-tge-model-featured-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "intel",
+      "featured"
+    ],
+    "prompt": "Photorealistic 3D cinematic concept art of dynamic concentric platinum flywheel conduits for DigiFT Liquidity Flywheel & Token Generation Event (TGE) Model, swirling energetic amber restaking tokens, cleanroom chamber, wide 16:9 perspective, octane render, 8k resolution, highly detailed, sharp focus, volumetric lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [MIDDLE]: DigiFT Liquidity Flywheel & Token G",
+    "slug": "digift-liquidity-flywheel-token-generation-event-tge-model",
+    "slot": "middle",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "digift_intel_middle",
+    "dest_filename": "digift-liquidity-flywheel-token-generation-event-tge-model-middle-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "intel",
+      "middle"
+    ],
+    "prompt": "Photorealistic 3D isometric architectural schematic and transaction execution conduits for DigiFT Liquidity Flywheel & Token Generation Event (TGE) Model, transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [PRE_FAQ]: DigiFT Liquidity Flywheel & Token G",
+    "slug": "digift-liquidity-flywheel-token-generation-event-tge-model",
+    "slot": "pre_faq",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "digift_intel_faq",
+    "dest_filename": "digift-liquidity-flywheel-token-generation-event-tge-model-pre_faq-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "intel",
+      "faq"
+    ],
+    "prompt": "Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for DigiFT Liquidity Flywheel & Token Generation Event (TGE) Model, interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [FEATURED]: Plume Vaults Institutional Risk Ass",
+    "slug": "plume-vaults-institutional-risk-assessment-ecosystem-positioning",
+    "slot": "featured",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "plume_intel_featured",
+    "dest_filename": "plume-vaults-institutional-risk-assessment-ecosystem-positioning-featured-gemini-v3.jpg",
+    "keywords": [
+      "plume",
+      "intel",
+      "featured"
+    ],
+    "prompt": "Photorealistic 3D cinematic concept art of futuristic decentralized blockchain nexus core for Plume Vaults Institutional Risk Assessment & Ecosystem Positioning, iridescent glass facets, volumetric studio illumination, wide 16:9 perspective, octane render, 8k resolution, highly detailed, sharp focus, volumetric lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [MIDDLE]: Plume Vaults Institutional Risk Ass",
+    "slug": "plume-vaults-institutional-risk-assessment-ecosystem-positioning",
+    "slot": "middle",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "plume_intel_middle",
+    "dest_filename": "plume-vaults-institutional-risk-assessment-ecosystem-positioning-middle-gemini-v3.jpg",
+    "keywords": [
+      "plume",
+      "intel",
+      "middle"
+    ],
+    "prompt": "Photorealistic 3D isometric architectural schematic and transaction execution conduits for Plume Vaults Institutional Risk Assessment & Ecosystem Positioning, transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Intel [PRE_FAQ]: Plume Vaults Institutional Risk Ass",
+    "slug": "plume-vaults-institutional-risk-assessment-ecosystem-positioning",
+    "slot": "pre_faq",
+    "type": "intelligence",
+    "aspect_ratio": "16:9",
+    "image_name": "plume_intel_faq",
+    "dest_filename": "plume-vaults-institutional-risk-assessment-ecosystem-positioning-pre_faq-gemini-v3.jpg",
+    "keywords": [
+      "plume",
+      "intel",
+      "faq"
+    ],
+    "prompt": "Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for Plume Vaults Institutional Risk Assessment & Ecosystem Positioning, interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Guide [FEATURED]: How to Qualify for Figure Markets D",
+    "slug": "how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook",
+    "slot": "featured",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "figure_guide_featured",
+    "dest_filename": "how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook-featured-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "guide",
+      "featured"
+    ],
+    "prompt": "Photorealistic 3D cinematic concept art of tactical crypto security war room for How to Qualify for Figure Markets Democratized Prime Testnet: Step-by-Step Security Runbook, holographic threat detection consoles, illuminated cybernetic defense perimeter, wide 16:9 perspective, octane render, 8k resolution, highly detailed, sharp focus, volumetric lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Guide [MIDDLE]: How to Qualify for Figure Markets D",
+    "slug": "how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook",
+    "slot": "middle",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "figure_guide_middle",
+    "dest_filename": "how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook-middle-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "guide",
+      "middle"
+    ],
+    "prompt": "Photorealistic 3D isometric architectural schematic and transaction execution conduits for How to Qualify for Figure Markets Democratized Prime Testnet: Step-by-Step Security Runbook, transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Guide [PRE_FAQ]: How to Qualify for Figure Markets D",
+    "slug": "how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook",
+    "slot": "pre_faq",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "figure_guide_faq",
+    "dest_filename": "how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook-pre_faq-gemini-v3.jpg",
+    "keywords": [
+      "figure",
+      "guide",
+      "faq"
+    ],
+    "prompt": "Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for How to Qualify for Figure Markets Democratized Prime Testnet: Step-by-Step Security Runbook, interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Guide [FEATURED]: Optimizing Yield & Multipliers on D",
+    "slug": "optimizing-yield-multipliers-on-digift-without-sybil-flagging",
+    "slot": "featured",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "digift_guide_featured",
+    "dest_filename": "optimizing-yield-multipliers-on-digift-without-sybil-flagging-featured-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "guide",
+      "featured"
+    ],
+    "prompt": "Photorealistic 3D cinematic concept art of tactical crypto security war room for Optimizing Yield & Multipliers on DigiFT Without Sybil Flagging, holographic threat detection consoles, illuminated cybernetic defense perimeter, wide 16:9 perspective, octane render, 8k resolution, highly detailed, sharp focus, volumetric lighting, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Guide [MIDDLE]: Optimizing Yield & Multipliers on D",
+    "slug": "optimizing-yield-multipliers-on-digift-without-sybil-flagging",
+    "slot": "middle",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "digift_guide_middle",
+    "dest_filename": "optimizing-yield-multipliers-on-digift-without-sybil-flagging-middle-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "guide",
+      "middle"
+    ],
+    "prompt": "Photorealistic 3D isometric architectural schematic and transaction execution conduits for Optimizing Yield & Multipliers on DigiFT Without Sybil Flagging, transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": true
+  },
+  {
+    "title": "Guide [PRE_FAQ]: Optimizing Yield & Multipliers on D",
+    "slug": "optimizing-yield-multipliers-on-digift-without-sybil-flagging",
+    "slot": "pre_faq",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "digift_guide_faq",
+    "dest_filename": "optimizing-yield-multipliers-on-digift-without-sybil-flagging-pre_faq-gemini-v3.jpg",
+    "keywords": [
+      "digift",
+      "guide",
+      "faq"
+    ],
+    "prompt": "Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for Optimizing Yield & Multipliers on DigiFT Without Sybil Flagging, interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": false
+  },
+  {
+    "title": "Guide [FEATURED]: Mempool Priority Gas Timing: Slashi",
+    "slug": "mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs",
+    "slot": "featured",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "mempool_guide_featured",
+    "dest_filename": "mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs-featured-gemini-v3.jpg",
+    "keywords": [
+      "mempool",
+      "guide",
+      "featured"
+    ],
+    "prompt": "Photorealistic 3D cinematic concept art of tactical crypto security war room for Mempool Priority Gas Timing: Slashing Execution Fees During Mass Snapshot Epochs, holographic threat detection consoles, illuminated cybernetic defense perimeter, wide 16:9 perspective, octane render, 8k resolution, highly detailed, sharp focus, volumetric lighting, zero flat 2D elements, no text, no watermark",
+    "exists": false
+  },
+  {
+    "title": "Guide [MIDDLE]: Mempool Priority Gas Timing: Slashi",
+    "slug": "mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs",
+    "slot": "middle",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "mempool_guide_middle",
+    "dest_filename": "mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs-middle-gemini-v3.jpg",
+    "keywords": [
+      "mempool",
+      "guide",
+      "middle"
+    ],
+    "prompt": "Photorealistic 3D isometric architectural schematic and transaction execution conduits for Mempool Priority Gas Timing: Slashing Execution Fees During Mass Snapshot Epochs, transparent glass state-transition pipelines, glowing validator nodes, clean cybernetic laboratory, microsecond data telemetry conduits, ambient studio lighting, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": false
+  },
+  {
+    "title": "Guide [PRE_FAQ]: Mempool Priority Gas Timing: Slashi",
+    "slug": "mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs",
+    "slot": "pre_faq",
+    "type": "guide",
+    "aspect_ratio": "16:9",
+    "image_name": "mempool_guide_faq",
+    "dest_filename": "mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs-pre_faq-gemini-v3.jpg",
+    "keywords": [
+      "mempool",
+      "guide",
+      "faq"
+    ],
+    "prompt": "Photorealistic 3D holographic security matrix and biometric anti-sybil defense shield for Mempool Priority Gas Timing: Slashing Execution Fees During Mass Snapshot Epochs, interlocking mechanical cryptographic locks, glowing laser perimeter barrier, tamper-proof security seal, volumetric neon glow, wide 16:9 perspective, octane render, 8k resolution, sharp focus, zero flat 2D elements, no text, no watermark",
+    "exists": false
+  }
+]
