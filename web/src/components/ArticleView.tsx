@@ -14,6 +14,155 @@ interface ArticleViewProps {
   hubPath: string;
 }
 
+function renderTldr(tldrText: string) {
+  if (!tldrText) return null;
+
+  // Split lines on newline, or if it's bullet-delimited inline with "- "
+  let lines: string[] = [];
+  if (tldrText.includes("\n")) {
+    lines = tldrText.split(/\n+/).map((l) => l.trim()).filter((l) => l.length > 0);
+  } else if (tldrText.includes(" - ")) {
+    lines = tldrText.split(/\s+-\s+/).map((l) => l.trim()).filter((l) => l.length > 0);
+  } else {
+    lines = [tldrText.trim()];
+  }
+
+  const isBulletList = lines.some((l) => l.startsWith("-") || l.startsWith("*") || l.startsWith("•") || l.match(/^[0-9]+\.\s/)) || lines.length > 1;
+
+  if (isBulletList) {
+    const cleanItems = lines.map((l) => l.replace(/^[-*•]\s*/, "").replace(/^[0-9]+\.\s*/, "").trim());
+    return (
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+        {cleanItems.map((item, idx) => {
+          const colonIdx = item.indexOf(":");
+          if (colonIdx > 0 && colonIdx < 35) {
+            const label = item.slice(0, colonIdx);
+            const rest = item.slice(colonIdx + 1);
+            return (
+              <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "0.98rem", lineHeight: 1.6, color: "var(--text)" }}>
+                <span style={{ color: "var(--accent)", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>⚡</span>
+                <span>
+                  <strong style={{ color: "var(--text-bright)", fontWeight: 700 }}>{label}:</strong>
+                  {rest}
+                </span>
+              </li>
+            );
+          }
+          return (
+            <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "0.98rem", lineHeight: 1.6, color: "var(--text)" }}>
+              <span style={{ color: "var(--accent)", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>⚡</span>
+              <span>{item}</span>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
+
+  return (
+    <p style={{ margin: 0, color: "var(--text)", fontSize: "1.02rem", lineHeight: 1.7, fontWeight: 500 }}>
+      {tldrText}
+    </p>
+  );
+}
+
+function convertMarkdownFallback(text: string): string {
+  if (!text) return "";
+  // Check if text has raw markdown headers or pipes
+  const hasRawMd = /(?:^|\n)##\s+/.test(text) || /\|\s*:[-\s]+\|/.test(text) || text.startsWith("## ");
+  if (!hasRawMd) return text;
+
+  let out = text;
+
+  // Code blocks: ```...``` -> <pre><code>...</code></pre>
+  out = out.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+  // Markdown tables
+  const tableRegex = /((?:\|[^\n]+\|\r?\n)+)/g;
+  out = out.replace(tableRegex, (tbl) => {
+    const rows = tbl.trim().split(/\r?\n/).map((r) => r.trim()).filter(Boolean);
+    if (rows.length < 2) return tbl;
+
+    let headerRow = rows[0];
+    let bodyRows = rows.slice(1);
+    if (bodyRows.length > 0 && /\|\s*:[-\s]+\|/.test(bodyRows[0])) {
+      bodyRows = bodyRows.slice(1);
+    }
+
+    const parseCells = (row: string) => row.split("|").slice(1, -1).map((c) => c.trim());
+    const ths = parseCells(headerRow).map((c) => `<th>${c}</th>`).join("");
+    const trs = bodyRows.map((r) => `<tr>${parseCells(r).map((c) => `<td>${c}</td>`).join("")}</tr>`).join("");
+
+    return `<div class="table-scroll"><table><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div>`;
+  });
+
+  // Headings
+  out = out.replace(/(?:^|\n)##\s+([^\n]+)/g, '\n<h2>$1</h2>');
+  out = out.replace(/(?:^|\n)###\s+([^\n]+)/g, '\n<h3>$1</h3>');
+
+  // Bold
+  out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+  // Unordered lists
+  out = out.replace(/((?:^|\n)-\s+[^\n]+)+/g, (list) => {
+    const items = list.trim().split(/\n-\s+/).filter(Boolean);
+    return `<ul>${items.map((it) => `<li>${it.replace(/^-\s*/, '')}</li>`).join('')}</ul>`;
+  });
+
+  // Paragraphs
+  const blocks = out.split(/\n\n+/);
+  out = blocks.map((b) => {
+    const trimmed = b.trim();
+    if (!trimmed) return '';
+    if (trimmed.startsWith('<h') || trimmed.startsWith('<div') || trimmed.startsWith('<ul') || trimmed.startsWith('<pre') || trimmed.startsWith('<table')) {
+      return trimmed;
+    }
+    return `<p>${trimmed.replace(/\n/g, '<br/>')}</p>`;
+  }).join('\n');
+
+  return out;
+}
+
+function splitHtmlBody(html: string): [string, string] {
+  if (!html) return ["", ""];
+
+  // 1. If content contains raw markdown (e.g. from legacy database), convert it
+  let cleanHtml = convertMarkdownFallback(html);
+
+  // 2. Ensure any table without table-scroll is wrapped
+  if (!cleanHtml.includes('class="table-scroll"')) {
+    cleanHtml = cleanHtml.replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>');
+  }
+
+  // 3. Find <h2> headings to split cleanly before a major section
+  const h2Regex = /<h2\b[^>]*>/gi;
+  const matches = [...cleanHtml.matchAll(h2Regex)];
+
+  if (matches.length >= 3) {
+    const targetCharIndex = cleanHtml.length * 0.45;
+    let bestMatch = matches[1];
+    let minDiff = Math.abs((bestMatch.index || 0) - targetCharIndex);
+    for (let i = 1; i < matches.length; i++) {
+      const diff = Math.abs((matches[i].index || 0) - targetCharIndex);
+      if (diff < minDiff) {
+        minDiff = diff;
+        bestMatch = matches[i];
+      }
+    }
+    const splitIdx = bestMatch.index || Math.floor(cleanHtml.length / 2);
+    return [cleanHtml.slice(0, splitIdx), cleanHtml.slice(splitIdx)];
+  }
+
+  // Fallback: split on </p> if available
+  const pSplit = cleanHtml.split("</p>");
+  if (pSplit.length > 2) {
+    const mid = Math.floor(pSplit.length / 2);
+    return [pSplit.slice(0, mid).join("</p>") + "</p>", pSplit.slice(mid).join("</p>")];
+  }
+
+  return [cleanHtml, ""];
+}
+
 export default function ArticleView({ article: initialArticle, hubTitle, hubPath }: ArticleViewProps) {
   const [article, setArticle] = useState<Article>(initialArticle);
 
@@ -39,13 +188,8 @@ export default function ArticleView({ article: initialArticle, hubTitle, hubPath
 
   const author = getAuthorBySlug(article.authorSlug);
 
-  // Split article body around the middle to inject the Middle 8K Image
-  const body = article.body || "";
-  const paragraphs = body.split("</p>");
-  const midIndex = Math.floor(paragraphs.length / 2);
-
-  const firstHalf = paragraphs.slice(0, midIndex).join("</p>") + (midIndex > 0 ? "</p>" : "");
-  const secondHalf = paragraphs.slice(midIndex).join("</p>");
+  // Helper to split HTML body cleanly at an h2 section boundary
+  const [firstHalf, secondHalf] = splitHtmlBody(article.body || "");
 
   const jsonLdArticle = {
     "@context": "https://schema.org",
@@ -180,13 +324,11 @@ export default function ArticleView({ article: initialArticle, hubTitle, hubPath
 
         {/* TL;DR Box */}
         {article.tldr && (
-          <MotionCard style={{ padding: 24, marginBottom: 32, borderLeft: "4px solid var(--accent)", background: "var(--surface-sunken)", borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-              <span className="pill-badge" style={{ fontSize: "0.72rem", background: "rgba(37, 99, 235, 0.1)", color: "var(--accent)" }}>⚡ Executive Summary (TL;DR)</span>
+          <MotionCard style={{ padding: 26, marginBottom: 36, borderLeft: "4px solid var(--accent)", background: "var(--surface-sunken)", borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)", borderRadius: "var(--radius-sm, 10px)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+              <span className="pill-badge" style={{ fontSize: "0.74rem", background: "rgba(37, 99, 235, 0.12)", color: "var(--accent)", fontWeight: 700 }}>⚡ Executive Summary (TL;DR)</span>
             </div>
-            <p style={{ margin: 0, color: "var(--text)", fontSize: "1.02rem", lineHeight: 1.7, fontWeight: 500 }}>
-              {article.tldr}
-            </p>
+            {renderTldr(article.tldr)}
           </MotionCard>
         )}
 
@@ -203,13 +345,13 @@ export default function ArticleView({ article: initialArticle, hubTitle, hubPath
         )}
 
         {/* First Half of Body */}
-        <div
-          className="post-content article-content"
-          dangerouslySetInnerHTML={{
-            __html: firstHalf.replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>')
-          }}
-          style={{ fontSize: "1.08rem", lineHeight: 1.8, color: "var(--text)" }}
-        />
+        {firstHalf && (
+          <div
+            className="post-content article-content"
+            dangerouslySetInnerHTML={{ __html: firstHalf }}
+            style={{ fontSize: "1.08rem", lineHeight: 1.8, color: "var(--text)" }}
+          />
+        )}
 
         {/* 2. MIDDLE 8K CONTEXTUAL IMAGE */}
         {article.middleImage && (
@@ -240,13 +382,13 @@ export default function ArticleView({ article: initialArticle, hubTitle, hubPath
         )}
 
         {/* Second Half of Body */}
-        <div
-          className="post-content article-content"
-          dangerouslySetInnerHTML={{
-            __html: secondHalf.replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>')
-          }}
-          style={{ fontSize: "1.08rem", lineHeight: 1.8, color: "var(--text)" }}
-        />
+        {secondHalf && (
+          <div
+            className="post-content article-content"
+            dangerouslySetInnerHTML={{ __html: secondHalf }}
+            style={{ fontSize: "1.08rem", lineHeight: 1.8, color: "var(--text)" }}
+          />
+        )}
 
         {/* 3. PRE-FAQ 8K TACTICAL VERIFICATION IMAGE */}
         {article.preFaqImage && (
