@@ -69,13 +69,27 @@ function renderTldr(tldrText: string) {
 function convertMarkdownFallback(text: string): string {
   if (!text) return "";
   // Check if text has raw markdown headers or pipes
-  const hasRawMd = /(?:^|\n)##\s+/.test(text) || /\|\s*:[-\s]+\|/.test(text) || text.startsWith("## ");
-  if (!hasRawMd) return text;
+  const hasRawMd = /(?:^|\n)##\s+/.test(text) || /\|[-:\s|]+\|/.test(text) || text.startsWith("## ") || text.includes("**");
+  if (!hasRawMd) {
+    // Even if no markdown headers, make sure any standalone table is wrapped
+    return text.replace(/<div class="table-scroll">\s*<table[\s\S]*?<\/table>\s*<\/div>|<table[\s\S]*?<\/table>/gi, (match) => {
+      if (match.startsWith('<div class="table-scroll"')) return match;
+      return `<div class="table-scroll">${match}</div>`;
+    });
+  }
 
   let out = text;
 
   // Code blocks: ```...``` -> <pre><code>...</code></pre>
   out = out.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+  // Unwrap any markdown tables trapped inside <p> tags
+  out = out.replace(/<p>([\s\S]*?\|[\s\S]*?)<\/p>/gi, (match, inner) => {
+    if (/\|[-:\s|]+\|/.test(inner)) {
+      return inner;
+    }
+    return match;
+  });
 
   // Markdown tables
   const tableRegex = /((?:\|[^\n]+\|\r?\n)+)/g;
@@ -85,7 +99,7 @@ function convertMarkdownFallback(text: string): string {
 
     let headerRow = rows[0];
     let bodyRows = rows.slice(1);
-    if (bodyRows.length > 0 && /\|\s*:[-\s]+\|/.test(bodyRows[0])) {
+    if (bodyRows.length > 0 && /\|[-:\s|]+\|/.test(bodyRows[0])) {
       bodyRows = bodyRows.slice(1);
     }
 
@@ -109,16 +123,22 @@ function convertMarkdownFallback(text: string): string {
     return `<ul>${items.map((it) => `<li>${it.replace(/^-\s*/, '')}</li>`).join('')}</ul>`;
   });
 
-  // Paragraphs
+  // Paragraphs for blocks that aren't tags
   const blocks = out.split(/\n\n+/);
   out = blocks.map((b) => {
     const trimmed = b.trim();
     if (!trimmed) return '';
-    if (trimmed.startsWith('<h') || trimmed.startsWith('<div') || trimmed.startsWith('<ul') || trimmed.startsWith('<pre') || trimmed.startsWith('<table')) {
+    if (trimmed.startsWith('<h') || trimmed.startsWith('<div') || trimmed.startsWith('<ul') || trimmed.startsWith('<ol') || trimmed.startsWith('<pre') || trimmed.startsWith('<table')) {
       return trimmed;
     }
     return `<p>${trimmed.replace(/\n/g, '<br/>')}</p>`;
   }).join('\n');
+
+  // Ensure all tables are wrapped
+  out = out.replace(/<div class="table-scroll">\s*<table[\s\S]*?<\/table>\s*<\/div>|<table[\s\S]*?<\/table>/gi, (match) => {
+    if (match.startsWith('<div class="table-scroll"')) return match;
+    return `<div class="table-scroll">${match}</div>`;
+  });
 
   return out;
 }
@@ -130,9 +150,10 @@ function splitHtmlBody(html: string): [string, string] {
   let cleanHtml = convertMarkdownFallback(html);
 
   // 2. Ensure any table without table-scroll is wrapped
-  if (!cleanHtml.includes('class="table-scroll"')) {
-    cleanHtml = cleanHtml.replace(/(<table[\s\S]*?<\/table>)/gi, '<div class="table-scroll">$1</div>');
-  }
+  cleanHtml = cleanHtml.replace(/<div class="table-scroll">\s*<table[\s\S]*?<\/table>\s*<\/div>|<table[\s\S]*?<\/table>/gi, (match) => {
+    if (match.startsWith('<div class="table-scroll"')) return match;
+    return `<div class="table-scroll">${match}</div>`;
+  });
 
   // 3. Find <h2> headings to split cleanly before a major section
   const h2Regex = /<h2\b[^>]*>/gi;
@@ -176,6 +197,9 @@ export default function ArticleView({ article: initialArticle, hubTitle, hubPath
         if (res.ok) {
           const liveData = await res.json();
           if (liveData && liveData.slug) {
+            if (liveData.body) {
+              liveData.body = convertMarkdownFallback(liveData.body);
+            }
             setArticle(liveData);
           }
         }
