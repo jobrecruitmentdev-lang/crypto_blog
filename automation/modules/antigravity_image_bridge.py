@@ -162,7 +162,7 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
             "slot": "project",
             "type": "project",
             "aspect_ratio": "1:1",
-            "image_name": f"{slug.replace('-', '_')[:16]}_token",
+            "image_name": f"{kw_root}_token_render",
             "dest_filename": dest_name,
             "keywords": keywords,
             "prompt": prompt,
@@ -174,9 +174,9 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
         slug = a["slug"]
         kw_root = slug.split("-")[0]
         slots = [
-            ("featured", "16:9", f"{slug}-featured-{v_suffix}.jpg", [kw_root, "intel"]),
-            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "middle"]),
-            ("pre_faq", "16:9", f"{slug}-pre_faq-{v_suffix}.jpg", [kw_root, "faq"])
+            ("featured", "16:9", f"{slug}-featured-{v_suffix}.jpg", [kw_root, "intel", "featured"]),
+            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "intel", "middle"]),
+            ("pre_faq", "16:9", f"{slug}-pre_faq-{v_suffix}.jpg", [kw_root, "intel", "faq"])
         ]
         for slot_name, ar, dest_name, kw in slots:
             prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot=slot_name)
@@ -188,7 +188,7 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
                 "slot": slot_name,
                 "type": "intelligence",
                 "aspect_ratio": ar,
-                "image_name": f"{slug.replace('-', '_')[:14]}_{slot_name}",
+                "image_name": f"{kw_root}_intel_{slot_name.replace('pre_', '')}",
                 "dest_filename": dest_name,
                 "keywords": kw,
                 "prompt": prompt,
@@ -196,14 +196,15 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
             })
 
     # 3. 3 Guides (3 distinct images each = 9 items)
-    guide_base_kws = {0: "mellow", 1: "b14g", 2: "multisig"}
     for idx, g in enumerate(batch.get("guides", [])):
         slug = g["slug"]
-        kw_root = guide_base_kws.get(idx, slug.split("-")[0])
+        # Extract meaningful root keyword
+        parts = [p for p in slug.split("-") if p not in ["how", "to", "qualify", "for", "step", "by", "security", "runbook", "testnet", "on", "without", "optimizing", "yield", "multipliers"]]
+        kw_root = parts[0] if parts else slug.split("-")[0]
         slots = [
-            ("featured", "16:9", f"{slug}-featured-{v_suffix}.jpg", [kw_root, "guide"]),
-            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "middle"]),
-            ("pre_faq", "16:9", f"{slug}-pre_faq-{v_suffix}.jpg", [kw_root, "faq"])
+            ("featured", "16:9", f"{slug}-featured-{v_suffix}.jpg", [kw_root, "guide", "featured"]),
+            ("middle", "16:9", f"{slug}-middle-{v_suffix}.jpg", [kw_root, "guide", "middle"]),
+            ("pre_faq", "16:9", f"{slug}-pre_faq-{v_suffix}.jpg", [kw_root, "guide", "faq"])
         ]
         for slot_name, ar, dest_name, kw in slots:
             prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot=slot_name)
@@ -215,7 +216,7 @@ def check_or_export_prompts(batch: dict) -> tuple[bool, list[dict]]:
                 "slot": slot_name,
                 "type": "guide",
                 "aspect_ratio": ar,
-                "image_name": f"{slug.replace('-', '_')[:14]}_{slot_name}",
+                "image_name": f"{kw_root}_guide_{slot_name.replace('pre_', '')}",
                 "dest_filename": dest_name,
                 "keywords": kw,
                 "prompt": prompt,
@@ -295,21 +296,21 @@ def process_batch_images() -> bool:
 
         # Featured slot (16:9)
         feat_prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot="featured")
-        feat_im = resolve_distinct_image(slug, "featured", [kw_root, "intel"], feat_prompt)
+        feat_im = resolve_distinct_image(slug, "featured", [kw_root, "intel", "featured"], feat_prompt)
         feat_name = f"{slug}-featured-{v_suffix}.jpg"
         save_image_with_metadata(feat_im, PUB_DIR / feat_name, f"Intel {slug} Featured")
         a["featuredImage"] = f"/images/generated/{feat_name}"
 
         # Middle slot (16:9)
         mid_prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot="middle")
-        mid_im = resolve_distinct_image(slug, "middle", [kw_root, "middle"], mid_prompt)
+        mid_im = resolve_distinct_image(slug, "middle", [kw_root, "intel", "middle"], mid_prompt)
         mid_name = f"{slug}-middle-{v_suffix}.jpg"
         save_image_with_metadata(mid_im, PUB_DIR / mid_name, f"Intel {slug} Middle")
         a["middleImage"] = f"/images/generated/{mid_name}"
 
         # Pre-FAQ slot (16:9)
         pre_prompt = build_bespoke_prompt(a["title"], "Intelligence", "EVM", slot="pre_faq")
-        pre_im = resolve_distinct_image(slug, "pre_faq", [kw_root, "faq"], pre_prompt)
+        pre_im = resolve_distinct_image(slug, "pre_faq", [kw_root, "intel", "faq"], pre_prompt)
         pre_name = f"{slug}-pre_faq-{v_suffix}.jpg"
         save_image_with_metadata(pre_im, PUB_DIR / pre_name, f"Intel {slug} Pre-FAQ")
         a["preFaqImage"] = f"/images/generated/{pre_name}"
@@ -318,29 +319,29 @@ def process_batch_images() -> bool:
 
     # 3. Process 3 Guides (3 distinct images each = 9 images)
     print("\n[+] Linking 3 Guides (9 Distinct 3D Renders)...")
-    guide_base_kws = {0: "mellow", 1: "b14g", 2: "multisig"}
     for idx, g in enumerate(batch["guides"]):
         slug = g["slug"]
-        kw_root = guide_base_kws.get(idx, slug.split("-")[0])
+        parts = [p for p in slug.split("-") if p not in ["how", "to", "qualify", "for", "step", "by", "security", "runbook", "testnet", "on", "without", "optimizing", "yield", "multipliers"]]
+        kw_root = parts[0] if parts else slug.split("-")[0]
         print(f"  -> Guide {idx+1}: {g['title'][:40]}...")
 
         # Featured slot (16:9)
         feat_prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot="featured")
-        feat_im = resolve_distinct_image(slug, "featured", [kw_root, "guide"], feat_prompt)
+        feat_im = resolve_distinct_image(slug, "featured", [kw_root, "guide", "featured"], feat_prompt)
         feat_name = f"{slug}-featured-{v_suffix}.jpg"
         save_image_with_metadata(feat_im, PUB_DIR / feat_name, f"Guide {slug} Featured")
         g["featuredImage"] = f"/images/generated/{feat_name}"
 
         # Middle slot (16:9)
         mid_prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot="middle")
-        mid_im = resolve_distinct_image(slug, "middle", [kw_root, "middle"], mid_prompt)
+        mid_im = resolve_distinct_image(slug, "middle", [kw_root, "guide", "middle"], mid_prompt)
         mid_name = f"{slug}-middle-{v_suffix}.jpg"
         save_image_with_metadata(mid_im, PUB_DIR / mid_name, f"Guide {slug} Middle")
         g["middleImage"] = f"/images/generated/{mid_name}"
 
         # Pre-FAQ slot (16:9)
         pre_prompt = build_bespoke_prompt(g["title"], "Security Guide", "Cross-Chain", slot="pre_faq")
-        pre_im = resolve_distinct_image(slug, "pre_faq", [kw_root, "faq"], pre_prompt)
+        pre_im = resolve_distinct_image(slug, "pre_faq", [kw_root, "guide", "faq"], pre_prompt)
         pre_name = f"{slug}-pre_faq-{v_suffix}.jpg"
         save_image_with_metadata(pre_im, PUB_DIR / pre_name, f"Guide {slug} Pre-FAQ")
         g["preFaqImage"] = f"/images/generated/{pre_name}"

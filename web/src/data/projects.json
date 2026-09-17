@@ -1274,5 +1274,152 @@
     "riskScore": 18,
     "visual_theme": "BitFi Basis Basis Trading Multi-Chain",
     "featuredImage": "/images/generated/bitfi-basis-project-gemini-v3.jpg"
+  },
+  {
+    "name": "Figure Markets Democratized Prime",
+    "slug": "figure-markets-democratized-prime",
+    "chain": "Provenance",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "Figure Markets Democratized Prime offers crypto‑backed loans on the Provenance blockchain, enabling institutional borrowers to access liquidity without selling assets. The protocol delivers tokenless value by leveraging on‑chain collateralization and transparent credit terms.",
+    "tags": [
+      "Lending",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Gather Core Documentation",
+        "desc": "Read the official whitepaper, product pages, and API docs to understand loan structures, collateral requirements, and on‑chain workflow."
+      },
+      {
+        "step": 2,
+        "title": "Audit and Code Review",
+        "desc": "Examine third‑party smart contract audits, verify audit reports, and run a brief static analysis of the loan contracts on Provenance."
+      },
+      {
+        "step": 3,
+        "title": "Collateral & Liquidity Assessment",
+        "desc": "Analyze the types and ratios of crypto collateral accepted, monitor vault utilization, and check liquidity pool depth for loan funding."
+      },
+      {
+        "step": 4,
+        "title": "Regulatory & Risk Evaluation",
+        "desc": "Review the protocol’s compliance posture, KYC/AML procedures for institutional borrowers, and assess systemic risk metrics such as liquidation thresholds and oracle reliability."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://www.figure.com/crypto-backed-loan/",
+      "twitter": "https://twitter.com/figuremarkets",
+      "docs": "https://www.figure.com/crypto-backed-loan/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "Figure Markets Democratized Prime Lending Provenance",
+    "featuredImage": "/images/generated/figure-markets-democratized-prime-project-gemini-v3.jpg"
+  },
+  {
+    "name": "DigiFT",
+    "slug": "digift",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "DigiFT tokenizes real‑world assets, allowing institutions to gain fractional exposure without a native token. Its tokenless model delivers compliance, custody, and yield generation while avoiding token‑related regulatory complexities.",
+    "tags": [
+      "RWA",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Review Documentation",
+        "desc": "Read the whitepaper, pitch deck, and legal disclosures to understand DigiFT's business model and tokenless architecture."
+      },
+      {
+        "step": 2,
+        "title": "Assess Regulatory Compliance",
+        "desc": "Verify licenses, KYC/AML procedures, and jurisdictional approvals for real‑world asset tokenization."
+      },
+      {
+        "step": 3,
+        "title": "Evaluate Custody and Underwriting",
+        "desc": "Examine partnerships with custodians, auditors, and asset originators to ensure proper asset backing and risk mitigation."
+      },
+      {
+        "step": 4,
+        "title": "Analyze On‑Chain & Off‑Chain Metrics",
+        "desc": "Check on‑chain activity, liquidity mechanisms, and off‑chain performance data to gauge operational robustness."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://www.digift.io/",
+      "twitter": "https://twitter.com/DigiFTTech",
+      "docs": "https://www.digift.io/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "DigiFT RWA Multi-Chain",
+    "featuredImage": "/images/generated/digift-project-gemini-v3.jpg"
+  },
+  {
+    "name": "Plume Vaults",
+    "slug": "plume-vaults",
+    "chain": "Multi-Chain",
+    "status": [
+      "Ongoing",
+      "Confirmed"
+    ],
+    "reward": "$800 - $3,500",
+    "difficulty": "Medium",
+    "time": "15 min/week",
+    "heat": 420,
+    "desc": "Plume Vaults provides institutional access to tokenized real‑world assets via decentralized vaults, enabling yield generation on diversified property and infrastructure holdings. The platform operates without a native token, relying on transparent fee structures and on‑chain governance for value capture.",
+    "tags": [
+      "RWA",
+      "Confirmed",
+      "DeFi"
+    ],
+    "farmingSteps": [
+      {
+        "step": 1,
+        "title": "Research Protocol",
+        "desc": "Review Plume Vaults' documentation, architecture, and asset selection methodology to understand its RWA exposure."
+      },
+      {
+        "step": 2,
+        "title": "Assess Smart Contract Audits",
+        "desc": "Examine third‑party audit reports and on‑chain security metrics to gauge contract robustness."
+      },
+      {
+        "step": 3,
+        "title": "Evaluate Legal & Compliance",
+        "desc": "Analyze regulatory filings, jurisdictional coverage, and KYC/AML processes for institutional suitability."
+      },
+      {
+        "step": 4,
+        "title": "Formulate Investment Thesis",
+        "desc": "Synthesize findings into risk‑adjusted yield expectations and determine alignment with portfolio objectives."
+      }
+    ],
+    "officialLinks": {
+      "website": "https://app.plume.org/vaults",
+      "twitter": "https://twitter.com/plumenetwork",
+      "docs": "https://app.plume.org/vaults/docs"
+    },
+    "riskScore": 18,
+    "visual_theme": "Plume Vaults RWA Multi-Chain",
+    "featuredImage": "/images/generated/plume-vaults-project-gemini-v3.jpg"
   }
 ]
