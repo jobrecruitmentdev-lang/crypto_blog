@@ -23,6 +23,15 @@ if %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Batch automation encountered a failure. Please check logs above.
     echo ===============================================================================
     echo.
+) else if exist "automation\pending_prompts.json" (
+    color 0E
+    echo.
+    echo ===============================================================================
+    echo [NEXT STEP] Batch content is 100%% ready!
+    echo             Open Antigravity chat and say:
+    echo             "batch images generate karke live kardo"
+    echo ===============================================================================
+    echo.
 ) else (
     color 0A
     echo.

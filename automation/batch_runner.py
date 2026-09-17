@@ -85,7 +85,10 @@ def run_master_automation(deploy_only=False):
         print("\n" + "▶" * 40)
         print("PHASE 3: AUTONOMOUS 3D VISUAL ASSET GENERATION")
         print("▶" * 40)
-        process_batch_images()
+        images_ok = process_batch_images()
+        if not images_ok:
+            print("[*] Batch content saved! Awaiting Antigravity 3D image generation.")
+            sys.exit(0)
 
     # Reload generated batch with final image paths
     batch_file = AUTOMATION_ROOT / "pending_batch.json"
