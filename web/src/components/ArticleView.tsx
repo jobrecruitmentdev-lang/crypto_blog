@@ -14,8 +14,12 @@ interface ArticleViewProps {
   hubPath: string;
 }
 
-function renderTldr(tldrText: string) {
+function renderTldr(tldrText: string, pageType?: string) {
   if (!tldrText) return null;
+
+  const isGuide = pageType === "guides";
+  const icon = isGuide ? "🎯" : "⚡";
+  const accentColor = isGuide ? "var(--emerald, #10B981)" : "var(--accent, #2563EB)";
 
   // Split lines on newline, or if it's bullet-delimited inline with "- "
   let lines: string[] = [];
@@ -40,7 +44,7 @@ function renderTldr(tldrText: string) {
             const rest = item.slice(colonIdx + 1);
             return (
               <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "0.98rem", lineHeight: 1.6, color: "var(--text)" }}>
-                <span style={{ color: "var(--accent)", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>⚡</span>
+                <span style={{ color: accentColor, fontWeight: 800, flexShrink: 0, marginTop: 1 }}>{icon}</span>
                 <span>
                   <strong style={{ color: "var(--text-bright)", fontWeight: 700 }}>{label}:</strong>
                   {rest}
@@ -50,7 +54,7 @@ function renderTldr(tldrText: string) {
           }
           return (
             <li key={idx} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: "0.98rem", lineHeight: 1.6, color: "var(--text)" }}>
-              <span style={{ color: "var(--accent)", fontWeight: 800, flexShrink: 0, marginTop: 1 }}>⚡</span>
+              <span style={{ color: accentColor, fontWeight: 800, flexShrink: 0, marginTop: 1 }}>{icon}</span>
               <span>{item}</span>
             </li>
           );
@@ -346,27 +350,87 @@ export default function ArticleView({ article: initialArticle, hubTitle, hubPath
           </div>
         )}
 
-        {/* TL;DR Box */}
-        {article.tldr && (
-          <MotionCard style={{ padding: 26, marginBottom: 36, borderLeft: "4px solid var(--accent)", background: "var(--surface-sunken)", borderTop: "1px solid var(--border)", borderRight: "1px solid var(--border)", borderBottom: "1px solid var(--border)", borderRadius: "var(--radius-sm, 10px)" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-              <span className="pill-badge" style={{ fontSize: "0.74rem", background: "rgba(37, 99, 235, 0.12)", color: "var(--accent)", fontWeight: 700 }}>⚡ Executive Summary (TL;DR)</span>
-            </div>
-            {renderTldr(article.tldr)}
-          </MotionCard>
-        )}
+        {/* Distinct Summary Card: Guides vs Intelligence */}
+        {article.tldr && (() => {
+          const isGuide = article.pageType === "guides";
+          return (
+            <MotionCard style={{ 
+              padding: 26, 
+              marginBottom: 36, 
+              borderLeft: isGuide ? "4px solid var(--emerald, #10B981)" : "4px solid var(--accent, #2563EB)", 
+              background: isGuide ? "rgba(16, 185, 129, 0.04)" : "var(--surface-sunken)", 
+              borderTop: "1px solid var(--border)", 
+              borderRight: "1px solid var(--border)", 
+              borderBottom: "1px solid var(--border)", 
+              borderRadius: "var(--radius-sm, 10px)" 
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
+                <span 
+                  className="pill-badge" 
+                  style={{ 
+                    fontSize: "0.74rem", 
+                    background: isGuide ? "rgba(16, 185, 129, 0.12)" : "rgba(37, 99, 235, 0.12)", 
+                    color: isGuide ? "var(--emerald, #10B981)" : "var(--accent, #2563EB)", 
+                    fontWeight: 700 
+                  }}
+                >
+                  {isGuide ? "📋 Tactical Execution Brief" : "🏛️ Institutional Research Brief"}
+                </span>
+              </div>
+              {renderTldr(article.tldr, article.pageType)}
+            </MotionCard>
+          );
+        })()}
 
-        {/* Key Takeaways */}
-        {article.keyTakeaways && article.keyTakeaways.length > 0 && (
-          <MotionCard style={{ padding: 24, marginBottom: 36, background: "var(--surface)", border: "1px solid var(--border)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-            <h3 style={{ fontSize: "1.15rem", fontWeight: 800, marginBottom: 14, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>Key Findings &amp; Core Telemetry</h3>
-            <ul style={{ paddingLeft: 20, margin: 0, display: "flex", flexDirection: "column", gap: 10, color: "var(--text)", lineHeight: 1.6 }}>
-              {article.keyTakeaways.map((item, idx) => (
-                <li key={idx}><strong style={{ color: "var(--text-bright)" }}>{item}</strong></li>
-              ))}
-            </ul>
-          </MotionCard>
-        )}
+        {/* Distinct Key Takeaways / Checkpoints Card: Guides vs Intelligence */}
+        {article.keyTakeaways && article.keyTakeaways.length > 0 && (() => {
+          const isGuide = article.pageType === "guides";
+          return (
+            <MotionCard style={{ 
+              padding: 24, 
+              marginBottom: 36, 
+              background: "var(--surface)", 
+              border: isGuide ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid var(--border)", 
+              boxShadow: "0 1px 3px rgba(0,0,0,0.04)" 
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 800, margin: 0, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
+                  {isGuide ? "⚡ Critical Action Checkpoints" : "📈 Protocol Metrics & Market Telemetry"}
+                </h3>
+              </div>
+              <p style={{ fontSize: "0.85rem", color: "var(--muted)", margin: "0 0 16px", lineHeight: 1.4 }}>
+                {isGuide 
+                  ? "Verify all prerequisite operational requirements and execution gates before deploying on-chain capital:"
+                  : "Quantitative risk scoring, tokenomics emissions models, and on-chain capital distribution telemetry:"}
+              </p>
+              <ul style={{ paddingLeft: isGuide ? 0 : 20, margin: 0, display: "flex", flexDirection: "column", gap: 12, listStyle: isGuide ? "none" : "disc", color: "var(--text)", lineHeight: 1.6 }}>
+                {article.keyTakeaways.map((item, idx) => (
+                  <li key={idx} style={isGuide ? { display: "flex", alignItems: "flex-start", gap: 12 } : undefined}>
+                    {isGuide && (
+                      <span style={{ 
+                        display: "inline-flex", 
+                        alignItems: "center", 
+                        justifyContent: "center", 
+                        width: 22, 
+                        height: 22, 
+                        borderRadius: "50%", 
+                        background: "rgba(16, 185, 129, 0.15)", 
+                        color: "var(--emerald, #10B981)", 
+                        fontSize: "0.78rem", 
+                        fontWeight: 800, 
+                        flexShrink: 0, 
+                        marginTop: 2 
+                      }}>
+                        {idx + 1}
+                      </span>
+                    )}
+                    <strong style={{ color: "var(--text-bright)" }}>{item}</strong>
+                  </li>
+                ))}
+              </ul>
+            </MotionCard>
+          );
+        })()}
 
         {/* First Half of Body */}
         {firstHalf && (
