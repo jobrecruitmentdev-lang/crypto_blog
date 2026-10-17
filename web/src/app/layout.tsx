@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import ConditionalShell from "@/components/ConditionalShell";
 import "./globals.css";
 
@@ -116,19 +115,21 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         {/* Google tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-EQV8X32D88"
-          strategy="afterInteractive"
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-VECM2ZCW0F"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-            gtag('config', 'G-EQV8X32D88');
-          `}
-        </Script>
+              gtag('config', 'G-VECM2ZCW0F');
+            `,
+          }}
+        />
       </head>
       <body suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }} />
