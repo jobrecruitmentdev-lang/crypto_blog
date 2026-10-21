@@ -1,6 +1,6 @@
 <?php
 // backend/db.php
-require_once 'config.php';
+require_once __DIR__ . '/config.php';
 
 // Set headers for CORS so Next.js can fetch data
 header("Access-Control-Allow-Origin: *");

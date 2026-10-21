@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import type { ProjectItem, Article, PageType, Difficulty, AirdropStatus } from "@/lib/types";
+import AirdropTracker from "@/components/dhara/AirdropTracker";
 
 // Default seed data
 import initialProjectsData from "@/data/projects.json";
@@ -37,6 +38,7 @@ interface EditorialPillarItem {
 
 type NavSection =
   | "home"
+  | "tracker"
   | "projects"
   | "intelligence"
   | "guides"
@@ -1170,6 +1172,7 @@ export default function DharaPage() {
 
           {[
             { id: "home", label: "Home", icon: "🏠", badge: null },
+            { id: "tracker", label: "Airdrop Tracker", icon: "📊", badge: "PORTFOLIO" },
             { id: "projects", label: "Projects", icon: "🚀", badge: projects.length },
             { id: "intelligence", label: "Intelligence", icon: "🧠", badge: articles.filter(a => a.pageType === "intelligence" || !a.pageType).length },
             { id: "guides", label: "Guides", icon: "📘", badge: articles.filter(a => a.pageType === "guides").length },
@@ -1330,6 +1333,7 @@ export default function DharaPage() {
             </div>
             <h1 style={{ fontSize: "1.75rem", fontWeight: 900, color: "#0F172A", margin: 0, letterSpacing: "-0.02em" }}>
               {activeSection === "home" && "🏠 Home Page"}
+              {activeSection === "tracker" && "📊 Airdrop Portfolio & Operations Tracker"}
               {activeSection === "projects" && "🚀 Projects"}
               {activeSection === "intelligence" && "🧠 Intelligence"}
               {activeSection === "guides" && "📘 Guides"}
@@ -1606,6 +1610,17 @@ export default function DharaPage() {
               </form>
             </div>
           </div>
+        )}
+
+        {/* ==================================================== */}
+        {/* SECTION: AIRDROP OPERATIONS & PORTFOLIO TRACKER */}
+        {/* ==================================================== */}
+        {activeSection === "tracker" && (
+          <AirdropTracker
+            apiBase={getApiBase()}
+            authToken={getAuthToken()}
+            onLog={(msg) => addLog(msg)}
+          />
         )}
 
         {/* ==================================================== */}

@@ -86,6 +86,34 @@ CREATE TABLE IF NOT EXISTS automation_logs (
 );
 
 -- ==============================================================================
+-- AIRDROP OPERATIONS & PORTFOLIO TRACKER (DHARA COMMAND)
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS airdrop_tracker (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_name VARCHAR(255) NOT NULL,
+    category VARCHAR(50) NOT NULL DEFAULT 'tap_to_earn',
+    status VARCHAR(50) NOT NULL DEFAULT 'active',
+    listing_date DATE NULL,
+    listing_quarter VARCHAR(50) DEFAULT '',
+    expected_tokens VARCHAR(100) DEFAULT '0',
+    est_price DECIMAL(16, 6) DEFAULT 0.000000,
+    expected_usd DECIMAL(16, 2) DEFAULT 0.00,
+    actual_received_usd DECIMAL(16, 2) DEFAULT 0.00,
+    accounts_count INT DEFAULT 1,
+    daily_routine VARCHAR(50) DEFAULT 'daily_claim',
+    farm_url TEXT,
+    notes TEXT,
+    daily_task_done TINYINT(1) DEFAULT 0,
+    daily_task_date DATE NULL,
+    sort_order INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    INDEX idx_status (status),
+    INDEX idx_category (category),
+    INDEX idx_listing_date (listing_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ==============================================================================
 -- INITIAL DATA SEEDING (Optional)
 -- ==============================================================================
 
