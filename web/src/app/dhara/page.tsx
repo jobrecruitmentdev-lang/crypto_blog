@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import Link from "next/link";
 import type { ProjectItem, Article, PageType, Difficulty, AirdropStatus } from "@/lib/types";
 import AirdropTracker from "@/components/dhara/AirdropTracker";
@@ -544,10 +544,10 @@ export default function DharaPage() {
     loadDatabaseData();
   }, []);
 
-  const addLog = (msg: string) => {
+  const addLog = useCallback((msg: string) => {
     const time = new Date().toLocaleTimeString();
-    setTerminalLog((prev) => [`[${time}] ${msg}`, ...prev]);
-  };
+    setTerminalLog((prev) => [`[${time}] ${msg}`, ...prev.slice(0, 49)]);
+  }, []);
 
   // ----------------------------------------------------
   // Projects CRUD Handlers (Direct MySQL REST API)
@@ -1619,7 +1619,7 @@ export default function DharaPage() {
           <AirdropTracker
             apiBase={getApiBase()}
             authToken={getAuthToken()}
-            onLog={(msg) => addLog(msg)}
+            onLog={addLog}
           />
         )}
 

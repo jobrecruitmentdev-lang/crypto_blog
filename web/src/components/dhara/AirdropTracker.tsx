@@ -140,6 +140,15 @@ export default function AirdropTracker({ apiBase, authToken, onLog }: AirdropTra
   const [viewMode, setViewMode] = useState<"table" | "kanban">("table");
   const [activeNoteModal, setActiveNoteModal] = useState<TrackedAirdrop | null>(null);
 
+  // Keep a stable ref to onLog to prevent parent re-renders from triggering re-fetches
+  const onLogRef = useRef(onLog);
+  useEffect(() => {
+    onLogRef.current = onLog;
+  }, [onLog]);
+
+  // Guard ref to ensure initial API fetch only runs once on component mount
+  const hasFetchedRef = useRef(false);
+
   // Debounce timers map per item & field
   const debounceTimers = useRef<Record<string, NodeJS.Timeout>>({});
 
@@ -164,7 +173,7 @@ export default function AirdropTracker({ apiBase, authToken, onLog }: AirdropTra
         const data = await res.json();
         if (data.success && Array.isArray(data.items) && data.items.length > 0) {
           setItems(data.items);
-          if (onLog) onLog(`[SYNC] Loaded ${data.items.length} airdrops from Hostinger MySQL.`);
+          if (onLogRef.current) onLogRef.current(`[SYNC] Loaded ${data.items.length} airdrops from Hostinger MySQL.`);
         }
       }
     } catch (err) {
@@ -172,10 +181,13 @@ export default function AirdropTracker({ apiBase, authToken, onLog }: AirdropTra
     } finally {
       setLoading(false);
     }
-  }, [apiBase, authToken, onLog]);
+  }, [apiBase, authToken]);
 
   useEffect(() => {
-    fetchFromApi();
+    if (!hasFetchedRef.current) {
+      hasFetchedRef.current = true;
+      fetchFromApi();
+    }
   }, [fetchFromApi]);
 
   // Real-time Auto-Save to Backend API
@@ -199,7 +211,7 @@ export default function AirdropTracker({ apiBase, authToken, onLog }: AirdropTra
 
         if (res.ok) {
           setSaveStatus("saved");
-          if (onLog) onLog(`[AUTO-SAVED] Field '${field}' for item #${id} saved.`);
+          if (onLogRef.current) onLogRef.current(`[AUTO-SAVED] Field '${field}' for item #${id} saved.`);
         } else {
           setSaveStatus("error");
         }
@@ -208,7 +220,7 @@ export default function AirdropTracker({ apiBase, authToken, onLog }: AirdropTra
         setSaveStatus("error");
       }
     },
-    [apiBase, authToken, onLog]
+    [apiBase, authToken]
   );
 
   // Handle Local State Change + Debounced/Instant Auto-Save
