@@ -4,6 +4,7 @@ import BlogGrid from "@/components/BlogGrid";
 import Newsletter from "@/components/Newsletter";
 import FilterableGrid from "@/components/FilterableGrid";
 import FaqAccordion from "@/components/FaqAccordion";
+import AirdropCalculator from "@/components/AirdropCalculator";
 import { GUIDES } from "@/lib/data";
 import { getAllPosts } from "@/lib/cms/blogService";
 import { getProjects, getArticles } from "@/lib/contentStore";
@@ -29,12 +30,20 @@ export default async function Home() {
       answer: "Crypto Airdrop AI is an independent Web3 research portal tracking verified token distributions across 50+ blockchains. Deployments undergo our 5-Stage Audit Framework: bytecode decompilation, multi-sig timelock checks, treasury analysis, tokenomics distribution modeling, and RPC simulation to filter out malicious drainers."
     },
     {
+      question: "What is a crypto airdrop and how do users receive free crypto?",
+      answer: "A crypto airdrop is a distribution mechanism where blockchain networks and decentralized protocols distribute free native tokens or governance rights directly to eligible Web3 wallet addresses. Airdrops reward early adopters, testnet node operators, protocol testers, and liquidity providers prior to an official Token Generation Event (TGE)."
+    },
+    {
       question: "How do I farm crypto airdrops safely without being flagged as a sybil?",
       answer: "Implement strict 3-tier wallet hygiene: isolate primary cold storage from active dApps, fund burner accounts from exchange sub-accounts at staggered intervals, and maintain continuous weekly interactions across diverse smart contracts rather than single-day burst farming."
     },
     {
       question: "Are testnet crypto airdrops completely free?",
       answer: "Yes. Testnet airdrops operate on simulated blockchain networks (such as Berachain, Story Protocol, or Monad) using free faucet gas tokens. They require zero monetary investment other than standard operational interaction time."
+    },
+    {
+      question: "How can I avoid crypto airdrop scams and wallet drainers?",
+      answer: "Never enter your 12 or 24-word seed phrase or private keys into any website. Always verify smart contract addresses via official block explorers, use dedicated burner wallets with strictly limited capital, and revoke dApp approvals immediately after farming interactions using tools like Revoke.cash."
     },
     {
       question: "Does Crypto Airdrop AI accept paid promotions or sponsored listings?",
@@ -266,6 +275,13 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Interactive Telemetry: Airdrop Yield & Sybil Resistance Calculator */}
+      <section className="section" style={{ padding: "0 0 16px" }}>
+        <div className="wrap">
+          <AirdropCalculator />
+        </div>
+      </section>
+
       {/* Protocol Scanner Directory Section */}
       <section className="section">
         <div className="wrap">
@@ -288,6 +304,127 @@ export default async function Home() {
             </div>
           </div>
           <FilterableGrid airdrops={allProjects} />
+        </div>
+      </section>
+
+      {/* Master Semantic Knowledge Pillar: What is a Crypto Airdrop? */}
+      <section className="section" style={{ background: "var(--surface)", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
+        <div className="wrap">
+          <div style={{ maxWidth: 960, margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
+              <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)", fontWeight: 700 }}>
+                📖 Definitive Web3 Knowledge Pillar
+              </span>
+              <h2 style={{ fontSize: "2.2rem", fontWeight: 800, marginTop: 10, color: "var(--text-bright)", fontFamily: "var(--font-serif)", lineHeight: 1.25 }}>
+                What is a Crypto Airdrop? The 2026 Qualification Architecture
+              </h2>
+              <p style={{ color: "var(--text)", maxWidth: 740, margin: "12px auto 0", fontSize: "1.05rem", lineHeight: 1.65, opacity: 0.9 }}>
+                The comprehensive architectural breakdown of decentralized token distributions, anti-sybil clustering defense, and capital-efficient farming across EVM, SVM, and Move ecosystems.
+              </p>
+            </div>
+
+            {/* Direct AEO Answer Block */}
+            <div style={{ padding: "24px 28px", background: "var(--surface-sunken)", border: "1px solid var(--border)", borderRadius: "var(--radius-sm)", marginBottom: 36, borderLeft: "4px solid var(--accent)" }}>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 800, margin: "0 0 8px", color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
+                Direct Answer: How Crypto Airdrops Function
+              </h3>
+              <p style={{ margin: 0, fontSize: "0.95rem", lineHeight: 1.7, color: "var(--text)" }}>
+                A <strong>crypto airdrop</strong> (also known as a <em>cryptoairdrop</em> or <em>token distribution</em>) is a process where blockchain protocols distribute free native tokens or governance rights directly to Web3 wallet addresses. Rather than conducting an Initial Coin Offering (ICO) or selling tokens exclusively to venture capital syndicates, modern decentralized protocols reward early users who stress-test testnet RPC nodes, provide decentralized exchange (DEX) liquidity, bridge capital, or interact with smart contracts prior to an unannounced on-chain snapshot.
+              </p>
+            </div>
+
+            {/* Matrix Comparison Table */}
+            <h3 style={{ fontSize: "1.35rem", fontWeight: 800, marginBottom: 16, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
+              Ecosystem Airdrop Archetypes Compared (2026 Telemetry)
+            </h3>
+            <div style={{ overflowX: "auto", marginBottom: 36 }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.88rem", background: "var(--surface)", border: "1px solid var(--border)" }}>
+                <thead>
+                  <tr style={{ background: "var(--surface-sunken)", borderBottom: "2px solid var(--border)", textAlign: "left" }}>
+                    <th style={{ padding: "12px 14px", fontWeight: 700, color: "var(--text-bright)" }}>Category</th>
+                    <th style={{ padding: "12px 14px", fontWeight: 700, color: "var(--text-bright)" }}>Capital Req.</th>
+                    <th style={{ padding: "12px 14px", fontWeight: 700, color: "var(--text-bright)" }}>Estimated Yield</th>
+                    <th style={{ padding: "12px 14px", fontWeight: 700, color: "var(--text-bright)" }}>Key Qualification Metric</th>
+                    <th style={{ padding: "12px 14px", fontWeight: 700, color: "var(--text-bright)" }}>Sybil Filter Strictness</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                    <td style={{ padding: "12px 14px", fontWeight: 700, color: "var(--accent)" }}>Testnet / Devnet</td>
+                    <td style={{ padding: "12px 14px" }}>$0.00 (Free Faucets)</td>
+                    <td style={{ padding: "12px 14px" }}>$250 – $2,500</td>
+                    <td style={{ padding: "12px 14px" }}>RPC transactions, contract deploys, faucet claims</td>
+                    <td style={{ padding: "12px 14px" }}><span style={{ color: "var(--emerald)", fontWeight: 700 }}>Moderate</span> (Discord/Gitcoin)</td>
+                  </tr>
+                  <tr style={{ borderBottom: "1px solid var(--border-subtle)", background: "rgba(0,0,0,0.01)" }}>
+                    <td style={{ padding: "12px 14px", fontWeight: 700, color: "var(--accent)" }}>Retroactive L2/L1</td>
+                    <td style={{ padding: "12px 14px" }}>$15 – $80 (Gas)</td>
+                    <td style={{ padding: "12px 14px" }}>$1,200 – $12,000</td>
+                    <td style={{ padding: "12px 14px" }}>Bridge volume, 4+ active months, dApp diversity</td>
+                    <td style={{ padding: "12px 14px" }}><span style={{ color: "var(--rose)", fontWeight: 700 }}>Extreme</span> (Clustering Heuristics)</td>
+                  </tr>
+                  <tr style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                    <td style={{ padding: "12px 14px", fontWeight: 700, color: "var(--accent)" }}>Liquid Restaking</td>
+                    <td style={{ padding: "12px 14px" }}>$500+ (Staked Capital)</td>
+                    <td style={{ padding: "12px 14px" }}>12% – 35% APY + Points</td>
+                    <td style={{ padding: "12px 14px" }}>Time-weighted TVL deposit (e.g. EigenLayer, Solayer)</td>
+                    <td style={{ padding: "12px 14px" }}><span style={{ color: "var(--emerald)", fontWeight: 700 }}>Low</span> (Capital Weighted)</td>
+                  </tr>
+                  <tr>
+                    <td style={{ padding: "12px 14px", fontWeight: 700, color: "var(--accent)" }}>DePIN &amp; AI Compute</td>
+                    <td style={{ padding: "12px 14px" }}>$0.00 (Bandwidth / Hardware)</td>
+                    <td style={{ padding: "12px 14px" }}>$400 – $4,500</td>
+                    <td style={{ padding: "12px 14px" }}>Node uptime, bandwidth sharing (Grass, io.net)</td>
+                    <td style={{ padding: "12px 14px" }}><span style={{ color: "var(--amber)", fontWeight: 700 }}>High</span> (Hardware Fingerprints)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* 4 Golden Rules of Non-Custodial Airdrop Security */}
+            <h3 style={{ fontSize: "1.35rem", fontWeight: 800, marginBottom: 16, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
+              The 4 Non-Negotiable Rules of Safe Airdrop Participation
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16, marginBottom: 32 }}>
+              <div style={{ padding: 18, background: "var(--surface-sunken)", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>🛡️ 1. Wallet Isolation</div>
+                <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.6, color: "var(--text)" }}>
+                  Never connect your primary cold-storage or net-worth vault to dApps. Deploy isolated burner wallets funded through exchange sub-accounts.
+                </p>
+              </div>
+              <div style={{ padding: 18, background: "var(--surface-sunken)", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>🔒 2. Zero Unlimited Approvals</div>
+                <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.6, color: "var(--text)" }}>
+                  Always revoke unlimited ERC-20 / SPL allowances using tools like Revoke.cash immediately following transaction confirmation.
+                </p>
+              </div>
+              <div style={{ padding: 18, background: "var(--surface-sunken)", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>📅 3. Temporal Consistency</div>
+                <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.6, color: "var(--text)" }}>
+                  Avoid single-day transaction spam. Protocol algorithms score natural user behavior across distinct calendar weeks and months.
+                </p>
+              </div>
+              <div style={{ padding: 18, background: "var(--surface-sunken)", borderRadius: "var(--radius-sm)", border: "1px solid var(--border)" }}>
+                <div style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 6, color: "var(--text-bright)" }}>🚫 4. Never Reveal Seed Keys</div>
+                <p style={{ margin: 0, fontSize: "0.85rem", lineHeight: 1.6, color: "var(--text)" }}>
+                  No legitimate crypto airdrop team or claim portal will ever request your 12/24-word seed recovery phrase or private key.
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Links to Silos */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center", paddingTop: 8 }}>
+              <Link href="/projects/" className="btn btn-primary btn-sm">
+                Explore All 34+ Airdrop Projects →
+              </Link>
+              <Link href="/guides/" className="btn btn-outline btn-sm">
+                Farming &amp; Anti-Sybil Playbooks →
+              </Link>
+              <Link href="/methodology/" className="btn btn-outline btn-sm">
+                5-Stage Verification Standard →
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 

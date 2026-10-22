@@ -12,16 +12,35 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://cryptoairdropai.com"),
   title: {
-    default: "Crypto Airdrop AI — Verified Crypto Airdrops 2026",
+    default: "Crypto Airdrop AI — Verified Crypto Airdrops, Free Token Farming & On-Chain Intelligence (2026)",
     template: "%s | Crypto Airdrop AI",
   },
   description:
-    "Independent Web3 research portal tracking verified crypto token airdrops, testnet farming guides, and on-chain intelligence.",
+    "The leading independent Web3 research portal tracking verified crypto airdrops, testnet farming guides, and sybil-safe DeFi market intelligence across 50+ blockchains.",
+  keywords: [
+    "crypto",
+    "crypto airdrop",
+    "cryptoairdrop",
+    "cryptoairdropai",
+    "airdrop",
+    "airdrops",
+    "crypto airdrops 2026",
+    "free crypto airdrops",
+    "confirmed crypto airdrops",
+    "testnet airdrop",
+    "solana airdrops",
+    "ethereum airdrops",
+    "best crypto airdrops",
+    "airdrop farming",
+    "sybil resistance",
+    "crypto rewards",
+    "airdrop calendar"
+  ],
   alternates: {
     canonical: "https://cryptoairdropai.com/",
   },
   openGraph: {
-    title: "Crypto Airdrop AI — Verified Crypto Airdrops 2026",
+    title: "Crypto Airdrop AI — Verified Crypto Airdrops & On-Chain Intelligence 2026",
     description: "Daily fact-checked crypto guides, retroactive airdrop tutorials, and DeFi market research for global and US investors.",
     type: "website",
     url: "https://cryptoairdropai.com/",
@@ -55,7 +74,13 @@ export default function RootLayout({
     "@type": "NewsMediaOrganization",
     "@id": "https://cryptoairdropai.com/#organization",
     "name": "Crypto Airdrop AI",
-    "alternateName": ["CryptoAirdropAI", "Crypto Airdrop AI Intelligence Desk"],
+    "alternateName": [
+      "CryptoAirdropAI",
+      "Crypto Airdrop",
+      "CryptoAirdrop",
+      "Crypto Airdrop AI Intelligence Desk",
+      "CryptoAirdrop.ai"
+    ],
     "url": "https://cryptoairdropai.com",
     "logo": {
       "@type": "ImageObject",
@@ -96,11 +121,46 @@ export default function RootLayout({
     "@id": "https://cryptoairdropai.com/#website",
     "url": "https://cryptoairdropai.com/",
     "name": "Crypto Airdrop AI",
-    "alternateName": "CryptoAirdropAI",
+    "alternateName": ["CryptoAirdropAI", "Crypto Airdrop", "CryptoAirdrop"],
     "publisher": {
       "@id": "https://cryptoairdropai.com/#organization"
     },
     "inLanguage": "en-US",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Airdrop (cryptocurrency)",
+        "sameAs": "https://en.wikipedia.org/wiki/Airdrop_(cryptocurrency)",
+        "description": "Cryptocurrency token distribution event, distinct from Apple AirDrop file transfer protocol."
+      },
+      {
+        "@type": "Thing",
+        "name": "Cryptocurrency",
+        "sameAs": "https://en.wikipedia.org/wiki/Cryptocurrency"
+      }
+    ],
+    "mentions": [
+      {
+        "@type": "Thing",
+        "name": "Decentralized Finance",
+        "sameAs": "https://en.wikipedia.org/wiki/Decentralized_finance"
+      },
+      {
+        "@type": "Thing",
+        "name": "Sybil Attack",
+        "sameAs": "https://en.wikipedia.org/wiki/Sybil_attack"
+      },
+      {
+        "@type": "Thing",
+        "name": "Ethereum",
+        "sameAs": "https://en.wikipedia.org/wiki/Ethereum"
+      },
+      {
+        "@type": "Thing",
+        "name": "Solana",
+        "sameAs": "https://en.wikipedia.org/wiki/Solana_(blockchain_platform)"
+      }
+    ],
     "potentialAction": {
       "@type": "SearchAction",
       "target": {

@@ -6,12 +6,73 @@ import type { Airdrop, ProjectItem } from "@/lib/types";
 import AirdropCard from "./AirdropCard";
 
 const FILTERS: { key: string; label: string }[] = [
-  { key: "all", label: "ALL" },
-  { key: "ongoing", label: "ONGOING" },
+  { key: "all", label: "ALL DEPLOYMENTS" },
   { key: "confirmed", label: "CONFIRMED" },
+  { key: "solana", label: "SOLANA" },
+  { key: "ethereum", label: "EVM & L2" },
+  { key: "testnet", label: "TESTNET (FREE)" },
+  { key: "depin", label: "DEPIN & AI" },
   { key: "easy", label: "EASY ENTRY" },
-  { key: "medium", label: "MEDIUM" },
 ];
+
+function matchesFilter(a: Airdrop | ProjectItem, key: string): boolean {
+  if (key === "all") return true;
+  if (key === "confirmed") {
+    return a.status.some((s) => s.toLowerCase() === "confirmed");
+  }
+  if (key === "easy") {
+    return a.difficulty.toLowerCase() === "easy";
+  }
+  if (key === "solana") {
+    const chain = (a.chain || "").toLowerCase();
+    const tags = (a.tags || []).map((t) => t.toLowerCase());
+    return chain.includes("solana") || tags.includes("solana");
+  }
+  if (key === "ethereum") {
+    const chain = (a.chain || "").toLowerCase();
+    const tags = (a.tags || []).map((t) => t.toLowerCase());
+    return (
+      chain.includes("eth") ||
+      chain.includes("arbitrum") ||
+      chain.includes("optimism") ||
+      chain.includes("base") ||
+      chain.includes("blast") ||
+      chain.includes("scroll") ||
+      chain.includes("linea") ||
+      chain.includes("zksync") ||
+      chain.includes("polygon") ||
+      tags.some((t) => t.includes("l2") || t.includes("evm") || t.includes("ethereum"))
+    );
+  }
+  if (key === "testnet") {
+    const desc = (a.desc || "").toLowerCase();
+    const tags = (a.tags || []).map((t) => t.toLowerCase());
+    const reward = (a.reward || "").toLowerCase();
+    return (
+      tags.some((t) => t.includes("testnet") || t.includes("free")) ||
+      desc.includes("testnet") ||
+      reward.includes("free")
+    );
+  }
+  if (key === "depin") {
+    const desc = (a.desc || "").toLowerCase();
+    const tags = (a.tags || []).map((t) => t.toLowerCase());
+    const name = (a.name || "").toLowerCase();
+    return (
+      tags.some((t) => t.includes("depin") || t.includes("ai")) ||
+      desc.includes("depin") ||
+      desc.includes("ai") ||
+      name.includes("depin") ||
+      name.includes("grass") ||
+      name.includes("io.net") ||
+      name.includes("gensyn")
+    );
+  }
+  return (
+    a.status.some((s) => s.toLowerCase() === key) ||
+    a.difficulty.toLowerCase() === key
+  );
+}
 
 export default function FilterableGrid({ airdrops }: { airdrops: (Airdrop | ProjectItem)[] }) {
   const [active, setActive] = useState("all");
@@ -38,23 +99,14 @@ export default function FilterableGrid({ airdrops }: { airdrops: (Airdrop | Proj
   }, []);
 
   const filtered = useMemo(() => {
-    if (active === "all") return liveAirdrops;
-    return liveAirdrops.filter(
-      (a) =>
-        a.status.some((s) => s.toLowerCase() === active) ||
-        a.difficulty.toLowerCase() === active
-    );
+    return liveAirdrops.filter((a) => matchesFilter(a, active));
   }, [liveAirdrops, active]);
 
   const filterCounts = useMemo(() => {
     const counts: Record<string, number> = { all: liveAirdrops.length };
     for (const f of FILTERS) {
       if (f.key === "all") continue;
-      counts[f.key] = liveAirdrops.filter(
-        (a) =>
-          a.status.some((s) => s.toLowerCase() === f.key) ||
-          a.difficulty.toLowerCase() === f.key
-      ).length;
+      counts[f.key] = liveAirdrops.filter((a) => matchesFilter(a, f.key)).length;
     }
     return counts;
   }, [liveAirdrops]);
