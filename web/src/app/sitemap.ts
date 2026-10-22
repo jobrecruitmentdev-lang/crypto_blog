@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/cms/blogService';
-import { getProjects, getArticles } from '@/lib/contentStore';
+import { getProjects, getProjectsSync, getArticles } from '@/lib/contentStore';
 import { AIRDROPS, GUIDES, AUTHORS } from '@/lib/data';
 
 export const revalidate = 3600; // ISR revalidate hourly
@@ -108,8 +108,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Dynamic Project Entries (Merged from store & static)
   const storedProjects = await getProjects();
+  const localProjects = getProjectsSync();
   const projectSlugMap = new Map<string, Date>();
   storedProjects.forEach((p) => projectSlugMap.set(p.slug, now));
+  localProjects.forEach((p) => {
+    if (!projectSlugMap.has(p.slug)) {
+      projectSlugMap.set(p.slug, now);
+    }
+  });
   AIRDROPS.forEach((a) => {
     if (!projectSlugMap.has(a.slug)) {
       projectSlugMap.set(a.slug, now);

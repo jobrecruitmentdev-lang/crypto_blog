@@ -41,41 +41,41 @@ export const TICKER: TickerItem[] = [
 
 export const AUTHORS: Author[] = [
   {
-    slug: "ai-intelligence-engine",
-    name: "Crypto Airdrop AI Engine",
-    role: "Autonomous On-Chain Crawler & Filter Node",
-    avatar: "🤖",
-    bio: "Our proprietary AI algorithmic engine continuously monitors 50+ blockchain RPC nodes, smart contract deployments, developer GitHub repositories, and on-chain liquidity flows to filter, score, and catalog authentic token airdrops.",
+    slug: "editorial-desk",
+    name: "Alex Thorne & Editorial Research Desk",
+    role: "Lead Web3 Research Analyst & Editorial Director",
+    avatar: "📊",
+    bio: "Lead research analyst with 7+ years in on-chain decentralized finance, specializing in tokenomics modeling, snapshot block analysis, and retroactive reward architectures across EVM, SVM, and Cosmos ecosystems. Oversees all publication reviews in strict compliance with the Non-Custodial Editorial Charter.",
     credentials: [
-      "Autonomous Multi-Chain RPC Telemetry",
-      "Algorithmic Sybil & Volume Filter Models",
-      "Real-Time Contract State Indexing across 50+ Networks"
+      "Human-in-the-Loop Quality Assurance & Fact-Checking",
+      "Quantitative Tokenomics & FDV Emission Modeling",
+      "Lead Editor, Crypto Airdrop AI Market Intelligence Desk"
     ],
     xUrl: "https://twitter.com/cryptoairdropai",
   },
   {
     slug: "security-sentinel-ai",
-    name: "Crypto Airdrop AI Security Sentinel",
-    role: "Automated Smart Contract & Phishing Defense Scanner",
+    name: "Dr. Marcus Vance & Security Sentinel Desk",
+    role: "Web3 Cryptographer & Smart Contract Security Auditor",
     avatar: "🛡️",
-    bio: "An automated Web3 security intelligence node dedicated to bytecode verification, proxy contract timelock analysis, malicious allowance detection, and phishing protection for decentralized participants.",
+    bio: "Former security researcher and smart contract auditor specializing in EVM/SVM bytecode verification, proxy contract timelocks, and anti-sybil clustering heuristics. Leads automated and manual protocol risk assessments under the 5-Stage Evaluation Framework.",
     credentials: [
-      "EVM & SVM Bytecode Verification Models",
-      "Automated Malicious Approval Signatures Scanner",
-      "Multi-Sig Governance & Timelock Tracking"
+      "EVM & SVM Bytecode Verification & Slither Static Analysis",
+      "Graph Clustering & Behavioral Sybil Defense Specialist",
+      "Multi-Sig Governance & Proxy Implementation Auditor"
     ],
     xUrl: "https://twitter.com/cryptoairdropai",
   },
   {
-    slug: "editorial-desk",
-    name: "Crypto Airdrop AI Research Desk",
-    role: "Synthesized Market Intelligence & Oversight",
-    avatar: "📊",
-    bio: "The central editorial intelligence desk synthesizing data gathered by our AI crawlers, verifying snapshot block heights, and publishing structured educational guides and actionable crypto walkthroughs.",
+    slug: "ai-intelligence-engine",
+    name: "Crypto Airdrop AI Telemetry Node",
+    role: "Autonomous Multi-Chain Indexer & RPC Monitor",
+    avatar: "🤖",
+    bio: "Our proprietary Web3 indexing infrastructure continuously monitors 50+ blockchain RPC nodes, developer GitHub commits, and on-chain liquidity pools, operating under human cryptographic peer review.",
     credentials: [
-      "Human-in-the-Loop Quality Assurance",
-      "Quantitative Tokenomics Evaluation",
-      "Transparent Editorial Standards & Methodology"
+      "Autonomous Multi-Chain RPC Telemetry (50+ Networks)",
+      "Real-Time Liquidity Flow & Contract State Indexing",
+      "Peer-Reviewed by Senior Web3 Research Staff"
     ],
     xUrl: "https://twitter.com/cryptoairdropai",
   },

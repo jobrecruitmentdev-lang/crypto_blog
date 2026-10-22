@@ -3,6 +3,7 @@ import Image from "next/image";
 import BlogGrid from "@/components/BlogGrid";
 import Newsletter from "@/components/Newsletter";
 import FilterableGrid from "@/components/FilterableGrid";
+import FaqAccordion from "@/components/FaqAccordion";
 import { GUIDES } from "@/lib/data";
 import { getAllPosts } from "@/lib/cms/blogService";
 import { getProjects, getArticles } from "@/lib/contentStore";
@@ -22,16 +23,70 @@ export default async function Home() {
   const otherPosts = allPosts.length > 1 ? allPosts.slice(1, 7) : allPosts;
   const activeGuides = guideArticles.length > 0 ? guideArticles : GUIDES;
 
+  const homeFaqs = [
+    {
+      question: "What is Crypto Airdrop AI and how are projects verified?",
+      answer: "Crypto Airdrop AI is an independent Web3 research portal tracking verified token distributions across 50+ blockchains. Deployments undergo our 5-Stage Audit Framework: bytecode decompilation, multi-sig timelock checks, treasury analysis, tokenomics distribution modeling, and RPC simulation to filter out malicious drainers."
+    },
+    {
+      question: "How do I farm crypto airdrops safely without being flagged as a sybil?",
+      answer: "Implement strict 3-tier wallet hygiene: isolate primary cold storage from active dApps, fund burner accounts from exchange sub-accounts at staggered intervals, and maintain continuous weekly interactions across diverse smart contracts rather than single-day burst farming."
+    },
+    {
+      question: "Are testnet crypto airdrops completely free?",
+      answer: "Yes. Testnet airdrops operate on simulated blockchain networks (such as Berachain, Story Protocol, or Monad) using free faucet gas tokens. They require zero monetary investment other than standard operational interaction time."
+    },
+    {
+      question: "Does Crypto Airdrop AI accept paid promotions or sponsored listings?",
+      answer: "No. Crypto Airdrop AI operates under a strict Non-Custodial & Zero-Sponsorship charter. We do not accept paid compensation or token allocations from featured projects, ensuring 100% objective technical analysis."
+    }
+  ];
+
+  const homeFaqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": "https://cryptoairdropai.com/#faq",
+    "mainEntity": homeFaqs.map((f) => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer
+      }
+    }))
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqSchema) }} />
+
       {/* CoinDesk Style Live Market Ticker Strip */}
       <HomeTickerStrip 
         initialTicker={initialTickerData.ticker} 
         initialAlphaDispatch={initialTickerData.alphaDispatch} 
       />
 
+      {/* Primary Authoritative Master Header & Breadcrumb Silo */}
+      <section className="section" style={{ padding: "32px 0 0" }}>
+        <div className="wrap">
+          <MotionFade delay={0.05} direction="up" style={{ marginBottom: 28 }}>
+            <div style={{ display: "inline-flex", marginBottom: 10 }}>
+              <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)", fontWeight: 800 }}>
+                ⚡ Independent Web3 Research Portal
+              </span>
+            </div>
+            <h1 style={{ fontSize: "2.6rem", fontWeight: 800, letterSpacing: "-0.025em", color: "var(--text-bright)", fontFamily: "var(--font-serif)", margin: "0 0 10px", lineHeight: 1.2 }}>
+              Verified Crypto Airdrops 2026 — On-Chain Intelligence &amp; Farming Playbooks
+            </h1>
+            <p style={{ fontSize: "1.1rem", color: "var(--text)", maxWidth: 820, lineHeight: 1.65, opacity: 0.88, margin: 0 }}>
+              Autonomous RPC tracking, Sybil cluster defense, and on-chain snapshot verification across 50+ Web3 ecosystems. Zero sponsored rankings. 100% non-custodial research.
+            </p>
+          </MotionFade>
+        </div>
+      </section>
+
       {/* CoinDesk Media Bento Hero Section */}
-      <section className="section" style={{ padding: "36px 0 28px" }}>
+      <section className="section" style={{ padding: "20px 0 28px" }}>
         <div className="wrap">
           <div className="hero-bento">
             
@@ -88,11 +143,11 @@ export default async function Home() {
                   </span>
                 </div>
                 
-                <h1 style={{ fontSize: "2.1rem", lineHeight: 1.25, fontWeight: 800, letterSpacing: "-0.025em", marginBottom: 14, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
+                <h2 style={{ fontSize: "1.9rem", lineHeight: 1.25, fontWeight: 800, letterSpacing: "-0.025em", marginBottom: 14, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
                   <Link href={featuredPost ? `/blog/${featuredPost.slug}/` : "/blog/"} style={{ color: "inherit", textDecoration: "none" }}>
                     {featuredPost ? featuredPost.title : "The 2026 Decentralized Airdrop Almanac"}
                   </Link>
-                </h1>
+                </h2>
                 
                 <p style={{ fontSize: "1.02rem", color: "var(--text)", lineHeight: 1.65, marginBottom: 24, opacity: 0.9 }}>
                   {featuredPost ? featuredPost.excerpt : "Automated RPC tracking, Sybil cluster defense, and on-chain snapshot verifications across 50+ Web3 networks."}
@@ -346,6 +401,24 @@ export default async function Home() {
               </div>
             </MotionCard>
           </div>
+        </div>
+      </section>
+
+      {/* AEO Master FAQ Section */}
+      <section className="section">
+        <div className="wrap" style={{ maxWidth: 940, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 32 }}>
+            <span className="pill-badge" style={{ background: "rgba(37, 99, 235, 0.08)", color: "var(--accent)" }}>
+              🔍 Airdrop Telemetry &amp; Verification FAQ
+            </span>
+            <h2 style={{ fontSize: "2rem", fontWeight: 800, marginTop: 8, color: "var(--text-bright)", fontFamily: "var(--font-serif)" }}>
+              Frequently Asked Questions About Crypto Airdrops
+            </h2>
+            <p style={{ color: "var(--text)", maxWidth: 620, margin: "8px auto 0", opacity: 0.88 }}>
+              Direct answers to common inquiries regarding non-custodial farming, sybil resistance, and contract auditing.
+            </p>
+          </div>
+          <FaqAccordion faqs={homeFaqs} />
         </div>
       </section>
 

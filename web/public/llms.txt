@@ -1,31 +1,94 @@
 # Crypto Airdrop AI (cryptoairdropai.com)
 
-> The independent, non-custodial Web3 market intelligence portal tracking, fact-checking, and vetting crypto token airdrops across 50+ blockchains.
+> The premier independent, non-custodial Web3 market intelligence portal tracking, fact-checking, and vetting crypto token airdrops, testnet farming playbooks, and on-chain intelligence across 50+ blockchains.
 
 ## Core Mandate & Trust Architecture
-- **Non-Custodial Guarantee**: Zero private key or seed phrase requests. All tools and scanners are 100% read-only on-chain telemetry.
-- **5-Stage Audit Standard**: Peer-reviewed methodology evaluating smart contract byte-code, treasury backing, Sybil resistance heuristics, and tokenomics.
-- **Strict Editorial Independence**: Zero paid rankings, zero undisclosed sponsorships, and zero unverified claims.
+- **Non-Custodial Guarantee**: Zero private key or recovery phrase solicitations. 100% read-only on-chain telemetry.
+- **5-Stage Contract Audit Standard**: Rigorous bytecode analysis, multisig timelock verification, treasury backing assessments, and tokenomics emission checks.
+- **Strict Editorial Independence**: 100% unsponsored protocol evaluations with zero paid token allocations accepted from featured crypto teams.
+- **Sybil Resistance Architecture**: Behavioral hygiene playbooks modeled to safeguard authentic users against automated graph clustering and heuristic disqualifications.
 
-## Key Resources & Canonical Index
+## Canonical Web3 Resource Hubs
 - **Homepage & Protocol Scanner**: https://cryptoairdropai.com/
-- **Market Intelligence & Research Deep Dives**: https://cryptoairdropai.com/blog/
-  - Multi-Wallet Security & Sybil Defense (2026): https://cryptoairdropai.com/blog/how-to-farm-airdrops-safely-2026/
-  - Monad Ecosystem & Parallel EVM Playbook: https://cryptoairdropai.com/blog/monad-ecosystem-airdrop-playbook-2026/
-  - Top Confirmed Crypto Airdrops of 2026: https://cryptoairdropai.com/blog/top-confirmed-crypto-airdrops-2026-calendar/
-- **Step-by-Step Farming Guides**: https://cryptoairdropai.com/guides/
-  - Setting Up a Secure Farming Wallet: https://cryptoairdropai.com/guides/setting-up-a-farming-wallet/
-  - Cross-Chain Bridging & Liquidity Routing: https://cryptoairdropai.com/guides/cross-chain-bridging-liquidity-routing-security-manual/
-  - Understanding Snapshot Mechanics & Block Heights: https://cryptoairdropai.com/guides/understanding-snapshot-mechanics-block-heights-in-web3-airdrops/
-  - Mastering On-Chain Sybil Resistance Heuristics: https://cryptoairdropai.com/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/
-  - Solana Multi-Wallet Isolation & Sybil Defense: https://cryptoairdropai.com/guides/solana-multi-wallet-isolation-sybil-defense-masterclass-2026/
-  - EVM Gas Optimization & Gwei Timing: https://cryptoairdropai.com/guides/evm-gas-optimization-and-gwei-timing-for-airdrop-farmers/
-  - Hardware Wallet & Multisig Claiming Security: https://cryptoairdropai.com/guides/hardware-wallet-multisig-airdrop-claim-security-manual/
-  - Automated Scripts vs. Manual Interaction: https://cryptoairdropai.com/guides/automated-scripts-vs-manual-interaction-sybil-vectors/
+- **Verified Airdrop Projects Directory**: https://cryptoairdropai.com/projects/
+- **Step-by-Step Tactical Farming Guides**: https://cryptoairdropai.com/guides/
+- **Institutional Market Intelligence & Research**: https://cryptoairdropai.com/blog/
 - **5-Stage Evaluation Methodology**: https://cryptoairdropai.com/methodology/
 - **Editorial Policy & Fact-Checking Standard**: https://cryptoairdropai.com/editorial-policy/
-- **Research Analysts & Reviewers**: https://cryptoairdropai.com/authors/
-- **Protocol Security FAQ**: https://cryptoairdropai.com/faq/
-- **Editorial & Security Desk**: https://cryptoairdropai.com/contact/
-- **XML Sitemap Protocol**: https://cryptoairdropai.com/sitemap.xml
-- **Full LLM Knowledge Graph**: https://cryptoairdropai.com/llms-full.txt
+- **Research Analysts & Security Desk**: https://cryptoairdropai.com/authors/
+- **Full LLM Knowledge Graph & Deep Index**: https://cryptoairdropai.com/llms-full.txt
+
+## Verified Airdrop Projects Index (34 Deployments)
+- [Berachain V2](https://cryptoairdropai.com/projects/berachain-v2/) - Berachain (Polaris EVM) | Reward: $1,200 - $6,500 | Confirmed Proof-of-Liquidity consensus.
+- [Grass DePIN Network](https://cryptoairdropai.com/projects/grass-network/) - Solana | Reward: $500 - $2,200 | AI web-scraping bandwidth sharing node.
+- [Solayer](https://cryptoairdropai.com/projects/solayer-restaking/) - Solana | Reward: $900 - $3,800 | Native Solana restaking primitive.
+- [Hyperliquid](https://cryptoairdropai.com/projects/hyperliquid-dex/) - Hyperliquid L1 | Reward: $2,000 - $8,500 | High-performance decentralized perpetuals.
+- [Mitosis](https://cryptoairdropai.com/projects/mitosis-expedition/) - Multi-Chain Liquidity | Reward: $700 - $2,900 | Programmable liquidity infrastructure.
+- [Sonic](https://cryptoairdropai.com/projects/sonic-svm/) - Solana SVM / Fantom Sonic | Reward: $800 - $3,200 | Atomic SVM execution layer.
+- [MegaETH](https://cryptoairdropai.com/projects/megaeth/) - Ethereum L2 | Reward: $1,500 - $6,000 | 100,000 TPS real-time EVM execution rollup.
+- [Movement Labs](https://cryptoairdropai.com/projects/movement-labs/) - Movement (Move-EVM) | Reward: $1,000 - $4,200 | High-throughput modular Move blockchain.
+- [Initia](https://cryptoairdropai.com/projects/initia/) - Cosmos / MoveVM | Reward: $500 - $2,200 | Interwoven rollup network.
+- [Symbiotic](https://cryptoairdropai.com/projects/symbiotic/) - Ethereum | Reward: $1,200 - $5,000 | Permissionless shared security and restaking.
+- [Fuel Network](https://cryptoairdropai.com/projects/fuel-network/) - Fuel (Sway VM) | Reward: $600 - $2,800 | Modular execution layer.
+- [Babylon](https://cryptoairdropai.com/projects/babylon/) - Bitcoin / Cosmos | Reward: $800 - $3,500 | Trustless Bitcoin staking protocol.
+- [Story Protocol](https://cryptoairdropai.com/projects/story-protocol/) - Story Chain (EVM) | Reward: $1,000 - $4,500 | Programmable IP layer.
+- [Monad](https://cryptoairdropai.com/projects/monad/) - Monad | Reward: $500-$5000 | Parallel EVM Layer-1.
+- [Jupiter](https://cryptoairdropai.com/projects/jupiter/) - Solana | Reward: Claim Live | Core liquidity and DEX aggregator.
+- [GMGN](https://cryptoairdropai.com/projects/gmgn/) - Robinhood Chain | Reward: $500-$3000 | Smart-money tracking terminal.
+- [Privacy Pools](https://cryptoairdropai.com/projects/privacy-pools/) - Ethereum | Reward: $200-$800 | Zero-knowledge privacy protocol.
+- [Legend](https://cryptoairdropai.com/projects/legend/) - Solana | Reward: $300-$1200 | On-chain trading platform.
+- [Ducat](https://cryptoairdropai.com/projects/ducat/) - Base | Reward: TBA | Stablecoin incentive protocol.
+- [Arcus](https://cryptoairdropai.com/projects/arcus/) - Arbitrum | Reward: $400-$1500 | Spot trading protocol.
+- [SolPump](https://cryptoairdropai.com/projects/solpump/) - Solana | Reward: $50-$300 | Gamified reward distribution.
+- [Ondo Perps](https://cryptoairdropai.com/projects/ondo-perps/) - Ethereum | Reward: $1000+ | Institutional perpetuals.
+- [Hypertrade](https://cryptoairdropai.com/projects/hypertrade/) - Base | Reward: $300-$900 | High-speed AMM.
+- [3Jane](https://cryptoairdropai.com/projects/3jane/) - Ethereum | Reward: $200-$700 | DeFi debt and yield protocol.
+- [HoodTracker](https://cryptoairdropai.com/projects/hoodtracker/) - Robinhood Chain | Reward: $150-$600 | Social reward tracking.
+- [OpenTrade](https://cryptoairdropai.com/projects/opentrade/) - Multi-Chain | Reward: $800 - $3,500 | RWA lending network.
+- [GTBTC](https://cryptoairdropai.com/projects/gtbtc/) - Bitcoin | Reward: $800 - $3,500 | Bitcoin yield flywheel.
+- [CIAN Yield Layer](https://cryptoairdropai.com/projects/cian-yield-layer/) - Multi-Chain | Reward: $800 - $3,500 | Automated decentralized staking strategies.
+- [Mellow Core](https://cryptoairdropai.com/projects/mellow-core/) - Multi-Chain | Reward: $800 - $3,500 | Modular restaking vaults.
+- [b14g](https://cryptoairdropai.com/projects/b14g/) - Multi-Chain | Reward: $800 - $3,500 | Cross-chain yield infrastructure.
+- [BitFi Basis](https://cryptoairdropai.com/projects/bitfi-basis/) - Multi-Chain | Reward: $800 - $3,500 | Basis trading and institutional yields.
+- [Figure Markets Democratized Prime](https://cryptoairdropai.com/projects/figure-markets-democratized-prime/) - Provenance | Reward: $800 - $3,500 | Regulated prime brokerage on-chain.
+- [DigiFT](https://cryptoairdropai.com/projects/digift/) - Multi-Chain | Reward: $800 - $3,500 | Compliant RWA exchange.
+- [Plume Vaults](https://cryptoairdropai.com/projects/plume-vaults/) - Multi-Chain | Reward: $800 - $3,500 | Modular RWA L2 ecosystem.
+
+## Step-by-Step Practical Farming Guides (17 Playbooks)
+- [Setting Up a Secure Web3 Farming Wallet](https://cryptoairdropai.com/guides/setting-up-a-farming-wallet/): 3-tier wallet isolation hierarchy (Cold Vault -> Staging Buffer -> Ephemeral Burner).
+- [Cross-Chain Bridging & Liquidity Routing](https://cryptoairdropai.com/guides/cross-chain-bridging-liquidity-routing-security-manual/): Low-fee bridging protocols and contract allowance defense.
+- [Snapshot Mechanics & Block Heights](https://cryptoairdropai.com/guides/understanding-snapshot-mechanics-block-heights-in-web3-airdrops/): On-chain state capture, timing buffers, and verification proofs.
+- [Mastering On-Chain Sybil Resistance](https://cryptoairdropai.com/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/): Heuristics, timing jitter, and CEX withdrawal obfuscation.
+- [Solana Multi-Wallet Isolation & Sybil Defense](https://cryptoairdropai.com/guides/solana-multi-wallet-isolation-sybil-defense-masterclass-2026/): Solana-specific token account segregation and anti-clustering models.
+- [EVM Gas Optimization & Gwei Timing](https://cryptoairdropai.com/guides/evm-gas-optimization-and-gwei-timing-for-airdrop-farmers/): Slashing on-chain execution costs by 75% using base fee scheduling.
+- [Hardware Wallet & Multisig Claiming Security](https://cryptoairdropai.com/guides/hardware-wallet-multisig-airdrop-claim-security-manual/): Neutralizing drainers during claim events.
+- [Automated Scripts vs. Manual Interaction](https://cryptoairdropai.com/guides/automated-scripts-vs-manual-interaction-sybil-vectors/): Avoiding transaction graph clustering algorithms.
+- [How to Qualify for OpenTrade Testnet](https://cryptoairdropai.com/guides/how-to-qualify-for-opentrade-testnet-step-by-step-security-runbook/): Security runbook and verification gates.
+- [Optimizing Yield & Multipliers on GTBTC](https://cryptoairdropai.com/guides/optimizing-yield-multipliers-on-gtbtc-without-sybil-flagging/): Safe multiplier accrual without cluster exposure.
+- [Automating Testnet Faucets & RPC Jitter](https://cryptoairdropai.com/guides/automating-testnet-faucets-rpc-jitter-avoiding-graph-analysis-filters/): Eliminating automation footprints in faucet requests.
+- [How to Qualify for Mellow Core Testnet](https://cryptoairdropai.com/guides/how-to-qualify-for-mellow-core-testnet-step-by-step-security-runbook/): Vault deposit walkthrough and safety checks.
+- [Optimizing Yield & Multipliers on b14g](https://cryptoairdropai.com/guides/optimizing-yield-multipliers-on-b14g-without-sybil-flagging/): Non-linear staking allocations.
+- [Safe Multisig Setup for High-Volume Airdrop Claiming](https://cryptoairdropai.com/guides/safe-multisig-setup-for-high-volume-airdrop-claiming-drainer-immunity/): Safe multisig deployment for drainer immunity.
+- [How to Qualify for Figure Markets Democratized Prime](https://cryptoairdropai.com/guides/how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook/): RWA prime testnet qualification manual.
+- [Optimizing Yield & Multipliers on DigiFT](https://cryptoairdropai.com/guides/optimizing-yield-multipliers-on-digift-without-sybil-flagging/): Compliant RWA liquidity provisioning.
+- [Mempool Priority Gas Timing](https://cryptoairdropai.com/guides/mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs/): Transaction inclusion strategies during congested snapshot epochs.
+
+## Market Intelligence & Protocol Deep Dives (18 Reports)
+- [Eclipse SVM L2 Early Positioning](https://cryptoairdropai.com/blog/eclipse-svm-ethereum-layer-2-early-positioning-checklist/)
+- [Babylon Bitcoin Staking Distribution Model](https://cryptoairdropai.com/blog/babylon-bitcoin-staking-mainnet-distribution-points-guide/)
+- [Fuel Network L2 High-Speed Execution Playbook](https://cryptoairdropai.com/blog/fuel-network-layer-2-high-speed-execution-testnet-playbook/)
+- [Story Protocol IP Testnet Airdrop Strategy](https://cryptoairdropai.com/blog/story-protocol-intellectual-property-testnet-airdrop-strategy/)
+- [Berachain V2 Proof of Liquidity TGE Breakdown](https://cryptoairdropai.com/blog/berachain-v2-proof-of-liquidity-tge-breakdown-2026/)
+- [How to Farm Crypto Airdrops Safely in 2026](https://cryptoairdropai.com/blog/how-to-farm-airdrops-safely-2026/)
+- [Monad Ecosystem & Parallel EVM Playbook](https://cryptoairdropai.com/blog/monad-ecosystem-parallel-evm-airdrop-playbook/)
+- [Top Confirmed Crypto Airdrops 2026 Calendar](https://cryptoairdropai.com/blog/top-confirmed-crypto-airdrops-2026-calendar/)
+- [Berachain V2 Boyco Strategy & BGT Staking](https://cryptoairdropai.com/blog/berachain-v2-airdrop-strategy-guide-2026/)
+- [OpenTrade Incentive Architecture & Points Valuation](https://cryptoairdropai.com/blog/opentrade-incentive-architecture-points-valuation-deep-dive/)
+- [GTBTC Liquidity Flywheel & TGE Model](https://cryptoairdropai.com/blog/gtbtc-liquidity-flywheel-token-generation-event-tge-model/)
+- [CIAN Yield Layer Institutional Risk Assessment](https://cryptoairdropai.com/blog/cian-yield-layer-institutional-risk-assessment-ecosystem-positioning/)
+- [Mellow Core Incentive Architecture & Points Valuation](https://cryptoairdropai.com/blog/mellow-core-incentive-architecture-points-valuation-deep-dive/)
+- [b14g Liquidity Flywheel & TGE Model](https://cryptoairdropai.com/blog/b14g-liquidity-flywheel-token-generation-event-tge-model/)
+- [BitFi Basis Institutional Risk Assessment](https://cryptoairdropai.com/blog/bitfi-basis-institutional-risk-assessment-ecosystem-positioning/)
+- [Figure Markets Democratized Prime Incentive Architecture](https://cryptoairdropai.com/blog/figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive/)
+- [DigiFT Liquidity Flywheel & TGE Model](https://cryptoairdropai.com/blog/digift-liquidity-flywheel-token-generation-event-tge-model/)
+- [Plume Vaults Institutional Risk Assessment](https://cryptoairdropai.com/blog/plume-vaults-institutional-risk-assessment-ecosystem-positioning/)

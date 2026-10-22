@@ -68,7 +68,7 @@ CRITICAL STRUCTURAL REQUIREMENTS:
 - 'key_takeaways': Exactly 4 concise, high-value bullet points summarizing actionable alpha (each 15-30 words).
 - 'faqs': Exactly 4 high-intent search questions and structured, direct answers (each answer 25-50 words).
 - 'html': Deep technical article in semantic HTML (<h2>, <h3>, <p>, <ol>, <ul>, <strong>). Total body word count MUST be between 650 and 850 words. Write 2-3 detailed paragraphs under each <h2> heading.
-- STRICT LINKING RULE: Do NOT include ANY external <a href="http..."> links whatsoever. Keep all text plain without unverified links.
+- PRINCETON GEO CITATION RULE: Include quantitative telemetry metrics (TVL, funding amounts, community allocation %) and cite official references (GitHub, official docs, explorer, DeFiLlama) to maximize Generative Engine Optimization (+40% citation boost).
 - Must include these sections in html:
     * <h2> Protocol Overview & Architecture
     * <h2> Step-by-Step Testnet & Mainnet Checklist (<ol> with detailed numbered action steps)

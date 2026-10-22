@@ -1,44 +1,99 @@
 # Crypto Airdrop AI Knowledge Graph & Deep Index (llms-full.txt)
 Organization: Crypto Airdrop AI
 Domain: cryptoairdropai.com
-Mission: Independent, non-custodial cryptocurrency intelligence, retroactive airdrop auditing, and decentralized finance research.
+Mission: Independent, non-custodial cryptocurrency intelligence, retroactive airdrop auditing, smart contract verification, and decentralized finance research.
 
 ## 1. Editorial Integrity & Verification Standard
-Crypto Airdrop AI enforces a zero-unverified claim policy across all published guides and directory entries.
-- **Fact-Checking**: All protocol announcements are cross-referenced with GitHub repository commit logs, foundation governance proposals, and on-chain contract deployments before indexing.
-- **Non-Custodial**: We never provide custodial wallet services, solicit private keys, or execute automated fund transactions.
-- **Anti-Sybil Guidance**: All farming manuals adhere to strict organic user heuristics to protect participants from algorithmic cluster disqualifications.
+Crypto Airdrop AI enforces a zero-unverified claim policy across all published guides, research intelligence reports, and directory entries:
+- **Fact-Checking**: All protocol announcements, token distribution schedules, and testnet programs are cross-referenced with foundation GitHub repository commit logs, on-chain contract bytecode deployments, and governance proposals before being indexed.
+- **Non-Custodial**: We never provide custodial wallet services, solicit private keys or seed phrases, or execute automated fund transactions. All telemetry tools operate in read-only mode via chain-native RPC nodes.
+- **Zero-Sponsorship Standard**: We maintain 100% unsponsored protocol evaluations with zero token allocations accepted from featured blockchain projects.
+- **Anti-Sybil Guidance**: All farming manuals adhere to strict organic user heuristics to protect participants from algorithmic cluster disqualifications and graph analysis filters.
 
 ## 2. 5-Stage Protocol Vetting Methodology
-1. **Contract Security Audit**: Verification of byte-code immutability, multisig timelocks, and third-party audit reports (CertiK, OpenZeppelin, Trail of Bits).
-2. **Treasury & Backing Verification**: Quantitative analysis of venture backing, foundation grants, and on-chain Total Value Locked (TVL).
-3. **Sybil Filtering & Cluster Analysis**: Evaluation of snapshot criteria, minimum balance thresholds, and interaction diversity requirements.
-4. **Tokenomics & TGE Feasibility**: Mathematical modeling of community allocation percentages, vesting cliffs, and emission schedules.
-5. **Real-Time RPC Simulation**: Execution testing on testnets/mainnets to verify gas expenditure, slippage, and user experience.
+1. **Contract Security Audit**: Verification of byte-code immutability, proxy admin timelocks, and third-party audit reports (CertiK, OpenZeppelin, Trail of Bits).
+2. **Treasury & Backing Verification**: Quantitative analysis of institutional backing (Paradigm, a16z crypto, Polychain), foundation grants, and on-chain Total Value Locked (TVL).
+3. **Sybil Filtering & Cluster Analysis**: Evaluation of snapshot criteria, minimum balance thresholds, CEX funding graph overlap, and interaction diversity requirements.
+4. **Tokenomics & TGE Feasibility**: Mathematical modeling of community allocation percentages, vesting cliffs, emission schedules, and FDV valuations.
+5. **Real-Time RPC Simulation**: Execution testing on testnets and mainnets to verify gas expenditure, slippage, and user experience.
 
-## 3. Core Research Deep Dives
-### A. How to Farm Crypto Airdrops Safely in 2026
-- **URL**: https://cryptoairdropai.com/blog/how-to-farm-airdrops-safely-2026/
-- **Key Takeaways**: Implement a 3-tier wallet hygiene model (Vault Hardware Wallet -> Intermediary Gas Buffer -> Dedicated Farming Burner Wallets). Randomize CEX withdrawal timestamps to prevent cluster detection. Revoke token allowances periodically.
+## 3. Complete Airdrop Deployments Catalog (34 Projects)
+1. **Berachain V2** (`/projects/berachain-v2/`): Polaris EVM L1 powered by Proof-of-Liquidity (PoL). Reward: $1,200 - $6,500. Actions: Faucet claim, BEX swaps, HONEY minting, Boyco vault liquidity, BGT validator delegation.
+2. **Grass DePIN Network** (`/projects/grass-network/`): Solana AI web-scraping bandwidth sharing. Reward: $500 - $2,200. Actions: Web node installation, Solana wallet binding, uptime maintenance.
+3. **Solayer** (`/projects/solayer-restaking/`): Solana native restaking protocol. Reward: $900 - $3,800. Actions: Native SOL staking, restaked sSOL delegation to AVS operators.
+4. **Hyperliquid** (`/projects/hyperliquid-dex/`): Hyperliquid L1 appchain DEX. Reward: $2,000 - $8,500. Actions: Deposit USDC via Arbitrum bridge, trade perpetuals, provide liquidity in HLP vault.
+5. **Mitosis** (`/projects/mitosis-expedition/`): Cross-chain programmable liquidity. Reward: $700 - $2,900. Actions: Deposit assets into Mitosis vaults, earn Expedition points.
+6. **Sonic** (`/projects/sonic-svm/`): Atomic SVM execution layer for gaming on Solana. Reward: $800 - $3,200. Actions: Odyssey testnet tasks, daily check-ins, Frontier interactions.
+7. **MegaETH** (`/projects/megaeth/`): 100,000 TPS real-time EVM rollup on Ethereum. Reward: $1,500 - $6,000. Actions: Developer devnet interactions, testnet dApp stress tests.
+8. **Movement Labs** (`/projects/movement-labs/`): Move-EVM modular rollup on Ethereum. Reward: $1,000 - $4,200. Actions: Parthenon testnet quests, Olympus Galxe tasks, Move smart contract deployment.
+9. **Initia** (`/projects/initia/`): Interwoven rollup network utilizing Cosmos SDK and MoveVM. Reward: $500 - $2,200. Actions: Public testnet Jenny tasks, Jennie companion XP accumulation.
+10. **Symbiotic** (`/projects/symbiotic/`): Permissionless Ethereum restaking network. Reward: $1,200 - $5,000. Actions: Deposit collateral into Symbiotic core vaults (wstETH, cbETH).
+11. **Fuel Network** (`/projects/fuel-network/`): Modular execution layer using the Sway VM. Reward: $600 - $2,800. Actions: Fuel wallet creation, Sepolia bridging, Sway AMM liquidity.
+12. **Babylon** (`/projects/babylon/`): Trustless Bitcoin restaking protocol. Reward: $800 - $3,500. Actions: Signet BTC testnet staking, mainnet phase cap deposits.
+13. **Story Protocol** (`/projects/story-protocol/`): Programmable intellectual property layer. Reward: $1,000 - $4,500. Actions: Odyssey testnet faucet claims, mint IP assets, license registrations.
+14. **Monad** (`/projects/monad/`): High-throughput parallel EVM Layer 1. Reward: $500 - $5,000. Actions: Ecosystem community tasks, devnet/testnet faucet interactions, AMM swaps.
+15. **Jupiter** (`/projects/jupiter/`): Solana liquidity and swap aggregator. Reward: Claim Live. Actions: Active JUP governance staking, ASR voting rounds.
+16. **GMGN** (`/projects/gmgn/`): Smart-money and meme token trading terminal on Solana and Robinhood Chain. Reward: $500 - $3,000. Actions: Terminal trades, smart wallet tracking.
+17. **Privacy Pools** (`/projects/privacy-pools/`): Zero-knowledge compliance privacy protocol on Ethereum. Reward: $200 - $800. Actions: Generate zero-knowledge association sets and deposit.
+18. **Legend** (`/projects/legend/`): Fast-growing trading and yield platform on Solana. Reward: $300 - $1,200. Actions: Deposit, spot trade, and referral point accrual.
+19. **Ducat** (`/projects/ducat/`): Native algorithmic stablecoin protocol on Base. Reward: TBA. Actions: Discord faucet, code redemption, and testnet stability pool interaction.
+20. **Arcus** (`/projects/arcus/`): Decentralized perpetual and spot exchange on Arbitrum. Reward: $400 - $1,500. Actions: Testnet trading, waitlist verification, liquidity minting.
+21. **SolPump** (`/projects/solpump/`): Gamified token distribution protocol on Solana. Reward: $50 - $300. Actions: Hourly reward claims, game participation.
+22. **Ondo Perps** (`/projects/ondo-perps/`): Institutional perpetual trading protocol on Ethereum. Reward: $1,000+. Actions: Trading perpetuals with confirmed token allocation.
+23. **Hypertrade** (`/projects/hypertrade/`): Ultra-low fee AMM on Base. Reward: $300 - $900. Actions: Token swaps, liquidity provision across core Base pools.
+24. **3Jane** (`/projects/3jane/`): Institutional stablecoin borrowing and yield protocol on Ethereum. Reward: $200 - $700. Actions: Supply USDC to lending pools for confirmed allocation.
+25. **HoodTracker** (`/projects/hoodtracker/`): Social rewards analytics platform on Robinhood Chain. Reward: $150 - $600. Actions: Connect social profiles, hold HDTX tokens.
+26. **OpenTrade** (`/projects/opentrade/`): RWA institutional lending network. Reward: $800 - $3,500. Actions: Verify testnet credentials, deploy mock USDC, provide liquidity.
+27. **GTBTC** (`/projects/gtbtc/`): Bitcoin yield flywheel and native restaking. Reward: $800 - $3,500. Actions: Wrap BTC, deposit into yield flywheel vaults, maintain non-sybil transactions.
+28. **CIAN Yield Layer** (`/projects/cian-yield-layer/`): Automated decentralized staking yield vault. Reward: $800 - $3,500. Actions: Vault optimization, multi-protocol rebalancing.
+29. **Mellow Core** (`/projects/mellow-core/`): Modular restaking vaults integrated with Symbiotic. Reward: $800 - $3,500. Actions: Deposit collateral into decentralized vaults, accumulate points.
+30. **b14g** (`/projects/b14g/`): Cross-chain liquidity routing and yield protocol. Reward: $800 - $3,500. Actions: Cross-chain routing, liquidity staking without cluster exposure.
+31. **BitFi Basis** (`/projects/bitfi-basis/`): Basis trading and institutional yield engine. Reward: $800 - $3,500. Actions: Testnet basis trade execution, liquidity vault deposits.
+32. **Figure Markets Democratized Prime** (`/projects/figure-markets-democratized-prime/`): Decentralized prime brokerage on Provenance. Reward: $800 - $3,500. Actions: Testnet margin trading, collateral onboarding.
+33. **DigiFT** (`/projects/digift/`): Regulated RWA decentralized exchange. Reward: $800 - $3,500. Actions: Testnet RWA trading, liquidity provision.
+34. **Plume Vaults** (`/projects/plume-vaults/`): Modular RWA L2 ecosystem. Reward: $800 - $3,500. Actions: Testnet asset onboarding, RWA vault staking.
 
-### B. Monad Ecosystem & Parallel EVM Playbook
-- **URL**: https://cryptoairdropai.com/blog/monad-ecosystem-airdrop-playbook-2026/
-- **Key Takeaways**: Monad achieves 10,000 TPS via asynchronous execution, MonadBFT, and MonadDb. Testnet participation requires authentic faucet claims, AMM liquidity provision, and validator delegation.
+## 4. Master Farming Guides (17 Tactical Playbooks)
+- `/guides/setting-up-a-farming-wallet/`: 3-tier wallet isolation hierarchy (Cold Vault -> Staging Buffer -> Ephemeral Burner).
+- `/guides/cross-chain-bridging-liquidity-routing-security-manual/`: Bridge verification, bytecode auditing, and gas scheduling.
+- `/guides/understanding-snapshot-mechanics-block-heights-in-web3-airdrops/`: Block height tracking, state proofs, and timing buffers.
+- `/guides/mastering-on-chain-sybil-resistance-heuristics-behavioral-hygiene/`: Heuristic filtering defense, timing jitter, and CEX withdrawal obfuscation.
+- `/guides/solana-multi-wallet-isolation-sybil-defense-masterclass-2026/`: Solana-specific token account segregation and anti-clustering models.
+- `/guides/evm-gas-optimization-and-gwei-timing-for-airdrop-farmers/`: Base fee optimization, EIP-1559 priority fees, and low-cost execution windows.
+- `/guides/hardware-wallet-multisig-airdrop-claim-security-manual/`: Safe multisig setup and drainer defense during claim windows.
+- `/guides/automated-scripts-vs-manual-interaction-sybil-vectors/`: Avoiding automated graph analysis filters.
+- `/guides/how-to-qualify-for-opentrade-testnet-step-by-step-security-runbook/`: Step-by-step testnet verification gates.
+- `/guides/optimizing-yield-multipliers-on-gtbtc-without-sybil-flagging/`: Accruing protocol multipliers without cluster flags.
+- `/guides/automating-testnet-faucets-rpc-jitter-avoiding-graph-analysis-filters/`: Removing automation footprints.
+- `/guides/how-to-qualify-for-mellow-core-testnet-step-by-step-security-runbook/`: Modular restaking vault deposit manual.
+- `/guides/optimizing-yield-multipliers-on-b14g-without-sybil-flagging/`: Non-linear staking allocations.
+- `/guides/safe-multisig-setup-for-high-volume-airdrop-claiming-drainer-immunity/`: Drainer-immune claiming framework.
+- `/guides/how-to-qualify-for-figure-markets-democratized-prime-testnet-step-by-step-security-runbook/`: Prime testnet runbook.
+- `/guides/optimizing-yield-multipliers-on-digift-without-sybil-flagging/`: Compliant RWA liquidity farming.
+- `/guides/mempool-priority-gas-timing-slashing-execution-fees-during-mass-snapshot-epochs/`: Mempool gas auction strategies.
 
-### C. Top Confirmed Crypto Airdrops of 2026 Calendar
-- **URL**: https://cryptoairdropai.com/blog/top-confirmed-crypto-airdrops-2026-calendar/
-- **Key Takeaways**: Verified token distributions include Ondo Perps, 3Jane, Jupiter, and Privacy Pools with audited smart contract tokenomics and clear snapshot block height parameters.
+## 5. Market Intelligence & Research Reports (18 Deep Dives)
+- `/blog/eclipse-svm-ethereum-layer-2-early-positioning-checklist/`
+- `/blog/babylon-bitcoin-staking-mainnet-distribution-points-guide/`
+- `/blog/fuel-network-layer-2-high-speed-execution-testnet-playbook/`
+- `/blog/story-protocol-intellectual-property-testnet-airdrop-strategy/`
+- `/blog/berachain-v2-proof-of-liquidity-tge-breakdown-2026/`
+- `/blog/how-to-farm-airdrops-safely-2026/`
+- `/blog/monad-ecosystem-parallel-evm-airdrop-playbook/`
+- `/blog/top-confirmed-crypto-airdrops-2026-calendar/`
+- `/blog/berachain-v2-airdrop-strategy-guide-2026/`
+- `/blog/opentrade-incentive-architecture-points-valuation-deep-dive/`
+- `/blog/gtbtc-liquidity-flywheel-token-generation-event-tge-model/`
+- `/blog/cian-yield-layer-institutional-risk-assessment-ecosystem-positioning/`
+- `/blog/mellow-core-incentive-architecture-points-valuation-deep-dive/`
+- `/blog/b14g-liquidity-flywheel-token-generation-event-tge-model/`
+- `/blog/bitfi-basis-institutional-risk-assessment-ecosystem-positioning/`
+- `/blog/figure-markets-democratized-prime-incentive-architecture-points-valuation-deep-dive/`
+- `/blog/digift-liquidity-flywheel-token-generation-event-tge-model/`
+- `/blog/plume-vaults-institutional-risk-assessment-ecosystem-positioning/`
 
-## 4. Tracked Blockchain Networks
-- Ethereum (L1)
-- Solana (L1)
-- Monad (Parallel EVM L1)
-- Base (Optimistic Rollup)
-- Arbitrum (Optimistic Rollup)
-- Robinhood Chain / Polygon CDK
-- Hyperliquid (L1 Appchain)
-
-## 5. Contact & Corrections
-- **Editorial Desk**: https://cryptoairdropai.com/contact/
+## 6. Official Social & Contact Channels
+- **Website**: https://cryptoairdropai.com
 - **X (Twitter)**: https://twitter.com/cryptoairdropai
-- **Telegram**: https://t.me/cryptoairdropai
+- **Editorial Desk**: https://cryptoairdropai.com/contact/
+- **Editorial Policy**: https://cryptoairdropai.com/editorial-policy/

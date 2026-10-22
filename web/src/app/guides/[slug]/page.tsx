@@ -19,27 +19,79 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   let article = await getArticleBySlug(slug);
+  const siteUrl = "https://cryptoairdropai.com";
+  const pageUrl = `${siteUrl}/guides/${slug}/`;
+
   if (!article) {
     const fallback = getGuideBySlug(slug);
     if (fallback) {
+      const fallbackImg = `${siteUrl}/images/generated/${slug}-featured-v4.jpg`;
       return {
-        title: `${fallback.title} — Step-by-Step Guide`,
+        title: `${fallback.title} — Step-by-Step Tactical Farming Guide`,
         description: fallback.desc,
-        alternates: { canonical: `/guides/${slug}/` }
+        alternates: { canonical: pageUrl },
+        openGraph: {
+          title: `${fallback.title} | Crypto Airdrop AI Playbook`,
+          description: fallback.desc,
+          type: "article",
+          url: pageUrl,
+          siteName: "Crypto Airdrop AI",
+          images: [{ url: fallbackImg, width: 1200, height: 630, alt: fallback.title }]
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: fallback.title,
+          description: fallback.desc,
+          images: [fallbackImg]
+        }
       };
     }
     return {};
   }
+
+  const rawImg = article.featuredImage || `/images/generated/${slug}-featured-v4.jpg`;
+  const ogImg = rawImg.startsWith("http") ? rawImg : `${siteUrl}${rawImg}`;
+  const pageTitle = `${article.title} — Step-by-Step Tactical Farming Guide (2026)`;
+  const pageDesc = article.excerpt || "Step-by-step on-chain playbook covering non-custodial wallet security, bridge routing, snapshot qualification, and anti-sybil defenses.";
+
   return {
-    title: `${article.title} — Step-by-Step Guide`,
-    description: article.excerpt,
-    alternates: { canonical: `/guides/${slug}/` },
+    title: pageTitle,
+    description: pageDesc,
+    alternates: { canonical: pageUrl },
+    keywords: [
+      article.title,
+      "airdrop farming guide",
+      "crypto tutorial",
+      "sybil defense",
+      "testnet playbook",
+      "wallet isolation manual",
+      article.tag || "Web3 Security"
+    ],
     openGraph: {
-      title: `${article.title} | Crypto Airdrop AI Guide`,
-      description: article.excerpt,
+      title: pageTitle,
+      description: pageDesc,
       type: "article",
-      url: `https://cryptoairdropai.com/guides/${slug}/`,
-      images: article.featuredImage ? [{ url: article.featuredImage }] : undefined
+      url: pageUrl,
+      siteName: "Crypto Airdrop AI",
+      publishedTime: article.date,
+      modifiedTime: article.updatedAt || article.date,
+      authors: [`${siteUrl}/authors/${article.authorSlug || 'editorial-desk'}/`],
+      images: [
+        {
+          url: ogImg,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageTitle,
+      description: pageDesc,
+      creator: "@cryptoairdropai",
+      site: "@cryptoairdropai",
+      images: [ogImg]
     }
   };
 }
